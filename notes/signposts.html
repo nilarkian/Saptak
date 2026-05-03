@@ -1,0 +1,1377 @@
+---
+layout: none
+permalink: /notes/signposts/
+title: "How to Use Signposts in Your Writing"
+date: 2026-04-29
+tags: [writing]
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use Signposts in Your Writing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1207;
+    --paper: #faf8f3;
+    --paper-alt: #f3f0e8;
+    --accent: #f5b800;
+    --accent-dark: #c9920a;
+    --red: #e03c2f;
+    --green: #2a7a3b;
+    --blue: #1e4fa8;
+    --blue-light: #dce8ff;
+    --yellow-light: #fff8d6;
+    --muted: #7a7060;
+    --border: #d6d0c0;
+    --before-bg: #fff0ee;
+    --after-bg: #edfaf1;
+    --signpost-bg: #fff9e3;
+    --effect-bg: #e8eeff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.12;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 780px;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .hero-sub {
+    font-size: 18px;
+    max-width: 580px;
+    color: #c8c2b4;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+  .hero-tagline {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── NAV / TOC ─── */
+  .toc-bar {
+    background: var(--accent);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .toc-bar::-webkit-scrollbar { display: none; }
+  .toc-bar a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+    border-right: 1px solid rgba(0,0,0,0.12);
+    transition: background 0.15s;
+  }
+  .toc-bar a:hover { background: rgba(0,0,0,0.08); }
+
+  /* ─── LAYOUT ─── */
+  .wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .section {
+    padding: 60px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  /* ─── SECTION LABELS ─── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── LEAD TEXT ─── */
+  .lead {
+    font-size: 19px;
+    line-height: 1.65;
+    color: #3a3228;
+    margin-bottom: 28px;
+    max-width: 720px;
+  }
+  .lead em {
+    font-style: italic;
+    color: var(--accent-dark);
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .fire-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 32px;
+    border-radius: 4px;
+    margin: 32px 0;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .fire-box strong { color: var(--accent); }
+
+  /* ─── WHY BULLETS ─── */
+  .why-list {
+    list-style: none;
+    margin: 24px 0;
+  }
+  .why-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .why-list li:first-child { border-top: none; }
+  .why-arrow {
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .bottom-line {
+    display: inline-block;
+    background: var(--yellow-light);
+    border-left: 4px solid var(--accent);
+    padding: 12px 20px;
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 0 4px 4px 0;
+    width: 100%;
+  }
+
+  /* ─── 5 CORE TYPES CARDS ─── */
+  .core-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .core-card {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    position: relative;
+    background: white;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .core-card:hover {
+    box-shadow: 4px 4px 0 var(--accent);
+    border-color: var(--accent-dark);
+  }
+  .core-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .core-card h3 { font-size: 16px; margin-bottom: 4px; }
+  .core-card .tagline {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .core-card .use-for {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .example-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .pill {
+    background: var(--paper-alt);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink);
+  }
+  .swipe-tag {
+    display: inline-block;
+    background: var(--yellow-light);
+    color: var(--accent-dark);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ─── BIG TYPES TABLE ─── */
+  .types-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .types-table th {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: left;
+    padding: 12px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .types-table tr:nth-child(even) td { background: var(--paper-alt); }
+  .types-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .types-table td:first-child { font-weight: 600; min-width: 170px; }
+  .types-table td code {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--yellow-light);
+    padding: 1px 6px;
+    border-radius: 2px;
+    color: var(--accent-dark);
+  }
+
+  /* ─── VISUAL SIGNPOSTING IMAGES ─── */
+  .image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .image-card {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+  }
+  .image-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .image-card .img-label {
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+  .image-full {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+    margin: 20px 0;
+  }
+  .image-full img { width: 100%; height: auto; display: block; }
+
+  /* ─── BEFORE / AFTER ─── */
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 32px 0;
+  }
+  @media (max-width: 640px) { .ba-grid, .image-grid, .core-grid { grid-template-columns: 1fr; } }
+
+  .ba-block {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+  .ba-header {
+    padding: 10px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .ba-before .ba-header { background: var(--before-bg); color: var(--red); }
+  .ba-after .ba-header { background: var(--after-bg); color: var(--green); }
+  .ba-body {
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    background: white;
+  }
+  .ba-after .ba-body strong { color: var(--blue); }
+
+  .ba-meta {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: var(--paper-alt);
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+    border: 1px solid var(--border);
+  }
+  .ba-context {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+  .ba-section {
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .ba-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .ba-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .signpost-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--signpost-bg);
+    border: 1px solid #e0cc80;
+    color: var(--accent-dark);
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    margin-right: 8px;
+  }
+  .effect-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--effect-bg);
+    border: 1px solid #b0c4ee;
+    color: var(--blue);
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ─── PREP SIGNPOSTS BOX ─── */
+  .prep-banner {
+    background: linear-gradient(135deg, var(--ink) 0%, #2d2415 100%);
+    color: var(--paper);
+    padding: 32px 36px;
+    border-radius: 8px;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .prep-banner::before {
+    content: '❗';
+    position: absolute;
+    right: 30px; top: 20px;
+    font-size: 80px;
+    opacity: 0.1;
+  }
+  .prep-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .prep-banner p { color: #c8c2b4; font-size: 15px; }
+  .prep-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+  }
+  .prep-table th {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .prep-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-size: 14px;
+  }
+  .prep-table tr:last-child td { border-bottom: none; }
+  .prep-table td:first-child { font-weight: 700; width: 160px; }
+
+  /* ─── SWIPEFILES ─── */
+  .swipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+  }
+  .swipe-card {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+  }
+  .swipe-card-header {
+    background: var(--ink);
+    color: var(--accent);
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .swipe-card ul {
+    list-style: none;
+    padding: 14px 16px;
+  }
+  .swipe-card li {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .swipe-card li:last-child { border-bottom: none; }
+  .swipe-card li::before {
+    content: '"';
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 2px;
+  }
+
+  /* ─── DECISION TREE ─── */
+  .dtree-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .dtree-card {
+    border-radius: 6px;
+    padding: 18px 20px;
+    border: 1.5px solid var(--border);
+    background: white;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .dtree-card:hover {
+    border-color: var(--accent);
+    box-shadow: 3px 3px 0 var(--accent);
+  }
+  .dtree-want {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .dtree-want strong { color: var(--ink); }
+  .dtree-use {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .dtree-arrow {
+    color: var(--accent-dark);
+    font-weight: 700;
+  }
+  .dtree-type {
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .dtree-phrases {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    line-height: 1.7;
+    background: var(--blue-light);
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+
+  /* ─── FOOTER ─── */
+  .doc-footer {
+    background: var(--ink);
+    color: var(--muted);
+    padding: 40px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .doc-footer strong { color: var(--accent); }
+
+  /* ─── HELPERS ─── */
+  mark { background: #fff176; padding: 0 3px; border-radius: 2px; }
+  .num-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    background: var(--accent);
+    color: var(--ink);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+  .sticky-label {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <a href="{{ site.baseurl }}/notes.html" style="
+    position: absolute;
+    top: 24px; left: 32px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    transition: background 0.2s;
+    font-family: 'DM Mono', monospace;
+  " onmouseover="this.style.background='rgba(255,255,255,0.12)'"
+     onmouseout="this.style.background='transparent'">
+    ← Notes
+  </a>
+  <div class="hero-label">🧰 Playbook</div>
+  <h1>How to Use <em>Signposts</em><br>in Your Writing</h1>
+  <p class="hero-sub">Signposting isn't fluff — it's a precision tool. It anchors attention, guides logic, and boosts retention. Every great piece of writing has invisible scaffolding. This is how to build yours.</p>
+  <span class="hero-tagline">🔥 18 Types · Before & After Swipefiles · Decision Tree</span>
+</div>
+
+<!-- ═══ NAV BAR ═══ -->
+<nav class="toc-bar">
+  <a href="#why">Why It Works</a>
+  <a href="#visual">Visual Signposting</a>
+  <a href="#types">All 18 Types</a>
+  <a href="#core5">5 Core Types</a>
+  <a href="#prep">❗ Prep Signposts</a>
+  <a href="#ba">Before & After</a>
+  <a href="#swipe">Swipefiles</a>
+  <a href="#tree">Decision Tree</a>
+</nav>
+
+<!-- ═══ WHY IT WORKS ═══ -->
+<section class="section" id="why">
+<div class="wrapper">
+  <div class="section-label">01 — Why It Works</div>
+  <h2>🎯 A well-placed signpost turns a wall of text into a map.</h2>
+  <p class="lead">Readers don't read — they <em>scan</em>. Signposts are the navigation system that keeps them from bouncing.</p>
+
+  <ul class="why-list">
+    <li>
+      <span class="why-arrow">➤</span>
+      <span>Readers crave orientation. Signposts provide <strong>cognitive wayfinding</strong> — the mental equivalent of a "You Are Here" marker.</span>
+    </li>
+    <li>
+      <span class="why-arrow">➤</span>
+      <span>They reduce cognitive load and signal <em>structure</em>, <em>emphasis</em>, or <em>transitions</em> — all without the reader having to work for it.</span>
+    </li>
+    <li>
+      <span class="why-arrow">➤</span>
+      <span>They sharpen <em>rhythm and pacing</em>. Even a 3-word phrase like "Here's the twist:" changes how the next sentence lands.</span>
+    </li>
+    <li>
+      <span class="why-arrow">➤</span>
+      <span>You shift from a monologue to a dialogue — a <strong>guided tour</strong> rather than a data dump nobody asked for.</span>
+    </li>
+  </ul>
+
+  <div class="bottom-line">💡 Bottom line: Signposts create momentum. Readers follow, not flounder.</div>
+</div>
+</section>
+
+<!-- ═══ VISUAL SIGNPOSTING ═══ -->
+<section class="section" id="visual">
+<div class="wrapper">
+  <div class="section-label">02 — Visual Signposting</div>
+  <h2>👁️ Guide the eye before you guide the mind.</h2>
+  <p class="lead">Visual signposting works before the reader even reads a word. Formatting, arrows, highlights, and layout <em>shape attention</em> before language kicks in.</p>
+
+    <div class="image-grid">
+    <div class="image-card">
+      <img src="/Saptak/assets/img/examples-of-visual-signposting.png" alt="Visual signposting examples" onerror="this.parentElement.style.background='#f0ece0'; this.style.display='none'; this.parentElement.querySelector('.img-label').textContent='📸 examples of visual signposting'">
+      <div class="img-label">Examples of visual signposting</div>
+    </div>
+    <div class="image-card">
+      <img src="/Saptak/assets/img/landing-page-inspiration.jpeg" alt="Landing page with visual signposting" onerror="this.parentElement.style.background='#f0ece0'; this.style.display='none'; this.parentElement.querySelector('.img-label').textContent='📸 landing page example'">
+      <div class="img-label">Landing page — signposted navigation</div>
+    </div>
+  </div>
+
+  <div class="image-grid">
+    <div class="image-card">
+      <img src="/Saptak/assets/img/signposting-example-arrowgraphic.png" alt="Arrow graphic signposting example" onerror="this.parentElement.style.background='#f0ece0'; this.style.display='none'; this.parentElement.querySelector('.img-label').textContent='📸 arrow graphic — good example'">
+      <div class="img-label">✅ Arrow graphic — good signposting</div>
+    </div>
+    <div class="image-card">
+      <img src="/Saptak/assets/img/signposting-example-bad-arrowgraphic.png" alt="Bad arrow graphic example" onerror="this.parentElement.style.background='#f0ece0'; this.style.display='none'; this.parentElement.querySelector('.img-label').textContent='📸 arrow graphic — bad example'">
+      <div class="img-label">❌ Arrow graphic — bad signposting</div>
+    </div>
+  </div>
+  <div class="image-full">
+    <img src="/Saptak/assets/img/signposting example -- a caculus of things makes a new thing.png" alt="A calculus of signposting" onerror="this.style.display='none'">
+  </div>
+
+  <div class="fire-box">
+    <strong>The principle:</strong> headings, bold text, bullet points, arrows, and emojis are all visual signposts. They don't just look good — they <strong>reduce the cognitive cost of reading</strong> by pre-sorting information before the brain processes it.
+  </div>
+</div>
+</section>
+
+<!-- ═══ ALL 18 TYPES ═══ -->
+<section class="section" id="types">
+<div class="wrapper">
+  <div class="section-label">03 — The Complete Reference</div>
+  <h2>📊 All 18 Types of Signposting</h2>
+  <p class="lead">Here's the full arsenal. First, scan the table. Then, use the <a href="#tree" style="color:var(--accent-dark); font-weight:600;">Decision Tree</a> to pick the right one for your situation.</p>
+
+  <table class="types-table">
+    <thead>
+      <tr>
+        <th>🔖 Type</th>
+        <th>🧭 Purpose</th>
+        <th>💬 Common Phrases</th>
+        <th>🧰 Best Used For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Transition</td><td>Shift between ideas or sections</td><td><code>"Now let's move to…"</code> <code>"On the other hand…"</code> <code>"Meanwhile…"</code></td><td>Essays, articles, speeches</td></tr>
+      <tr><td>Preparation ❗</td><td>Mentally prime the reader for what's coming</td><td><code>"Before we dive in…"</code> <code>"Heads up…"</code> <code>"Brace yourself…"</code></td><td>Complex sections, emotional shifts</td></tr>
+      <tr><td>Enumeration</td><td>Present lists or sequential ideas</td><td><code>"First… Second…"</code> <code>"There are three key points…"</code></td><td>Frameworks, checklists, arguments</td></tr>
+      <tr><td>Summary</td><td>Recap or reinforce key points</td><td><code>"To summarize…"</code> <code>"In short…"</code> <code>"The main takeaway…"</code></td><td>Closings, lesson reviews, CTAs</td></tr>
+      <tr><td>Directional</td><td>Signal what's coming next</td><td><code>"We'll now explore…"</code> <code>"Next, we'll look at…"</code> <code>"Up ahead…"</code></td><td>Previewing next sections</td></tr>
+      <tr><td>Emphasis</td><td>Highlight important or urgent info</td><td><code>"Crucially…"</code> <code>"The key insight is…"</code> <code>"It's worth noting…"</code></td><td>Turning points, essential insights</td></tr>
+      <tr><td>Contrast</td><td>Introduce opposing ideas or exceptions</td><td><code>"However…"</code> <code>"But here's the twist…"</code> <code>"That said…"</code></td><td>Sharpening arguments, comparing</td></tr>
+      <tr><td>Cause–Effect</td><td>Show relationships between actions and outcomes</td><td><code>"Because of this…"</code> <code>"As a result…"</code> <code>"This led to…"</code></td><td>Explaining logic, making flow</td></tr>
+      <tr><td>Time-Based</td><td>Anchor events or points in time</td><td><code>"Previously…"</code> <code>"Later…"</code> <code>"At the same time…"</code></td><td>Narratives, case studies, history</td></tr>
+      <tr><td>Clarification</td><td>Explain or rephrase an idea</td><td><code>"In other words…"</code> <code>"To put it simply…"</code> <code>"What this means is…"</code></td><td>Teaching, simplifying, defining</td></tr>
+      <tr><td>Visual/Structural</td><td>Organize content using formatting or visuals</td><td>Headings, bold, bullet points, emojis</td><td>Skimmability, fast reading</td></tr>
+      <tr><td>Engagement</td><td>Pull the reader in or ask for input</td><td><code>"Let's pause…"</code> <code>"Imagine this…"</code> <code>"Have you ever…?"</code></td><td>Hooks, intros, interactive pieces</td></tr>
+      <tr><td>Checkpoint</td><td>Give a moment to reflect or reset</td><td><code>"Let's recap…"</code> <code>"So far, we've covered…"</code> <code>"At this stage…"</code></td><td>Longform, educational content</td></tr>
+      <tr><td>Meta</td><td>Signal that you're guiding the reader</td><td><code>"Here's what we're doing…"</code> <code>"Let me walk you through…"</code></td><td>Instructional, onboarding content</td></tr>
+      <tr><td>Directional-Within-Section</td><td>Signal focus shifts inside a subsection</td><td><code>"Let's now zoom in…"</code> <code>"We'll go deeper into…"</code></td><td>Deep dives, research, playbooks</td></tr>
+      <tr><td>Mood</td><td>Signal tone changes (serious ↔ playful)</td><td><code>"On a lighter note…"</code> <code>"Now for something more serious…"</code></td><td>Speeches, storytelling, drama</td></tr>
+      <tr><td>Spatial</td><td>Describe locations or structures</td><td><code>"On the left…"</code> <code>"Above this…"</code> <code>"In the center of…"</code></td><td>Design walkthroughs, diagrams, UX</td></tr>
+      <tr><td>Contrast of Scope</td><td>Move between big-picture and granular views</td><td><code>"From a bird's-eye view…"</code> <code>"Let's drill down into…"</code></td><td>Strategy docs, systems thinking</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══ 5 CORE TYPES ═══ -->
+<section class="section" id="core5">
+<div class="wrapper">
+  <div class="section-label">04 — The Fundamentals</div>
+  <h2>🧭 5 Core Types to Master First</h2>
+  <p class="lead">Before you go wide, go deep on these 5. They cover 80% of what writing actually needs — and mastering them takes minutes, not months.</p>
+
+  <div class="core-grid">
+
+    <div class="core-card">
+      <div class="core-card-num">01</div>
+      <h3>🚦 Transition Signposts</h3>
+      <div class="tagline">"We're shifting gears"</div>
+      <div class="use-for">Use to <strong>move</strong> between ideas, scenes, or arguments.</div>
+      <div class="example-pills">
+        <span class="pill">Now, let's move to…</span>
+        <span class="pill">On the flip side…</span>
+        <span class="pill">Let's zoom in on…</span>
+        <span class="pill">In contrast to that…</span>
+      </div>
+      <div class="swipe-tag">🔁 Bridge paragraphs · split sections in essays or talks</div>
+    </div>
+
+    <div class="core-card">
+      <div class="core-card-num">02</div>
+      <h3>📌 Enumeration Signposts</h3>
+      <div class="tagline">"Here's a list, stay with me"</div>
+      <div class="use-for">Use to <strong>present multiple related points</strong>.</div>
+      <div class="example-pills">
+        <span class="pill">There are 3 key phases…</span>
+        <span class="pill">Let's break this down…</span>
+        <span class="pill">Consider these factors…</span>
+      </div>
+      <div class="swipe-tag">🔁 Listicles · frameworks · breakdowns</div>
+    </div>
+
+    <div class="core-card">
+      <div class="core-card-num">03</div>
+      <h3>🧾 Summary Signposts</h3>
+      <div class="tagline">"Let's tie this up"</div>
+      <div class="use-for">Use to <strong>reinforce what's important</strong>.</div>
+      <div class="example-pills">
+        <span class="pill">To recap…</span>
+        <span class="pill">The takeaway here is…</span>
+        <span class="pill">In summary…</span>
+      </div>
+      <div class="swipe-tag">🔁 End of a blog section · before call-to-action</div>
+    </div>
+
+    <div class="core-card">
+      <div class="core-card-num">04</div>
+      <h3>🧭 Directional Signposts</h3>
+      <div class="tagline">"Here's where we're headed"</div>
+      <div class="use-for">Use to <strong>prepare</strong> the reader for what's coming.</div>
+      <div class="example-pills">
+        <span class="pill">In the next section…</span>
+        <span class="pill">We'll now explore…</span>
+        <span class="pill">Let's examine…</span>
+      </div>
+      <div class="swipe-tag">🔁 Longform essays · course modules · pitch decks</div>
+    </div>
+
+    <div class="core-card">
+      <div class="core-card-num">05</div>
+      <h3>🥁 Emphasis Signposts</h3>
+      <div class="tagline">"This part matters"</div>
+      <div class="use-for">Use to <strong>highlight importance</strong> or <strong>signal intensity</strong>.</div>
+      <div class="example-pills">
+        <span class="pill">Crucially…</span>
+        <span class="pill">It's worth noting…</span>
+        <span class="pill">The most important point is…</span>
+      </div>
+      <div class="swipe-tag">🔁 Positioning arguments · underlining themes</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══ PREP SIGNPOSTS ═══ -->
+<section class="section" id="prep">
+<div class="wrapper">
+  <div class="section-label">05 — Most Important Type</div>
+  <h2>❗ Preparation Signposts</h2>
+
+  <div class="prep-banner">
+    <h3>The most underused — and most powerful.</h3>
+    <p>Preparation Signposts act as <em>format primers</em>. They guide the reader to expect a certain structure, mental model, or content format up ahead. Think of it as laying out the table before serving the meal — the reader arrives at the content already oriented.</p>
+  </div>
+
+  <table class="prep-table">
+    <thead>
+      <tr>
+        <th>Element</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🧭 Purpose</td>
+        <td><em>Prepares the audience for an upcoming structure, format, or style — before they hit it.</em></td>
+      </tr>
+      <tr>
+        <td><mark>💬 Common Phrases</mark></td>
+        <td>"Here's how we'll break it down:" · "Let's map this out:" · "Think of this as…" · "Before we continue, note the format…" · "Brace yourself:" · "Heads up:" · "Quick mental shift:"</td>
+      </tr>
+      <tr>
+        <td>🧰 Best Used For</td>
+        <td>Checklists, frameworks, timelines, numbered arguments, how-tos, process walkthroughs, complex sections</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:18px; margin: 32px 0 24px; font-family:'Playfair Display', serif;">Before & After — 10 Prep Signpost Examples</h3>
+
+  <!-- Prep BA Examples -->
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Our onboarding process involves a few distinct steps.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Here's how we'll break it down:</strong> onboarding happens in three tight phases—setup, sync, and launch.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Here's how we'll break it down:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Primes the reader to expect a clean, structured breakdown
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">This method has several components you need to understand.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Think of this like a 3-part gear system:</strong> each component powers the next.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Think of this like a 3-part gear system:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Frames the concept visually and prepares for step-by-step thinking
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">We use a mix of heuristics and metrics to evaluate product-market fit.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>We use a hybrid checklist—part intuition, part data.</strong> Let's go through it.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "We use a hybrid checklist—part intuition, part data."
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Sets up an expectation of categorized items to follow
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">There are multiple levers to improve conversion.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Think of this as a control panel:</strong> tweak these 5 levers and watch conversion rates spike.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Think of this as a control panel:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Prepares for a metaphor-driven list or framework
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">We have a few core principles for writing better headlines.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Before we dive in, keep this lens in mind:</strong> every tip is about clarity, curiosity, or contrast.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Before we dive in, keep this lens in mind:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Frames what follows under shared evaluation criteria
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Let's explore a dense framework that connects attention, memory, and decision-making.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Before we dive in, fair warning:</strong> this framework is dense—but once it clicks, it changes how you think about decisions forever.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Before we dive in, fair warning:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Prepares the reader for complexity and primes curiosity
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">The next section breaks down our pricing strategy and customer segmentation logic.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>This next part is where things get real:</strong> we'll unpack the pricing strategy and the thinking behind customer segmentation.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "This next part is where things get real:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Signals a shift into deeper, high-stakes material
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">We'll now go over the emotional impact this product had on users.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Brace yourself:</strong> the next part dives into real user stories—and they hit hard.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Brace yourself:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Prepares the reader emotionally, adds anticipation
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Here's a technical breakdown of how the algorithm works.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Heads up:</strong> this section gets a little technical—but if you stick with it, you'll see how the algorithm really delivers.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Heads up:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Reduces drop-off by setting expectations and offering a reward
+    </div>
+  </div>
+
+  <div class="ba-section">
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Let's now examine the data that supports our claim.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Quick mental shift:</strong> we're about to enter data territory—here's what it reveals.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Quick mental shift:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Smooths the gear-change into analytical mode
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══ BEFORE & AFTER — 5 CORE ═══ -->
+<section class="section" id="ba">
+<div class="wrapper">
+  <div class="section-label">06 — Before & After</div>
+  <h2>✍️ The 5 Core Types in Action</h2>
+  <p class="lead">Same information. Different framing. Watch how a single sentence changes everything.</p>
+
+  <!-- 1. Transition -->
+  <div class="ba-section">
+    <div class="ba-context">Context → Knowledge-sharing blog post</div>
+    <h3>🧭 1. Transition Signposts</h3>
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Understanding how habits form is crucial. You must also know how to break them.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body">Understanding how habits form is crucial. <strong>Now, let's look at how to break them.</strong></div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Now, let's look at…"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Creates a bridge from one idea to the next, improving narrative flow
+    </div>
+  </div>
+
+  <!-- 2. Enumeration -->
+  <div class="ba-section">
+    <div class="ba-context">Context → Framework explanation inside a workshop slide</div>
+    <h3>📋 2. Enumeration Signposts</h3>
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">Good feedback is specific, actionable, and kind. These qualities make it effective.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>There are three qualities of good feedback:</strong> it's specific, actionable, and kind.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "There are three qualities of…"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Prepares the reader for a list, enhancing structure and recall
+    </div>
+  </div>
+
+  <!-- 3. Clarification -->
+  <div class="ba-section">
+    <div class="ba-context">Context → Instructional PDF for onboarding users</div>
+    <h3>🧠 3. Clarification Signposts</h3>
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">You need to sync your device before it can receive updates. This process happens over Wi-Fi.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body">You need to sync your device before it can receive updates. <strong>In other words,</strong> it has to connect to Wi-Fi first.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "In other words,"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Simplifies and rephrases, ensuring the message sticks
+    </div>
+  </div>
+
+  <!-- 4. Directional -->
+  <div class="ba-section">
+    <div class="ba-context">Context → Executive summary in a report</div>
+    <h3>🚀 4. Directional Signposts</h3>
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">The market grew by 7% in Q2. Supply chain issues also impacted production timelines.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body">The market grew by 7% in Q2. <strong>Next, we'll look at how supply chain issues affected production timelines.</strong></div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Next, we'll look at…"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Signals logical progression, helps structure complex info
+    </div>
+  </div>
+
+  <!-- 5. Emphasis -->
+  <div class="ba-section">
+    <div class="ba-context">Context → Sales page copy</div>
+    <h3>🎯 5. Emphasis Signposts</h3>
+    <div class="ba-grid">
+      <div class="ba-block ba-before">
+        <div class="ba-header">❌ Before</div>
+        <div class="ba-body">This tool helps you find better leads faster. It improves your outbound campaigns.</div>
+      </div>
+      <div class="ba-block ba-after">
+        <div class="ba-header">✅ After</div>
+        <div class="ba-body"><strong>Here's the real game-changer:</strong> this tool helps you find better leads faster. It supercharges your outbound campaigns.</div>
+      </div>
+    </div>
+    <div class="ba-meta">
+      <span class="signpost-tag">🟨 Signpost</span> "Here's the real game-changer:"
+      &nbsp;&nbsp;
+      <span class="effect-tag">🟦 Effect</span> Adds drama and focus to the key value prop
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══ SWIPEFILES ═══ -->
+<section class="section" id="swipe">
+<div class="wrapper">
+  <div class="section-label">07 — Phrase Bank</div>
+  <h2>✍️ Swipefiles by Context</h2>
+  <p class="lead">Copy and adapt. These phrases cover 6 of the most common writing contexts — grab what fits, swap what doesn't.</p>
+
+  <div class="swipe-grid">
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">📖 Blog Intros</div>
+      <ul>
+        <li>Let's start with a story…</li>
+        <li>Before we dive in…</li>
+        <li>To understand this, you need to see…</li>
+      </ul>
+    </div>
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">📊 Data-Heavy Writing</div>
+      <ul>
+        <li>Here's the core finding…</li>
+        <li>The numbers show a trend…</li>
+        <li>To put it another way…</li>
+      </ul>
+    </div>
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">💬 Persuasive Writing</div>
+      <ul>
+        <li>Here's why that matters…</li>
+        <li>The argument hinges on…</li>
+        <li>Let's challenge that assumption…</li>
+      </ul>
+    </div>
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">📧 Email / Newsletter</div>
+      <ul>
+        <li>Quick heads-up…</li>
+        <li>Here's what you need to know…</li>
+        <li>Next steps below.</li>
+      </ul>
+    </div>
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">🖱️ Instructional / UX</div>
+      <ul>
+        <li>Step 1: Do this…</li>
+        <li>Now try…</li>
+        <li>Let's review…</li>
+      </ul>
+    </div>
+
+    <div class="swipe-card">
+      <div class="swipe-card-header">🎓 Academic Writing</div>
+      <ul>
+        <li>This paper argues…</li>
+        <li>The following analysis demonstrates…</li>
+        <li>A key implication is…</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══ DECISION TREE ═══ -->
+<section class="section" id="tree">
+<div class="wrapper">
+  <div class="section-label">08 — Pick the Right Tool</div>
+  <h2>🧭 Signpost Selector: Decision Tree</h2>
+  <p class="lead">Start with what you <em>want to accomplish</em> — not the signpost type. The right choice becomes obvious.</p>
+
+  <div class="dtree-grid">
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>move between ideas</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Transition Signpost</span></div>
+      <div class="dtree-phrases">"Meanwhile…" · "Let's now explore…" · "That brings us to…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>list or sequence info</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Enumeration Signpost</span></div>
+      <div class="dtree-phrases">"First… Second… Third…" · "There are 3 key ideas…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>recap or reinforce</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Summary / Checkpoint</span></div>
+      <div class="dtree-phrases">"In short…" · "Let's recap…" · "The takeaway is…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>preview what's next</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Directional / Meta</span></div>
+      <div class="dtree-phrases">"Up ahead we'll cover…" · "Here's the plan…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>simplify or restate</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Clarification Signpost</span></div>
+      <div class="dtree-phrases">"In other words…" · "What this means is…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>compare or contrast</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Contrast Signpost</span></div>
+      <div class="dtree-phrases">"However…" · "That said…" · "But here's the twist…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>show logic or results</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Cause–Effect Signpost</span></div>
+      <div class="dtree-phrases">"Because of this…" · "As a result…" · "Therefore…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>anchor time or sequence</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Time-Based Signpost</span></div>
+      <div class="dtree-phrases">"Earlier…" · "Later on…" · "At that time…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>emphasize</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Emphasis Signpost</span></div>
+      <div class="dtree-phrases">"Crucially…" · "Here's what matters most…" · "The core idea is…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>engage the reader</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Engagement Signpost</span></div>
+      <div class="dtree-phrases">"Let's pause…" · "Imagine this…" · "Have you ever wondered…?"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>shift the tone</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Mood Signpost</span></div>
+      <div class="dtree-phrases">"On a lighter note…" · "Now for something more serious…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>describe space or layout</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Spatial Signpost</span></div>
+      <div class="dtree-phrases">"On the left…" · "At the center of this diagram…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>guide the reader's navigation</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Meta Signpost</span></div>
+      <div class="dtree-phrases">"This section breaks down…" · "Let me walk you through…"</div>
+    </div>
+
+    <div class="dtree-card">
+      <div class="dtree-want">📍 You want to <strong>help the reader reflect or reset</strong></div>
+      <div class="dtree-use"><span class="dtree-arrow">→</span><span class="dtree-type">Checkpoint Signpost</span></div>
+      <div class="dtree-phrases">"So far, we've covered…" · "Let's take stock…"</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="doc-footer">
+  <p><strong>🧰 How to Use Signposts in Your Writing</strong> — Playbook</p>
+  <p style="margin-top:8px;">18 Types · Before & After Swipefiles · Decision Tree · Prep Signpost Deep-Dive</p>
+</footer>
+
+</body>
+</html>

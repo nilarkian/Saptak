@@ -128,7 +128,15 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   <div class="note-count" id="note-count"></div>
 
   <!-- NOTE LIST -->
-  <div class="note-list" id="note-list">
+    <!-- NOTE LIST -->
+    <div class="note-list" id="note-list">
+      <a class="note-row" href="{{ site.baseurl }}/notes/signposts/" data-cat="the-future-">
+        <div class="note-row-inner">
+          <span class="note-row-title">How to Use Signposts in Your Writing</span>
+          <span class="note-row-meta">April 2026</span>
+        </div>
+        <span class="note-row-arrow">→</span>
+      </a>
     {% for note in all_notes %}
     <a class="note-row"
        href="{{ note.url | prepend: site.baseurl }}"
