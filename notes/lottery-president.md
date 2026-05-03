@@ -3,7 +3,11 @@ layout: note
 title: "The Sortition Protocol: Decentralizing Governance via Algorithmic Representation"
 date: 2024-04-11
 permalink: /notes/lottery-president.html
-tags: [policy, governance, though-experiment]
+tags:
+  - policy
+  - governance
+  - though-experiment
+hillPos: 90
 ---
 
 Current democratic systems are running on a legacy "electoral stack" that is increasingly susceptible to selection bias, cognitive capture, and institutional corruption. As originally noted by Aristotle, systems that fill public offices via election are effectively **oligarchic**, while those utilizing random allocation—**sortition**—are truly **democratic** 

@@ -1,9 +1,13 @@
 ---
 layout: note
-title: "iCET — U.S.–India Initiative on Critical and Emerging Technology"
-topic: "The Future 💰"
+title: iCET — U.S.–India Initiative on Critical and Emerging Technology
+topic: The Future 💰
 date: 2025-09-01
-tags: [india, america, economics]
+tags:
+  - india
+  - america
+  - economics
+hillPos: 90
 ---
 
 ## What it is
