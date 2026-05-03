@@ -12,7 +12,7 @@ blurb: Seven canonical texts that shaped how designers think — and occasionall
 *Seven texts that actually changed the field*
 
 📖 Deep Dive · Entry #002  
-🏛 Various — Bauhaus, Basel, New York, Los Angeles  
+🏛 Various — Bauhaus, Basel
 🏷 Typography · Criticism · Theory · History
 
 ---

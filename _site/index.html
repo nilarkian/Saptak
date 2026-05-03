@@ -18,27 +18,34 @@
   --pill: 999px;
   --font-head: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
+  
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--bg);
   color: var(--ink);
+  /* The texture is defined ONCE here */
+  background: url('assets/img/p2.jpg'), var(--bg); 
+  background-repeat: repeat;
 }
 
 /* HERO */
 .cover {
   width: 100%;
   height: 58vh;
+  /* Remove the second texture here; let the body background show through */
   background-image: url('assets/img/cover.png');
-  background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
-  background-color: var(--bg);
+  background-size: contain; 
+  /* Set to transparent so the body texture is visible on the sides */
+  background-color: transparent; 
 }
+
+
+/* HERO */
 
 /* MAIN */
 .content {
@@ -94,6 +101,7 @@ h2 { font-family: var(--font-head); }
 
 /* ── QUICK LINKS ── */
 .quick-links {
+  border-top: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,19 +112,19 @@ h2 { font-family: var(--font-head); }
 
 .quick-links-label {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
-  opacity: .25;
+  opacity: .95;
   margin-right: 4px;
 }
 
 .quick-links a {
   text-decoration: none;
   color: var(--ink);
-  font-size: 12px;
-  opacity: .35;
+  font-size: 16px;
+  opacity: .95;
   padding: 4px 10px;
   border-radius: var(--pill);
   border: 1.5px solid transparent;
