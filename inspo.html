@@ -522,6 +522,13 @@ const empty          = document.getElementById('empty-state');
 
 let activeCategory = 'all';
 
+// read URL param once
+const params = new URLSearchParams(window.location.search);
+const urlCat = params.get('cat');
+
+if (urlCat) {
+  activeCategory = urlCat;
+}
 function sortCollectedByDate(){
   const grid  = document.getElementById('collected-grid');
   const cards = [...grid.querySelectorAll('.inspo-card')]
@@ -597,6 +604,13 @@ window.applyInspoFilter = applyInspoFilter;
 
 // initial load — defer until after first paint
 requestAnimationFrame(() => {
+  if (urlCat) {
+    tabs.forEach(t => t.classList.remove('active'));
+
+    const target = document.querySelector(`.cat-tab[data-cat="${urlCat}"]`);
+    if (target) target.classList.add('active');
+  }
+
   applyInspoFilter();
   sortCollectedByDate();
 });
