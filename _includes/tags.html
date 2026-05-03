@@ -483,6 +483,78 @@ if (timelineBody) {
     }
   };
 
+  // ── CATEGORY-AWARE TAG VISIBILITY ─────────────────────────────────
+  // Hide any tag pill (parent, child, standalone, orphan) that doesn't
+  // appear on at least one card in the active category. If the active
+  // tag itself dies, fall back to "All".
+  window.refreshTagsForCategory = function (category) {
+    // 1. Build set of tags actually used by cards in this category
+    const catUsed = new Set();
+    cards.forEach(card => {
+      if (category !== 'all' && card.dataset.category !== category) return;
+      const tags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
+      tags.forEach(t => catUsed.add(t.trim().toLowerCase()));
+    });
+
+    let activeTagDied = false;
+
+    // 2. Walk every <li> in tagList and decide if it lives or dies
+    [...tagList.children].forEach(li => {
+      // skip the "Other" label — handled after children are evaluated
+      if (li.querySelector('.orphan-label')) return;
+
+      const parentBtn  = li.querySelector('.parent-filter-btn');
+      const standalone = li.querySelector('.standalone-tag-btn');
+      const childBtns  = li.querySelectorAll('.child-tag-btn');
+
+      let liAlive = false;
+
+      if (parentBtn) {
+        // Parent + children group
+        const parentTag   = parentBtn.dataset.tag;
+        const parentAlive = catUsed.has(parentTag);
+
+        childBtns.forEach(c => {
+          const alive = catUsed.has(c.dataset.tag);
+          c.style.display = alive ? '' : 'none';
+          if (!alive && c.classList.contains('active')) activeTagDied = true;
+        });
+
+        const anyKidAlive = [...childBtns].some(c => catUsed.has(c.dataset.tag));
+        liAlive = parentAlive || anyKidAlive;
+
+        const parentRow = li.querySelector('.parent-row');
+        if (parentRow && parentRow.classList.contains('active') && !liAlive) {
+          activeTagDied = true;
+        }
+      } else if (standalone) {
+        // Standalone or orphan pill
+        const tag = standalone.dataset.tag;
+        liAlive = catUsed.has(tag);
+        if (!liAlive && standalone.classList.contains('active')) activeTagDied = true;
+      }
+
+      li.style.display = liAlive ? '' : 'none';
+    });
+
+    // 3. Hide "Other" label if no orphan below it survived
+    const orphanLabelLi = [...tagList.children].find(li => li.querySelector('.orphan-label'));
+    if (orphanLabelLi) {
+      let anyOrphanVisible = false;
+      let next = orphanLabelLi.nextElementSibling;
+      while (next) {
+        if (next.style.display !== 'none') { anyOrphanVisible = true; break; }
+        next = next.nextElementSibling;
+      }
+      orphanLabelLi.style.display = anyOrphanVisible ? '' : 'none';
+    }
+
+    // 4. If the active tag was killed, snap back to "All"
+    if (activeTagDied) {
+      setActive(null, false, null);
+    }
+  };
+
 } else if (catalogue) {
   // ── SCRIPTS context: read data-tags from script cards ───────────────
   const scriptCards = catalogue.querySelectorAll('.script-card');

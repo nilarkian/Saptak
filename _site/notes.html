@@ -586,7 +586,7 @@ body.tag-collapsed .tag-toggle-btn{ right:44px; }
 (function () {
 
 // ── TAG TREE injected by Jekyll ───────────────────────────────────────
-const TAG_TREE = [{"name":"energy","children":["nuclear","fusion","battery"]},{"name":"interests","children":["history","sports","mindset","travel","writing","tools-for-thought","space","thought-experiment","biology"]},{"name":"news","children":["china","america"]},{"name":"coding","children":["webdev","open-source"]},{"name":"tech","children":["ai","ar","drones","semiconductors","manufacturing","fintech","google","amazon","nvidia","meta"]},{"name":"business","children":["branding","capex","marketing","copywriting","equities","markets","macro","commodities"]},{"name":"governance","children":["policy","regulation","geopolitics","defence"]},{"name":"design","children":["ads","landing-pages","email"]},{"name":"india","children":["cricket"]},{"name":"money","children":["economics"]},{"name":"resources","children":["learning","tools","quotes"]},{"name":"misc"}];
+const TAG_TREE = [{"name":"energy","children":["nuclear","fusion","battery"]},{"name":"cure-boredom"},{"name":"interests","children":["history","cartography","cities","sports","mindset","travel","writing","tools-for-thought","space","thought-experiment","biology","games","geography","nostalgia","discovery","puzzles","music","ambient","crafts","diy","military","infrastructure","environment","epistemology","pepakura","art","photography"]},{"name":"news","children":["china","america"]},{"name":"coding","children":["webdev","open-source","database","data","javascript","development","react","git"]},{"name":"tech","children":["ai","ar","drones","semiconductors","manufacturing","fintech","google","amazon","nvidia","meta","hardware","social","media","video","internet-history","tech-history"]},{"name":"business","children":["branding","capex","marketing","copywriting","equities","markets","macro","commodities"]},{"name":"governance","children":["policy","regulation","geopolitics","defence"]},{"name":"design","children":["ads","landing-pages","typography","email","ui","icons","assets","animation","textures","stickers","inspiration","swipefile","data-viz"]},{"name":"india","children":["cricket","kolkata"]},{"name":"money","children":["economics"]},{"name":"resources","children":["learning","research","tools","quotes","productivity","mockups","science","read","reference","archive","taxonomy","job"]},{"name":"misc","children":["psychology","ambition","criticism"]}];
 
 // ── DOM ───────────────────────────────────────────────────────────────
 const tagList = document.getElementById('tag-list');
@@ -780,6 +780,78 @@ if (timelineBody) {
     // delegate to inspo.html category+tag composition logic
     if (typeof window.applyInspoFilter === 'function') {
       window.applyInspoFilter();
+    }
+  };
+
+  // ── CATEGORY-AWARE TAG VISIBILITY ─────────────────────────────────
+  // Hide any tag pill (parent, child, standalone, orphan) that doesn't
+  // appear on at least one card in the active category. If the active
+  // tag itself dies, fall back to "All".
+  window.refreshTagsForCategory = function (category) {
+    // 1. Build set of tags actually used by cards in this category
+    const catUsed = new Set();
+    cards.forEach(card => {
+      if (category !== 'all' && card.dataset.category !== category) return;
+      const tags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
+      tags.forEach(t => catUsed.add(t.trim().toLowerCase()));
+    });
+
+    let activeTagDied = false;
+
+    // 2. Walk every <li> in tagList and decide if it lives or dies
+    [...tagList.children].forEach(li => {
+      // skip the "Other" label — handled after children are evaluated
+      if (li.querySelector('.orphan-label')) return;
+
+      const parentBtn  = li.querySelector('.parent-filter-btn');
+      const standalone = li.querySelector('.standalone-tag-btn');
+      const childBtns  = li.querySelectorAll('.child-tag-btn');
+
+      let liAlive = false;
+
+      if (parentBtn) {
+        // Parent + children group
+        const parentTag   = parentBtn.dataset.tag;
+        const parentAlive = catUsed.has(parentTag);
+
+        childBtns.forEach(c => {
+          const alive = catUsed.has(c.dataset.tag);
+          c.style.display = alive ? '' : 'none';
+          if (!alive && c.classList.contains('active')) activeTagDied = true;
+        });
+
+        const anyKidAlive = [...childBtns].some(c => catUsed.has(c.dataset.tag));
+        liAlive = parentAlive || anyKidAlive;
+
+        const parentRow = li.querySelector('.parent-row');
+        if (parentRow && parentRow.classList.contains('active') && !liAlive) {
+          activeTagDied = true;
+        }
+      } else if (standalone) {
+        // Standalone or orphan pill
+        const tag = standalone.dataset.tag;
+        liAlive = catUsed.has(tag);
+        if (!liAlive && standalone.classList.contains('active')) activeTagDied = true;
+      }
+
+      li.style.display = liAlive ? '' : 'none';
+    });
+
+    // 3. Hide "Other" label if no orphan below it survived
+    const orphanLabelLi = [...tagList.children].find(li => li.querySelector('.orphan-label'));
+    if (orphanLabelLi) {
+      let anyOrphanVisible = false;
+      let next = orphanLabelLi.nextElementSibling;
+      while (next) {
+        if (next.style.display !== 'none') { anyOrphanVisible = true; break; }
+        next = next.nextElementSibling;
+      }
+      orphanLabelLi.style.display = anyOrphanVisible ? '' : 'none';
+    }
+
+    // 4. If the active tag was killed, snap back to "All"
+    if (activeTagDied) {
+      setActive(null, false, null);
     }
   };
 

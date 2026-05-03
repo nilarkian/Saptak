@@ -142,6 +142,118 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 .cat-tab[data-cat].active { background: var(--ink); color: white; border-color: var(--ink); }
 .cat-tab.active::after { background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px); }
 
+/* ── DEAD STATE — category has zero items for active tag ── */
+/* Stays clickable as an "escape hatch": clicking clears the tag. */
+.cat-tab.dead {
+  filter: grayscale(0.95);
+  opacity: 0.42;
+  border-style: dashed;
+  border-color: #999;
+  transition: filter .25s ease, opacity .2s ease, border-color .2s ease, transform .22s ease;
+}
+.cat-tab.dead .cat-count {
+  text-decoration: none;
+  position: relative;    /* Anchor the new line to this element */
+  display: inline-block; /* Ensures the line only spans the text width */
+  opacity: .7;
+}
+.cat-tab.dead .cat-count::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Adjust this percentage to your liking—50% to 60% is the sweet spot */
+  top: 55%; 
+  height: 0.1px;
+  background: currentColor; /* Inherits the text color (even the opacity) */
+  pointer-events: none;
+}
+.cat-tab.dead:hover {
+  opacity: .72;
+  filter: grayscale(0.55);
+  border-color: var(--ink);
+  border-style: solid;
+}
+.cat-tab.dead.active { /* defensive — should never co-occur */
+  filter: none; opacity: 1; border-style: solid;
+}
+
+/* ── RESET CHIP — appears only when something is filtered ── */
+.reset-chip {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 7px 7px 16px;
+  margin: 0 0 28px auto;
+  background: rgba(200, 68, 10, 0.07);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--pill);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .2s ease, transform .18s ease, box-shadow .2s ease;
+  width: fit-content;
+  user-select: none;
+}
+.reset-chip.visible {
+  display: flex;
+  animation: chipFadeIn .26s ease;
+}
+.reset-chip:hover {
+  background: rgba(200, 68, 10, 0.14);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+.reset-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.reset-chip-label .chip-meta {
+  opacity: .55;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.reset-chip-label .chip-cat {
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.reset-chip-label .chip-tag {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.reset-chip-label .chip-divider {
+  opacity: .35;
+  margin: 0 8px;
+  font-weight: 400;
+}
+
+.reset-chip-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--pill);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes chipFadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── COLLECTED MIXED GRID — masonry via flex columns ── */
 .collected-grid{
   column-gap:18px;
@@ -435,6 +547,12 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   <h1 class="page-title">Inspo</h1>
   <p class="page-subtitle">A collection of things worth revisiting — videos, tweets, tools, writing, and sites I keep coming back to.</p>
 
+  <!-- ── RESET CHIP — only renders when filters are active ── -->
+  <div class="reset-chip" id="reset-chip" role="button" tabindex="0" aria-label="Reset all filters">
+    <span class="reset-chip-label" id="reset-chip-label" aria-live="polite"></span>
+    <span class="reset-chip-action">↺ Reset</span>
+  </div>
+
   {% comment %} ─── AUTO-COMPUTE COUNTS FROM REGISTRY ─── {% endcomment %}
   {% assign all_count = 0 %}
   {% for cat in site.data.inspo_categories %}
@@ -507,6 +625,14 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     tab.hidden = count === 0;
   });
 
+  // Stash the original count text + unit so we can restore on tag-clear
+  tabs.forEach(tab => {
+    const txt = tab.querySelector('.cat-count').textContent;
+    tab.dataset.defaultCount = txt;
+    const unitMatch = txt.match(/^\d+\s+(.+)$/);
+    tab.dataset.unit = unitMatch ? unitMatch[1] : 'items';
+  });
+
   [allTab, ...rest].forEach(tab => container.appendChild(tab));
 })();
 
@@ -574,21 +700,141 @@ function applyInspoFilter() {
 
   let visible = 0;
   collectedCards.forEach(card => {
-    const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+    const cardTags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
     const show = matchesCategory(card.dataset.category) && matchesTag(cardTags);
     card.hidden = !show;
     if (show) visible++;
   });
 
   empty.style.display = visible === 0 ? 'block' : 'none';
+
+  // Update category tab visuals based on the active tag
+  refreshCategoriesForTag(activeTag, activeParentTag, parentKids);
+
+  // Update the reset chip (show/hide + label)
+  updateResetChip(activeTag, activeParentTag);
 }
+
+// ── CATEGORY VISUAL STATE — runs after every filter pass ───────
+// When a tag is active, count matches per category. Categories with
+// zero matches go grayscale (.dead) and show "0 <unit>". Still clickable —
+// clicking a dead tab clears the tag (handled in tab click handler).
+function refreshCategoriesForTag(activeTag, activeParentTag, parentKids) {
+  const hasActiveTag = activeTag || activeParentTag;
+
+  function cardMatchesTag(cardTags) {
+    if (activeTag)       return cardTags.includes(activeTag);
+    if (activeParentTag) return cardTags.includes(activeParentTag) || parentKids.some(k => cardTags.includes(k));
+    return true;
+  }
+
+  tabs.forEach(tab => {
+    const cat     = tab.dataset.cat;
+    const countEl = tab.querySelector('.cat-count');
+
+    // No tag active → restore everything to default
+    if (!hasActiveTag) {
+      tab.classList.remove('dead');
+      countEl.textContent = tab.dataset.defaultCount;
+      return;
+    }
+
+    // Count matching cards in this category
+    let count = 0;
+    collectedCards.forEach(card => {
+      const inCat = (cat === 'all') || (card.dataset.category === cat);
+      if (!inCat) return;
+      const cardTags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
+      if (cardMatchesTag(cardTags)) count++;
+    });
+
+    tab.classList.toggle('dead', count === 0);
+    countEl.textContent = `${count} ${tab.dataset.unit || 'items'}`;
+  });
+}
+
+// ── RESET CHIP — show/hide + label ────────────────────────────
+const resetChip      = document.getElementById('reset-chip');
+const resetChipLabel = document.getElementById('reset-chip-label');
+
+function updateResetChip(activeTag, activeParentTag) {
+  const tagLabel = activeTag || activeParentTag;
+  const catLabel = activeCategory === 'all'
+    ? null
+    : (document.querySelector(`.cat-tab[data-cat="${activeCategory}"] .cat-name`)?.textContent || activeCategory);
+
+  // Nothing filtered → hide
+  if (!catLabel && !tagLabel) {
+    resetChip.classList.remove('visible');
+    return;
+  }
+
+  // Build label parts
+  const parts = [];
+  if (catLabel) parts.push(`<span class="chip-cat">${catLabel}</span>`);
+  if (tagLabel) parts.push(`<span class="chip-tag">#${tagLabel}</span>`);
+
+  resetChipLabel.innerHTML =
+    `<span class="chip-meta">Filtered:</span>` +
+    parts.join(`<span class="chip-divider">×</span>`);
+
+  resetChip.classList.add('visible');
+}
+
+function resetAllFilters() {
+  // Clear every tag-side active state
+  document.querySelectorAll(
+    '.child-tag-btn.active, .standalone-tag-btn.active, .parent-row.active'
+  ).forEach(el => el.classList.remove('active'));
+
+  // Mark sidebar "All" as active (if it exists in this context)
+  const sidebarAllBtn = document.getElementById('all-btn');
+  if (sidebarAllBtn) sidebarAllBtn.classList.add('active');
+
+  // Snap category to "All"
+  tabs.forEach(t => t.classList.remove('active'));
+  const allTab = document.querySelector('.cat-tab[data-cat="all"]');
+  if (allTab) allTab.classList.add('active');
+  activeCategory = 'all';
+
+  // Refresh tag visibility for "all" category
+  if (typeof window.refreshTagsForCategory === 'function') {
+    window.refreshTagsForCategory('all');
+  }
+
+  applyInspoFilter();
+  sortCollectedByDate();
+}
+
+resetChip.addEventListener('click', resetAllFilters);
+resetChip.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    resetAllFilters();
+  }
+});
 
 // tab click handler
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
+    const wasDead = tab.classList.contains('dead');
+
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     activeCategory = tab.dataset.cat;
+
+    // ESCAPE HATCH: clicking a dead category clears the active tag
+    if (wasDead) {
+      document.querySelectorAll(
+        '.child-tag-btn.active, .standalone-tag-btn.active, .parent-row.active'
+      ).forEach(el => el.classList.remove('active'));
+    }
+
+    // hide tags that don't appear in this category (defined in tags.html)
+    if (typeof window.refreshTagsForCategory === 'function') {
+      window.refreshTagsForCategory(activeCategory);
+    }
+
     applyInspoFilter();
     sortCollectedByDate();
   });
@@ -604,6 +850,11 @@ requestAnimationFrame(() => {
 
     const target = document.querySelector(`.cat-tab[data-cat="${urlCat}"]`);
     if (target) target.classList.add('active');
+  }
+
+  // initial tag visibility pass for the active category
+  if (typeof window.refreshTagsForCategory === 'function') {
+    window.refreshTagsForCategory(activeCategory);
   }
 
   applyInspoFilter();

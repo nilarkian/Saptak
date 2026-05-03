@@ -1,13 +1,16 @@
-
 - name: energy
   children:
     - nuclear
     - fusion
     - battery
 
+
+- name: cure-boredom
 - name: interests
   children:
     - history
+    - cartography
+    - cities
     - sports
     - mindset
     - travel
@@ -16,17 +19,36 @@
     - space
     - thought-experiment
     - biology
-
+    - games
+    - geography
+    - nostalgia
+    - discovery
+    - puzzles
+    - music
+    - ambient
+    - crafts
+    - diy
+    - military
+    - infrastructure
+    - environment
+    - epistemology
+    - pepakura
+    - art
+    - photography
 - name: news
   children:
     - china
     - america
-
 - name: coding
   children:
     - webdev
     - open-source
-
+    - database
+    - data
+    - javascript
+    - development
+    - react
+    - git
 - name: tech
   children:
     - ai
@@ -39,7 +61,12 @@
     - amazon
     - nvidia
     - meta
-
+    - hardware
+    - social
+    - media
+    - video
+    - internet-history
+    - tech-history
 - name: business
   children:
     - branding
@@ -50,32 +77,50 @@
     - markets
     - macro
     - commodities
-
 - name: governance
   children:
     - policy
     - regulation
     - geopolitics
     - defence
-
 - name: design
   children:
     - ads
     - landing-pages
+    - typography
     - email
-
+    - ui
+    - icons
+    - assets
+    - animation
+    - textures
+    - stickers
+    - inspiration
+    - swipefile
+    - data-viz
 - name: india
   children:
     - cricket
-
+    - kolkata
 - name: money
   children:
     - economics
-
 - name: resources
   children:
     - learning
+    - research
     - tools
     - quotes
-
+    - productivity
+    - mockups
+    - science
+    - read
+    - reference
+    - archive
+    - taxonomy
+    - job
 - name: misc
+  children:
+    - psychology
+    - ambition
+    - criticism

@@ -91,6 +91,97 @@
   ],
 
   "tools": [
+        {
+      "url": "https://effector.dev",
+      "source": "Effector",
+      "caption": "A reactive state manager for Javascript focused on performance, modularity, and type safety.",
+      "date": "2025-05-03",
+      "tags": ["coding", "javascript", "tools"]
+    },
+    {
+      "url": "https://swishy.ai",
+      "source": "Swishy.ai",
+      "caption": "An AI-powered platform for creating high-end motion graphics and smooth transitions.",
+      "date": "2025-05-03",
+      "tags": ["ai", "design", "video"]
+    },
+    {
+    "url": "https://venngage.com/ai-tools/icon-generator",
+    "source": "Venngage Icon Generator",
+    "caption": "A free online tool to create and customize high-quality icons for infographics and presentations.",
+    "date": "2025-05-03",
+    "tags": ["design", "tools", "icons"]
+    },
+    {
+    "url": "https://deathtostock.com",
+    "source": "Death to Stock",
+    "caption": "A subscription service providing unique, high-quality photo and video assets beyond traditional stock aesthetics.",
+    "date": "2025-05-03",
+    "tags": ["design", "photography", "assets"]
+    },
+    {
+      "url": "https://uiverse.io",
+      "source": "Uiverse.io",
+      "caption": "A community-built library of open-source UI elements made with HTML and CSS.",
+      "date": "2025-05-03",
+      "tags": ["design", "ui", "development"]
+    },
+    {
+      "url": "https://reactbits.dev",
+      "source": "React Bits",
+      "caption": "An open-source collection of animated and interactive React components for modern web apps.",
+      "date": "2025-05-03",
+      "tags": ["design", "react", "animation"]
+    },
+    {
+      "url": "https://texturefabrik.com",
+      "source": "Texturefabrik",
+      "caption": "Premium and free high-quality textures, backgrounds, and digital art assets for creative professionals.",
+      "date": "2025-05-03",
+      "tags": ["design", "assets", "textures"]
+    },
+    {
+      "url": "https://gitmastery.me/",
+      "source": "GitMastery",
+      "caption": "An interactive Git learning platform with a simulated terminal and gamified challenges to master commands hands-on.",
+      "date": "2025-05-03",
+      "tags": ["learning", "git", "coding", "games"]
+    },
+    {
+      "url": "https://learngitbranching.js.org/",
+      "source": "Learn Git Branching",
+      "caption": "A visual Git repository sandbox and tutorial for mastering complex branching, merging, and rebasing through visualization.",
+      "date": "2025-05-03",
+      "tags": ["learning", "git", "coding", "data-viz"]
+    },
+    {
+      "url": "https://designreviewed.com",
+      "source": "Design Reviewed",
+      "caption": "A curated repository documenting graphic design, visual history, and industrial objects.",
+      "date": "2025-05-03",
+      "tags": ["design", "history", "swipefile"]
+    },
+    {
+      "url": "https://brandingstyleguides.com",
+      "source": "Branding Style Guides",
+      "caption": "A comprehensive archive of official brand identity manuals and corporate design standards.",
+      "date": "2025-05-03",
+      "tags": ["design", "branding", "reference", "swipefile"]
+    },
+    {
+      "url": "https://stickers.gallery",
+      "source": "Stickers.gallery",
+      "caption": "A curated inspiration gallery featuring unique physical and digital sticker designs.",
+      "date": "2025-05-03",
+      "tags": ["design", "inspiration", "stickers", "swipefile"]
+    },
+    {
+      "url": "https://mybharat.gov.in",
+      "source": "MyBharat",
+      "caption": "A digital platform empowering Indian youth through volunteering, skill development, and engagement.",
+      "date": "2025-05-03",
+      "tags": ["india", "social", "learning", "job"]
+    },
     {
       "url": "https://www.tooooools.app/",
       "source": "Tooooools",
@@ -150,19 +241,117 @@
   ],
 
   "websites": [
+      {
+      "url": "https://metazooa.com/",
+      "name": "Metazooa",
+      "desc": "A daily animal guessing game that uses biological taxonomy to narrow down a mystery species.",
+      "date": "2025-05-03",
+      "tags": ["games", "biology", "taxonomy", "cure-boredom"]
+    },
+    {
+      "url": "https://tradle.net",
+      "name": "Tradle",
+      "desc": "A daily geography puzzle where players identify a country based on a treemap of its global export data.",
+      "date": "2025-05-03",
+      "tags": ["games", "geography", "economics", "data-viz", "cure-boredom"]
+    },
+    {
+      "url": "https://geocities.restorativland.org",
+      "name": "Geocities Gallery",
+      "desc": "A visual archive preserving the unique digital vernacular and design of the 1990s Geocities era.",
+      "date": "2025-05-03",
+      "tags": ["internet-history", "nostalgia", "archive", "cure-boredom"]
+    },
+    {
+      "url": "https://mobilephonemuseum.com",
+      "name": "Mobile Phones Museum",
+      "desc": "A visual encyclopedia of mobile hardware history, featuring over 2,000 distinct devices.",
+      "date": "2025-05-03",
+      "tags": ["tech-history", "hardware", "archive"]
+    },
+    {
+      "url": "https://intertapes.net",
+      "name": "Intertapes",
+      "desc": "A digital preservation project featuring scanned media and audio from found VHS and cassettes.",
+      "date": "2025-05-03",
+          "tags": ["nostalgia", "media", "archive", "music"]
+    },
+    {
+      "url": "http://thetoymaker.com",
+      "name": "TheToyMaker",
+      "desc": "A collection of printable paper toys and vintage-inspired crafts for creative play.",
+      "date": "2025-05-03",
+      "tags": ["nostalgia", "crafts", "diy", "pepakura"]
+    },
+    {
+      "url": "https://everynoise.com",
+      "name": "Every Noise at Once",
+      "desc": "An algorithmically-generated, interactive scatter-plot of thousands of music genres.",
+      "date": "2025-05-03",
+      "tags": ["music", "data-viz", "discovery", "cure-boredom"]
+    },
+    {
+      "url": "https://drivenlisten.com/city/?city=CCU",
+      "name": "Drive & Listen",
+      "desc": "An immersive experience combining 4K dashcam footage of world cities with local radio stations.",
+      "date": "2025-05-03",
+      "tags": ["music", "travel", "ambient",  "cure-boredom"]
+    },
+    {
+      "url": "https://myretrotvs.com",
+      "name": "MyRetroTV",
+      "desc": "A series of nostalgic simulators providing an authentic TV-viewing experience from past decades.",
+      "date": "2025-05-03",
+      "tags": ["nostalgia", "video", "archive", "cure-boredom"]
+    },
+    {
+      "url": "https://worldle.teuteuf.fr",
+      "name": "Worldle",
+      "desc": "A daily geography game where players guess a country or territory based on its silhouette.",
+      "date": "2025-05-03",
+      "tags": ["games", "geography", "learning", "cure-boredom"]
+    },
+    {
+      "url": "https://puzzleprime.com/puzzles",
+      "name": "Puzzle Prime",
+      "desc": "A hub for brain teasers, detective puzzles, and educational logic games for all ages.",
+      "date": "2025-05-03",
+      "tags": ["games", "puzzles", "learning", "cure-boredom"]
+    },
+    {
+      "url": "https://origami.me",
+      "name": "Origami.me",
+      "desc": "A dedicated resource for origami enthusiasts featuring diagrams, tutorials, and paper reviews.",
+      "date": "2025-05-03",
+      "tags": ["crafts", "diy", "learning", "cure-boredom"]
+    },
+    {
+      "url": "https://monitorworld.app",
+      "name": "World Monitor",
+      "desc": "A real-time intelligence dashboard tracking global conflicts and geopolitical risks.",
+      "date": "2025-05-03",
+      "tags": ["data-viz", "geopolitics", "news", "cure-boredom"]
+    },
+    {
+      "url": "https://valdevia.art",
+      "name": "Valdevia",
+      "desc": "Dude makes creepy art",
+      "date": "2025-05-03",
+      "tags": ["art", "design", "inspiration", "cure-boredom"]
+    },
     {
       "url": "https://opengridworks.com/power-plants",
       "name": "OpenGridWorks",
       "desc": "An interactive global map of power infrastructure including operating plants, fiber cables, and transmission lines.",
       "date": "2026-05-03",
-      "tags": ["data-viz", "energy", "infrastructure"]
+      "tags": ["data-viz", "energy", "infrastructure", "cure-boredom"]
     },
     {
       "url": "https://www.runningreality.org/?highlight=147",
       "name": "Running Reality - Early Kolkata",
       "desc": "A historical world model providing a high-fidelity geospatial timeline of Kolkata's early urban development.",
       "date": "2026-05-04",
-      "tags": ["history", "cartography", "kolkata"]
+      "tags": ["history", "cartography", "kolkata", "cure-boredom"]
     },
     {
       "url": "https://thevalleyofcode.com/",
