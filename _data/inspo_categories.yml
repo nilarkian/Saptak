@@ -39,3 +39,10 @@
   unit: "sites"
   tint: "#f5e8fd"
   card_include: "inspo/website"
+
+- key: deep-dives
+  icon: ""
+  label: "Deep Dives"
+  unit: "dives"
+  tint: "#f0f0f0"
+  card_include: "deep-dives"

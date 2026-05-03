@@ -1,0 +1,32 @@
+<section class="connect">
+
+  <h2>Connect</h2>
+
+  <div class="contact-text">
+    <span onclick="copyText('saptakbanerjeenil@gmail.com')">📧 saptakbanerjeenil@gmail.com</span>
+    <span onclick="copyText('8240323376')">📱 8240323376</span>
+  </div>
+
+  <div class="social-icons">
+    <a href="https://github.com/nilarkian" target="_blank" title="GitHub">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/saptak-banerjee-01372911b" target="_blank" title="LinkedIn">
+      <i class="fa-brands fa-linkedin"></i>
+    </a>
+    <a href="https://www.instagram.com/led.head" target="_blank" title="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+  </div>
+
+  <p id="copied"></p>
+
+</section>
+
+<script>
+function copyText(text){
+  navigator.clipboard.writeText(text);
+  document.getElementById("copied").innerText="Copied ✅";
+  setTimeout(function(){ document.getElementById("copied").innerText=""; },1500);
+}
+</script>

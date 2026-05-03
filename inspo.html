@@ -80,8 +80,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   margin-bottom: 48px;
 }
 
-
-
 .cat-tab {
   --tab-size: 3px;
 
@@ -111,15 +109,14 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 
 .cat-tab .cat-icon {
-  /* font-size: 22px; */
   margin-bottom: 8px;
   display: block;
   position: relative;
   z-index: 1;
+  min-height: 1em; /* preserves row height when icon is empty (deep-dives) */
 }
 
 .cat-tab .cat-name {
-  /* font-size: 14px; */
   font-weight: 700;
   letter-spacing: -.2px;
   position: relative;
@@ -127,7 +124,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 
 .cat-tab .cat-count {
-  /* font-size: 11px; */
   font-weight: 500;
   opacity: .45;
   margin-top: 4px;
@@ -145,128 +141,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 .cat-tab[data-cat].active { background: var(--ink); color: white; border-color: var(--ink); }
 .cat-tab.active::after { background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px); }
 
-/* ── SECTION LABEL ── */
-.section-label {
-  font-family: var(--font-head);
-  font-size: 11px; font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase;
-  opacity: .35; margin-bottom: 20px;
-}
-#dd-label-btn{
- background:none;
- border:none;
- cursor:pointer;
- text-align:left;
- padding:0;
-}
-
-#dd-label-btn:hover{
- opacity:.6;
-}
-
-/* ── DEEP DIVE GRID ── */
-.deepdive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
-  margin-bottom: 60px;
-}
-
-.deepdive-card {
-  display: block;
-  padding: 28px;
-  border: 2px solid var(--ink);
-  border-radius: var(--radius);
-  position: relative;
-  transition: .22s ease;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-.deepdive-card[hidden] { display: none; }
-
-.deepdive-card:hover {
-  background: var(--ink); color: white;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,.12);
-}
-
-.deepdive-label {
-  font-family: var(--font-head);
-  font-size: 10px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase;
-  opacity: .4; margin-bottom: 8px;
-}
-
-.deepdive-title {
-  font-family: var(--font-head);
-  font-size: 22px; font-weight: 700;
-  letter-spacing: -.3px; margin-bottom: 8px;
-}
-
-.deepdive-blurb {
-  font-size: 14px; line-height: 1.6; opacity: .65; margin-bottom: 16px;
-}
-
-.deepdive-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-.deepdive-tag {
-  font-family: var(--font-head);
-  font-size: 9px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase;
-  border: 1.5px solid currentColor;
-  padding: 3px 8px; border-radius: var(--pill);
-  opacity: .5;
-}
-
-.deepdive-card::after {
-  content: '→';
-  position: absolute;
-  bottom: 22px; right: 22px;
-  font-family: var(--font-head);
-  font-size: 16px; font-weight: 700;
-  opacity: .25; transition: .2s;
-}
-.deepdive-card:hover::after { opacity: .7; }
-.deepdive-head{
- display:flex;
- align-items:center;
- justify-content:space-between;
- margin-bottom:14px;
-}
-
-
-.deepdive-collapse{
- width:30px;
- height:30px;
- border:1.5px solid #bbb;
- background:transparent;
- border-radius:999px;
- cursor:pointer;
- display:flex;
- align-items:center;
- justify-content:center;
-} 
-
-.deepdive-collapse:hover{
- border-color:#111;
-}
-
-.dd-chevron{
- width:14px;
- height:14px;
- transition:transform .2s ease;
- transform:rotate(0deg); /* expanded */
-}
-
-.dd-chevron.collapsed{
- transform:rotate(-90deg); /* collapsed */
-}
-.deepdive-grid.collapsed{
- display:none;
-}
-
-/* ── COLLECTED MIXED GRID — masonry via CSS columns ── */
+/* ── COLLECTED MIXED GRID — masonry via flex columns ── */
 .collected-grid{
   column-gap:18px;
   margin-bottom:60px;
@@ -282,13 +157,12 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 .col-bucket{ display:flex; flex-direction:column; gap:18px; flex:1; }
 
-
-
 @media (max-width:768px){
   .collected-grid{
     columns:1;
   }
 }
+
 .inspo-card {
   break-inside: avoid;
   display: block;
@@ -308,8 +182,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   box-shadow: 0 10px 24px rgba(0,0,0,.1);
 }
 
-/* ── YOUTUBE GRID — separate from masonry, narrower cards ── */
-
+/* ── YOUTUBE CARD ── */
 .inspo-card.yt{
   max-width:100%;
   border: 2px solid rgba(255, 0, 0, 1.0);
@@ -318,9 +191,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 .yt-body { 
   padding: 14px 16px; border-top: 2px solid var(--ink); 
   background: rgba(255, 0, 0, 0.03);
-
 }
-/* ── YOUTUBE CARD ── */
+
 .yt-thumb {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -344,9 +216,9 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 .inspo-card.yt:hover .yt-thumb::after { transform: translate(-50%, -50%) scale(1.1); }
 
-
 .yt-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 5px; }
 .yt-desc  { font-size: 12px; opacity: .5; line-height: 1.5; }
+
 /* ── MUSIC CARD ── */
 .inspo-card.mu { 
   border-radius: 30px;
@@ -378,7 +250,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 .inspo-card.mu:hover .mu-play { background: rgba(255,255,255,.25); transform: translate(-50%, -50%) scale(1.08); }
 
-
 .mu-desc  { font-size: 12px; opacity: .45; line-height: 1.5; }
 
 /* ── TWEET CARD ── */
@@ -401,8 +272,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 .tweet-body { font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
 .tweet-foot { font-family: var(--font-head); font-size: 10px; opacity: .35; letter-spacing: .06em; text-transform: uppercase; }
 
-
-
 /* ── WRITING CARD ── */
 .inspo-card.writing { 
   padding: 18px 20px; 
@@ -418,8 +287,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 .writing-title { font-family: var(--font-head); font-size: 15px; font-weight: 700; line-height: 1.35; margin-bottom: 6px; border-bottom: 2px solid black;}
 .writing-desc  { font-size: 12px; opacity: .55; line-height: 1.6; }
-
-
 
 /* ── TOOLS CARD ── */
 .inspo-card.tools {
@@ -458,12 +325,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   margin-right: 4px; margin-top: 10px;
 }
 
-
-
-
-
-
-
 /* ── WEBSITE CARD ── */
 .inspo-card.website { padding: 18px 20px; }
 .web-name  { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 5px; }
@@ -478,6 +339,80 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   margin-left: 8px;
 }
 
+/* ── DEEP DIVE CARD ── (now a variant of .inspo-card — declared AFTER so it wins on cascade) */
+.deepdive-card {
+  display: block;
+  padding: 18px 20px 28px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  position: relative;
+  overflow: visible; /* unsets .inspo-card's overflow:hidden so the arrow stays sharp */
+  color: var(--ink);
+
+
+  background:
+    radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+    #f6f3ee;
+
+  background-size: 16px 16px;
+
+  color: #1a1a1a;
+
+
+}
+
+
+.deepdive-card:hover {
+  background:
+    radial-gradient(rgba(0,0,0,0.095) 1px, transparent 1px),
+    #f2eee8;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+}
+
+.deepdive-card[hidden] { display: none; }
+
+.deepdive-label {
+  font-family: var(--font-head);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  opacity: .4; margin-bottom: 6px;
+}
+
+.deepdive-title {
+  font-family: var(--font-head);
+  font-size: 16px; font-weight: 700;
+  letter-spacing: -.2px;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.deepdive-blurb {
+  font-size: 12px; line-height: 1.6;
+  opacity: .55; margin-bottom: 12px;
+}
+
+.deepdive-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.deepdive-tag {
+  font-family: var(--font-head);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: 1.5px solid currentColor;
+  padding: 3px 8px; border-radius: var(--pill);
+  opacity: .5;
+}
+
+.deepdive-card::after {
+  content: '→';
+  position: absolute;
+  bottom: 14px; right: 16px;
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  opacity: .25; transition: .2s;
+}
+.deepdive-card:hover::after { opacity: .7; }
+
 .empty-state {
   padding: 60px 0; text-align: center;
   opacity: .3; font-size: 15px; display: none;
@@ -485,17 +420,11 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 .footer { margin-top: 70px; font-size: 14px; opacity: .4; text-align: center; }
 
-
-
-
-
 @media (max-width: 768px) {
   .inner { margin-right: 30px; }
   .page-title { font-size: 36px; }
   .cat-tabs { grid-template-columns: repeat(2, 1fr); }
 }
-
-
 </style>
 </head>
 <body>
@@ -506,29 +435,33 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
   <div class="page-tag">Things I find interesting</div>
   <h1 class="page-title">Inspo</h1>
-  <p class="page-subtitle">A collection of things worth revisiting — videos, tweets, toolss, writing, and sites I keep coming back to.</p>
+  <p class="page-subtitle">A collection of things worth revisiting — videos, tweets, tools, writing, and sites I keep coming back to.</p>
 
   {% comment %} ─── AUTO-COMPUTE COUNTS FROM REGISTRY ─── {% endcomment %}
   {% assign all_count = 0 %}
   {% for cat in site.data.inspo_categories %}
-    {% assign cat_count = site.data.inspo[cat.key] | size %}
+    {% if cat.key == 'deep-dives' %}
+      {% assign cat_count = site.writing | size %}
+    {% else %}
+      {% assign cat_count = site.data.inspo[cat.key] | size %}
+    {% endif %}
     {% assign all_count = all_count | plus: cat_count %}
   {% endfor %}
-
-  {% comment %} Deep dives — across all writing collection items {% endcomment %}
-  {% assign deep_dives  = site.writing | sort: "date" | reverse %}
-  {% assign dd_count    = deep_dives | size %}
 
   <!-- ── CATEGORY TABS ── -->
   <div class="cat-tabs" id="cat-tabs">
     <button class="cat-tab active" data-cat="all" style="--cat-tint: #f0f0f0">
       <span class="cat-icon">☆</span>
       <div class="cat-name">All</div>
-      <div class="cat-count">{{ all_count | plus: dd_count }} items</div>
+      <div class="cat-count">{{ all_count }} items</div>
     </button>
 
     {% for cat in site.data.inspo_categories %}
-      {% assign cat_count = site.data.inspo[cat.key] | size %}
+      {% if cat.key == 'deep-dives' %}
+        {% assign cat_count = site.writing | size %}
+      {% else %}
+        {% assign cat_count = site.data.inspo[cat.key] | size %}
+      {% endif %}
       <button class="cat-tab" data-cat="{{ cat.key }}" style="--cat-tint: {{ cat.tint }}">
         <span class="cat-icon">{{ cat.icon }}</span>
         <div class="cat-name">{{ cat.label }}</div>
@@ -537,80 +470,35 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     {% endfor %}
   </div>
 
-  <!-- ── DEEP DIVES ── -->
-  {% if dd_count > 0 %}
+  <!-- ── UNIFIED MASONRY ── -->
   <div id="inspo-body">
-    
-    <div class="deepdive-head" id="dd-head">
-      <button class="section-label" id="dd-label-btn">
-        Deep Dives
-      </button>
-      <button class="deepdive-collapse" id="dd-toggle" aria-label="toggle deep dives">
-      
-        <svg class="dd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      
-      </button>
-    </div>
-    
-    <div class="deepdive-grid" id="deepdive-grid">
-
-      {% for d in deep_dives %}
-      <a class="deepdive-card"
-         href="{{ d.url | prepend: site.baseurl }}"
-         data-category="{{ d.category | default: 'writing' }}"
-         data-format="deep-dive"
-         data-tags="{% for t in d.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
-        {% if d.number %}<div class="deepdive-label">Deep Dive #{{ d.number }}</div>{% endif %}
-        <div class="deepdive-title">{{ d.title }}</div>
-        {% if d.blurb %}<div class="deepdive-blurb">{{ d.blurb }}</div>{% endif %}
-        {% if d.tags %}
-        <div class="deepdive-tags">
-          {% for t in d.tags %}<span class="deepdive-tag">{{ t }}</span>{% endfor %}
-        </div>
-        {% endif %}
-      </a>
-      {% endfor %}
-    </div>
-  {% else %}
-  <div id="inspo-body">
-  {% endif %}
-
-    <!-- ── COLLECTED ── -->
-    <div class="section-label" id="col-label">Collected</div>
-
-   <!-- YouTube mixed into masonry -->
-
     <div class="collected-grid" id="collected-grid">
-
-    {% for cat in site.data.inspo_categories %}
-      {% assign items = site.data.inspo[cat.key] %}
-      {% include {{ cat.card_include }}.html items=items %}
-    {% endfor %}
-
+      {% for cat in site.data.inspo_categories %}
+        {% if cat.key == 'deep-dives' %}
+          {% assign items = site.writing | sort: "date" | reverse %}
+        {% else %}
+          {% assign items = site.data.inspo[cat.key] %}
+        {% endif %}
+        {% include {{ cat.card_include }}.html items=items %}
+      {% endfor %}
     </div>
 
     <div class="empty-state" id="empty-state">No items in this view.</div>
-
-  </div> {% comment %} end #inspo-body {% endcomment %}
+  </div>
 
   <div class="footer">Built, coded and written by Saptak</div>
 
 </div>
 
 <script>
-  // ── SORT CAT-TABS BY COUNT ──────────────────────────────────────
+// ── SORT CAT-TABS BY COUNT ──────────────────────────────────────
 (function sortTabs() {
   const container = document.getElementById('cat-tabs');
   const tabs      = [...container.querySelectorAll('.cat-tab')];
 
-  // pull the "All" tab out — it stays first always
   const allTab    = tabs.find(t => t.dataset.cat === 'all');
   const rest      = tabs.filter(t => t.dataset.cat !== 'all');
 
-  // parse the integer out of "12 tracks", "3 videos", etc.
   rest.sort((a, b) => {
     const countA = parseInt(a.querySelector('.cat-count').textContent) || 0;
     const countB = parseInt(b.querySelector('.cat-count').textContent) || 0;
@@ -621,18 +509,13 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     tab.hidden = count === 0;
   });
 
-
-  // re-append in new order
   [allTab, ...rest].forEach(tab => container.appendChild(tab));
 })();
-// ── CATEGORY TABS ─────────────────────────────────────────────────────
+
+// ── CATEGORY FILTER ─────────────────────────────────────────────
 const tabs           = document.querySelectorAll('.cat-tab');
-const deepCards      = document.querySelectorAll('.deepdive-card');
 const collectedCards = document.querySelectorAll('.inspo-card');
 const empty          = document.getElementById('empty-state');
-const ddHead         = document.getElementById('dd-head');
-const colLabel       = document.getElementById('col-label');
-const ddGrid         = document.getElementById('deepdive-grid');
 
 let activeCategory = 'all';
 
@@ -648,14 +531,13 @@ function sortCollectedByDate(){
     return col;
   });
 
-  // only visible cards get bucketed
   let visIdx = 0;
   cards.forEach(card => {
     if (!card.hidden) {
       buckets[visIdx % numCols].appendChild(card);
       visIdx++;
     } else {
-      buckets[0].appendChild(card); // stash hidden cards anywhere
+      buckets[0].appendChild(card);
     }
   });
 
@@ -663,9 +545,7 @@ function sortCollectedByDate(){
   buckets.forEach(b => grid.appendChild(b));
 }
 
-
 function applyInspoFilter() {
-  // active tag from sidebar
   const activeTagBtn  = document.querySelector('.child-tag-btn.active, .standalone-tag-btn.active');
   const activeTag     = activeTagBtn ? activeTagBtn.dataset.tag : null;
   const activeParent  = document.querySelector('.parent-row.active');
@@ -687,30 +567,15 @@ function applyInspoFilter() {
     return activeCategory === 'all' || cardCat === activeCategory;
   }
 
-  // deep dives
-  let deepVisible = 0;
-  deepCards.forEach(card => {
-    const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
-    const show = matchesCategory(card.dataset.category) && matchesTag(cardTags);
-    card.hidden = !show;
-    if (show) deepVisible++;
-  });
-
-  // collected standalones
-  let colVisible = 0;
+  let visible = 0;
   collectedCards.forEach(card => {
     const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
     const show = matchesCategory(card.dataset.category) && matchesTag(cardTags);
     card.hidden = !show;
-    if (show) colVisible++;
+    if (show) visible++;
   });
 
-  // toggle section labels based on visibility
-  if (ddHead)  ddHead.style.display  = deepVisible > 0 ? '' : 'none';
-  if (ddGrid)  ddGrid.style.display  = deepVisible > 0 ? '' : 'none';
-  if (colLabel) colLabel.style.display = colVisible > 0 ? '' : 'none';
-
-  empty.style.display = (deepVisible + colVisible) === 0 ? 'block' : 'none';
+  empty.style.display = visible === 0 ? 'block' : 'none';
 }
 
 // tab click handler
@@ -719,66 +584,18 @@ tabs.forEach(tab => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     activeCategory = tab.dataset.cat;
-    applyInspoFilter();        // filter first
-    sortCollectedByDate();     // then bucket visible cards
+    applyInspoFilter();
+    sortCollectedByDate();
   });
-});
-
-// initial load
-requestAnimationFrame(() => {
-  applyDeepState();
-  applyInspoFilter();          // filter first
-  sortCollectedByDate();       // then bucket
 });
 
 // expose for tags.html to call
 window.applyInspoFilter = applyInspoFilter;
 
-const ddToggle=document.getElementById('dd-toggle');
-const ddLabelBtn=
- document.getElementById('dd-label-btn');
-let deepCollapsed=
- localStorage.getItem('deep-collapsed')==='true';
-
-function applyDeepState(){
- if(!ddGrid||!ddToggle) return;
-
- ddGrid.classList.toggle(
-   'collapsed',
-   deepCollapsed
- );
- 
- const chevron =
-    ddToggle.querySelector('.dd-chevron');
-
-  if (chevron) {
-    chevron.classList.toggle(
-      'collapsed',
-      deepCollapsed
-    );
-  }
-}
-if(ddLabelBtn){
- ddLabelBtn.addEventListener('click',()=>{
-   ddToggle.click();
- });
-}
-if(ddToggle){
- ddToggle.addEventListener('click',()=>{
-   deepCollapsed=!deepCollapsed;
-   localStorage.setItem(
-     'deep-collapsed',
-     deepCollapsed
-   );
-   applyDeepState();
- });
-}
-
-// Defer sort + filter until after first paint — content visible faster
+// initial load — defer until after first paint
 requestAnimationFrame(() => {
-  sortCollectedByDate();
-  applyDeepState();
   applyInspoFilter();
+  sortCollectedByDate();
 });
 </script>
 

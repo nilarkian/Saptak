@@ -1,0 +1,16 @@
+{% for d in items %}
+<a class="inspo-card deepdive-card"
+   href="{{ d.url | prepend: site.baseurl }}"
+   data-category="deep-dives"
+   data-date="{{ d.date | date: '%Y-%m-%d' }}"
+   data-tags="{% for t in d.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+  {% if d.number %}<div class="deepdive-label">Deep Dive #{{ d.number }}</div>{% endif %}
+  <div class="deepdive-title">{{ d.title }}</div>
+  {% if d.blurb %}<div class="deepdive-blurb">{{ d.blurb }}</div>{% endif %}
+  {% if d.tags %}
+  <div class="deepdive-tags">
+    {% for t in d.tags %}<span class="deepdive-tag">{{ t }}</span>{% endfor %}
+  </div>
+  {% endif %}
+</a>
+{% endfor %}

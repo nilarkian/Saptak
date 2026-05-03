@@ -1,12 +1,16 @@
 <style>
+  
 /* ── LEFT SIDEBAR ── */
 .sidebar{
   position:fixed;
   top:0;left:0;
-  width:190px;
+  width:200px;
+  min-width:160px;
+  max-width:350px;
   height:100vh;
   background:#efefef;
   border-right:1px solid #ddd;
+  overflow-x:hidden;
   overflow-y:auto;
   display:flex;
   flex-direction:column;
@@ -14,7 +18,7 @@
   z-index:10;
 }
 
-.sidebar.collapsed{ width:44px; }
+.sidebar.collapsed{ width:44px !important; min-width:0 !important; overflow:hidden !important; }
 
 /* inner content — hides when collapsed */
 .sidebar-inner{
@@ -22,18 +26,22 @@
   display:flex;
   flex-direction:column;
   gap:28px;
-  overflow:hidden;
   flex:1;
-  min-width:200px; /* prevents content reflow during transition */
+  width:100%;
+  min-width:0;
+  transition:opacity .2s ease;
 }
 
-.sidebar.collapsed .sidebar-inner{ opacity:0; pointer-events:none; }
+.sidebar.collapsed .sidebar-inner{
+  opacity:0;
+  pointer-events:none;
+}
 
-/* collapse toggle — fixed, straddling the right border at top */
+/* collapse toggle */
 .toc-toggle-btn{
   position:fixed;
   top:20px;
-  left:190px;
+  left:200px;
   transform:translateX(-50%);
   width:22px;
   height:22px;
@@ -50,7 +58,6 @@
   z-index:20;
 }
 .toc-toggle-btn:hover{ border-color:#111; color:#111; }
-body.toc-collapsed .toc-toggle-btn{ left:44px; }
 
 .sidebar .back{
   font-size:13px;
@@ -63,6 +70,7 @@ body.toc-collapsed .toc-toggle-btn{ left:44px; }
   width:fit-content;
   text-decoration:none;
   color:#111;
+  white-space:nowrap;
 }
 .sidebar .back:hover{ background:#111; color:#f7f7f7; }
 
@@ -72,6 +80,7 @@ body.toc-collapsed .toc-toggle-btn{ left:44px; }
   letter-spacing:.14em;
   text-transform:uppercase;
   opacity:.4;
+  white-space:nowrap;
 }
 
 .toc{
@@ -91,6 +100,7 @@ body.toc-collapsed .toc-toggle-btn{ left:44px; }
   transition:.15s;
   border-left:2px solid transparent;
   text-decoration:none;
+  overflow-wrap:anywhere;
 }
 .toc li a:hover{ background:rgba(0,0,0,.06); color:#111; }
 .toc li a.active{
@@ -130,73 +140,84 @@ body.toc-collapsed .toc-toggle-btn{ left:44px; }
     document.body.classList.toggle('toc-collapsed', collapsed);
   }
 
+  function syncMainMargin() {
+    const main = document.querySelector('.main');
+    const expandedW = window._tocExpandedWidth || 200;
+    const w = collapsed ? 44 : expandedW;
+    sidebar.style.width = w + 'px';
+    if (main) main.style.marginLeft = w + 'px';
+    toggleBtn.style.left = w + 'px';
+  }
+
   toggleBtn.addEventListener('click', () => {
     collapsed = !collapsed;
     localStorage.setItem(TOC_KEY, collapsed);
     applyTocState();
+    syncMainMargin();
   });
 
+  window.syncMainMargin = syncMainMargin;
   applyTocState();
+  syncMainMargin();
 })();
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
 
-const toc=document.getElementById('toc');
-const headings=[
- ...document.querySelectorAll(
- '.article-body h1, .article-body h2, .article-body h3'
- )
-];
+  const toc      = document.getElementById('toc');
+  const sidebar  = document.getElementById('toc-sidebar');
+  const headings = [...document.querySelectorAll('.article-body h1, .article-body h2, .article-body h3')];
 
-if(!headings.length) return;
+  if (!headings.length) return;
 
-headings.forEach((h,i)=>{
+  // build TOC
+  headings.forEach((h, i) => {
+    if (!h.id) h.id = 'section-' + (i + 1);
 
- if(!h.id){
-   h.id='section-'+(i+1);
- }
+    const li = document.createElement('li');
+    if (h.tagName === 'H2') li.style.paddingLeft = '7px';
+    if (h.tagName === 'H3') li.style.paddingLeft = '14px';
+    li.innerHTML = `<a href="#${h.id}">${h.textContent}</a>`;
+    toc.appendChild(li);
+  });
 
- const li=document.createElement('li');
- if(h.tagName==='H2'){
-   li.style.paddingLeft='7px';
- }
- if(h.tagName==='H3'){
-   li.style.paddingLeft='14px';
- }
+  // measure after fonts load so scrollWidth is accurate
+  document.fonts.ready.then(function () {
+    let maxW = 0;
+    toc.querySelectorAll('a').forEach(a => {
 
- li.innerHTML=
- `<a href="#${h.id}">
-   ${h.textContent}
- </a>`;
+      const prev = a.style.whiteSpace;
+      a.style.whiteSpace = 'nowrap';
+      maxW = Math.max(maxW, a.scrollWidth);
+      a.style.whiteSpace = prev;
 
- toc.appendChild(li);
 
-});
+    });
+    // 80px = sidebar-inner left+right padding (40px each)
+    const sidebarW = Math.min(350, Math.max(160, maxW + 80));
+    window._tocExpandedWidth = sidebarW;
 
-const links=[
- ...toc.querySelectorAll('a')
-];
+    // only apply if not collapsed — never stomp the collapsed state
+    if (!sidebar.classList.contains('collapsed')) {
+      sidebar.style.width = sidebarW + 'px';
+    }
 
-window.addEventListener('scroll',()=>{
+    if (typeof window.syncMainMargin === 'function') window.syncMainMargin();
+  });
 
- let current='';
+  // scroll highlight
+  const links = [...toc.querySelectorAll('a')];
 
- headings.forEach(h=>{
-   if(h.getBoundingClientRect().top<140){
-      current=h.id;
-   }
- });
-
- links.forEach(a=>{
-   a.classList.toggle(
-     'active',
-     a.getAttribute('href')==='#'+current
-   );
- });
-
-});
+  window.addEventListener('scroll', () => {
+    let current = '';
+    headings.forEach(h => {
+      if (h.getBoundingClientRect().top < 140) current = h.id;
+    });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
 
 });
 </script>

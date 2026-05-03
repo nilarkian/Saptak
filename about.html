@@ -1,0 +1,107 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
+<h1 class="about-hero">I build things,<br>then write about them.</h1>
+
+<p class="about-lede">
+  Full Stack AI Developer based in Kolkata. I spend most of my time writing Python, TypeScript, and SQL — and thinking about markets, systems, and how things actually work underneath the surface.
+</p>
+
+<p class="about-body">
+  This blog is where I put everything that doesn't fit anywhere else — project write-ups, technical notes, things I found interesting, and the occasional thought I couldn't stop thinking about.
+</p>
+
+<dl class="about-meta">
+  <div class="about-row">
+    <dt>you'll find</dt>
+    <dd>project notes · technical write-ups · things I like · misc thoughts</dd>
+  </div>
+  <div class="about-row">
+    <dt>stack</dt>
+    <dd>Python · TypeScript · Vim · Linux</dd>
+  </div>
+  <div class="about-row">
+    <dt>elsewhere</dt>
+    <dd><a href="https://github.com/nilarkian">github.com/nilarkian</a> ↗</dd>
+  </div>
+</dl>
+
+{% include connect.html %}
+
+<style>
+.about-hero {
+  font-family: var(--font-head);
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin: 0 0 44px;
+}
+
+.about-lede {
+  font-size: 22px;
+  line-height: 1.55;
+  margin: 0 0 28px;
+  max-width: 680px;
+}
+
+.about-body {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0 0 64px;
+  max-width: 680px;
+  opacity: .75;
+}
+
+.about-meta {
+  margin: 0 0 80px;
+  padding: 36px 0 12px;
+  border-top: 1px solid var(--border);
+}
+
+.about-row {
+  display: flex;
+  gap: 28px;
+  padding: 14px 0;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.about-row dt {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .45;
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.about-row dd {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.about-row dd a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  transition: .2s;
+}
+
+.about-row dd a:hover { opacity: .55; }
+
+@media (max-width: 600px) {
+  .about-hero { font-size: 38px; letter-spacing: -1px; }
+  .about-hero br { display: none; }
+  .about-lede { font-size: 19px; }
+  .about-body { font-size: 16px; }
+  .about-row { gap: 6px; }
+  .about-row dt { min-width: 0; }
+}
+</style>
