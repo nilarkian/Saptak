@@ -1,11 +1,12 @@
 ---
-layout: note
+layout: note-layout
 title: "SPINTRONICS: The Trillion-Dollar Bet Hidden Inside Your RAM Chip"
 topic: The Future 💰
 date: 2026-02-03
 tags:
   - hardware
 hillPos: 90
+is_note: true
 ---
 
 

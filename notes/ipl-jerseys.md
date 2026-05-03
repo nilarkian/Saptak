@@ -1,5 +1,5 @@
 ---
-layout: note
+layout: note-layout
 title: 'The Future of IPL Jerseys: Arbitraging the "Digital Skin"'
 topic: The Future 💰
 date: 2026-04-02
@@ -10,6 +10,7 @@ tags:
   - AI
   - AR
 hillPos: 90
+is_note: true
 ---
 
 

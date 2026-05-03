@@ -1,5 +1,5 @@
 ---
-layout: note
+layout: note-layout
 title: "Manufacturers Puzzle: The Need to Constantly Predict Market Demand & The Temu Story"
 date: 2025-01-01
 permalink: /notes/puzzle.html
@@ -7,6 +7,7 @@ tags:
   - manufacturing
   - prediction
 hillPos: 90
+is_note: true
 ---
 
 Why does a air fryer cost 3000/-?

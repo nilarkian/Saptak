@@ -327,7 +327,11 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 
 /* ── WEBSITE CARD ── */
-.inspo-card.website { padding: 18px 20px; }
+.inspo-card.website { 
+  padding: 18px 20px; 
+  border: 1px solid #0000ee;
+  background-color: rgba(85, 26, 139, 0.03);
+}
 .web-name  { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 5px; }
 .web-desc  { font-size: 12px; opacity: .55; line-height: 1.6; }
 
@@ -344,17 +348,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 /* ── DEEP DIVE CARD ── (now a variant of .inspo-card — declared AFTER so it wins on cascade) */
 .deepdive-card {
+  background-image: radial-gradient(circle, rgba(0,0,0,.04) 1px, transparent 2px);
   
-  background:
-    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.04) 1px, transparent 1px),
-    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.03) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.06) 1px, transparent 1px),
-    #f3f3f3;
-
-  background-size:
-    var(--grain) var(--grain),
-    calc(var(--grain) * 1.25) calc(var(--grain) * 1.25),
-    calc(var(--grain) * 1.5) calc(var(--grain) * 1.5);
   
   display: block;
   padding: 18px 20px 28px;

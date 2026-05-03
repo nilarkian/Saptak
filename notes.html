@@ -112,7 +112,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   <a class="back" href="{{ site.baseurl }}/">← Home</a>
   <h1 class="page-title">Notes</h1>
 
-  {% assign all_notes = site.pages | where_exp: "p", "p.layout == 'note'" | sort: "date" | reverse %}
+  {% assign all_notes = site.pages | where_exp: "p", "p.is_note" | sort: "date" | reverse %}
   {% assign topics    = all_notes | map: "topic" | compact | uniq | sort %}
 
   <!-- TOPIC FILTER BAR -->
@@ -128,15 +128,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   <div class="note-count" id="note-count"></div>
 
   <!-- NOTE LIST -->
-    <!-- NOTE LIST -->
     <div class="note-list" id="note-list">
-      <a class="note-row" href="{{ site.baseurl }}/notes/signposts/" data-cat="the-future-">
-        <div class="note-row-inner">
-          <span class="note-row-title">How to Use Signposts in Your Writing</span>
-          <span class="note-row-meta">April 2026</span>
-        </div>
-        <span class="note-row-arrow">→</span>
-      </a>
     {% for note in all_notes %}
     <a class="note-row"
        href="{{ note.url | prepend: site.baseurl }}"

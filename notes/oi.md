@@ -1,11 +1,12 @@
 ---
-layout: note
+layout: note-layout
 title: "Organoid Intelligence: Computing with Grown Brains"
 topic: The Future 💰
 date: 2026-02-07
 tags:
   - tech
 hillPos: 90
+is_note: true
 ---
 
 

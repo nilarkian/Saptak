@@ -1,0 +1,1529 @@
+---
+layout: blank
+permalink: /notes/feyn/
+title: "Practicing Feynman Technique"
+date: 2026-03-19
+tags: [learning, playbook]
+is_note: true
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feynman's Pedagogy Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:    #f7f4ee;
+    --paper-alt:#edeae0;
+    --paper-dark:#e4e0d4;
+    --ink:      #1c1a14;
+    --ink-soft: #3d3a2e;
+    --muted:    #7a7460;
+    --border:   #ccc9b8;
+    --amber:    #c8860a;
+    --amber-lt: #fef3dc;
+    --amber-mid:#fde8a8;
+    --red:      #b83c2a;
+    --red-lt:   #fdf0ee;
+    --green:    #2a6639;
+    --green-lt: #eaf4ed;
+    --blue:     #1e4478;
+    --blue-lt:  #e8eef8;
+    --chalk:    #ffffff;
+    --board:    #1a1f1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .hero {
+    background: var(--board);
+    color: var(--chalk);
+    padding: 90px 48px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* chalk texture overlay */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.008) 40px, rgba(255,255,255,0.008) 41px);
+    pointer-events: none;
+  }
+
+  /* decorative circle */
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -80px; bottom: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,134,10,0.2);
+  }
+
+  /* ← Notes back button */
+  .back-btn {
+    position: absolute;
+    top: 24px; left: 32px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--chalk);
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    transition: background 0.2s;
+    font-family: 'DM Mono', monospace;
+    z-index: 10;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.12); }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 5.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.08;
+    max-width: 820px;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .hero-sub {
+    max-width: 600px;
+    color: rgba(247,244,238,0.65);
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(247,244,238,0.7);
+  }
+  .hero-pill.gold {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  /* ══════════════════════════════════════
+     NAV
+  ══════════════════════════════════════ */
+  .toc-bar {
+    background: var(--ink);
+    padding: 0 48px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .toc-bar::-webkit-scrollbar { display: none; }
+  .toc-bar a {
+    display: block;
+    padding: 13px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247,244,238,0.55);
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: 'DM Mono', monospace;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    transition: color 0.15s;
+  }
+  .toc-bar a:hover { color: var(--amber); }
+  .toc-bar .divider-dot {
+    color: rgba(200,134,10,0.5);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 18px;
+  }
+
+  /* ══════════════════════════════════════
+     LAYOUT
+  ══════════════════════════════════════ */
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .section {
+    padding: 64px 0 52px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  .lead {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 36px;
+  }
+
+  /* ══════════════════════════════════════
+     PHILOSOPHY BULLETS (intro)
+  ══════════════════════════════════════ */
+  .phil-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+  @media (max-width: 680px) { .phil-grid { grid-template-columns: 1fr; } }
+
+  .phil-card {
+    background: var(--paper);
+    padding: 28px 26px;
+  }
+  .phil-card-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .phil-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .phil-card p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .phil-card strong { color: var(--ink); }
+
+  /* ══════════════════════════════════════
+     DAILY HABITS CARDS
+  ══════════════════════════════════════ */
+  .habits-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .habit-card {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+    transition: box-shadow 0.2s;
+  }
+  .habit-card:hover { box-shadow: 4px 4px 0 var(--amber-mid); border-color: var(--amber); }
+
+  .habit-num {
+    background: var(--ink);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 28px;
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+
+  .habit-body { padding: 24px 28px; }
+
+  .habit-body h3 {
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+  .habit-context {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .habit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  @media (max-width: 600px) { .habit-row { grid-template-columns: 1fr; } }
+
+  .habit-tag {
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .habit-tag.do {
+    background: var(--green-lt);
+    border-left: 3px solid var(--green);
+  }
+  .habit-tag.rule {
+    background: var(--amber-lt);
+    border-left: 3px solid var(--amber);
+  }
+  .habit-tag .tag-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .habit-tag.do .tag-label { color: var(--green); }
+  .habit-tag.rule .tag-label { color: var(--amber); }
+
+  /* ══════════════════════════════════════
+     TRAINING DRILLS
+  ══════════════════════════════════════ */
+  .drills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .drill-card {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .drill-header {
+    background: var(--paper-alt);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .drill-badge {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--amber);
+    flex-shrink: 0;
+  }
+  .drill-header h3 { font-size: 15px; margin: 0; }
+  .drill-header .drill-sub {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .drill-steps {
+    list-style: none;
+    padding: 16px 20px;
+  }
+  .drill-steps li {
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--paper-alt);
+    font-size: 14px;
+    line-height: 1.55;
+    align-items: flex-start;
+  }
+  .drill-steps li:last-child { border-bottom: none; }
+
+  .step-num {
+    background: var(--ink);
+    color: var(--chalk);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    min-width: 22px; height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .drill-result {
+    background: var(--blue-lt);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    font-size: 13px;
+    color: var(--blue);
+    font-weight: 500;
+  }
+  .drill-result::before { content: '→ '; font-weight: 700; }
+
+  /* ══════════════════════════════════════
+     SCORECARD
+  ══════════════════════════════════════ */
+  .scorecard {
+    margin-top: 32px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .scorecard-header {
+    background: var(--ink);
+    color: var(--chalk);
+    padding: 14px 24px;
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247,244,238,0.5);
+  }
+
+  .scorecard-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+    background: white;
+    transition: background 0.15s;
+  }
+  .scorecard-row:last-child { border-bottom: none; }
+  .scorecard-row:hover { background: var(--paper); }
+
+  .scorecard-row.mastery {
+    background: var(--board);
+    color: var(--chalk);
+  }
+  .scorecard-row.mastery:hover { background: #222720; }
+
+  .level-badge {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .scorecard-row.mastery .level-badge { color: var(--amber); }
+
+  .scorecard-indicator { font-size: 15px; font-weight: 600; }
+  .scorecard-verify { font-size: 14px; color: var(--muted); }
+  .scorecard-row.mastery .scorecard-verify { color: rgba(247,244,238,0.6); }
+  .scorecard-row.mastery .scorecard-indicator { color: var(--chalk); }
+
+  /* ══════════════════════════════════════
+     FINAL PROTOCOL CALLOUT
+  ══════════════════════════════════════ */
+  .final-protocol {
+    margin-top: 36px;
+    background: var(--amber-lt);
+    border: 1.5px solid var(--amber-mid);
+    border-left: 5px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    padding: 24px 28px;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 780px;
+  }
+  .final-protocol strong { color: var(--amber); }
+  .final-protocol .fp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ══════════════════════════════════════
+     DEEP DIVE SEPARATOR
+  ══════════════════════════════════════ */
+  .deep-divider {
+    background: var(--ink);
+    color: var(--chalk);
+    padding: 40px 48px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .deep-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
+  .deep-divider-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: rgba(247,244,238,0.6);
+    white-space: nowrap;
+  }
+  .deep-divider-icon { font-size: 22px; }
+
+  /* ══════════════════════════════════════
+     ESSAY SECTIONS
+  ══════════════════════════════════════ */
+  .essay-section {
+    padding: 56px 0 44px;
+    border-bottom: 1px solid var(--border);
+  }
+  .essay-section:last-child { border-bottom: none; }
+
+  .essay-body {
+    max-width: 720px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .essay-body p { margin-bottom: 18px; }
+  .essay-body strong { color: var(--ink); font-weight: 600; }
+  .essay-body em { color: var(--ink-soft); font-style: italic; }
+
+  /* pull-quote */
+  .pull-quote {
+    border-left: 4px solid var(--amber);
+    margin: 32px 0;
+    padding: 20px 28px;
+    background: var(--amber-lt);
+    border-radius: 0 6px 6px 0;
+  }
+  .pull-quote p {
+    font-family: 'Lora', serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  /* ══════════════════════════════════════
+     CASE STUDY BLOCK
+  ══════════════════════════════════════ */
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  @media (max-width: 700px) { .case-grid { grid-template-columns: 1fr; } }
+
+  .case-card {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    background: white;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .case-card .cc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .case-card strong { color: var(--ink); display: block; margin-bottom: 4px; font-size: 14px; }
+
+  /* ══════════════════════════════════════
+     5 EXPANDED DRILLS
+  ══════════════════════════════════════ */
+  .expanded-drills {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .exp-drill {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .exp-drill-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--paper-alt);
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-drill-num {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--amber);
+    flex-shrink: 0;
+    width: 28px;
+  }
+  .exp-drill-header h3 { font-size: 16px; margin: 0; }
+  .exp-drill-freq {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--amber);
+    padding: 3px 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .exp-drill-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0;
+  }
+  @media (max-width: 640px) { .exp-drill-body { grid-template-columns: 1fr; } }
+
+  .exp-drill-steps {
+    padding: 16px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .exp-drill-steps ul {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .exp-drill-steps li {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--paper-alt);
+    align-items: flex-start;
+  }
+  .exp-drill-steps li:last-child { border-bottom: none; }
+  .exp-drill-steps li::before {
+    content: '—';
+    color: var(--amber);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .exp-drill-outcome {
+    padding: 16px 20px;
+    min-width: 220px;
+    max-width: 260px;
+    background: var(--green-lt);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (max-width: 640px) {
+    .exp-drill-outcome { max-width: 100%; min-width: 0; border-top: 1px solid var(--border); }
+  }
+  .exp-drill-outcome .outcome-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .exp-drill-outcome p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--green);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* ══════════════════════════════════════
+     CARGO CULT / INTEGRITY BLOCK
+  ══════════════════════════════════════ */
+  .integrity-block {
+    background: var(--board);
+    color: var(--chalk);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .integrity-block::before {
+    content: '✈';
+    position: absolute;
+    right: 32px; top: 20px;
+    font-size: 72px;
+    opacity: 0.07;
+  }
+  .integrity-block h3 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    color: var(--amber);
+    margin-bottom: 12px;
+  }
+  .integrity-block .ib-sub {
+    color: rgba(247,244,238,0.6);
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .integrity-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 600px) { .integrity-list { grid-template-columns: 1fr; } }
+  .integrity-list li {
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--amber);
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(247,244,238,0.85);
+    border-radius: 0 4px 4px 0;
+  }
+  .integrity-list li strong { color: var(--chalk); display: block; margin-bottom: 2px; }
+
+  /* ══════════════════════════════════════
+     PSYCHOLOGY POINTS
+  ══════════════════════════════════════ */
+  .psych-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  @media (max-width: 700px) { .psych-grid { grid-template-columns: 1fr; } }
+
+  .psych-card {
+    background: var(--red-lt);
+    border: 1.5px solid #e8c4be;
+    border-radius: 6px;
+    padding: 18px 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .psych-card .pc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 700;
+  }
+  .psych-card strong { color: var(--ink); display: block; margin-bottom: 4px; font-size: 14px; }
+
+  /* ══════════════════════════════════════
+     READING PROTOCOL
+  ══════════════════════════════════════ */
+  .reading-protocol {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 28px 0;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .rp-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border-bottom: 1px solid var(--border);
+    background: white;
+  }
+  .rp-step:last-child { border-bottom: none; }
+  .rp-step:nth-child(even) { background: var(--paper); }
+
+  .rp-num {
+    background: var(--ink);
+    color: var(--amber);
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .rp-body {
+    padding: 16px 22px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .rp-body strong { color: var(--ink); }
+  .rp-body span { color: var(--muted); font-size: 13px; display: block; margin-top: 4px; }
+
+  /* ══════════════════════════════════════
+     CONCLUSION
+  ══════════════════════════════════════ */
+  .conclusion-box {
+    background: var(--paper-alt);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin-top: 32px;
+    position: relative;
+  }
+  .conclusion-box::before {
+    content: '"';
+    position: absolute;
+    top: -12px; left: 32px;
+    font-family: 'Lora', serif;
+    font-size: 80px;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .conclusion-box p {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    line-height: 1.75;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 16px;
+    margin-top: 20px;
+  }
+  .conclusion-box .c-final {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .conclusion-box strong { color: var(--amber); font-style: normal; }
+
+  /* ══════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════ */
+  .doc-footer {
+    background: var(--ink);
+    color: rgba(247,244,238,0.4);
+    padding: 36px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .doc-footer strong { color: var(--amber); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<div class="hero">
+
+  <a href="{{ site.baseurl }}/notes.html" class="back-btn"
+     onmouseover="this.style.background='rgba(255,255,255,0.12)'"
+     onmouseout="this.style.background='transparent'">
+    ← Notes
+  </a>
+
+  <div class="hero-eyebrow">🧰 Playbook</div>
+
+  <h1>Practicing <em>Feynman</em><br>Technique</h1>
+
+  <p class="hero-sub">If you can't explain it simply, you don't understand it yet. This playbook operationalizes Feynman's architecture — from daily habits to first-principles drills — so understanding becomes a practice, not an accident.</p>
+
+  <div class="hero-pills">
+    <span class="hero-pill gold">3 Daily Habits</span>
+    <span class="hero-pill gold">3 Training Drills</span>
+    <span class="hero-pill gold">5 Deep Drills</span>
+    <span class="hero-pill">Complexity Scorecard</span>
+    <span class="hero-pill">Reading Protocol</span>
+    <span class="hero-pill">Cargo Cult Audit</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav class="toc-bar">
+  <a href="#philosophy">Philosophy</a>
+  <a href="#habits">Daily Habits</a>
+  <a href="#drills">Training Drills</a>
+  <a href="#scorecard">Scorecard</a>
+  <a href="#deep-foundations">Foundations</a>
+  <a href="#caltech">Caltech Case</a>
+  <a href="#deep-drills">Deep Drills</a>
+  <a href="#integrity">Integrity</a>
+  <a href="#psychology">Psychology</a>
+  <a href="#reading">Reading Method</a>
+  <a href="#conclusion">Conclusion</a>
+</nav>
+
+<!-- ══════════════════════════════════════
+     PHILOSOPHY
+══════════════════════════════════════ -->
+<section class="section" id="philosophy">
+<div class="wrapper">
+  <div class="section-label">00 — Core Principles</div>
+  <h2>The 3 pillars Feynman built everything on.</h2>
+  <p class="lead">Before the habits, before the drills — understand <em>why</em> this system works. It starts with a single conviction: understanding is a functional state, not a storage state.</p>
+
+  <div class="phil-grid">
+    <div class="phil-card">
+      <span class="phil-card-icon">🧒</span>
+      <div class="phil-card-label">How It Works</div>
+      <p>Explain a topic in plain language — as if teaching a child. When you hit a bottleneck and reach for jargon, you've <strong>found a gap in your own knowledge</strong>. That gap is the lesson.</p>
+    </div>
+    <div class="phil-card">
+      <span class="phil-card-icon">🎯</span>
+      <div class="phil-card-label">The Goal</div>
+      <p>Strip away the <strong>"intellectual armor"</strong> of a subject until only the core logic remains. Jargon is not mastery — it is the costume mastery wears when it isn't ready to be seen.</p>
+    </div>
+    <div class="phil-card">
+      <span class="phil-card-icon">🏗️</span>
+      <div class="phil-card-label">Ground-Up Logic</div>
+      <p>Start with the most basic, undeniable facts. Build toward complexity. This ensures the <strong>"mental architecture"</strong> of the learner is structurally sound — not a house of cards.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DAILY HABITS
+══════════════════════════════════════ -->
+<section class="section" id="habits">
+<div class="wrapper">
+  <div class="section-label">01 — Section 1</div>
+  <h2>🛠️ The Daily Habits</h2>
+  <p class="lead">Low-friction, high-yield behaviors. These integrate into your workflow — not added on top of it. The rule: if it takes more than 5 minutes to set up, it won't stick.</p>
+
+  <div class="habits-stack">
+
+    <!-- Habit 1 -->
+    <div class="habit-card">
+      <div class="habit-num">1</div>
+      <div class="habit-body">
+        <h3>The "Toddler Test" — Immediate Synthesis</h3>
+        <p class="habit-context">Trigger: whenever you finish reading a complex paper, brief, or technical doc</p>
+        <div class="habit-row">
+          <div class="habit-tag do">
+            <span class="tag-label">The Habit</span>
+            Summarize what you just learned in <strong>three sentences</strong>. Imagine a curious 8-year-old just walked in.
+          </div>
+          <div class="habit-tag rule">
+            <span class="tag-label">The Rule</span>
+            No words with more than <strong>three syllables</strong>. If you can't do it, you don't own the information — you're just <em>renting</em> it.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Habit 2 -->
+    <div class="habit-card">
+      <div class="habit-num">2</div>
+      <div class="habit-body">
+        <h3>The Jargon Audit</h3>
+        <p class="habit-context">Feynman believed jargon was a way to hide a lack of understanding.</p>
+        <div class="habit-row">
+          <div class="habit-tag do">
+            <span class="tag-label">The Habit</span>
+            Review your notes or daily logs. <strong>Circle every buzzword</strong> or technical term you used.
+          </div>
+          <div class="habit-tag rule">
+            <span class="tag-label">The Rule</span>
+            For every circled word, write a plain-English definition. If your definition uses <em>another</em> jargon word, keep digging until you hit a physical or logical fundamental.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Habit 3 -->
+    <div class="habit-card">
+      <div class="habit-num">3</div>
+      <div class="habit-body">
+        <h3>The "Why" Chain — First Principles</h3>
+        <p class="habit-context">"That's just how it works" is never an acceptable answer.</p>
+        <div class="habit-row">
+          <div class="habit-tag do">
+            <span class="tag-label">The Habit</span>
+            When encountering a new rule or formula, <strong>ask "Why?" five times</strong>. Each answer becomes the premise for the next question.
+          </div>
+          <div class="habit-tag rule">
+            <span class="tag-label">The Rule</span>
+            Trace the concept back to its origin. A financial trend → human psychology. A physical law → energy conservation. <strong>Always bottom out at a fundamental.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TRAINING DRILLS
+══════════════════════════════════════ -->
+<section class="section" id="drills">
+<div class="wrapper">
+  <div class="section-label">02 — Section 2</div>
+  <h2>⚡ The Training Drills</h2>
+  <p class="lead">High-intensity mental exercises for tackling a <em>new, complex domain</em>. These are not daily — they're deployed when you need to actually break something open.</p>
+
+  <div class="drills-grid">
+
+    <!-- Drill A -->
+    <div class="drill-card">
+      <div class="drill-header">
+        <div class="drill-badge">A</div>
+        <div>
+          <h3>The Blank Sheet Protocol</h3>
+          <span class="drill-sub">The "Gold Standard" of the Feynman Technique</span>
+        </div>
+      </div>
+      <ol class="drill-steps">
+        <li><span class="step-num">1</span><span>Take a blank sheet. Write the concept name at the top. Nothing else yet.</span></li>
+        <li><span class="step-num">2</span><span>Explain the concept from scratch — as if <strong>you discovered it</strong>. Draw how the parts interact.</span></li>
+        <li><span class="step-num">3</span><span>When you get stuck (you will), go back to the source material. Fill the gap precisely.</span></li>
+        <li><span class="step-num">4</span><span>Repeat until the sheet is a cohesive, simple narrative. A child could follow it.</span></li>
+      </ol>
+      <div class="drill-result">Forces the difference between recognition and recall</div>
+    </div>
+
+    <!-- Drill B -->
+    <div class="drill-card">
+      <div class="drill-header">
+        <div class="drill-badge">B</div>
+        <div>
+          <h3>The Analogy Stress-Test</h3>
+          <span class="drill-sub">Visualization is the bridge between math and intuition</span>
+        </div>
+      </div>
+      <ol class="drill-steps">
+        <li><span class="step-num">1</span><span><strong>Identify:</strong> Pick an abstract concept — e.g., "Market Liquidity" or "Stochastic Resonance".</span></li>
+        <li><span class="step-num">2</span><span><strong>Construct:</strong> Create a physical analogy. E.g., "Liquidity is like a crowded room with many exit doors."</span></li>
+        <li><span class="step-num">3</span><span><strong>Stress-Test:</strong> Where does the analogy break? Does it account for volatility? For time?</span></li>
+        <li><span class="step-num">4</span><span><strong>Result:</strong> Where an analogy <em>fails</em> is exactly where the deepest learning happens.</span></li>
+      </ol>
+      <div class="drill-result">Analogy failure = knowledge boundary located</div>
+    </div>
+
+    <!-- Drill C -->
+    <div class="drill-card">
+      <div class="drill-header">
+        <div class="drill-badge">C</div>
+        <div>
+          <h3>The "Interleaving" Sprint</h3>
+          <span class="drill-sub">Feynman kept several "favorite problems" live at once</span>
+        </div>
+      </div>
+      <ol class="drill-steps">
+        <li><span class="step-num">1</span><span><strong>Setup:</strong> Spend 20 minutes on a technical task — debugging, data modeling, writing.</span></li>
+        <li><span class="step-num">2</span><span><strong>The Pivot:</strong> Immediately switch to a completely unrelated domain — evolution, history, music.</span></li>
+        <li><span class="step-num">3</span><span><strong>The Synthesis:</strong> Find <strong>one</strong> structural similarity between the two. This builds cross-domain fluency.</span></li>
+      </ol>
+      <div class="drill-result">Builds "cross-domain fluency" — Feynman's actual superpower</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCORECARD
+══════════════════════════════════════ -->
+<section class="section" id="scorecard">
+<div class="wrapper">
+  <div class="section-label">03 — Diagnostic</div>
+  <h2>📊 The "Complexity vs. Clarity" Scorecard</h2>
+  <p class="lead">Use this to grade your understanding of any new topic. Most people live at Level 2 and confuse it for mastery. They're wrong.</p>
+
+  <div class="scorecard">
+    <div class="scorecard-header">
+      <span>Level</span>
+      <span>What You Can Do</span>
+      <span>How to Verify</span>
+    </div>
+    <div class="scorecard-row">
+      <span class="level-badge">Level 1</span>
+      <span class="scorecard-indicator">You know the name of the thing.</span>
+      <span class="scorecard-verify">You can find it in a dictionary.</span>
+    </div>
+    <div class="scorecard-row">
+      <span class="level-badge">Level 2</span>
+      <span class="scorecard-indicator">You can use the jargon correctly.</span>
+      <span class="scorecard-verify">You can pass a multiple-choice test.</span>
+    </div>
+    <div class="scorecard-row">
+      <span class="level-badge">Level 3</span>
+      <span class="scorecard-indicator">You can explain the "Why."</span>
+      <span class="scorecard-verify">You can derive the logic from first principles.</span>
+    </div>
+    <div class="scorecard-row mastery">
+      <span class="level-badge">Level 4 ★</span>
+      <span class="scorecard-indicator">Feynman Mastery.</span>
+      <span class="scorecard-verify">You can explain it to a child using a kitchen analogy.</span>
+    </div>
+  </div>
+
+  <div class="final-protocol">
+    <span class="fp-label">⚑ Final Protocol — Intellectual Humility</span>
+    Feynman's greatest habit was <strong>not being afraid to look stupid</strong> by asking "dumb" questions. If you find yourself in a room where everyone is nodding but no one is explaining — you are in the perfect position to apply this playbook. Ask the question no one else will. That's where it starts.
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DEEP DIVE SEPARATOR
+══════════════════════════════════════ -->
+<div class="deep-divider">
+  <div class="deep-divider-line"></div>
+  <span class="deep-divider-icon">🔬</span>
+  <span class="deep-divider-text">The Feynman Architecture — A Comprehensive Deep Dive</span>
+  <div class="deep-divider-line"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     EPISTEMOLOGICAL FOUNDATIONS
+══════════════════════════════════════ -->
+<section class="essay-section" id="deep-foundations">
+<div class="wrapper">
+  <div class="section-label">04 — Foundations</div>
+  <h2>The Epistemological Foundation</h2>
+  <h3 style="color:var(--muted); font-weight:400; font-size:15px; margin-bottom:28px; font-style:italic;">The distinction between naming and knowing</h3>
+
+  <div class="essay-body">
+    <p>The core of Feynman's pedagogy is an epistemological revolution that distinguishes between the <strong>linguistic label</strong> for a phenomenon and the <strong>underlying behavior</strong> of that phenomenon.</p>
+    <p>This distinction crystallized through the "Bird Story" — a childhood anecdote where Feynman's father illustrated the futility of memorizing names. While other children were praised for identifying a "brown-throated thrush," Feynman was taught that knowing the bird's name in multiple languages provided <strong>zero information</strong> about the bird itself — its preening habits, its flight mechanics, its evolutionary role.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Knowing the name of a thing is not the same as knowing the thing."</p>
+    <cite>— Richard Feynman</cite>
+  </div>
+
+  <div class="essay-body">
+    <p>This foundational insight establishes that <strong>nomenclature is a social construct</strong> of human communication, whereas science is the rigorous investigation of nature's behavior. The two are not the same — and conflating them is the original sin of surface-level learning.</p>
+    <p>Understanding is a <em>functional state</em>, not a storage state. You don't have understanding because you can retrieve the term. You have understanding when you can rebuild the logic from scratch on a blank page.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CALTECH CASE STUDY
+══════════════════════════════════════ -->
+<section class="essay-section" id="caltech">
+<div class="wrapper">
+  <div class="section-label">05 — Case Study</div>
+  <h2>The Caltech Lectures & the "Physics X" Paradox</h2>
+  <h3 style="color:var(--muted); font-weight:400; font-size:15px; margin-bottom:28px; font-style:italic;">What happened when Feynman taught the way he actually thought</h3>
+
+  <div class="essay-body">
+    <p>The <em>Feynman Lectures on Physics</em> (1961–1963) are widely considered the gold standard for physics pedagogy — yet they were famously "wickedly hard" for the original freshmen. Relativity was introduced almost immediately after Newtonian mechanics. Quantum mechanics appeared before electromagnetism. This was deliberate.</p>
+  </div>
+
+  <div class="case-grid">
+    <div class="case-card">
+      <span class="cc-label">The Audience Paradox</span>
+      <strong>Freshmen left. Faculty stayed.</strong>
+      Attendance remained high because professors from across Caltech replaced the struggling students. The lectures were optimized for those who already had a foundation to rebuild on.
+    </div>
+    <div class="case-card">
+      <span class="cc-label">The Problem-Solving Gap</span>
+      <strong>Great supplement. Terrible primary text.</strong>
+      The FLP never taught how to solve homework problems. They provided deep insights — but lacked the formulaic instruction required for exams. Insight ≠ procedural fluency.
+    </div>
+    <div class="case-card">
+      <span class="cc-label">Physics X — Off the Books</span>
+      <strong>Any question. No matter how "stupid."</strong>
+      Feynman also ran an unofficial course where shadows, the perception of color, and the formation of the moon were explored from first principles in a single session.
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>The Feynman pedagogy is optimized for "understanding" and "inspiration" — not the vanity metrics of standard testing.</p>
+    <cite>— Lesson from the Caltech experiment</cite>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     5 EXPANDED DRILLS
+══════════════════════════════════════ -->
+<section class="essay-section" id="deep-drills">
+<div class="wrapper">
+  <div class="section-label">06 — Practice System</div>
+  <h2>Habits & Drills for Daily Practice</h2>
+  <h3 style="color:var(--muted); font-weight:400; font-size:15px; margin-bottom:28px; font-style:italic;">The 5 cognitive drills that transform principles into automatic habits</h3>
+
+  <div class="expanded-drills">
+
+    <div class="exp-drill">
+      <div class="exp-drill-header">
+        <div class="exp-drill-num">1</div>
+        <h3>The "Blank Sheet" Reconstruction Drill</h3>
+        <span class="exp-drill-freq">Daily</span>
+      </div>
+      <div class="exp-drill-body">
+        <div class="exp-drill-steps">
+          <ul>
+            <li>End every work or study session with a blank sheet. Write the core concept at the top.</li>
+            <li>Rebuild the logic of the day's lesson from memory — diagrams and simple prose.</li>
+            <li>Use a different colour pen to add missing information <em>after</em> checking the source. This creates a visual map of growing understanding.</li>
+            <li>The "No-Notes" Test: explain the entire page aloud without referencing any other documents.</li>
+          </ul>
+        </div>
+        <div class="exp-drill-outcome">
+          <span class="outcome-label">Outcome</span>
+          <p>Creates a persistent visual record of knowledge gaps closing over time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-drill">
+      <div class="exp-drill-header">
+        <div class="exp-drill-num">2</div>
+        <h3>The "Jargon-Free" Teaching Simulation</h3>
+        <span class="exp-drill-freq">Weekly</span>
+      </div>
+      <div class="exp-drill-body">
+        <div class="exp-drill-steps">
+          <ul>
+            <li>Identify one complex term you used this week — "synergy", "blockchain", "entropy".</li>
+            <li>Write a paragraph explaining the concept as if speaking to a 12-year-old.</li>
+            <li>The "Name" Rule: you cannot use the actual name of the concept in your first three sentences.</li>
+            <li>If you hesitate or "circle back", you've identified a knowledge gap. Move it to your NOTIDK notebook.</li>
+          </ul>
+        </div>
+        <div class="exp-drill-outcome">
+          <span class="outcome-label">Outcome</span>
+          <p>Forces you to locate and name exactly what you don't understand yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-drill">
+      <div class="exp-drill-header">
+        <div class="exp-drill-num">3</div>
+        <h3>The "Cargo Cult" Integrity Audit</h3>
+        <span class="exp-drill-freq">Weekly</span>
+      </div>
+      <div class="exp-drill-body">
+        <div class="exp-drill-steps">
+          <ul>
+            <li>Review your recent work or research findings honestly.</li>
+            <li>List every possible reason your conclusion might be wrong.</li>
+            <li>Document experiments or details that "could throw doubt on your interpretation".</li>
+            <li>Explicitly look for alternative causes that could explain your results.</li>
+          </ul>
+        </div>
+        <div class="exp-drill-outcome">
+          <span class="outcome-label">Outcome</span>
+          <p>Prevents "fooling yourself" — Feynman's phrase for the most common failure mode in knowledge work.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-drill">
+      <div class="exp-drill-header">
+        <div class="exp-drill-num">4</div>
+        <h3>The "12 Problems" Serendipity Filter</h3>
+        <span class="exp-drill-freq">Daily</span>
+      </div>
+      <div class="exp-drill-body">
+        <div class="exp-drill-steps">
+          <ul>
+            <li>Maintain a physical list of your 12 Favourite Problems in your primary notebook.</li>
+            <li>Whenever you encounter a new trick, result, or insight — run it through your list.</li>
+            <li>Ask: "How could this help me move the needle on Problem #4?"</li>
+            <li>Every piece of information consumption becomes an act of targeted search.</li>
+          </ul>
+        </div>
+        <div class="exp-drill-outcome">
+          <span class="outcome-label">Outcome</span>
+          <p>Transforms passive consumption into a serendipity engine for cross-domain insight.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-drill">
+      <div class="exp-drill-header">
+        <div class="exp-drill-num">5</div>
+        <h3>The "Socratic Questioning" Journal</h3>
+        <span class="exp-drill-freq">Daily</span>
+      </div>
+      <div class="exp-drill-body">
+        <div class="exp-drill-steps">
+          <ul>
+            <li>When learning a new concept, do not accept the first level of explanation.</li>
+            <li>The "Why" Chain: ask a series of progressive questions — "Why do you think that?", "What effect would that have?", "How would others think about this?"</li>
+            <li>Based on the Socratic method: reasoned investigation over received authority.</li>
+            <li>Keep a dedicated journal for these chains — the depth matters, not just the answer.</li>
+          </ul>
+        </div>
+        <div class="exp-drill-outcome">
+          <span class="outcome-label">Outcome</span>
+          <p>Builds a coherent conceptual framework — not a collection of isolated facts.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCIENTIFIC INTEGRITY
+══════════════════════════════════════ -->
+<section class="essay-section" id="integrity">
+<div class="wrapper">
+  <div class="section-label">07 — Ethics of Thinking</div>
+  <h2>Scientific Integrity & the Prevention of "Cargo Cult" Thinking</h2>
+
+  <div class="essay-body">
+    <p>Feynman's pedagogy is inseparable from his ethical stance. He argued that the most important principle of scientific thought is <strong>"a kind of utter honesty — a kind of leaning over backwards"</strong>. This requires reporting not only what you think is right, but everything that might make it wrong.</p>
+    <p>The danger of <em>Cargo Cult Science</em> is that it follows all the outward forms and rituals of science — it has runways, radio operators, antennas — but the planes don't land because the essential spirit of integrity is missing. This is often driven by a <strong>desire for results rather than the pursuit of truth</strong>.</p>
+  </div>
+
+  <div class="integrity-block">
+    <h3>The 4 Rules of Intellectual Integrity</h3>
+    <p class="ib-sub">To maintain this integrity, the Feynman architecture demands the following from every learner:</p>
+    <ul class="integrity-list">
+      <li><strong>Publish All Results</strong> Share your findings however they come out — not just the results that make your argument look good.</li>
+      <li><strong>Challenge Your Own Theory</strong> If you build an elaborate theory, ensure it makes <em>something else</em> come out right too — not only the things that gave you the original idea.</li>
+      <li><strong>Respect the Exception</strong> "The exception tests the rule." A single observation that contradicts the theory means the theory is wrong. Full stop.</li>
+      <li><strong>Avoid Personal Gain</strong> Prioritize the pursuit of truth over financial support, position, or prestige. The incentive shapes the conclusion.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PSYCHOLOGY
+══════════════════════════════════════ -->
+<section class="essay-section" id="psychology">
+<div class="wrapper">
+  <div class="section-label">08 — The Hidden Barrier</div>
+  <h2>The Psychology of Learning: Face-Saving & Intellectual Vulnerability</h2>
+
+  <div class="essay-body">
+    <p>One of the greatest barriers to deep learning that Feynman identified was the psychological need for <strong>"face-saving"</strong>. In both Brazilian and Caltech settings, he observed that students would pretend to know things they didn't — creating a <em>"strange kind of self-propagating education which is meaningless."</em></p>
+  </div>
+
+  <div class="psych-grid">
+    <div class="psych-card">
+      <span class="pc-label">Barrier 1</span>
+      <strong>The "One-Upmanship" Ritual</strong>
+      Students put each other down for asking questions — acting as if the material is not confusing at all. Confusion becomes shameful rather than diagnostic.
+    </div>
+    <div class="psych-card">
+      <span class="pc-label">Barrier 2</span>
+      <strong>Institutional Isolation</strong>
+      Professors acting as authorities rather than co-investigators. Students "take all those notes" without knowing what to do with them. Passive reception masquerades as learning.
+    </div>
+    <div class="psych-card">
+      <span class="pc-label">Barrier 3</span>
+      <strong>The Fear of Ridicule</strong>
+      Students refuse to converse or ask questions in class because they "do not wish to be found unsure." The social cost of a question is higher than the intellectual cost of ignorance.
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>The Feynman pedagogy seeks to destroy this culture by celebrating uncertainty and the pleasure of finding things out. A truly deep understanding allows you to admit what you don't know.</p>
+    <cite>— Feynman's intellectual humility principle</cite>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     READING METHOD
+══════════════════════════════════════ -->
+<section class="essay-section" id="reading">
+<div class="wrapper">
+  <div class="section-label">09 — Practical Application</div>
+  <h2>The Feynman "Reading" Method</h2>
+  <p class="lead">Stop reading <em>like a student</em> — passive highlighting, re-reading, accumulating pages. Start reading like Feynman: shift from <strong>consumption to reconstruction</strong>.</p>
+
+  <div class="reading-protocol">
+    <div class="rp-step">
+      <div class="rp-num">1</div>
+      <div class="rp-body">
+        <strong>Start with a Question</strong>
+        <span>Never open a technical book or course without a specific question you are trying to answer. The question makes you selective.</span>
+      </div>
+    </div>
+    <div class="rp-step">
+      <div class="rp-num">2</div>
+      <div class="rp-body">
+        <strong>Read to Eliminate Ignorance</strong>
+        <span>Read only enough to solve the immediate point of confusion — not the whole chapter, not the whole book. Precision over volume.</span>
+      </div>
+    </div>
+    <div class="rp-step">
+      <div class="rp-num">3</div>
+      <div class="rp-body">
+        <strong>Close the Source</strong>
+        <span>Once you have the clue, close the book. Attempt to rebuild the entire concept on a blank page from memory alone.</span>
+      </div>
+    </div>
+    <div class="rp-step">
+      <div class="rp-num">4</div>
+      <div class="rp-body">
+        <strong>Test by Teaching</strong>
+        <span>If you cannot rebuild it, you have identified a specific gap — not a vague "I don't get it." Return to the source with precision.</span>
+      </div>
+    </div>
+    <div class="rp-step">
+      <div class="rp-num">5</div>
+      <div class="rp-body">
+        <strong>Chunking</strong>
+        <span>Simplify ideas into bite-sized parts. The brain handles many small coherent units far better than one massive complicated one.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONCLUSION
+══════════════════════════════════════ -->
+<section class="essay-section" id="conclusion">
+<div class="wrapper">
+  <div class="section-label">10 — Conclusion</div>
+  <h2>The Path to Intellectual Autonomy</h2>
+
+  <div class="essay-body">
+    <p>The Feynman architecture is more than a study technique. It is a framework for <strong>intellectual autonomy</strong>. By prioritizing first principles, simplification, and a rigorous "inventory of ignorance," the learner develops the capacity to think for themselves rather than relying on analogy or authority.</p>
+  </div>
+
+  <div class="conclusion-box">
+    <p>This pedagogy requires a <strong>"leaning over backwards"</strong> honesty that is rare in modern professional and academic life. But it is the only way to ensure that the scaffolding of one's knowledge is capable of supporting true innovation.</p>
+    <p>By following the drills and habits of the Feynman playbook, anyone can transform from a <strong>cook</strong> following recipes into a <strong>chef</strong> of ideas — one who understands the fundamental nature of the world and can explain its fascinating miracles with the simplicity of a child and the rigor of a scientist.</p>
+    <p class="c-final">As Feynman's father taught him: knowing the <em>name</em> of a thing is not the same as knowing the thing. That distinction is everything.</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="doc-footer">
+  <span><strong>🧰 Feynman's Pedagogy Playbook</strong></span>
+  <span>3 Daily Habits · 3 Training Drills · 5 Deep Drills · Complexity Scorecard · Reading Protocol</span>
+</footer>
+
+</body>
+</html>
