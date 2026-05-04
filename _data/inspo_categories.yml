@@ -45,4 +45,4 @@
   label: "Deep Dives"
   unit: "dives"
   tint: "#f0f0f0"
-  card_include: "deep-dives"
+  card_include: "inspo/deep-dives"

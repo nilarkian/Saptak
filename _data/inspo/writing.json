@@ -1,0 +1,34 @@
+[
+    {
+      "url": "https://wiki.lib.sun.ac.za/images/d/d7/Trouble-with-scientists.pdf",
+      "author": "Philip Ball",
+      "title": "The Trouble with Scientists",
+      "desc": "Science is distorted by human bias; researchers favor confirmation while journals reward 'neat' results, leading to a slow self-correction process despite improved transparency tools.",
+      "date": "2026-05-04",
+      "tags": ["science", "epistemology", "psychology"]
+    },
+    {
+      "url": "http://www.paulgraham.com/cities.html",
+      "author": "Paul Graham",
+      "title": "Cities and Ambition",
+      "desc": "live where people chase X → you start chasing X; cities quietly set the default definition of success and pull you towards it.",
+      "date": "2026-05-02",
+      "tags": ["cities", "ambition", "environment"]
+    },
+    {
+      "url": "https://www.palladiummag.com/2024/08/09/the-past-and-future-of-military-drones/",
+      "author": "PALLADIUM",
+      "title": "The Past and Future of Military Drones",
+      "desc": "how drones quietly shifted war from 'protect pilots' to 'scale cheap, autonomous kill systems'—and why the next leap is less about hardware and more about coordination and mass.",
+      "date": "2026-04-02",
+      "tags": ["military", "drones"]
+    },
+    {
+      "url": "https://www.highagency.com/",
+      "author": "George Mack",
+      "title": "High Agency in 30 Minutes",
+      "desc": "The mindset that separates people who make things happen from people who wait for them to happen. Short, punchy, worth re-reading once a year.",
+      "date": "2025-11-04",
+      "tags": ["mindset"]
+    }
+]

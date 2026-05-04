@@ -1,0 +1,114 @@
+[
+        {
+      "url": "https://effector.dev",
+      "source": "Effector",
+      "caption": "A reactive state manager for Javascript focused on performance, modularity, and type safety.",
+      "date": "2025-05-03",
+      "tags": ["coding", "javascript", "tools"]
+    },
+    {
+      "url": "https://swishy.ai",
+      "source": "Swishy.ai",
+      "caption": "An AI-powered platform for creating high-end motion graphics and smooth transitions.",
+      "date": "2025-05-03",
+      "tags": ["ai", "design", "video"]
+    },
+    {
+    "url": "https://venngage.com/ai-tools/icon-generator",
+    "source": "Venngage Icon Generator",
+    "caption": "A free online tool to create and customize high-quality icons for infographics and presentations.",
+    "date": "2025-05-03",
+    "tags": ["design", "tools", "icons"]
+    },
+    {
+    "url": "https://deathtostock.com",
+    "source": "Death to Stock",
+    "caption": "A subscription service providing unique, high-quality photo and video assets beyond traditional stock aesthetics.",
+    "date": "2025-05-03",
+    "tags": ["design", "photography", "assets"]
+    },
+    {
+      "url": "https://uiverse.io",
+      "source": "Uiverse.io",
+      "caption": "A community-built library of open-source UI elements made with HTML and CSS.",
+      "date": "2025-05-03",
+      "tags": ["design", "ui", "development"]
+    },
+    {
+      "url": "https://reactbits.dev",
+      "source": "React Bits",
+      "caption": "An open-source collection of animated and interactive React components for modern web apps.",
+      "date": "2025-05-03",
+      "tags": ["design", "react", "animation"]
+    },
+    {
+      "url": "https://texturefabrik.com",
+      "source": "Texturefabrik",
+      "caption": "Premium and free high-quality textures, backgrounds, and digital art assets for creative professionals.",
+      "date": "2025-05-03",
+      "tags": ["design", "assets", "textures"]
+    },
+    {
+      "url": "https://gitmastery.me/",
+      "source": "GitMastery",
+      "caption": "An interactive Git learning platform with a simulated terminal and gamified challenges to master commands hands-on.",
+      "date": "2025-05-03",
+      "tags": ["learning", "git", "coding", "games"]
+    },
+    {
+      "url": "https://learngitbranching.js.org/",
+      "source": "Learn Git Branching",
+      "caption": "A visual Git repository sandbox and tutorial for mastering complex branching, merging, and rebasing through visualization.",
+      "date": "2025-05-03",
+      "tags": ["learning", "git", "coding", "data-viz"]
+    },
+    {
+      "url": "https://designreviewed.com",
+      "source": "Design Reviewed",
+      "caption": "A curated repository documenting graphic design, visual history, and industrial objects.",
+      "date": "2025-05-03",
+      "tags": ["design", "history", "swipefile"]
+    },
+    {
+      "url": "https://brandingstyleguides.com",
+      "source": "Branding Style Guides",
+      "caption": "A comprehensive archive of official brand identity manuals and corporate design standards.",
+      "date": "2025-05-03",
+      "tags": ["design", "branding", "reference", "swipefile"]
+    },
+    {
+      "url": "https://stickers.gallery",
+      "source": "Stickers.gallery",
+      "caption": "A curated inspiration gallery featuring unique physical and digital sticker designs.",
+      "date": "2025-05-03",
+      "tags": ["design", "inspiration", "stickers", "swipefile"]
+    },
+    {
+      "url": "https://mybharat.gov.in",
+      "source": "MyBharat",
+      "caption": "A digital platform empowering Indian youth through volunteering, skill development, and engagement.",
+      "date": "2025-05-03",
+      "tags": ["india", "social", "learning", "job"]
+    },
+    {
+      "url": "https://www.tooooools.app/",
+      "source": "Tooooools",
+      "caption": "Hyper-dense directory of creative + dev tools",
+      "date": "2026-05-02",
+      "tags": ["design", "tools", "productivity"]
+    },
+    {
+      "url": "https://benditomockup.com/",
+      "source": "Bendito Mockup",
+      "caption": "Art-driven premium mockups that feel like photography, not templates",
+      "date": "2026-05-02",
+      "tags": ["design", "mockups", "branding"]
+    },
+    {
+      "url": "https://www.cosmos.so/public-work",
+      "source": "Cosmos (Public Work)",
+      "caption": "Search engine for public-domain visuals from museums + libraries",
+      "date": "2026-05-02",
+      "tags": ["design", "inspiration", "database"]
+    }
+]
