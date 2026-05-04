@@ -14,10 +14,10 @@ Palette: walnut · linen · champagne stone (quiet luxury / old money).
   --rainbow-c3:    rgb(180, 165, 140);  /* ← champagne stone */
 }
 
-/* hide rainbow in dark mode */
-body.dark-mode .rainbow,
-body.dark-mode .bg-h,
-body.dark-mode .bg-v {
+/* show rainbow only in light mode */
+body:not(.light-mode) .rainbow,
+body:not(.light-mode) .bg-h,
+body:not(.light-mode) .bg-v {
   display: none;
 }
 

@@ -14,21 +14,7 @@ layout: null
 
 <style>
 :root {
-  /* light-mode tokens */
-  --bg:           #f5f5f5;
-  --ink:          #111;
-  --ink-soft:     rgba(0, 0, 0, 0.6);
-  --muted:        #aaa;
-  --border:       #ddd;
-  --hover-shadow: rgba(0, 0, 0, 0.12);
-  --hover-border: rgba(0, 0, 0, 0.15);
-  --pill:         999px;
-  --font-head:    'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-}
-
-/* ── DARK MODE — flips every theme token, leaves layout untouched ── */
-body.dark-mode {
+  /* dark-mode tokens (DEFAULT — page loads dark) */
   --bg:           transparent;                 /* lets bg-stars gradient show through */
   --ink:          #f0f0f0;
   --ink-soft:     rgba(240, 240, 240, 0.65);
@@ -36,6 +22,20 @@ body.dark-mode {
   --border:       rgba(240, 240, 240, 0.18);
   --hover-shadow: rgba(255, 255, 255, 0.08);
   --hover-border: rgba(240, 240, 240, 0.25);
+  --pill:         999px;
+  --font-head:    'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── LIGHT MODE — flips theme tokens, leaves layout untouched ── */
+body.light-mode {
+  --bg:           #f5f5f5;
+  --ink:          #111;
+  --ink-soft:     rgba(0, 0, 0, 0.6);
+  --muted:        #aaa;
+  --border:       #ddd;
+  --hover-shadow: rgba(0, 0, 0, 0.12);
+  --hover-border: rgba(0, 0, 0, 0.15);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -100,16 +100,16 @@ h2 { font-family: var(--font-head); }
 }
 
 .nav a:hover {
-  background: var(--ink);
-  color: var(--bg);
+  background: rgba(240, 240, 240, 0.95);  /* default = dark mode */
+  color: #1b2735;
   transform: translateY(-4px);
   box-shadow: 0 10px 18px var(--hover-shadow);
 }
 
-/* dark-mode hover needs explicit background since --bg is transparent there */
-body.dark-mode .nav a:hover {
-  background: rgba(240, 240, 240, 0.95);
-  color: #1b2735;
+/* light-mode hover uses the var system normally */
+body.light-mode .nav a:hover {
+  background: var(--ink);
+  color: var(--bg);
 }
 
 /* ── QUICK LINKS ── */

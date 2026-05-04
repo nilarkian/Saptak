@@ -11,21 +11,7 @@
 
 <style>
 :root {
-  /* light-mode tokens */
-  --bg:           #f5f5f5;
-  --ink:          #111;
-  --ink-soft:     rgba(0, 0, 0, 0.6);
-  --muted:        #aaa;
-  --border:       #ddd;
-  --hover-shadow: rgba(0, 0, 0, 0.12);
-  --hover-border: rgba(0, 0, 0, 0.15);
-  --pill:         999px;
-  --font-head:    'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-}
-
-/* ── DARK MODE — flips every theme token, leaves layout untouched ── */
-body.dark-mode {
+  /* dark-mode tokens (DEFAULT — page loads dark) */
   --bg:           transparent;                 /* lets bg-stars gradient show through */
   --ink:          #f0f0f0;
   --ink-soft:     rgba(240, 240, 240, 0.65);
@@ -33,6 +19,20 @@ body.dark-mode {
   --border:       rgba(240, 240, 240, 0.18);
   --hover-shadow: rgba(255, 255, 255, 0.08);
   --hover-border: rgba(240, 240, 240, 0.25);
+  --pill:         999px;
+  --font-head:    'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── LIGHT MODE — flips theme tokens, leaves layout untouched ── */
+body.light-mode {
+  --bg:           #f5f5f5;
+  --ink:          #111;
+  --ink-soft:     rgba(0, 0, 0, 0.6);
+  --muted:        #aaa;
+  --border:       #ddd;
+  --hover-shadow: rgba(0, 0, 0, 0.12);
+  --hover-border: rgba(0, 0, 0, 0.15);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -97,16 +97,16 @@ h2 { font-family: var(--font-head); }
 }
 
 .nav a:hover {
-  background: var(--ink);
-  color: var(--bg);
+  background: rgba(240, 240, 240, 0.95);  /* default = dark mode */
+  color: #1b2735;
   transform: translateY(-4px);
   box-shadow: 0 10px 18px var(--hover-shadow);
 }
 
-/* dark-mode hover needs explicit background since --bg is transparent there */
-body.dark-mode .nav a:hover {
-  background: rgba(240, 240, 240, 0.95);
-  color: #1b2735;
+/* light-mode hover uses the var system normally */
+body.light-mode .nav a:hover {
+  background: var(--ink);
+  color: var(--bg);
 }
 
 /* ── QUICK LINKS ── */
@@ -230,10 +230,10 @@ body.dark-mode .nav a:hover {
   --rainbow-c3:    rgb(180, 165, 140);  /* ← champagne stone */
 }
 
-/* hide rainbow in dark mode */
-body.dark-mode .rainbow,
-body.dark-mode .bg-h,
-body.dark-mode .bg-v {
+/* show rainbow only in light mode */
+body:not(.light-mode) .rainbow,
+body:not(.light-mode) .bg-h,
+body:not(.light-mode) .bg-v {
   display: none;
 }
 
@@ -334,13 +334,13 @@ body.dark-mode .bg-v {
 
 <style>
 :root {
-  --stars-speed:  1;                                 /* ← speed knob: 1 = default */
+  --stars-speed:  0.5;                                 /* ← speed knob: 1 = default */
   --stars-color:  #ffffff;                           /* star color */
   --stars-bg:     linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
 }
 
-/* ── DARK-MODE BG GRADIENT ── only paints when body is in dark mode */
-body.dark-mode {
+/* ── DARK-MODE BG GRADIENT ── default state — paints unless light-mode is set */
+body:not(.light-mode) {
   background: var(--stars-bg) !important;
 }
 
@@ -351,8 +351,7 @@ body.dark-mode {
 }
 
 /* hide the whole starfield in light mode */
-body:not(.dark-mode) .stars,
-body:not(.dark-mode) .shooting-star {
+body.light-mode .stars {
   display: none;
 }
 
@@ -412,43 +411,84 @@ body:not(.dark-mode) .shooting-star {
 }
 
 /* ── SHOOTING STARS ── 5 trails crossing the screen ── */
-.shooting-star {
+/* Wrapped in .shooting-stars container so :nth-child counts only siblings */
+.shooting-stars {
   position: fixed;
   top: 0;
-  left: -100px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.light-mode .shooting-stars { display: none; }
+
+.shooting-star {
+  position: absolute;
   width: 100px;
   height: 2px;
-  z-index: 0;
   background: linear-gradient(90deg, var(--stars-color), transparent);
-  animation-name: stars-shoot;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
 }
 
-.shooting-star:nth-child(1) { top: 18%; animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
-.shooting-star:nth-child(2) { top: 34%; animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
-.shooting-star:nth-child(3) { top: 52%; animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
-.shooting-star:nth-child(4) { top: 68%; animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
-.shooting-star:nth-child(5) { top: 82%; animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+/* ── DIRECTION VARIANTS ── */
+/* from-left → starts off-screen left, travels diagonally down-right (default) */
+.shooting-star.from-left {
+  left: -100px;
+  animation-name: stars-shoot-left;
+}
+
+/* from-top → starts above viewport, travels diagonally down-right at steeper angle */
+.shooting-star.from-top {
+  top: -100px;
+  animation-name: stars-shoot-top;
+}
+
+/* nth-child rules apply to ALL shooting-stars regardless of direction —
+   each gets unique duration + delay so they never sync up */
+.shooting-stars .shooting-star:nth-child(1) { animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(2) { animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(3) { animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(4) { animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(5) { animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+
+/* per-star starting positions — top values for from-left, left values for from-top */
+.shooting-stars .shooting-star.from-left:nth-child(1) { top: 18%; }
+.shooting-stars .shooting-star.from-left:nth-child(2) { top: 52%; }
+.shooting-stars .shooting-star.from-left:nth-child(4) { top: 78%; }
+
+.shooting-stars .shooting-star.from-top:nth-child(3) { left: 25%; }
+.shooting-stars .shooting-star.from-top:nth-child(5) { left: 70%; }
 
 @keyframes stars-twinkle {
   0%, 100% { opacity: 0.8; }
   50%      { opacity: 0.4; }
 }
 
-@keyframes stars-shoot {
+/* from-left → diagonal sweep down-right at shallow angle */
+@keyframes stars-shoot-left {
+  0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+}
+
+/* from-top → SAME direction & angle as from-left, just starts above viewport */
+@keyframes stars-shoot-top {
   0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
   100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
 }
 </style>
 
-<!-- ── 1 dual star field + 5 shooting trails ── -->
+<!-- ── 1 dual star field + 5 shooting trails (mix of from-left and from-top) ── -->
 <div class="stars"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
+<div class="shooting-stars">
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-top"></div>
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-top"></div>
+</div>
 
 <!-- ── THEME TOGGLE — bottom-right, defaults to dark on every load ── -->
 
@@ -463,26 +503,30 @@ body:not(.dark-mode) .shooting-star {
   align-items: center;
   gap: 0;
   padding: 4px;
-  background: var(--bg, #f5f5f5);
-  border: 1.5px solid var(--ink, #111);
+  background: rgba(20, 25, 45, 0.85);
+  border: 1.5px solid rgba(240, 240, 240, 0.7);
   border-radius: var(--pill, 999px);
   font-family: var(--font-head, sans-serif);
   font-size: 14px;
   cursor: pointer;
   user-select: none;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: background .35s ease, border-color .35s ease, box-shadow .25s ease;
+}
+
+body.light-mode .theme-toggle {
+  background: var(--bg, #f5f5f5);
+  border-color: var(--ink, #111);
+  backdrop-filter: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .theme-toggle:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
 }
-
-body.dark-mode .theme-toggle {
-  background: rgba(20, 25, 45, 0.85);
-  border-color: rgba(240, 240, 240, 0.7);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+body.light-mode .theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .theme-toggle .glyph {
@@ -494,34 +538,32 @@ body.dark-mode .theme-toggle {
   border-radius: 50%;
   font-size: 14px;
   line-height: 1;
-  color: var(--ink, #111);
-  opacity: 0.4;
   transition: opacity .25s ease, background .25s ease, color .25s ease;
 }
 
-/* light mode: sun is active */
-body:not(.dark-mode) .theme-toggle .glyph-sun {
-  background: var(--ink, #111);
-  color: var(--bg, #f5f5f5);
-  opacity: 1;
-}
-
-/* dark mode: moon is active */
-body.dark-mode .theme-toggle .glyph {
-  color: rgba(240, 240, 240, 0.5);
-}
-body.dark-mode .theme-toggle .glyph-moon {
+/* default (dark mode): moon active, sun faded */
+.theme-toggle .glyph-sun { color: rgba(240, 240, 240, 0.5); }
+.theme-toggle .glyph-moon {
   background: rgba(240, 240, 240, 0.95);
   color: #1b2735;
-  opacity: 1;
+}
+
+/* light mode: sun active, moon faded */
+body.light-mode .theme-toggle .glyph-moon {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.4);
+}
+body.light-mode .theme-toggle .glyph-sun {
+  background: var(--ink, #111);
+  color: var(--bg, #f5f5f5);
 }
 
 .theme-toggle:focus-visible {
-  outline: 2px solid var(--ink, #111);
+  outline: 2px solid rgba(240, 240, 240, 0.9);
   outline-offset: 3px;
 }
-body.dark-mode .theme-toggle:focus-visible {
-  outline-color: rgba(240, 240, 240, 0.9);
+body.light-mode .theme-toggle:focus-visible {
+  outline-color: var(--ink, #111);
 }
 </style>
 
@@ -532,12 +574,10 @@ body.dark-mode .theme-toggle:focus-visible {
 
 <script>
 (function () {
-  // Default: dark mode on every page load (no localStorage persistence)
-  document.body.classList.add('dark-mode');
-
-  const btn = document.getElementById('theme-toggle');
-  btn.addEventListener('click', function () {
-    document.body.classList.toggle('dark-mode');
+  // Dark mode is the default via CSS — no class needed on load.
+  // Click toggles .light-mode on body.
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    document.body.classList.toggle('light-mode');
   });
 })();
 </script>

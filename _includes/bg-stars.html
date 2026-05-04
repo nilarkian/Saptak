@@ -7,13 +7,13 @@ Self-contained: drop {% include bg-stars.html %} into any page <body>.
 
 <style>
 :root {
-  --stars-speed:  1;                                 /* ← speed knob: 1 = default */
+  --stars-speed:  0.5;                                 /* ← speed knob: 1 = default */
   --stars-color:  #ffffff;                           /* star color */
   --stars-bg:     linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
 }
 
-/* ── DARK-MODE BG GRADIENT ── only paints when body is in dark mode */
-body.dark-mode {
+/* ── DARK-MODE BG GRADIENT ── default state — paints unless light-mode is set */
+body:not(.light-mode) {
   background: var(--stars-bg) !important;
 }
 
@@ -24,8 +24,7 @@ body.dark-mode {
 }
 
 /* hide the whole starfield in light mode */
-body:not(.dark-mode) .stars,
-body:not(.dark-mode) .shooting-star {
+body.light-mode .stars {
   display: none;
 }
 
@@ -85,40 +84,81 @@ body:not(.dark-mode) .shooting-star {
 }
 
 /* ── SHOOTING STARS ── 5 trails crossing the screen ── */
-.shooting-star {
+/* Wrapped in .shooting-stars container so :nth-child counts only siblings */
+.shooting-stars {
   position: fixed;
   top: 0;
-  left: -100px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.light-mode .shooting-stars { display: none; }
+
+.shooting-star {
+  position: absolute;
   width: 100px;
   height: 2px;
-  z-index: 0;
   background: linear-gradient(90deg, var(--stars-color), transparent);
-  animation-name: stars-shoot;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
 }
 
-.shooting-star:nth-child(1) { top: 18%; animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
-.shooting-star:nth-child(2) { top: 34%; animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
-.shooting-star:nth-child(3) { top: 52%; animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
-.shooting-star:nth-child(4) { top: 68%; animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
-.shooting-star:nth-child(5) { top: 82%; animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+/* ── DIRECTION VARIANTS ── */
+/* from-left → starts off-screen left, travels diagonally down-right (default) */
+.shooting-star.from-left {
+  left: -100px;
+  animation-name: stars-shoot-left;
+}
+
+/* from-top → starts above viewport, travels diagonally down-right at steeper angle */
+.shooting-star.from-top {
+  top: -100px;
+  animation-name: stars-shoot-top;
+}
+
+/* nth-child rules apply to ALL shooting-stars regardless of direction —
+   each gets unique duration + delay so they never sync up */
+.shooting-stars .shooting-star:nth-child(1) { animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(2) { animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(3) { animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(4) { animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
+.shooting-stars .shooting-star:nth-child(5) { animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+
+/* per-star starting positions — top values for from-left, left values for from-top */
+.shooting-stars .shooting-star.from-left:nth-child(1) { top: 18%; }
+.shooting-stars .shooting-star.from-left:nth-child(2) { top: 52%; }
+.shooting-stars .shooting-star.from-left:nth-child(4) { top: 78%; }
+
+.shooting-stars .shooting-star.from-top:nth-child(3) { left: 25%; }
+.shooting-stars .shooting-star.from-top:nth-child(5) { left: 70%; }
 
 @keyframes stars-twinkle {
   0%, 100% { opacity: 0.8; }
   50%      { opacity: 0.4; }
 }
 
-@keyframes stars-shoot {
+/* from-left → diagonal sweep down-right at shallow angle */
+@keyframes stars-shoot-left {
+  0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+}
+
+/* from-top → SAME direction & angle as from-left, just starts above viewport */
+@keyframes stars-shoot-top {
   0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
   100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
 }
 </style>
 
-<!-- ── 1 dual star field + 5 shooting trails ── -->
+<!-- ── 1 dual star field + 5 shooting trails (mix of from-left and from-top) ── -->
 <div class="stars"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
-<div class="shooting-star"></div>
+<div class="shooting-stars">
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-top"></div>
+  <div class="shooting-star from-left"></div>
+  <div class="shooting-star from-top"></div>
+</div>
