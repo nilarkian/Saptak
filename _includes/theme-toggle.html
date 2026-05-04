@@ -1,0 +1,94 @@
+{% comment %}
+─── THEME TOGGLE — bottom-right pill, ☉/☾ glyphs ───
+Defaults to dark mode on every page load (no localStorage persistence).
+Click to flip body.dark-mode class. CSS in each page handles the cascade.
+{% endcomment %}
+
+<style>
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px;
+  background: var(--bg, #f5f5f5);
+  border: 1.5px solid var(--ink, #111);
+  border-radius: var(--pill, 999px);
+  font-family: var(--font-head, sans-serif);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .35s ease, border-color .35s ease, box-shadow .25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode .theme-toggle {
+  background: rgba(20, 25, 45, 0.85);
+  border-color: rgba(240, 240, 240, 0.7);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle .glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink, #111);
+  opacity: 0.4;
+  transition: opacity .25s ease, background .25s ease, color .25s ease;
+}
+
+/* light mode: sun is active */
+body:not(.dark-mode) .theme-toggle .glyph-sun {
+  background: var(--ink, #111);
+  color: var(--bg, #f5f5f5);
+  opacity: 1;
+}
+
+/* dark mode: moon is active */
+body.dark-mode .theme-toggle .glyph {
+  color: rgba(240, 240, 240, 0.5);
+}
+body.dark-mode .theme-toggle .glyph-moon {
+  background: rgba(240, 240, 240, 0.95);
+  color: #1b2735;
+  opacity: 1;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 3px;
+}
+body.dark-mode .theme-toggle:focus-visible {
+  outline-color: rgba(240, 240, 240, 0.9);
+}
+</style>
+
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+  <span class="glyph glyph-sun"  aria-hidden="true">☉</span>
+  <span class="glyph glyph-moon" aria-hidden="true">☾</span>
+</button>
+
+<script>
+(function () {
+  // Default: dark mode on every page load (no localStorage persistence)
+  document.body.classList.add('dark-mode');
+
+  const btn = document.getElementById('theme-toggle');
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+  });
+})();
+</script>

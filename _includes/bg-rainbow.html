@@ -1,0 +1,116 @@
+{% comment %}
+─── BG RAINBOW — full-page ambient animated background ───
+Self-contained: drop {% include bg-rainbow.html %} into any page <body>.
+Tune speed via --rainbow-speed (1 = default, 2 = 2× faster, 0.5 = slower).
+Palette: walnut · linen · champagne stone (quiet luxury / old money).
+{% endcomment %}
+
+<style>
+:root {
+  --rainbow-speed: 0.5;          /* ← single knob: 1 = current, >1 faster, <1 slower */
+  --rainbow-bg:    var(--bg, #f5f5f5);    /* inherits page bg automatically */
+  --rainbow-c1:    rgb(114, 102, 89);     /* ← deep walnut */
+  --rainbow-c2:    rgb(145, 130, 110);  /* ← aged linen */
+  --rainbow-c3:    rgb(180, 165, 140);  /* ← champagne stone */
+}
+
+/* hide rainbow in dark mode */
+body.dark-mode .rainbow,
+body.dark-mode .bg-h,
+body.dark-mode .bg-v {
+  display: none;
+}
+
+.rainbow {
+  height: 100vh;
+  width: 0;
+  top: 0;
+  position: fixed;
+  transform: rotate(10deg);
+  transform-origin: top right;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-h {
+  box-shadow: 0 0 30vh 24vh var(--rainbow-bg);
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+.bg-v {
+  box-shadow: 0 0 25vw 18vw var(--rainbow-bg);
+  width: 0;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes rainbow-slide {
+  from { right: -25vw; }
+  to   { right: 125vw; }
+}
+
+/* Walnut · linen · champagne stone — six rotation patterns, staggered timing */
+.rainbow:nth-child(1)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(88.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-3.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(2)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(86.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-7.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(3)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(84.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-10.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(4)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(82.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-14.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(5)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(81.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-18.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(6)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(79.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-21.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(7)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(77.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-25.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(8)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(75.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-28.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(9)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(73.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-32.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(10) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(72.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-36.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(11) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(70.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-39.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(12) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(68.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-43.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(13) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(66.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-46.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(14) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(64.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-50.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(15) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(63.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-54.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(16) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(61.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-57.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(17) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(59.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-61.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(18) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(57.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-64.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(19) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(55.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-68.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(20) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(54.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-72.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(21) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(52.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-75.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(22) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(50.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-79.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(23) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(48.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-82.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(24) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(46.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-86.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(25) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(45.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-90.0s / var(--rainbow-speed)); }
+</style>
+
+<!-- ── 25 rainbow streaks + 2 edge-glow nodes ── -->
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="bg-h"></div>
+<div class="bg-v"></div>

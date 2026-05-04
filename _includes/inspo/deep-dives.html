@@ -1,12 +1,39 @@
+{% comment %}
+─── DEEP DIVE CARD — editorial / quiet luxury ───
+Renders d.number as a Roman numeral (1 → I, 2 → II, ...).
+Falls back to plain number above 39 (covers I–XXXIX, plenty for a blog).
+{% endcomment %}
+
 {% for d in items %}
 <a class="inspo-card deepdive-card"
    href="{{ d.url | prepend: site.baseurl }}"
    data-category="deep-dives"
    data-date="{{ d.date | date: '%Y-%m-%d' }}"
    data-tags="{% for t in d.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
-  {% if d.number %}<div class="deepdive-label">Deep Dive #{{ d.number }}</div>{% endif %}
+
+  {% if d.number %}
+    {%- assign n = d.number | plus: 0 -%}
+    {%- assign roman = '' -%}
+    {%- assign vals    = '40,10,9,5,4,1'  | split: ',' -%}
+    {%- assign letters = 'XL,X,IX,V,IV,I' | split: ',' -%}
+    {%- for i in (0..5) -%}
+      {%- assign v = vals[i] | plus: 0 -%}
+      {%- assign l = letters[i] -%}
+      {%- assign times = n | divided_by: v -%}
+      {%- if times > 0 -%}
+        {%- for t in (1..times) -%}{%- assign roman = roman | append: l -%}{%- endfor -%}
+        {%- assign n = n | modulo: v -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="deepdive-label">Deep Dive &middot; N&deg; {{ roman }}</div>
+  {% else %}
+    <div class="deepdive-label">Deep Dive</div>
+  {% endif %}
+
   <div class="deepdive-title">{{ d.title }}</div>
+
   {% if d.blurb %}<div class="deepdive-blurb">{{ d.blurb }}</div>{% endif %}
+
   {% if d.tags %}
   <div class="deepdive-tags">
     {% for t in d.tags %}<span class="deepdive-tag">{{ t }}</span>{% endfor %}

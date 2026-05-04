@@ -11,54 +11,52 @@
 
 <style>
 :root {
-  --bg: #f7f7f7;
-  --ink: #111;
-  --muted: #aaa;
-  --border: #ddd;
-  --pill: 999px;
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  
+  /* light-mode tokens */
+  --bg:           #f5f5f5;
+  --ink:          #111;
+  --ink-soft:     rgba(0, 0, 0, 0.6);
+  --muted:        #aaa;
+  --border:       #ddd;
+  --hover-shadow: rgba(0, 0, 0, 0.12);
+  --hover-border: rgba(0, 0, 0, 0.15);
+  --pill:         999px;
+  --font-head:    'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── DARK MODE — flips every theme token, leaves layout untouched ── */
+body.dark-mode {
+  --bg:           transparent;                 /* lets bg-stars gradient show through */
+  --ink:          #f0f0f0;
+  --ink-soft:     rgba(240, 240, 240, 0.65);
+  --muted:        rgba(240, 240, 240, 0.4);
+  --border:       rgba(240, 240, 240, 0.18);
+  --hover-shadow: rgba(255, 255, 255, 0.08);
+  --hover-border: rgba(240, 240, 240, 0.25);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--ink);
-  /* The texture is defined ONCE here */
-  background:
-  radial-gradient(circle at 20% 30%, rgba(0,0,0,0.04) 1px, transparent 1px),
-  radial-gradient(circle at 80% 70%, rgba(0,0,0,0.03) 1px, transparent 1px),
-  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 1px, transparent 1px),
-  #f5f5f5;
-
-  background-size: 8px 8px, 10px 10px, 12px 12px;
-  background-repeat: repeat;
+  background: var(--bg);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: color 0.35s ease;        /* bg transition handled by bg-stars/rainbow */
 }
 
-/* HERO */
-.cover {
-  width: 100%;
-  height: 58vh;
-  /* Remove the second texture here; let the body background show through */
-  background-image: url('assets/img/cover.png');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: contain; 
-  /* Set to transparent so the body texture is visible on the sides */
-  background-color: transparent; 
-}
-
-
-/* HERO */
 
 /* MAIN */
 .content {
   max-width: 950px;
-  margin: 50px auto 90px;
+  margin: 12vh auto 90px;
   padding: 0 24px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 h1 {
@@ -100,14 +98,20 @@ h2 { font-family: var(--font-head); }
 
 .nav a:hover {
   background: var(--ink);
-  color: white;
+  color: var(--bg);
   transform: translateY(-4px);
-  box-shadow: 0 10px 18px rgba(0,0,0,.12);
+  box-shadow: 0 10px 18px var(--hover-shadow);
+}
+
+/* dark-mode hover needs explicit background since --bg is transparent there */
+body.dark-mode .nav a:hover {
+  background: rgba(240, 240, 240, 0.95);
+  color: #1b2735;
 }
 
 /* ── QUICK LINKS ── */
 .quick-links {
-  border-top: 1px solid black;
+  border-top: 1px solid var(--ink);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,7 +143,7 @@ h2 { font-family: var(--font-head); }
 
 .quick-links a:hover {
   opacity: .75;
-  border-color: rgba(0,0,0,.15);
+  border-color: var(--hover-border);
 }
 
 .quick-links-sep {
@@ -202,7 +206,7 @@ h2 { font-family: var(--font-head); }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .cover { height: 42vh; }
+  .content { margin-top: 8vh; }
   h1 { font-size: 42px; }
   .tagline { font-size: 22px; }
   .nav a { padding: 12px 22px; font-size: 16px; }
@@ -214,7 +218,329 @@ h2 { font-family: var(--font-head); }
 
 <body>
 
-<div class="cover"></div>
+<!-- ── BOTH BACKGROUNDS LOADED — CSS shows the active one based on body.dark-mode ── -->
+
+
+<style>
+:root {
+  --rainbow-speed: 0.5;          /* ← single knob: 1 = current, >1 faster, <1 slower */
+  --rainbow-bg:    var(--bg, #f5f5f5);    /* inherits page bg automatically */
+  --rainbow-c1:    rgb(114, 102, 89);     /* ← deep walnut */
+  --rainbow-c2:    rgb(145, 130, 110);  /* ← aged linen */
+  --rainbow-c3:    rgb(180, 165, 140);  /* ← champagne stone */
+}
+
+/* hide rainbow in dark mode */
+body.dark-mode .rainbow,
+body.dark-mode .bg-h,
+body.dark-mode .bg-v {
+  display: none;
+}
+
+.rainbow {
+  height: 100vh;
+  width: 0;
+  top: 0;
+  position: fixed;
+  transform: rotate(10deg);
+  transform-origin: top right;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-h {
+  box-shadow: 0 0 30vh 24vh var(--rainbow-bg);
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+.bg-v {
+  box-shadow: 0 0 25vw 18vw var(--rainbow-bg);
+  width: 0;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes rainbow-slide {
+  from { right: -25vw; }
+  to   { right: 125vw; }
+}
+
+/* Walnut · linen · champagne stone — six rotation patterns, staggered timing */
+.rainbow:nth-child(1)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(88.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-3.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(2)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(86.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-7.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(3)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(84.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-10.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(4)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(82.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-14.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(5)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(81.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-18.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(6)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(79.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-21.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(7)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(77.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-25.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(8)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(75.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-28.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(9)  { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(73.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-32.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(10) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(72.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-36.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(11) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(70.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-39.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(12) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(68.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-43.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(13) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(66.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-46.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(14) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(64.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-50.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(15) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(63.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-54.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(16) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(61.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-57.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(17) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(59.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-61.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(18) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(57.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-64.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(19) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(55.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-68.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(20) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(54.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-72.0s / var(--rainbow-speed)); }
+.rainbow:nth-child(21) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c2),  0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(52.2s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-75.6s / var(--rainbow-speed)); }
+.rainbow:nth-child(22) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c1),    50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(50.4s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-79.2s / var(--rainbow-speed)); }
+.rainbow:nth-child(23) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c3), 130px 0 80px 40px var(--rainbow-bg); animation: calc(48.6s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-82.8s / var(--rainbow-speed)); }
+.rainbow:nth-child(24) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c3),  0 0 50px 25px var(--rainbow-c2), 50px 0 50px 25px var(--rainbow-c1),    130px 0 80px 40px var(--rainbow-bg); animation: calc(46.8s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-86.4s / var(--rainbow-speed)); }
+.rainbow:nth-child(25) { box-shadow: -130px 0 80px 40px var(--rainbow-bg), -50px 0 50px 25px var(--rainbow-c1),     0 0 50px 25px var(--rainbow-c3), 50px 0 50px 25px var(--rainbow-c2), 130px 0 80px 40px var(--rainbow-bg); animation: calc(45.0s / var(--rainbow-speed)) linear infinite rainbow-slide; animation-delay: calc(-90.0s / var(--rainbow-speed)); }
+</style>
+
+<!-- ── 25 rainbow streaks + 2 edge-glow nodes ── -->
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="rainbow"></div>
+<div class="bg-h"></div>
+<div class="bg-v"></div>
+
+
+<style>
+:root {
+  --stars-speed:  1;                                 /* ← speed knob: 1 = default */
+  --stars-color:  #ffffff;                           /* star color */
+  --stars-bg:     linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+}
+
+/* ── DARK-MODE BG GRADIENT ── only paints when body is in dark mode */
+body.dark-mode {
+  background: var(--stars-bg) !important;
+}
+
+/* ── STAR FIELD CONTAINER ── */
+.stars,
+.shooting-star {
+  pointer-events: none;
+}
+
+/* hide the whole starfield in light mode */
+body:not(.dark-mode) .stars,
+body:not(.dark-mode) .shooting-star {
+  display: none;
+}
+
+/* ── PRIMARY STAR FIELD ── 37 stars scattered ── */
+.stars {
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background: var(--stars-color);
+  box-shadow:
+    2vw 5vh 2px var(--stars-color),  10vw 8vh 2px var(--stars-color),
+    15vw 15vh 1px var(--stars-color), 22vw 22vh 1px var(--stars-color),
+    28vw 12vh 2px var(--stars-color), 32vw 32vh 1px var(--stars-color),
+    38vw 18vh 2px var(--stars-color), 42vw 35vh 1px var(--stars-color),
+    48vw 25vh 2px var(--stars-color), 53vw 42vh 1px var(--stars-color),
+    58vw 15vh 2px var(--stars-color), 63vw 38vh 1px var(--stars-color),
+    68vw 28vh 2px var(--stars-color), 73vw 45vh 1px var(--stars-color),
+    78vw 32vh 2px var(--stars-color), 83vw 48vh 1px var(--stars-color),
+    88vw 20vh 2px var(--stars-color), 93vw 52vh 1px var(--stars-color),
+    98vw 35vh 2px var(--stars-color), 5vw 60vh 1px var(--stars-color),
+    12vw 65vh 2px var(--stars-color), 18vw 72vh 1px var(--stars-color),
+    25vw 78vh 2px var(--stars-color), 30vw 85vh 1px var(--stars-color),
+    35vw 68vh 2px var(--stars-color), 40vw 82vh 1px var(--stars-color),
+    45vw 92vh 2px var(--stars-color), 50vw 75vh 1px var(--stars-color),
+    55vw 88vh 2px var(--stars-color), 60vw 95vh 1px var(--stars-color),
+    65vw 72vh 2px var(--stars-color), 70vw 85vh 1px var(--stars-color),
+    75vw 78vh 2px var(--stars-color), 80vw 92vh 1px var(--stars-color),
+    85vw 82vh 2px var(--stars-color), 90vw 88vh 1px var(--stars-color),
+    95vw 75vh 2px var(--stars-color);
+  animation: stars-twinkle calc(8s / var(--stars-speed)) infinite linear;
+}
+
+/* ── SECONDARY STAR FIELD ── 20 more stars, reverse twinkle for depth ── */
+.stars::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  background: var(--stars-color);
+  box-shadow:
+    8vw 12vh 2px var(--stars-color),  16vw 18vh 1px var(--stars-color),
+    24vw 25vh 2px var(--stars-color), 33vw 15vh 1px var(--stars-color),
+    41vw 28vh 2px var(--stars-color), 49vw 35vh 1px var(--stars-color),
+    57vw 22vh 2px var(--stars-color), 65vw 42vh 1px var(--stars-color),
+    73vw 28vh 2px var(--stars-color), 81vw 48vh 1px var(--stars-color),
+    89vw 32vh 2px var(--stars-color), 97vw 45vh 1px var(--stars-color),
+    3vw 68vh 2px var(--stars-color),  11vw 75vh 1px var(--stars-color),
+    19vw 82vh 2px var(--stars-color), 27vw 88vh 1px var(--stars-color),
+    35vw 72vh 2px var(--stars-color), 43vw 85vh 1px var(--stars-color),
+    51vw 92vh 2px var(--stars-color), 59vw 78vh 1px var(--stars-color);
+  animation: stars-twinkle calc(6s / var(--stars-speed)) infinite linear reverse;
+}
+
+/* ── SHOOTING STARS ── 5 trails crossing the screen ── */
+.shooting-star {
+  position: fixed;
+  top: 0;
+  left: -100px;
+  width: 100px;
+  height: 2px;
+  z-index: 0;
+  background: linear-gradient(90deg, var(--stars-color), transparent);
+  animation-name: stars-shoot;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+.shooting-star:nth-child(1) { top: 18%; animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
+.shooting-star:nth-child(2) { top: 34%; animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
+.shooting-star:nth-child(3) { top: 52%; animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
+.shooting-star:nth-child(4) { top: 68%; animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
+.shooting-star:nth-child(5) { top: 82%; animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+
+@keyframes stars-twinkle {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 0.4; }
+}
+
+@keyframes stars-shoot {
+  0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+}
+</style>
+
+<!-- ── 1 dual star field + 5 shooting trails ── -->
+<div class="stars"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<!-- ── THEME TOGGLE — bottom-right, defaults to dark on every load ── -->
+
+
+<style>
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px;
+  background: var(--bg, #f5f5f5);
+  border: 1.5px solid var(--ink, #111);
+  border-radius: var(--pill, 999px);
+  font-family: var(--font-head, sans-serif);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .35s ease, border-color .35s ease, box-shadow .25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode .theme-toggle {
+  background: rgba(20, 25, 45, 0.85);
+  border-color: rgba(240, 240, 240, 0.7);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle .glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink, #111);
+  opacity: 0.4;
+  transition: opacity .25s ease, background .25s ease, color .25s ease;
+}
+
+/* light mode: sun is active */
+body:not(.dark-mode) .theme-toggle .glyph-sun {
+  background: var(--ink, #111);
+  color: var(--bg, #f5f5f5);
+  opacity: 1;
+}
+
+/* dark mode: moon is active */
+body.dark-mode .theme-toggle .glyph {
+  color: rgba(240, 240, 240, 0.5);
+}
+body.dark-mode .theme-toggle .glyph-moon {
+  background: rgba(240, 240, 240, 0.95);
+  color: #1b2735;
+  opacity: 1;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 3px;
+}
+body.dark-mode .theme-toggle:focus-visible {
+  outline-color: rgba(240, 240, 240, 0.9);
+}
+</style>
+
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+  <span class="glyph glyph-sun"  aria-hidden="true">☉</span>
+  <span class="glyph glyph-moon" aria-hidden="true">☾</span>
+</button>
+
+<script>
+(function () {
+  // Default: dark mode on every page load (no localStorage persistence)
+  document.body.classList.add('dark-mode');
+
+  const btn = document.getElementById('theme-toggle');
+  btn.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+  });
+})();
+</script>
 
 <div class="content">
 

@@ -8,7 +8,7 @@ permalink: /inspo.html
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <title>Inspo — Saptak</title>
 
 <style>
@@ -177,6 +177,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 .cat-tab.dead.active { /* defensive — should never co-occur */
   filter: none; opacity: 1; border-style: solid;
 }
+
 
 /* ── RESET CHIP — appears only when something is filtered ── */
 .reset-chip {
@@ -471,70 +472,149 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 
 
-/* ── DEEP DIVE CARD ── (now a variant of .inspo-card — declared AFTER so it wins on cascade) */
+/* ── DEEP DIVE CARD ── editorial / old-money / renaissance treatment ── */
+/* declared AFTER .inspo-card so it wins the cascade */
+
+:root {
+  --paper:        #f4ede0;   /* aged cream — Aesop catalog energy */
+  --paper-shade:  #ebe2d0;   /* deeper cream for hairline rules */
+  --ink-warm:     #2a1810;   /* dark coffee, never pure black */
+  --ink-burgundy: #3d1e1e;   /* hairline + arrow tone */
+  --ink-faded:    #6b5544;   /* secondary type, like old letterpress */
+  --font-serif:   'EB Garamond', Georgia, serif;
+}
+
 .deepdive-card {
-  background-image: radial-gradient(circle, rgba(0,0,0,.04) 1px, transparent 2px);
-  
-  
   display: block;
-  padding: 18px 20px 28px;
-  border: 2px solid var(--ink);
-  border-radius: var(--radius);
+  padding: 26px 24px 22px;
+  border: 1px solid var(--ink-burgundy);
+  border-radius: 2px;                      /* sharp corners — books, not buttons */
+  background: var(--paper);
+  background-image:
+    /* faint paper grain via SVG noise — invisible up close */
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16  0 0 0 0 0.09  0 0 0 0 0.06  0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   position: relative;
-  overflow: visible; /* unsets .inspo-card's overflow:hidden so the arrow stays sharp */
-  color: var(--ink);
-
-  background-size: 16px 16px;
-
-  color: #1a1a1a;
-
-
+  overflow: visible;
+  color: var(--ink-warm);
+  font-family: var(--font-serif);
+  transition: border-color .35s ease, background-color .35s ease;
+  /* deckled-edge feel: extremely subtle inner shadow at top, like a folded page */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 240, 0.6),
+    inset 0 -1px 0 rgba(61, 30, 30, 0.04);
 }
 
-
-
-.deepdive-card[hidden] { display: none; }
-
-.deepdive-label {
-  font-family: var(--font-head);
-  font-size: 9px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase;
-  opacity: .4; margin-bottom: 6px;
-}
-
-.deepdive-title {
-  font-family: var(--font-head);
-  font-size: 16px; font-weight: 700;
-  letter-spacing: -.2px;
-  line-height: 1.35;
-  margin-bottom: 6px;
-}
-
-.deepdive-blurb {
-  font-size: 12px; line-height: 1.6;
-  opacity: .55; margin-bottom: 12px;
-}
-
-.deepdive-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-
-.deepdive-tag {
-  font-family: var(--font-head);
-  font-size: 9px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase;
-  border: 1.5px solid currentColor;
-  padding: 3px 8px; border-radius: var(--pill);
+.deepdive-card::before {
+  /* hairline corner mark — the kind you see in scholarly editions */
+  content: '';
+  position: absolute;
+  top: 10px; left: 10px;
+  width: 14px; height: 14px;
+  border-top: 1px solid var(--ink-burgundy);
+  border-left: 1px solid var(--ink-burgundy);
   opacity: .5;
 }
 
-.deepdive-card::after {
-  content: '→';
-  position: absolute;
-  bottom: 14px; right: 16px;
-  font-family: var(--font-head);
-  font-size: 13px; font-weight: 700;
-  opacity: .25; transition: .2s;
+.deepdive-card[hidden] { display: none; }
+
+.deepdive-card:hover {
+  border-color: var(--ink-warm);
+  background-color: #f7f0e3;
 }
-.deepdive-card:hover::after { opacity: .7; }
+
+/* ── label: small caps, tracked, with hairline rule beneath ── */
+.deepdive-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-burgundy);
+  opacity: .85;
+  margin-bottom: 12px;
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ink-burgundy);
+  /* short rule — only as wide as the text, like a chapter dingbat */
+}
+
+/* ── title: serif italic, the editorial centerpiece ── */
+.deepdive-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: normal;        /* was italic — gone */
+  font-size: 23px;           /* nudged down 1px to feel less display-y */
+  letter-spacing: -.3px;     /* slightly tighter, more confident */
+  line-height: 1.22;
+  color: var(--ink-warm);
+  margin-bottom: 14px;
+  margin-top: 4px;
+}
+
+/* ── blurb: serif roman, slightly faded, scholarly ── */
+.deepdive-blurb {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-faded);
+  margin-bottom: 22px;
+  /* drop cap optional — held back; restraint is the point */
+}
+
+/* ── tags: stripped of all UI chrome, become inline italic words ── */
+.deepdive-tags {
+  display: block;
+  padding-top: 14px;
+  border-top: 1px solid var(--paper-shade);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--ink-faded);
+  opacity: .85;
+}
+
+.deepdive-tag {
+  display: inline;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  letter-spacing: inherit;
+  text-transform: lowercase;
+  opacity: 1;
+}
+
+.deepdive-tag + .deepdive-tag::before {
+  content: ' · ';
+  opacity: .55;
+  margin: 0 2px;
+}
+
+/* ── arrow: serif rightward, ages slowly on hover ── */
+.deepdive-card::after {
+  content: '⇢';
+  position: absolute;
+  bottom: 14px; right: 18px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink-burgundy);
+  opacity: .35;
+  transition: opacity .45s ease, transform .45s ease;
+  line-height: 1;
+}
+
+.deepdive-card:hover::after {
+  opacity: .85;
+  transform: translateX(4px);   /* slow drift — composure */
+}
 
 .empty-state {
   padding: 60px 0; text-align: center;

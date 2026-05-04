@@ -1,0 +1,124 @@
+{% comment %}
+─── BG STARS — dark-mode starfield ───
+True night sky: dark gradient bg + white sharp stars + shooting trails.
+Only visible when body has .dark-mode class (handled by theme-toggle).
+Self-contained: drop {% include bg-stars.html %} into any page <body>.
+{% endcomment %}
+
+<style>
+:root {
+  --stars-speed:  1;                                 /* ← speed knob: 1 = default */
+  --stars-color:  #ffffff;                           /* star color */
+  --stars-bg:     linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+}
+
+/* ── DARK-MODE BG GRADIENT ── only paints when body is in dark mode */
+body.dark-mode {
+  background: var(--stars-bg) !important;
+}
+
+/* ── STAR FIELD CONTAINER ── */
+.stars,
+.shooting-star {
+  pointer-events: none;
+}
+
+/* hide the whole starfield in light mode */
+body:not(.dark-mode) .stars,
+body:not(.dark-mode) .shooting-star {
+  display: none;
+}
+
+/* ── PRIMARY STAR FIELD ── 37 stars scattered ── */
+.stars {
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background: var(--stars-color);
+  box-shadow:
+    2vw 5vh 2px var(--stars-color),  10vw 8vh 2px var(--stars-color),
+    15vw 15vh 1px var(--stars-color), 22vw 22vh 1px var(--stars-color),
+    28vw 12vh 2px var(--stars-color), 32vw 32vh 1px var(--stars-color),
+    38vw 18vh 2px var(--stars-color), 42vw 35vh 1px var(--stars-color),
+    48vw 25vh 2px var(--stars-color), 53vw 42vh 1px var(--stars-color),
+    58vw 15vh 2px var(--stars-color), 63vw 38vh 1px var(--stars-color),
+    68vw 28vh 2px var(--stars-color), 73vw 45vh 1px var(--stars-color),
+    78vw 32vh 2px var(--stars-color), 83vw 48vh 1px var(--stars-color),
+    88vw 20vh 2px var(--stars-color), 93vw 52vh 1px var(--stars-color),
+    98vw 35vh 2px var(--stars-color), 5vw 60vh 1px var(--stars-color),
+    12vw 65vh 2px var(--stars-color), 18vw 72vh 1px var(--stars-color),
+    25vw 78vh 2px var(--stars-color), 30vw 85vh 1px var(--stars-color),
+    35vw 68vh 2px var(--stars-color), 40vw 82vh 1px var(--stars-color),
+    45vw 92vh 2px var(--stars-color), 50vw 75vh 1px var(--stars-color),
+    55vw 88vh 2px var(--stars-color), 60vw 95vh 1px var(--stars-color),
+    65vw 72vh 2px var(--stars-color), 70vw 85vh 1px var(--stars-color),
+    75vw 78vh 2px var(--stars-color), 80vw 92vh 1px var(--stars-color),
+    85vw 82vh 2px var(--stars-color), 90vw 88vh 1px var(--stars-color),
+    95vw 75vh 2px var(--stars-color);
+  animation: stars-twinkle calc(8s / var(--stars-speed)) infinite linear;
+}
+
+/* ── SECONDARY STAR FIELD ── 20 more stars, reverse twinkle for depth ── */
+.stars::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  background: var(--stars-color);
+  box-shadow:
+    8vw 12vh 2px var(--stars-color),  16vw 18vh 1px var(--stars-color),
+    24vw 25vh 2px var(--stars-color), 33vw 15vh 1px var(--stars-color),
+    41vw 28vh 2px var(--stars-color), 49vw 35vh 1px var(--stars-color),
+    57vw 22vh 2px var(--stars-color), 65vw 42vh 1px var(--stars-color),
+    73vw 28vh 2px var(--stars-color), 81vw 48vh 1px var(--stars-color),
+    89vw 32vh 2px var(--stars-color), 97vw 45vh 1px var(--stars-color),
+    3vw 68vh 2px var(--stars-color),  11vw 75vh 1px var(--stars-color),
+    19vw 82vh 2px var(--stars-color), 27vw 88vh 1px var(--stars-color),
+    35vw 72vh 2px var(--stars-color), 43vw 85vh 1px var(--stars-color),
+    51vw 92vh 2px var(--stars-color), 59vw 78vh 1px var(--stars-color);
+  animation: stars-twinkle calc(6s / var(--stars-speed)) infinite linear reverse;
+}
+
+/* ── SHOOTING STARS ── 5 trails crossing the screen ── */
+.shooting-star {
+  position: fixed;
+  top: 0;
+  left: -100px;
+  width: 100px;
+  height: 2px;
+  z-index: 0;
+  background: linear-gradient(90deg, var(--stars-color), transparent);
+  animation-name: stars-shoot;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+.shooting-star:nth-child(1) { top: 18%; animation-duration: calc(4s   / var(--stars-speed)); animation-delay: calc(-0.5s / var(--stars-speed)); }
+.shooting-star:nth-child(2) { top: 34%; animation-duration: calc(5s   / var(--stars-speed)); animation-delay: calc(-1.5s / var(--stars-speed)); }
+.shooting-star:nth-child(3) { top: 52%; animation-duration: calc(3.5s / var(--stars-speed)); animation-delay: calc(-2.7s / var(--stars-speed)); }
+.shooting-star:nth-child(4) { top: 68%; animation-duration: calc(4.5s / var(--stars-speed)); animation-delay: calc(-3.8s / var(--stars-speed)); }
+.shooting-star:nth-child(5) { top: 82%; animation-duration: calc(6s   / var(--stars-speed)); animation-delay: calc(-4.5s / var(--stars-speed)); }
+
+@keyframes stars-twinkle {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 0.4; }
+}
+
+@keyframes stars-shoot {
+  0%   { transform: translateX(0)     translateY(0)    rotate(25deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+}
+</style>
+
+<!-- ── 1 dual star field + 5 shooting trails ── -->
+<div class="stars"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
