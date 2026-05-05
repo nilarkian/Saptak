@@ -7,7 +7,7 @@ permalink: /watchlist.html
 
 ## MAY 2026
 
-## <span class="date">May 5</span> 📈 UPI Hits 22.35B Transactions in April 2026
+### <span class="date">May 5</span> 📈 UPI Hits 22.35B Transactions in April 2026
 tags: [upi, payments, india]
 
 UPI processed 22.35 billion transactions worth ₹29.03 lakh crore in April, up 25% YoY in volume and 21% in value. Beyond the record, daily averages ticked up to 745 million from March's 730 million. This locks in UPI's dominance at 85% of India's digital payments and half of global real-time volume. A decade post-launch, cross-border expansion to eight countries doubled international transactions to 1.48 million, unlocking merchant onboarding in Japan and Malaysia next. 
@@ -44,7 +44,7 @@ If you run Linux in prod, this is not optional—this is **patch immediately or 
 ---
 
 
-## <span class="date">May 4</span> 📉 Turkey & Russia Manufacturing Hit Hardest by Iran War
+### <span class="date">May 4</span> 📉 Turkey & Russia Manufacturing Hit Hardest by Iran War
 tags: [manufacturing, turkey, russia, iran-war]
 
 Turkey's PMI plunged to 45.7 in April, sharpest drop since September 2024, with Russia's at 48.1 extending 11-month contraction. New twist: Middle East conflict spikes fuel costs and severs supply lines, accelerating input inflation to 16-month highs.
