@@ -25,7 +25,6 @@ The trick: it writes **just 4 bytes in memory** (not disk), using `splice()` + c
 
 Result: even trusted binaries like `/usr/bin/su` get hijacked → full system takeover.
 
-👉 **So what?**  
 This isn’t a “maybe exploitable” bug. It’s:  
 → reliable (works first try)  
 → portable (same script everywhere)  
@@ -64,7 +63,6 @@ Instead of risky double cuts, it uses a **single nick + guided insertion** → f
 
 Result: ~50% CAR insertion, strong cell growth, and **far fewer unwanted DNA changes**.
 
-👉 **So what?**  
 CAR-T therapy is expensive and messy to manufacture because it relies on viruses and break-heavy editing. This method strips that complexity out.
 
 → easier scaling  
