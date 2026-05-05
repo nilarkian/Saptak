@@ -1,132 +1,39 @@
 - name: energy
-  children:
-    - nuclear
-    - fusion
-    - battery
-
+  children: [nuclear, fusion, battery]
 
 - name: cure-boredom
+
 - name: interests
-  children:
-    - history
-    - cartography
-    - cities
-    - sports
-    - mindset
-    - travel
-    - writing
-    - tools-for-thought
-    - space
-    - thought-experiment
-    - biology
-    - games
-    - geography
-    - nostalgia
-    - discovery
-    - puzzles
-    - music
-    - ambient
-    - crafts
-    - diy
-    - military
-    - infrastructure
-    - environment
-    - epistemology
-    - pepakura
-    - art
-    - photography
+  children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought, space, thought-experiment, biology, games, geography, nostalgia, discovery, puzzles, ambient, crafts, diy, military, infrastructure, environment, epistemology, pepakura, art, photography]
+
+- name: music
+  children: [bass, dancing]
 - name: news
-  children:
-    - china
-    - turkey
-    - russia
-    - america
+  children: [china, turkey, russia, america]
+
 - name: coding
-  children:
-    - webdev
-    - open-source
-    - linux
-    - database
-    - data
-    - javascript
-    - development
-    - react
-    - git
+  children: [webdev, open-source, linux, database, data, javascript, development, react, git]
+
 - name: tech
-  children:
-    - ai
-    - ar
-    - gene editing
-    - drones
-    - semiconductors
-    - manufacturing
-    - fintech
-    - google
-    - amazon
-    - nvidia
-    - meta
-    - hardware
-    - social
-    - media
-    - video
-    - internet-history
-    - tech-history
+  children: [ai, ar, gene editing, drones, semiconductors, manufacturing, fintech, google, amazon, nvidia, meta, hardware, social, media, video, internet-history, tech-history]
+
 - name: business
-  children:
-    - branding
-    - capex
-    - marketing
-    - copywriting
-    - equities
-    - markets
-    - macro
-    - commodities
+  children: [branding, capex, marketing, copywriting, equities, markets, macro, commodities]
+
 - name: governance
-  children:
-    - policy
-    - regulation
-    - geopolitics
-    - defence
+  children: [policy, regulation, geopolitics, defence]
+
 - name: design
-  children:
-    - ads
-    - landing-pages
-    - typography
-    - email
-    - ui
-    - icons
-    - assets
-    - animation
-    - textures
-    - stickers
-    - inspiration
-    - swipefile
-    - data-viz
+  children: [ads, landing-pages, typography, email, ui, icons, assets, animation, textures, stickers, inspiration, swipefile, data-viz]
+
 - name: india
-  children:
-    - cricket
-    - kolkata
-    - isro
-    - upi
+  children: [cricket, kolkata, isro, upi]
+
 - name: money
-  children:
-    - economics
+  children: [economics]
+
 - name: resources
-  children:
-    - learning
-    - research
-    - tools
-    - quotes
-    - productivity
-    - mockups
-    - science
-    - read
-    - reference
-    - archive
-    - taxonomy
-    - job
+  children: [learning, research, tools, quotes, productivity, mockups, science, read, reference, archive, taxonomy, job]
+
 - name: misc
-  children:
-    - psychology
-    - ambition
-    - criticism
+  children: [psychology, ambition, criticism]
