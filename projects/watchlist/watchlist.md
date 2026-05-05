@@ -7,6 +7,88 @@ permalink: /watchlist.html
 
 ## MAY 2026
 
+## <span class="date">May 5</span> 📈 UPI Hits 22.35B Transactions in April 2026
+tags: [upi, payments, india]
+
+UPI processed 22.35 billion transactions worth ₹29.03 lakh crore in April, up 25% YoY in volume and 21% in value. Beyond the record, daily averages ticked up to 745 million from March's 730 million. This locks in UPI's dominance at 85% of India's digital payments and half of global real-time volume. A decade post-launch, cross-border expansion to eight countries doubled international transactions to 1.48 million, unlocking merchant onboarding in Japan and Malaysia next. 
+
+[🔗source](https://www.rediff.com/business/report/upi-transactions-exceed-rs-314-lakh-crore-in-fy26/20260430.htm) 
+
+---
+
+###  <span class="date">May 4</span> 🛡️ “Copy Fail” lets normal LINUX users become root
+tags: [linux, security]
+
+A Linux bug (CVE-2026-31431) lets any local user quietly become root on systems since 2017.
+
+The trick: it writes **just 4 bytes in memory** (not disk), using `splice()` + crypto → no race conditions, no crashes, no traces in file checks.
+
+Result: even trusted binaries like `/usr/bin/su` get hijacked → full system takeover.
+
+👉 **So what?**  
+This isn’t a “maybe exploitable” bug. It’s:  
+→ reliable (works first try)  
+→ portable (same script everywhere)  
+→ invisible (disk looks untouched)
+
+Meaning: any machine with a local user is one step away from root until patched.
+
+Fix is simple (update kernel), but until then:  
+→ block AF_ALG  
+→ disable `algif_aead`
+
+If you run Linux in prod, this is not optional—this is **patch immediately or assume compromise**.
+
+[🔗source](https://xint.io/blog/copy-fail-linux-distributions) 
+
+---
+
+
+## <span class="date">May 4</span> 📉 Turkey & Russia Manufacturing Hit Hardest by Iran War
+tags: [manufacturing, turkey, russia, iran-war]
+
+Turkey's PMI plunged to 45.7 in April, sharpest drop since September 2024, with Russia's at 48.1 extending 11-month contraction. New twist: Middle East conflict spikes fuel costs and severs supply lines, accelerating input inflation to 16-month highs.
+
+This breaks fragile recovery paths, forcing output cuts rivaling COVID lows and mass layoffs in Russia. Central banks stay hawkish amid surging prices. Expect export rerouting, higher goods costs for Europe, and delayed regional rebound until war eases.
+
+[🔗turkey](https://www.pmi.spglobal.com/Public/Home/PressRelease/53919bca617c47b781af3a877f28d589) 
+[🔗russia](https://www.pmi.spglobal.com/Public/Home/PressRelease/f404507b49b6469ba9c2594c431aae64) 
+
+---
+### <span class="date">May 3</span> Apr 30 🧬 PRIME-In makes CAR-T editing safer and cheaper
+tags: [gene editing, cell therapy]
+
+PRIME-In (from _Nature Biomedical Engineering_) inserts large DNA into T cells **without cutting both strands**.
+
+Instead of risky double cuts, it uses a **single nick + guided insertion** → fewer errors, lower toxicity, no viruses.
+
+Result: ~50% CAR insertion, strong cell growth, and **far fewer unwanted DNA changes**.
+
+👉 **So what?**  
+CAR-T therapy is expensive and messy to manufacture because it relies on viruses and break-heavy editing. This method strips that complexity out.
+
+→ easier scaling  
+→ lower cost per treatment  
+→ safer cells going into patients
+
+If this holds up, CAR-T moves from niche, ultra-expensive therapy toward something **much more manufacturable at scale**.
+
+---
+
+
+### <span class="date">May 3</span> 🚀ISRO-Roscosmos Advance Semi-Cryo Engine Deal for Heavy-Lift Boost
+tags: [ISRO, india, space-tech]
+
+ISRO's 2025-26 annual report confirms a draft contract with Roscosmos for semi-cryogenic engines, following Moscow talks. This shifts from preliminary discussions to procurement-ready status, accelerating access to 2,000 kN SE2000-class tech.
+
+The real advance: It supplements ISRO's domestic SE2000 program, bridging gaps in high-thrust kerosene-LOX propulsion available to few nations. LVM3 payload jumps to 5 tonnes GTO, enabling heavier satellites and deep-space missions.
+
+Russia's engines fast-track India's reusable launcher ambitions while indigenous work matures, positioning it against SpaceX and China in heavy-lift race.
+
+[🔗source](https://economictimes.indiatimes.com/news/science/isro-roscosmos-discuss-delivery-of-semi-cryogenic-engines-in-moscow-draft-contract-under-approval/articleshow/130712541.cms)
+
+---
+
 ### <span class="date">May 2</span> ⚡ China's EAST Tokamak fusion reactor breakthrough
 tags: [fusion, china]
 
