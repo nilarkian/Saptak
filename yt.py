@@ -57,12 +57,14 @@ def now():
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-
 def run(cmd):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        raise RuntimeError(result.stderr)
+        print(result.stderr)
+        return {}
     return json.loads(result.stdout)
+
+
 
 
 def load_json(path):
@@ -239,45 +241,54 @@ def main():
             "-J",
             url
         ])
-        entries = flat["entries"] if isinstance(flat, dict) else flat
+        entries = flat.get("entries", []) if isinstance(flat, dict) else flat
 
-        playlist_ids = []
         position_map = {}
 
         for i, v in enumerate(entries):
             vid = v.get("id")
             if vid:
-                playlist_ids.append(vid)
                 position_map[vid] = i
-
-        for vid in playlist_ids:
+        
+        for v in entries:
+            vid = v.get("id")
+            if not vid:
+                continue
 
             if vid not in existing_map:
-                raw = run([
-                    "yt-dlp",
-                    "--extractor-args", "youtube:player_client=android",
-                    "-J",
-                    f"https://www.youtube.com/watch?v={vid}"
-                ])
-                norm = normalize(raw)
 
-                if not norm:
-                    continue
+                title = v.get("title", "")
+                text = title
 
-                norm["added_at"] = now()
-                norm["first_seen_position"] = position_map.get(vid)
-                norm["source_playlists"] = [name]
+                auto_tags_list = auto_tag(text)
+                if not auto_tags_list:
+                    auto_tags_list = fallback_from_title(title)
+
+                norm = {
+                    "id": vid,
+                    "title": title,
+                    "description": "",
+                    "tags": "",
+                    "tags_list": [],
+                    "auto_tags": auto_tags_list,
+                    "category": assign_category(auto_tags_list),
+                    "added_at": now(),
+                    "updated_at": now(),
+                    "first_seen_position": position_map.get(vid),
+                    "source_playlists": [name],
+                }
 
                 existing_map[vid] = norm
 
             else:
-                v = existing_map[vid]
+                v_existing = existing_map[vid]
 
-                if name not in v.get("source_playlists", []):
-                    v.setdefault("source_playlists", []).append(name)
+                if name not in v_existing.get("source_playlists", []):
+                    v_existing.setdefault("source_playlists", []).append(name)
 
-                v["updated_at"] = now()
+                v_existing["updated_at"] = now()
 
+    
     # re-tag existing videos that have empty auto_tags
     retagged = 0
     for v in existing_map.values():
