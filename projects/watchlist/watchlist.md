@@ -56,7 +56,7 @@ This breaks fragile recovery paths, forcing output cuts rivaling COVID lows and 
 
 ---
 ### <span class="date">May 3</span> Apr 30 🧬 PRIME-In makes CAR-T editing safer and cheaper
-tags: [gene editing, cell therapy]
+tags: [gene editing]
 
 PRIME-In (from _Nature Biomedical Engineering_) inserts large DNA into T cells **without cutting both strands**.
 
@@ -77,7 +77,7 @@ If this holds up, CAR-T moves from niche, ultra-expensive therapy toward somethi
 
 
 ### <span class="date">May 3</span> 🚀ISRO-Roscosmos Advance Semi-Cryo Engine Deal for Heavy-Lift Boost
-tags: [ISRO, india, space-tech]
+tags: [ISRO, india, space]
 
 ISRO's 2025-26 annual report confirms a draft contract with Roscosmos for semi-cryogenic engines, following Moscow talks. This shifts from preliminary discussions to procurement-ready status, accelerating access to 2,000 kN SE2000-class tech.
 

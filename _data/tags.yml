@@ -38,11 +38,14 @@
 - name: news
   children:
     - china
+    - turkey
+    - russia
     - america
 - name: coding
   children:
     - webdev
     - open-source
+    - linux
     - database
     - data
     - javascript
@@ -53,6 +56,7 @@
   children:
     - ai
     - ar
+    - gene editing
     - drones
     - semiconductors
     - manufacturing
@@ -102,6 +106,8 @@
   children:
     - cricket
     - kolkata
+    - isro
+    - upi
 - name: money
   children:
     - economics
