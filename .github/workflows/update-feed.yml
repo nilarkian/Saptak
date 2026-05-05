@@ -1,5 +1,8 @@
 name: Update YouTube Feed
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 */6 * * *"
