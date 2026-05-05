@@ -45,6 +45,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git add _data/all-yt.json
           git add _data/inspo/youtube.json
           git add _data/inspo/music.json
           git commit -m "Auto-update YouTube and music feed" || echo "No changes"
