@@ -1,5 +1,19 @@
 [
-        {
+  {
+    "url": "https://gitmastery.me",
+    "source": "GitMastery",
+    "caption": "An interactive Git learning platform that teaches Git commands and concepts through fun, game-like challenges in a safe sandbox environment.",
+    "date": "2026-05-05",
+    "tags": ["coding", "git", "learning", "interactive"]
+  },
+  {
+    "url": "https://learngitbranching.js.org/",
+    "source": "Learn Git Branching",
+    "caption": "An interactive Git visualization tool and tutorial for mastering Git concepts like branching, merging, and rebasing through browser-based simulations.",
+    "date": "2026-05-05",
+    "tags": ["coding", "git", "learning", "interactive"]
+  },
+      {
       "url": "https://effector.dev",
       "source": "Effector",
       "caption": "A reactive state manager for Javascript focused on performance, modularity, and type safety.",
