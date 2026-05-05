@@ -142,44 +142,6 @@ def assign_category(tags):
     return "uncategorized"
 
 
-# ---------- normalize ----------
-def normalize(video):
-    vid = video.get("id")
-    if not vid:
-        return None
-
-    title = video.get("title", "")
-    desc = video.get("description", "")
-    text = f"{title} {desc}"
-
-    raw_tags = video.get("tags", [])
-    tags_list = raw_tags if isinstance(raw_tags, list) else []
-    tag_str = ", ".join(tags_list)
-
-    auto_tags = auto_tag(text)
-    if not auto_tags:
-        auto_tags = fallback_from_yt_tags(tags_list)
-    if not auto_tags:
-        auto_tags = fallback_from_title(title)
-    category = assign_category(auto_tags)
-
-    return {
-        "id": vid,
-        "title": title,
-
-        # ❌ removed url
-
-        "description": desc,
-
-        # ✅ both formats
-        "tags": tag_str,
-        "tags_list": tags_list,
-
-        "auto_tags": auto_tags,
-        "category": category,
-
-        "updated_at": now()
-    }
 # -------------- music feed ------------------
 def build_feed(playlist_name, output_file, transform_fn):
     source = load_json("_data/all-yt.json")
