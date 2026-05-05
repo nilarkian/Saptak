@@ -232,7 +232,13 @@ def main():
 
         print(f"\nProcessing → {name}")
 
-        flat = run(["yt-dlp", "--flat-playlist", "-J", url])
+        flat = run([
+            "yt-dlp",
+            "--extractor-args", "youtube:player_client=android",
+            "--flat-playlist",
+            "-J",
+            url
+        ])
         entries = flat["entries"] if isinstance(flat, dict) else flat
 
         playlist_ids = []
@@ -247,7 +253,12 @@ def main():
         for vid in playlist_ids:
 
             if vid not in existing_map:
-                raw = run(["yt-dlp", "-J", f"https://www.youtube.com/watch?v={vid}"])
+                raw = run([
+                    "yt-dlp",
+                    "--extractor-args", "youtube:player_client=android",
+                    "-J",
+                    f"https://www.youtube.com/watch?v={vid}"
+                ])
                 norm = normalize(raw)
 
                 if not norm:
