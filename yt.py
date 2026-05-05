@@ -190,6 +190,8 @@ def main():
     existing = load_json(OUTPUT_FILE)
     existing_map = {v["id"]: v for v in existing}
 
+    live_ids = {pl["name"]: set() for pl in PLAYLISTS}
+
     for playlist in PLAYLISTS:
         name = playlist["name"]
         url = playlist["url"]
@@ -216,6 +218,8 @@ def main():
             vid = v.get("id")
             if not vid:
                 continue
+
+            live_ids[name].add(vid)
 
             if vid not in existing_map:
 
@@ -251,6 +255,19 @@ def main():
                 v_existing["updated_at"] = now()
 
     
+    # remove videos no longer in any of their source playlists
+    removed_count = 0
+    for vid_id, entry in list(existing_map.items()):
+        still_in = [pl for pl in entry.get("source_playlists", []) if vid_id in live_ids.get(pl, set())]
+        if not still_in:
+            del existing_map[vid_id]
+            removed_count += 1
+        elif still_in != entry.get("source_playlists", []):
+            entry["source_playlists"] = still_in
+            entry["updated_at"] = now()
+    if removed_count:
+        print(f"Removed {removed_count} video(s) no longer in any playlist.")
+
     # re-tag existing videos that have empty auto_tags
     retagged = 0
     for v in existing_map.values():
