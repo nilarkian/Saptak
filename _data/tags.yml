@@ -4,7 +4,10 @@
 - name: cure-boredom
 
 - name: interests
-  children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought, space, thought-experiment, biology, games, geography, nostalgia, discovery, puzzles, ambient, crafts, diy, military, infrastructure, environment, epistemology, pepakura, art, photography]
+  children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought
+  , space, thought-experiment, biology, games, geography, nostalgia, discovery, puzzles, ambient
+  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, art, photography,
+  ]
 
 - name: music
   children: [bass, dancing]
@@ -15,10 +18,12 @@
   children: [webdev, open-source, linux, database, data, javascript, development, react, git]
 
 - name: tech
-  children: [ai, ar, gene editing, drones, semiconductors, manufacturing, fintech, google, amazon, nvidia, meta, hardware, social, media, video, internet-history, tech-history]
+  children: [ai, ar, gene editing, drones, semiconductors, manufacturing, fintech, google, amazon
+  , nvidia, meta, hardware, social, media, video, internet-history, tech-history
+  ]
 
 - name: business
-  children: [branding, capex, marketing, copywriting, equities, markets, macro, commodities]
+  children: [branding, capex, marketing, copywriting, equities, markets, macro, commodities, royal-efield]
 
 - name: governance
   children: [policy, regulation, geopolitics, defence]
