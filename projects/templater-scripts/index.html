@@ -179,7 +179,12 @@ hr.divider { border: none; border-top: 1px solid #ddd; margin: 0 0 36px; }
   <!-- FILTER BAR — categories auto-built from front matter -->
   <div class="filter-bar" id="filter-bar">
     <button class="filter-btn active" data-cat="all">All</button>
-    {% assign scripts = site.pages | where_exp: "p", "p.path contains 'projects/templater-scripts'" | where_exp: "p", "p.layout == 'templater'" %}
+    
+    {% assign scripts = site.pages 
+      | where_exp: "p", "p.path contains 'projects/templater-scripts'"
+      | where_exp: "p", "p.layout == 'templater'"
+      | sort: "date"
+      | reverse %}
     {% assign cats = scripts | map: "category" | uniq | sort %}
 
     {% for cat in cats %}

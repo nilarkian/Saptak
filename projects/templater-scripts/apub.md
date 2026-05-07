@@ -1,6 +1,6 @@
 ---
 id: 2026MayW1907Thu0826pm31
-title: Auto Push Watchlist
+title: Auto Publish Watchlist
 description: Saves an Obsidian watchlist note, stages the linked repo file, commits only if changes exist, then pushes automatically to GitHub.
 category: Automation
 tags:
@@ -10,7 +10,7 @@ tags:
   - watchlist
   - templater
   - symlink
-date: 2026-03-05
+date: 2026-02-05
 layout: templater
 ---
 
