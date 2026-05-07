@@ -2,7 +2,7 @@
 layout: templater
 title: Hotkeys for Files
 description: Register global hotkeys that instantly open specific Obsidian files from a plain-text keybinding map.
-category: automation
+category: Automation
 tags: [templater, hotkeys, navigation, keybindings, workflow]
 date: 2026-05-07
 ---
