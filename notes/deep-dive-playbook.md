@@ -1,3 +1,8 @@
+---
+project:
+  - "[[notes]]"
+next page➡️:
+---
 # Deep Dive Playbook
 
 A deep dive is a curated, argued piece of writing — not a summary, not a link dump. It lives in the Inspo section alongside tools, tweets, and music. Its job is to tell the reader what something *is*, why it *matters*, and what's *uncomfortable* about it. It's written for a reader who is smart and time-poor. It respects their intelligence by having a point of view.

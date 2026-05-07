@@ -1,3 +1,7 @@
+---
+project:
+  - "[[notes]]"
+---
 # HTML Note Playbook
 
 An HTML note is a standalone `.html` file that lives in `notes/`. It earns its format: use it when the content needs visual hierarchy, skimmable components, and interactive structure that markdown cannot produce. Its job is to be the best reference for its topic — not a blog post, not a summary dump, not a pretty wrapper around thin content.
