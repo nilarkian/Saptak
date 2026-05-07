@@ -401,5 +401,3 @@ The RBI and government aren't waiting for market forces. Two interventions on th
 The target: ₹2 trillion in annual disbursements by 2026. Infrastructure is built. The economics still need fixing.
 
 [Source →](https://economictimes.indiatimes.com/news/economy/policy/rbi-to-review-digital-banking-regulations-expand-lending-interface-and-cbdc-pilots/articleshow/121494735.cms)
-
-last test
