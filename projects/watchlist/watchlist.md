@@ -5,8 +5,80 @@ description: Things I'm tracking
 permalink: /watchlist.html
 ---
 
-changes made 
 ## MAY 2026
+
+### <span class="date">May 7</span> 🧠 AI Export Controls Shift From Chips to Compute Access
+tags: [ai, semiconductors, policy]
+
+The U.S. is expanding AI export controls beyond physical chips to cloud access, semiconductor tooling, and even model “distillation” by Chinese firms. New proposals like the Remote Access Security Act target a growing loophole where foreign companies rent U.S.-grade GPUs remotely instead of importing hardware. What changed is the realization that AI capability is no longer bottlenecked purely by chips, but by access to compute networks, frontier models, and manufacturing ecosystems. This turns AI infrastructure into strategic territory, not just commercial infrastructure. Expect hyperscalers, chipmakers, and cloud providers to become geopolitical enforcement layers, while allied nations face pressure to harmonize tech controls or risk supply-chain fragmentation.
+[source](https://techpolicy.press/technology-restrictions-have-become-a-central-instrument-of-economic-statecraft)
+
+---
+
+### <span class="date">May 7</span> ⚛️ AI Is Quietly Becoming a Materials Science Engine
+tags: [materials-science, ai, fusion]
+
+U.S. agencies and labs are now using AI systems to discover new materials for semiconductors, fusion energy, wireless systems, and quantum hardware. The shift isn’t just faster simulation, it’s autonomous scientific discovery pipelines where AI proposes, tests, and refines experiments with minimal human intervention. DOE-backed platforms are integrating robotics, materials databases, and foundation models into closed-loop research systems. This compresses years of lab iteration into weeks and changes where competitive advantage lives: whoever controls the best scientific datasets and automated labs may outpace countries relying on traditional R&D cycles. The likely outcome is a new industrial race around AI-native science infrastructure, not just AI chatbots.
+[source](https://www.whitehouse.gov/wp-content/uploads/2026/01/WHOSTP-2025-Wins.pdf)
+
+---
+
+### <span class="date">May 7</span> 🏗️ Stargate Turns AI Into National Infrastructure
+tags: [ai, datacenters, infrastructure]
+
+The $500B Stargate initiative from OpenAI, SoftBank, Oracle, and MGX marks a transition from AI as software to AI as hard infrastructure. Frontier AI development now depends on power grids, cooling systems, land acquisition, and semiconductor supply chains at a scale previously associated with energy or defense projects. What’s new is that governments are increasingly treating compute capacity as a national asset tied to economic leverage and military readiness. This could lock the AI market around a handful of vertically integrated compute giants while pushing smaller labs toward dependency on rented infrastructure. The bottleneck in AI is shifting from algorithms to electricity, capital expenditure, and physical deployment speed.
+[🔗source](https://openai.com/index/five-new-stargate-sites/) 
+
+---
+
+### <span class="date">May 7</span> 🧬 Biotech Is Entering the “Self-Driving Lab” Era
+tags: [biotech, ai, automation]
+
+DOE and U.S. health agencies are deploying AI-guided biotech platforms that combine machine learning with robotic experimentation to generate biological discoveries autonomously. The breakthrough is not better prediction models alone, but systems that can iteratively run experiments, analyze outcomes, and redesign hypotheses without waiting for human researchers. That compresses drug discovery and microbial engineering timelines dramatically. The deeper implication is economic: biology is starting to resemble software, where iteration speed compounds advantage. Countries and firms with automated wet labs could dominate pharmaceuticals, synthetic biology, and bio-manufacturing, while traditional research institutions struggle to compete with AI-driven throughput.
+[source](https://www.whitehouse.gov/wp-content/uploads/2026/01/WHOSTP-2025-Wins.pdf)
+
+---
+
+
+### <span class="date">May 6</span> 📺 Samsung Retreats From China’s Consumer Electronics Market
+tags: [samsung, china, manufacturing]
+
+Samsung is ending TV, monitor, and home appliance sales in China after 34 years, effectively conceding the world’s largest consumer electronics market to domestic brands like TCL and Haier. The deeper shift isn’t just market share loss, it’s the collapse of the old Korean-Japanese hardware dominance model under China’s vertically integrated manufacturing scale and aggressive pricing. Samsung will still keep semiconductor and mobile operations, which signals where margins now survive: chips, platforms, and AI infrastructure, not commoditized hardware. The move also reinforces China’s transition from “factory of the world” to globally dominant electronics brand ecosystem.
+[source](https://www.reuters.com/business/media-telecom/samsung-says-discontinue-china-sales-some-consumer-electronics-products-2026-05-06/)
+
+---
+
+### <span class="date">May 6</span> ⚛️ Q-CTRL Claims First Commercially Useful Quantum Advantage
+tags: [quantum-computing, materials-science, australia]
+
+Q-CTRL says it completed a materials science simulation on IBM’s 120-qubit quantum system in two minutes, versus over 100 hours using leading classical software, a reported 3,000× speedup. What matters isn’t the headline speedup alone, but that the company achieved it through quantum error-suppression software rather than waiting for fully fault-tolerant quantum hardware. That changes the timeline for usable quantum computing. Instead of a distant “post-breakthrough” future, industries like battery chemistry, energy systems, and advanced materials may start seeing narrow but economically meaningful quantum applications now. The competitive frontier is shifting toward quantum software orchestration, not just qubit count.
+[source](https://q-ctrl.com/blog/q-ctrl-delivers-3-000x-speedup-in-materials-discovery-for-the-energy-sector-with-quantum-computing-and-demonstrates-evidence-of-practical-quantum-advantage)
+
+---
+
+### <span class="date">May 6</span> 📦 India’s Export Engine Is Becoming Services-Led at Scale
+tags: [india, exports, services]
+
+India’s exports hit a record $863 billion in FY26, with services exports driving much of the growth and every quarter posting historic highs for the first time. The structural shift here is that India’s global trade strength is increasingly tied to software, finance, engineering, and AI-enabled services rather than manufacturing alone. That makes India less exposed to traditional export shocks tied to shipping and commodity cycles. Combined with the rapid expansion of Global Capability Centres, India is evolving from an outsourcing destination into core operational infrastructure for multinational firms. The long-term effect could be a durable services trade surplus that reshapes India’s economic leverage globally.
+[source](https://m.economictimes.com/news/economy/foreign-trade/indias-overall-exports-hit-all-time-high-of-863-billion-in-fy26/articleshow/130855881.cms) 
+
+---
+
+### <span class="date">May 5</span> 🚆 Bengal Political Shift Unlocks Stalled Rail Infrastructure
+tags: [india, railways, infrastructure]
+
+Following the BJP’s historic victory in West Bengal, Indian Railways is preparing to accelerate land acquisition for long-delayed projects that had been stalled by state-centre political conflict. The significance goes beyond transport. Infrastructure execution in India has increasingly become constrained less by financing and more by administrative coordination and land approvals. Removing that bottleneck could unlock tens of billions in rail modernization, freight connectivity, and industrial corridor expansion across eastern India. Faster rail deployment would strengthen logistics around ports, mining belts, and manufacturing zones, potentially repositioning eastern India as a major industrial growth corridor over the next decade.
+[source](https://indianexpress.com/article/india/bjp-victory-west-bengal-railway-projects-land-acquisition-speed-up-10674527/)
+
+---
+### <span class="date">May 5</span> 🛰️ Reliance Wants to Build India’s Starlink Rival
+tags: [space, telecom, india]
+
+Reliance Industries is evaluating a multi-billion-dollar low Earth orbit satellite network to compete with Starlink and Amazon’s Kuiper project. This marks a strategic shift where satellite internet is no longer treated as niche connectivity infrastructure, but as sovereign digital infrastructure tied to defense, rural broadband, and AI-era data networks. Reliance entering the market could accelerate India’s push for domestic space-based communications instead of dependence on foreign constellations. It also signals that telecom competition is moving upward, from terrestrial towers to orbital infrastructure. Over time, satellite networks may become as strategically important as fiber and 5G spectrum ownership.
+[source](https://timesofindia.indiatimes.com/business/india-business/desi-rival-to-musks-starlink-mukesh-ambani-led-reliance-eyes-big-bang-entry-in-satcom-space-leo-satellites-in-focus/articleshow/130845732.cms) 
+
+
+---
 
 ### <span class="date">May 5</span> 📈 UPI Hits 22.35B Transactions in April 2026
 tags: [upi, payments, india]
