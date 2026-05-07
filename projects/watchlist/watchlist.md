@@ -4,11 +4,7 @@ title: Watchlist
 description: Things I'm tracking
 permalink: /watchlist.html
 ---
-<<<<<<< HEAD
 
-=======
- 
->>>>>>> 07fc00455f0b6883cc378237e6772ce2d9dbd243
 ## MAY 2026
 
 ### <span class="date">May 7</span> 🧠 AI Export Controls Shift From Chips to Compute Access
