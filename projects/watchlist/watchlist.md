@@ -9,6 +9,7 @@ permalink: /watchlist.html
 
 ### <span class="date">May 7</span> 🧠 AI Export Controls Shift From Chips to Compute Access
 tags: [ai, semiconductors, policy] 
+
 The U.S. is expanding AI export controls beyond physical chips to cloud access, semiconductor tooling, and even model “distillation” by Chinese firms. New proposals like the Remote access Security Act target a growing loophole where foreign companies rent U.S.-grade GPUs remotely instead of importing hardware. What changed is the realization that AI capability is no longer bottlenecked purely by chips, but by access to compute networks, frontier models, and manufacturing ecosystems. This turns AI infrastructure into strategic territory, not just commercial infrastructure. Expect hyperscalers, chipmakers, and cloud providers to become geopolitical enforcement layers, while allied nations face pressure to harmonize tech controls or risk supply-chain fragmentation.
 [source](https://techpolicy.press/technology-restrictions-have-become-a-central-instrument-of-economic-statecraft)
 
