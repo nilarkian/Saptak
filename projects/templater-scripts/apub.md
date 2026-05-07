@@ -143,7 +143,7 @@ That exit code is intentionally used as control flow.
 ---
 
 
-## Required Setup
+# Required Setup
 
 ## 1. Create The Symlink
 
@@ -205,7 +205,7 @@ Or bind it to a hotkey.
 ---
 
 
-## Notes
+# Notes
 
 - Requires Git installed and available in PATH
 - Requires Templater plugin
