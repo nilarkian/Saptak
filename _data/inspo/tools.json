@@ -1,4 +1,26 @@
 [
+  
+  {
+    "url": "https://cursify.vercel.app/",
+    "source": "Cursify",
+    "caption": "Open-source React + Next.js cursor animation library with customizable motion effects built using TypeScript, Tailwind CSS, and Framer Motion.",
+    "date": "2026-05-08",
+    "tags": ["design", "react", "animation", "ui", "frontend"]
+  },
+  {
+    "url": "https://8xengineer.com/",
+    "source": "8x Engineer",
+    "caption": "Platform where developers build real-world apps, compete in engineering challenges, and earn money or recognition through practical projects.",
+    "date": "2026-05-08",
+    "tags": ["coding", "career", "hackathons", "learning", "money"]
+  },
+  {
+    "url": "https://labs.google.com/u/0/pomelli/campaigns",
+    "source": "Pomelli",
+    "caption": "Google Labs AI marketing tool that analyzes a brand's website and generates on-brand social campaigns, visuals, and marketing assets automatically.",
+    "date": "2026-05-08",
+    "tags": ["ai", "marketing", "design", "google", "content"]
+  },	
   {
     "url": "https://gitmastery.me",
     "source": "GitMastery",

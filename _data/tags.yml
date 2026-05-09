@@ -1,44 +1,61 @@
 - name: energy
-  children: [nuclear, fusion, battery]
+  children: [nuclear, fusion, battery, renewable]
 
 - name: cure-boredom
 
+- name: reccomendation
+  children: [reading-list, youtube, swipe, article, music, website]
+
+
+- name: inspo
+
 - name: interests
   children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought
-  , space, thought-experiment, biology, games, geography, nostalgia, discovery, puzzles, ambient
-  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, art, photography,
-  ]
+  , thought-experiment, biology, farming, music, health, fashion, anime, linguistics, gaming
+  , memes, art, reading, space, games, geography, nostalgia, discovery, puzzles, ambient
+  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, photography]
 
 - name: music
   children: [bass, dancing]
+
 - name: news
-  children: [china, turkey, russia, america]
+  children: [china, turkey, russia, america, south-asia, canada]
 
 - name: coding
-  children: [webdev, open-source, linux, database, data, javascript, development, react, git]
+  children: [webdev, open-source, linux, database, data, javascript, development, react
+  , git]
+
+- name: ai
+  children: [prompt, claude, token-efficiency]
 
 - name: tech
-  children: [ai, ar, gene editing, drones, semiconductors, manufacturing, fintech, google, amazon
-  , nvidia, meta, hardware, social, media, video, internet-history, tech-history
-  ]
+  children: [ai, ar, gene-editing, drones, semiconductors, manufacturing, fintech, google
+  , amazon, nvidia, meta, hardware, social, media, video, internet-history, tech-history
+  , security]
 
 - name: business
-  children: [branding, capex, marketing, copywriting, equities, markets, macro, commodities, royal-efield]
+  children: [branding, capex, marketing, copywriting, equities, markets, macro
+  , commodities, royal-efield]
 
 - name: governance
   children: [policy, regulation, geopolitics, defence]
 
 - name: design
-  children: [ads, landing-pages, typography, email, ui, icons, assets, animation, textures, stickers, inspiration, swipefile, data-viz]
+  children: [ads, landing-pages, typography, email, ui, icons, assets, animation
+  , textures, stickers, inspiration, swipefile, data-viz, visual]
 
 - name: india
-  children: [cricket, kolkata, isro, upi]
+  children: [cricket, kolkata, isro, upi, politics, bollywood, realestate, culture]
 
 - name: money
-  children: [economics]
+  children: [economics, personal-finance]
 
 - name: resources
-  children: [learning, research, tools, quotes, productivity, mockups, science, read, reference, archive, taxonomy, job]
+  children: [learning, research, tools, quotes, productivity, mockups, science, read
+  ,  reference, archive, taxonomy, job]
 
 - name: misc
   children: [psychology, ambition, criticism]
+
+- name: career
+  children: [job-search, internships, linkedin, job-hunt, resume]

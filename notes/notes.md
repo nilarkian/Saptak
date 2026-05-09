@@ -8,6 +8,8 @@ dateCreated: "[[2026-05-06]]"
 ---
 
 ```base
+formulas:
+  created: (file.ctime).format("Do MMM")
 filters:
   or:
     - project.contains(this.file.name)

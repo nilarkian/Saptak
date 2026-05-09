@@ -225,49 +225,6 @@ The mappings stay editable as plain text.
 
 ---
 
-## Why This Is Fast
-
-Normal navigation flow:
-
-```text
-Open command palette
-→ type page name
-→ fuzzy search
-→ open result
-```
-
-Hotkey flow:
-
-```text
-Press combo
-→ page opens instantly
-```
-
-This becomes especially useful for:
-
-* journals
-* dashboards
-* project hubs
-* scratchpads
-* capture pages
-* recurring workflows
-
----
-
-## Hot Reload Behavior
-
-Editing `Keybindings.md` automatically reloads the map.
-
-You do not need to:
-
-* restart Obsidian
-* reload plugins
-* rerun the template
-
-Reloads are debounced to prevent event spam during rapid typing.
-
----
-
 ## Supported Combos
 
 Works with combinations like:
