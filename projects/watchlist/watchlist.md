@@ -7,6 +7,58 @@ permalink: /watchlist.html
 
 ## MAY 2026
 
+### <span class="date">May 9</span> 🚀 SpaceX wants robots—not humans—for its first Mars foothold
+tags: [space, robotics, spacex]
+
+confirmed plans for a 2026 Starship Mars mission carrying Tesla Optimus humanoid robots to the Arcadia region instead of traditional exploration payloads. The mission reframes Mars exploration around autonomous labor rather than remote observation, using general-purpose robotics to test construction, extraction, and maintenance tasks under long communication delays. The deeper significance is architectural: Starship’s orbital refueling system, not launch capability, remains the critical dependency for sustained interplanetary logistics. A successful mission would validate robotic pre-deployment as the default model for future human settlement, where infrastructure is assembled autonomously before crews arrive. That shifts Mars strategy closer to industrial supply-chain expansion than symbolic exploration.
+
+[source](https://mashable.com/article/elon-musk-mars-update-key-takeaways-spacex-starship-2026)
+
+---
+### <span class="date">May 9</span> 🧬 CRISPR moves from rare diseases to immune-system rewrites
+tags: [biotech, crispr, healthcare]
+
+[CRISPR Therapeutics](https://crisprtx.com/?utm_source=chatgpt.com) expanded its CAR-T program zugo-cel into autoimmune disease treatment, reframing gene editing from niche correction therapy into large-scale immune reprogramming. The technical unlock is improved long-RNA purification that enables more precise and complex genomic edits, allowing engineered cells to reset faulty immune recognition pathways rather than merely suppress symptoms. That distinction matters because autoimmune medicine has historically relied on lifelong management, not durable cures. If these approaches scale clinically, they threaten entire categories of chronic immunosuppressive drugs while accelerating demand for programmable cell therapies. The commercial center of gene editing may now shift from rare disorders toward massive chronic-disease markets with far larger healthcare spending pools.
+
+[source](https://simplywall.st/stocks/us/pharmaceuticals-biotech/nasdaq-crsp/crispr-therapeutics/news/crispr-therapeutics-expands-pipeline-as-casgevy-grows-and-ca)
+
+---
+
+### <span class="date">May 9</span> 🚀Nvidia Reveals Blackwell Ultra for AI Superclusters
+tags: [ai, nvidia, chips]
+
+Nvidia unveiled Blackwell Ultra GPUs, doubling H100 performance for trillion-parameter AI training. Key upgrade: NVLink 6 interconnects hit 1.8TB/s bandwidth, enabling seamless 100k-GPU clusters without bottlenecks.
+
+Trained GPT-5 scale models 3x faster, cutting costs 40%. Positions Nvidia to dominate hyperscaler builds, forcing AMD and Intel to pivot to custom silicon. Data center power demands spike, accelerating nuclear and grid upgrades worldwide.
+
+[source](https://nvidianews.nvidia.com/news/nvidia-blackwell-ultra-gtc)
+***
+
+### <span class="date">May 8</span> 📈SEBI Caps Algo Trading at 50% Retail Volume
+tags: [finance, india, algo-trading]
+
+SEBI imposed 50% volume caps on retail algo trading, mandating API approvals and risk disclosures after 70% market share surge. Shift from unchecked HFT: brokers must segregate orders, curbing flash crashes.
+
+Restores fairness for non-algo investors, stabilizes Nifty volatility by 15%. Big funds gain edge via exemptions, widening institutional-retail gap. Spurs compliant platforms like Zerodha's next-gen APIs.
+
+[source](https://blog.liquide.life/sebi-algo-trading-regulations-2026/)
+***
+
+### <span class="date">May 8</span> ⚛️ Quantum computing is shifting from research bet to infrastructure race
+tags: [quantum-computing, semiconductors, ai]
+
+Quantum computing moved from “future tech” to strategic infrastructure this week as IBM, IonQ, and Nvidia all pushed commercial narratives around usable quantum systems and quantum-AI integration. IonQ raised guidance after a 755% revenue jump driven by acquisitions, while IBM argued “useful quantum computing is already here” through real-world simulations and enterprise partnerships.
+
+What’s new isn’t the hardware, it’s the stack consolidation. Quantum firms are now buying networking, photonics, and control-system companies to build vertically integrated platforms before fault tolerance fully arrives. Nvidia entering quantum tooling signals AI infrastructure players no longer see quantum as separate from the compute roadmap.
+That changes the competitive map. The bottleneck is shifting from qubits to ecosystem control, energy efficiency, and hybrid AI workflows. Countries and firms that own both AI compute and quantum infrastructure could gain outsized leverage in materials science, logistics, and defense modeling. 
+
+[read more](https://www.investors.com/news/technology/ionq-stock-ionq-earnings-q12026-quantum-computing-stocks/) 
+[read more....](https://www.reuters.com/world/asia-pacific/china-vows-accelerate-technological-self-reliance-ai-push-2026-03-05/) 
+
+---
+
+
+
 ### <span class="date">May 7</span> 🧠 AI Export Controls Shift From Chips to Compute Access
 tags: [ai, semiconductors, policy] 
 
@@ -197,6 +249,7 @@ Impact: supports ~6.5–7% growth and higher corporate profits, but inflation an
 
 ---
 
+## April 2026
 ### <span class="date">Apr 30</span> 🤖 OpenAI o1 outperforms ER physicians on messy real-world diagnostics, excels on NEJM cases
 tags: [AI, healthcare, diagnostics]
 
@@ -243,6 +296,7 @@ If Intel's gamble lands, the next era of computing won't be defined by the machi
 
 ---
 
+
 ### <span class="date">Apr 10</span> 🏭 Amazon's $20B Susquehanna nuclear-to-AI pivot  
 tags: [amazon, nuclear, ai]  
 Amazon poured $20B+ into converting Susquehanna nuclear site to AI campus, securing multi-GW for decades—driving next-gen nuclear funding as hyperscalers claim 67% DC market by 2031.
@@ -252,6 +306,14 @@ Amazon poured $20B+ into converting Susquehanna nuclear site to AI campus, secur
 
 ---
 
+### <span class="date">Apr 6</span> 💡 Xanadu’s IPO turns quantum computing into an infrastructure race
+tags: [quantum-computing, photonics, markets]
+
+[Xanadu Quantum Technologies](https://www.xanadu.ai/?utm_source=chatgpt.com) moving toward a public listing marks a transition in quantum computing from research milestones to capital-market accountability. Its photonic architecture avoids many scaling constraints tied to superconducting systems by integrating more naturally with existing fiber-optic infrastructure and room-temperature networking layers. The real shift is financial: investors are beginning to value error correction, interoperability, and workload efficiency over raw qubit counts. That changes incentives across the sector, forcing quantum firms to prove operational utility instead of theoretical capability. The IPO also strengthens the case for hybrid quantum-classical stacks where quantum processors function less like standalone machines and more like specialized accelerators embedded into conventional compute infrastructure.
+
+[source](https://www.youtube.com/watch?v=ZS1qqLzHu0A)
+
+---
 ## March 2026
 ### <span class="date">March 14</span> 🙏 Nvidia commits $26B to open-source AI models  
 tags: [nvidia, ai, open-source]
@@ -308,6 +370,15 @@ Meta became the largest hyperscaler nuclear buyer with three deals totaling up t
 tags: [google, nuclear, ai]  
 
 Google signed the first U.S. corporate SMR deal with Kairos Power for 500MW units online by 2030s, part of 10GW+ Big Tech nuclear push—locking 24/7 clean power for inference at $1B+ scale with 40-year horizons.[introl](https://introl.com/blog/nuclear-power-ai-data-centers-microsoft-google-amazon-2025)
+
+---
+
+### <span class="date">Nov 15</span> 🔌 TSMC rewires chips for the AI power bottleneck
+tags: [semiconductors, tsmc, ai-hardware]
+
+[TSMC](https://www.tsmc.com/english?utm_source=chatgpt.com) is preparing mass production of its A16 process node with “Super Power Rail” backside power delivery, relocating power routing beneath the transistor layer to reduce congestion between logic and electrical distribution. The innovation targets a scaling problem that traditional transistor shrinking alone could no longer solve: AI accelerators are increasingly constrained by power delivery and thermal inefficiency rather than transistor density. By separating power and signal pathways, TSMC improves speed and voltage stability without expanding chip size. This marks a structural change in chip architecture comparable to the FinFET transition and could redefine competitiveness in AI hardware, where energy efficiency increasingly determines usable compute scale.
+
+[source](https://finance.biggo.com/news/sLLz6Z0BoQmpnl36pHOT)
 
 ---
 
