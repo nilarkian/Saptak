@@ -2,6 +2,22 @@
 
 ---
 
+## 2026-05-10 — triple-stack-router note audit
+
+**Done:**
+- Audited `notes/triple-stack-router.html` (v1) against all three source files: `95-token-reduction.md`, `TRIPLE-MODEL-ROUTER-PROMPT.md` (v2), `TRIPLE-STACK LLM ROUTER — CLAUDE CODE SETUP.md` (v1)
+- Fixed critical routing bug: note incorrectly labeled T2 as "default (no purpose)"; actual classifier defaults to T3 (precision). Fixed lead text + T2/T3 cards.
+- Added missing `AbortError` to T2 retry policy list
+- Added prompt-heuristic routing note to T1 card (short greeting/ack < 40 chars → T1 even without purpose)
+- Added 6th habit card: Tool-Call Economy (§6 of doctrine — significant omission for agent-loop users)
+- Expanded Honest Accounting drill with explicit 3-delta template (−X compression / +Y permanent-memory / +Z doctrine-install, never net)
+
+**Worked:** Cross-referencing code in `tiered-ask.cjs` caught the default-routing bug that prose alone missed.
+
+**Next:** Visual QA pass on rendered note; consider whether Tool-Call Economy warrants its own section vs. habit card.
+
+---
+
 ## 2026-05-10
 
 **Done:**
