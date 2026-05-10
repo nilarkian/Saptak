@@ -1,4 +1,53 @@
 [  
+  {
+    "url": "https://same.energy/",
+    "name": "Same Energy",
+    "desc": "AI-powered visual search engine that finds aesthetically similar images based on mood, style, composition, and texture instead of keywords.",
+    "date": "2026-05-10",
+    "tags": ["visual-search", "ai", "design", "inspiration", "image-discovery"]
+  },
+  {
+    "url": "https://www.tree.fm/",
+    "name": "tree.fm",
+    "desc": "Ambient nature platform that streams real forest soundscapes from around the world for relaxation, focus, meditation, and virtual nature immersion.",
+    "date": "2026-05-09",
+    "tags": ["nature", "ambient", "soundscape", "relaxation", "audio"]
+  },
+  {
+    "url": "https://citywalks.live/",
+    "name": "City Walks Live",
+    "desc": "Virtual travel platform featuring immersive walking tours through cities worldwide using long-form street exploration videos and live-style travel experiences.",
+    "date": "2026-05-08",
+    "tags": ["virtual-travel", "walking-tours", "cities", "travel", "immersive"]
+  },
+  {
+    "url": "https://fieldsofthe.world",
+    "name": "Fields of The World",
+    "desc": "Open-source global agricultural field boundary mapping platform using satellite imagery and machine learning for crop monitoring, land-use analysis, and geospatial research.",
+    "date": "2026-05-04",
+    "tags": ["geospatial", "machine-learning", "satellite-imagery", "agriculture", "mapping"]
+  },
+  {
+    "url": "https://www.3dtuning.com/en-US/",
+    "name": "3DTuning",
+    "desc": "Interactive 3D car customization simulator where users can modify vehicles with body kits, wheels, paint, suspension, and tuning parts in real time.",
+    "date": "2026-05-05",
+    "tags": ["cars", "3d", "customization", "simulation", "automotive"]
+  },
+  {
+    "url": "https://demo.f4map.com/",
+    "name": "F4map Demo",
+    "desc": "Interactive WebGL-powered 3D map viewer built on OpenStreetMap data with realistic buildings, terrain, shadows, and city exploration.",
+    "date": "2026-05-06",
+    "tags": ["maps", "3d", "webgl", "openstreetmap", "geospatial"]
+  },
+  {
+    "url": "https://messenger.abeto.co/",
+    "name": "Messenger",
+    "desc": "Relaxing browser-based multiplayer delivery game where players explore a tiny stylized planet delivering messages in a beautifully crafted WebGL world.",
+    "date": "2026-05-07",
+    "tags": ["browser-game", "webgl", "multiplayer", "indie-game", "interactive"]
+  },
       {
       "url": "https://metazooa.com/",
       "name": "Metazooa",
