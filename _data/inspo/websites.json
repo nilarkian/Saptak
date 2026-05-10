@@ -1,5 +1,117 @@
 [
     {
+  "url": "https://www.indiehackers.com/",
+  "name": "Indie Hackers",
+  "desc": "Community platform where indie founders share revenue metrics, experiments, product launches, and startup journeys.",
+  "date": "2026-06-11",
+  "tags": ["startup", "founders", "community", "bootstrapping", "indie"]
+  },
+    {
+      "url": "https://www.submarinecablemap.com/",
+      "name": "Submarine Cable Map",
+      "desc": "Interactive global map visualizing undersea internet cables, landing points, and worldwide digital infrastructure connecting continents.",
+      "date": "2026-05-22",
+      "tags": ["internet", "infrastructure", "maps", "telecommunications", "geography"]
+    },
+    {
+      "url": "https://www.imissmylibrary.com/",
+      "name": "i miss my library",
+      "desc": "Ambient productivity site recreating the quiet atmosphere of libraries with realistic background sounds for studying and focused work.",
+      "date": "2026-05-23",
+      "tags": ["ambient", "productivity", "study", "audio", "focus"]
+    },
+    {
+      "url": "https://imissmycafe.com/",
+      "name": "I Miss My Cafe",
+      "desc": "Relaxing browser experience simulating coffee shop ambience with customizable café sounds, rain, chatter, and background noise.",
+      "date": "2026-05-24",
+      "tags": ["ambient", "coffee-shop", "focus", "audio", "productivity"]
+    },
+    {
+      "url": "https://www.postcrossing.com/",
+      "name": "Postcrossing",
+      "desc": "Global postcard exchange community where strangers send and receive real postcards from around the world.",
+      "date": "2026-05-25",
+      "tags": ["community", "postcards", "travel", "social", "mail-art"]
+    },
+    {
+      "url": "https://www.window-swap.com/",
+      "name": "WindowSwap",
+      "desc": "Virtual window-view platform letting users experience relaxing real-world scenery and ambient sounds from homes worldwide.",
+      "date": "2026-05-26",
+      "tags": ["virtual-travel", "ambient", "relaxation", "video", "exploration"]
+    },
+    {
+      "url": "https://mysketchbooth.com/",
+      "name": "MySketchBooth",
+      "desc": "Free online vintage-style photo booth that transforms selfies into retro sketches, film strips, and nostalgic portrait effects.",
+      "date": "2026-05-27",
+      "tags": ["photo-editor", "retro", "photobooth", "creative-tools", "images"]
+    },
+    {
+      "url": "https://neal.fun/",
+      "name": "Neal.fun",
+      "desc": "Collection of highly polished interactive experiments, simulations, and educational web toys exploring science, culture, money, and absurd internet ideas.",
+      "date": "2026-05-28",
+      "tags": ["interactive", "education", "experiments", "web-toys", "creative-coding"]
+    },
+    {
+      "url": "https://neal.fun/absurd-trolley-problems/",
+      "name": "Absurd Trolley Problems",
+      "desc": "Darkly funny interactive moral-choice game that escalates the classic trolley problem into bizarre and increasingly impossible scenarios.",
+      "date": "2026-05-29",
+      "tags": ["game", "ethics", "interactive", "humor", "simulation"]
+    },
+    {
+      "url": "https://app.radiooooo.com/",
+      "name": "Radiooooo",
+      "desc": "Time-travel radio platform that lets users discover music from different countries and decades through an interactive world map.",
+      "date": "2026-05-30",
+      "tags": ["music", "radio", "history", "discovery", "world-culture"]
+    },
+    {
+      "url": "https://acmail.idreesinc.com/",
+      "name": "Animal Crossing Letter Generator",
+      "desc": "Fan-made tool for creating printable Animal Crossing-style letters with authentic game-inspired layouts and typography.",
+      "date": "2026-05-31",
+      "tags": ["animal-crossing", "generator", "gaming", "fan-tools", "creative"]
+    },
+    {
+      "url": "https://www.theartscavenger.com/",
+      "name": "The Art Scavenger",
+      "desc": "Archive of free printable collage sheets, vintage ephemera, textures, and paper craft resources for artists and journal makers.",
+      "date": "2026-06-01",
+      "tags": ["art", "collage", "printables", "crafts", "vintage"]
+    },
+    {
+      "url": "https://erowidroulette.wttdotm.com/",
+      "name": "Erowid Roulette",
+      "desc": "Randomized portal into unusual and often surreal experience reports sourced from Erowid’s psychoactive substance archive.",
+      "date": "2026-06-02",
+      "tags": ["internet-culture", "random", "archive", "stories", "experimental"]
+    },
+    {
+      "url": "https://www.erowid.org/psychoactives/",
+      "name": "Erowid Psychoactive Vaults",
+      "desc": "Massive educational archive documenting psychoactive substances, user reports, chemistry, culture, risks, and historical references.",
+      "date": "2026-06-03",
+      "tags": ["archive", "education", "substances", "culture", "research"]
+    },
+    {
+      "url": "https://www.mercatus.org/categories/india-political-economy-program",
+      "name": "Mercatus Center — India Political Economy Program",
+      "desc": "Research initiative publishing analysis on Indian economic policy, governance, markets, institutions, and public policy reform.",
+      "date": "2026-06-04",
+      "tags": ["economics", "india", "policy", "research", "governance"]
+    },
+    {
+      "url": "https://www.atlasobscura.com/",
+      "name": "Atlas Obscura",
+      "desc": "Travel discovery platform cataloging unusual places, hidden history, strange museums, forgotten architecture, and global curiosities.",
+      "date": "2026-06-05",
+      "tags": ["travel", "history", "curiosities", "exploration", "culture"]
+    },
+    {
       "url": "https://windows93.net/",
       "name": "WINDOWS93",
       "desc": "Chaotic browser-based parody operating system packed with retro apps, memes, fake desktop tools, games, and early-internet nostalgia experiments.",

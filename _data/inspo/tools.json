@@ -1,5 +1,181 @@
 [
-  
+  {
+    "url": "https://www.detoolbox.com/",
+    "source": "DEToolbox",
+    "caption": "Collection of startup execution tools, canvases, and strategic resources for entrepreneurs and product builders.",
+    "date": "2026-06-17",
+    "tags": ["startup-tools", "entrepreneurship", "strategy", "productivity"]
+  },
+  {
+    "url": "https://steveblank.com/tools-and-blogs-for-entrepreneurs/#startup-tools",
+    "source": "Steve Blank Startup Tools",
+    "caption": "Curated founder toolkit covering customer development, lean startup methods, experimentation, and startup education.",
+    "date": "2026-06-18",
+    "tags": ["lean-startup", "startup-tools", "validation", "entrepreneurship"]
+  },
+  {
+    "url": "https://www.canva.com/design/DAGVaYGfkqQ/qSd-BCSJFZNGrbhC84t9cw/view#8",
+    "author": "Unknown",
+    "title": "31 Business Models",
+    "desc": "Visual reference guide explaining common startup and company business model structures across industries.",
+    "date": "2026-06-16",
+    "tags": ["business-models", "startup", "strategy", "reference", "frameworks"]
+  },
+  {
+    "url": "https://www.strategyzer.com/library/10-essential-links-for-testing-your-value-proposition-business-models",
+    "author": "Strategyzer",
+    "title": "10 Essential Links For Testing Your Value Proposition & Business Models",
+    "desc": "Collection of startup validation resources for stress-testing customer demand, pricing, and business assumptions.",
+    "date": "2026-06-15",
+    "tags": ["startup", "validation", "value-proposition", "business-models", "strategy"]
+  },
+  {
+    "url": "https://nimtools.com/youtube-playlist-generator",
+    "source": "YouTube Playlist Generator",
+    "caption": "AI-assisted tool for generating themed YouTube playlists from prompts, moods, topics, or creator niches without manually searching videos.",
+    "date": "2026-05-10",
+    "tags": ["youtube", "ai-tools", "playlist", "media"]
+  },
+  {
+    "url": "https://cursify.vercel.app/",
+    "source": "Cursify",
+    "caption": "Converts normal cursor movement into smooth cinematic trails and effects for aesthetic screen recordings and demos.",
+    "date": "2026-05-11",
+    "tags": ["cursor", "productivity", "screen-recording", "design"]
+  },
+  {
+    "url": "https://8xengineer.com/",
+    "source": "8x Engineer",
+    "caption": "Competitive platform where developers build real-world software projects, solve engineering challenges, and earn rewards.",
+    "date": "2026-05-12",
+    "tags": ["coding", "engineering", "challenges", "learning"]
+  },
+  {
+    "url": "https://labs.google.com/u/0/pomelli/campaigns",
+    "source": "Google Labs Pomelli",
+    "caption": "Experimental Google Labs workspace for generating and managing AI-powered creative campaigns and marketing concepts.",
+    "date": "2026-05-13",
+    "tags": ["google", "ai", "marketing", "experiments"]
+  },
+  {
+    "url": "https://bellilou.neocities.org/",
+    "source": "Bellilou's Neocity",
+    "caption": "Handcrafted personal web space built in the nostalgic DIY style of the early internet using custom HTML aesthetics and widgets.",
+    "date": "2026-05-14",
+    "tags": ["retro-web", "personal-site", "html", "creative"]
+  },
+  {
+    "url": "https://neocities.org/browse",
+    "source": "Neocities Browse",
+    "caption": "Directory of independently built personal websites celebrating old-school web creativity, experimentation, and self-hosted internet culture.",
+    "date": "2026-05-15",
+    "tags": ["indie-web", "personal-sites", "retro-web", "community"]
+  },
+  {
+    "url": "https://www.pixelcrash.xyz/",
+    "source": "PixelCrash",
+    "caption": "Collection of experimental web visuals, interactive graphics, and glitch-inspired browser art experiences.",
+    "date": "2026-05-16",
+    "tags": ["digital-art", "interactive", "visuals", "creative-coding"]
+  },
+  {
+    "url": "https://spacetypegenerator.com/",
+    "source": "SPACE TYPE GENERATOR",
+    "caption": "Browser-based kinetic typography tool for creating animated text compositions and motion graphics directly on the web.",
+    "date": "2026-05-17",
+    "tags": ["typography", "motion-design", "creative-tools", "text"]
+  },
+  {
+    "url": "https://www.magicpattern.design/tools/css-backgrounds",
+    "source": "MagicPattern CSS Backgrounds",
+    "caption": "Generates customizable SVG and CSS background patterns for websites, apps, and UI design projects.",
+    "date": "2026-05-18",
+    "tags": ["css", "backgrounds", "design-tools", "patterns"]
+  },
+  {
+    "url": "https://codepen.io/bitmap/pen/AzowBq",
+    "source": "CSS Textures",
+    "caption": "Demonstrates how layered gradients and CSS effects can recreate tactile textures without using image assets.",
+    "date": "2026-05-19",
+    "tags": ["css", "textures", "frontend", "design"]
+  },
+  {
+    "url": "https://prismic.io/blog/css-background-effects",
+    "source": "40 CSS Background Effects to Enhance Your Website",
+    "caption": "Curated collection of modern CSS background animation and visual effect techniques with practical implementation examples.",
+    "date": "2026-05-20",
+    "tags": ["css", "frontend", "animations", "web-design"]
+  },
+  {
+    "url": "https://www.transparenttextures.com/",
+    "source": "Transparent Textures",
+    "caption": "Free library of seamless transparent texture overlays for adding subtle grain and tactile depth to web interfaces.",
+    "date": "2026-05-21",
+    "tags": ["textures", "design", "ui", "backgrounds"]
+  },
+  {
+    "url": "https://css-pattern.com/",
+    "source": "CSS Pattern",
+    "caption": "Pattern generator that creates fully editable CSS-only geometric backgrounds without requiring images or SVG files.",
+    "date": "2026-05-22",
+    "tags": ["css", "patterns", "frontend", "generator"]
+  },
+  {
+    "url": "https://commons.wikimedia.org/w/index.php?search=textures&title=Special%3AMediaSearch&type=image",
+    "source": "Wikimedia Commons Texture Search",
+    "caption": "Massive searchable archive of freely usable texture images, scans, surfaces, and public-domain visual assets.",
+    "date": "2026-05-23",
+    "tags": ["textures", "open-assets", "images", "creative-resources"]
+  },
+  {
+    "url": "https://texturelabs.org/",
+    "source": "Texturelabs",
+    "caption": "High-quality free texture library with tutorials, overlays, brushes, and downloadable assets for digital artists and designers.",
+    "date": "2026-05-24",
+    "tags": ["textures", "photoshop", "design", "resources"]
+  },
+  {
+    "url": "https://www.loc.gov/free-to-use/",
+    "source": "Library of Congress Free to Use and Reuse",
+    "caption": "Curated collection of copyright-friendly historical images, illustrations, posters, and archival media from the Library of Congress.",
+    "date": "2026-05-25",
+    "tags": ["archives", "public-domain", "history", "media"]
+  },
+  {
+    "url": "https://mixpost.app/",
+    "source": "Mixpost",
+    "caption": "Open-source self-hosted social media scheduling platform supporting multi-account publishing, analytics, and automation workflows.",
+    "date": "2026-05-26",
+    "tags": ["open-source", "social-media", "self-hosted", "automation"]
+  },
+  {
+    "url": "https://onetimesecret.com/en/",
+    "source": "One-Time Secret",
+    "caption": "Securely share passwords and sensitive text through self-destructing encrypted links that can only be viewed once.",
+    "date": "2026-05-27",
+    "tags": ["security", "privacy", "encryption", "sharing"]
+  },
+  {
+    "url": "https://paymenter.org/",
+    "source": "Paymenter",
+    "caption": "Open-source billing and client management platform built for hosting providers, VPS services, and infrastructure businesses.",
+    "date": "2026-05-28",
+    "tags": ["open-source", "billing", "hosting", "saas"]
+  },
+  {
+    "url": "https://openarchiver.com/",
+    "source": "Open Archiver",
+    "caption": "Open-source email archiving and eDiscovery system designed for long-term email storage, compliance, and searchable retrieval.",
+    "date": "2026-05-29",
+    "tags": ["open-source", "email", "archiving", "compliance"]
+  },
+  {
+    "url": "https://sure.am/",
+    "source": "Sure",
+    "caption": "Privacy-focused personal finance application for tracking spending, budgeting, and financial habits with a clean modern interface.",
+    "date": "2026-05-30",
+    "tags": ["finance", "budgeting", "personal-finance", "productivity"]
+  },
   {
     "url": "https://cursify.vercel.app/",
     "source": "Cursify",

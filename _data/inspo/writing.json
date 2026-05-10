@@ -1,5 +1,267 @@
 [
-   
+  {
+    "url": "https://docs.google.com/spreadsheets/d/1mNMrL4yZCW4eJGrjDB4CEvP9XP7AIeGxXKgkK9vh51Q/edit",
+    "name": "Definitive List of Things Startups Did That Didn't Work",
+    "desc": "Crowdsourced archive documenting failed startup strategies, experiments, growth tactics, and business mistakes.",
+    "date": "2026-06-20",
+    "tags": ["startup-failures", "case-studies", "reference", "lessons", "founders"]
+  },
+  {
+    "url": "https://ieet.org/tech-policy-to-do-list/",
+    "author": "IEET",
+    "title": "Tech Policy To-Do List",
+    "desc": "Policy-focused essay outlining urgent governance and regulatory challenges created by emerging technologies and AI systems.",
+    "date": "2026-06-13",
+    "tags": ["technology", "policy", "governance", "ai", "society"]
+  },
+  {
+  "url": "https://www.strategyzer.com/library/how-to-prototype-radically-different-business-models",
+  "author": "Strategyzer",
+  "title": "How To Prototype Radically Different Business Models",
+  "desc": "Framework for rapidly testing unconventional business models before fully committing resources.",
+  "date": "2026-06-12",
+  "tags": ["startup", "business-models", "innovation", "strategy", "experimentation"]
+  },
+    {
+      "url": "https://www.sternberg-press.com/",
+      "author": "Sternberg Press",
+      "title": "Sternberg Press",
+      "desc": "Independent publishing house focused on contemporary art, critical theory, architecture, visual culture, and experimental academic writing.",
+      "date": "2026-05-31",
+      "tags": ["art", "publishing", "theory", "culture"]
+    },
+    {
+      "url": "https://www.setmargins.press/",
+      "author": "Set Margins’ press",
+      "title": "Set Margins",
+      "desc": "Experimental publishing platform exploring digital culture, design, internet aesthetics, philosophy, and contemporary media criticism.",
+      "date": "2026-06-01",
+      "tags": ["internet-culture", "publishing", "design", "essays"]
+    },
+    {
+      "url": "https://www.tiat.place/",
+      "author": "TIAT",
+      "title": "the intersection of art & technology",
+      "desc": "Curated publication and platform documenting projects, essays, and conversations at the boundary of art, computation, and emerging technology.",
+      "date": "2026-06-02",
+      "tags": ["art", "technology", "digital-culture", "creative-tech"]
+    },
+    {
+      "url": "https://3quarksdaily.com/",
+      "author": "3 Quarks Daily",
+      "title": "3 Quarks Daily",
+      "desc": "Long-running intellectual magazine aggregating thoughtful writing across science, philosophy, politics, literature, and the arts.",
+      "date": "2026-06-03",
+      "tags": ["philosophy", "science", "literature", "ideas"]
+    },
+    {
+      "url": "https://www.themarginalian.org/",
+      "author": "Maria Popova",
+      "title": "The Marginalian",
+      "desc": "Reflective essays connecting literature, philosophy, science, poetry, and human meaning through deeply researched storytelling.",
+      "date": "2026-06-04",
+      "tags": ["philosophy", "literature", "humanism", "essays"]
+    },
+    {
+      "url": "https://www.noemamag.com/",
+      "author": "Noema Magazine",
+      "title": "NOEMA",
+      "desc": "Magazine focused on the future of technology, geopolitics, consciousness, AI, systems thinking, and civilizational change.",
+      "date": "2026-06-05",
+      "tags": ["ai", "geopolitics", "philosophy", "future"]
+    },
+    {
+      "url": "https://aeon.co/",
+      "author": "Aeon",
+      "title": "Aeon",
+      "desc": "Digital magazine publishing accessible longform essays and ideas spanning psychology, philosophy, science, society, and culture.",
+      "date": "2026-06-06",
+      "tags": ["philosophy", "psychology", "science", "culture"]
+    },
+    {
+      "url": "https://pudding.cool/",
+      "author": "The Pudding",
+      "title": "The Pudding",
+      "desc": "Interactive visual essay publication using data storytelling, design, and animation to reveal hidden cultural and behavioral patterns.",
+      "date": "2026-06-07",
+      "tags": ["data-visualization", "interactive", "culture", "journalism"]
+    },
+    {
+      "url": "https://publicdomainreview.org/",
+      "author": "The Public Domain Review",
+      "title": "The Public Domain Review",
+      "desc": "Online journal curating unusual public-domain books, illustrations, archives, maps, manuscripts, and forgotten historical media.",
+      "date": "2026-06-08",
+      "tags": ["archives", "history", "public-domain", "culture"]
+    },
+    {
+      "url": "https://afuentes.com/2022/06/i-put-a-camera-on-a-monkey-heres-how-it-shook-my-understanding-of-humanity-big-think-the-well/",
+      "author": "Agustín Fuentes",
+      "title": "I put a camera on a monkey. Here’s how it shook my understanding of humanity",
+      "desc": "Using monkey point-of-view footage, Fuentes argues that human behavior and sociality are far less unique than we often assume.",
+      "date": "2026-05-24",
+      "tags": ["anthropology", "animals", "human-nature", "behavior"]
+    },
+    {
+      "url": "https://aeon.co/essays/how-to-tell-a-bad-person-from-a-person-who-did-a-bad-thing",
+      "author": "Luke Brunning and Per-Erik Milam",
+      "title": "How to tell a bad person from a person who did a bad thing",
+      "desc": "Explores the moral difference between condemning actions versus labeling entire people as inherently bad.",
+      "date": "2026-05-25",
+      "tags": ["ethics", "psychology", "morality", "philosophy"]
+    },
+    {
+      "url": "https://aeon.co/ideas/a-belief-in-meritocracy-is-not-only-false-its-bad-for-you",
+      "author": "Clifford Stott",
+      "title": "A belief in meritocracy is not only false: it’s bad for you",
+      "desc": "Argues that meritocracy myths distort social reality, justify inequality, and increase stress, narcissism, and self-blame.",
+      "date": "2026-05-26",
+      "tags": ["society", "economics", "psychology", "inequality"]
+    },
+    {
+      "url": "https://aeon.co/ideas/why-do-you-believe-what-you-do-run-some-diagnostics-on-it",
+      "author": "Miriam Schoenfield",
+      "title": "Why do you believe what you do? Run some diagnostics on it",
+      "desc": "Practical framework for examining whether your beliefs come from evidence, social influence, emotion, or intellectual luck.",
+      "date": "2026-05-27",
+      "tags": ["epistemology", "thinking", "beliefs", "philosophy"]
+    },
+    {
+      "url": "https://www.henrikkarlsson.xyz/p/unfolding",
+      "author": "Henrik Karlsson",
+      "title": "Everything that turned out well in my life followed the same design process",
+      "desc": "Personal essay arguing that meaningful work and life paths emerge gradually through experimentation rather than rigid planning.",
+      "date": "2026-05-28",
+      "tags": ["life-design", "creativity", "career", "personal-growth"]
+    },
+    {
+      "url": "https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+      "author": "Devon Price",
+      "title": "Laziness Does Not Exist",
+      "desc": "Challenges the idea of laziness by arguing that exhaustion, fear, burnout, and structural pressure are usually the real causes behind low productivity.",
+      "date": "2026-05-29",
+      "tags": ["mental-health", "productivity", "work", "psychology"]
+    },
+    {
+      "url": "https://hbr.org/2019/07/the-elusive-green-consumer",
+      "author": "Ayelet Fishbach, Juliano Laran and Ravi Dhar",
+      "title": "The Elusive Green Consumer",
+      "desc": "Explains why environmentally conscious consumers often fail to act consistently and how businesses can better align incentives with sustainable behavior.",
+      "date": "2026-05-30",
+      "tags": ["consumer-behavior", "sustainability", "business", "psychology"]
+    },
+    {
+      "url": "https://github.com/alex/what-happens-when",
+      "author": "Alex Gaynor and contributors",
+      "title": "What happens when you type google.com into your browser and press enter?",
+      "desc": "Deep practical walkthrough of everything happening between typing a URL and loading a webpage, covering DNS, TCP/IP, HTTPS, browsers, rendering, and servers.",
+      "date": "2026-05-10",
+      "tags": ["networking", "web", "computer-science", "browsers"]
+    },
+    {
+      "url": "https://12factor.net/",
+      "author": "Adam Wiggins",
+      "title": "The Twelve-Factor App",
+      "desc": "Foundational methodology for building scalable cloud-native software applications with clean deployment, configuration, logging, and process management practices.",
+      "date": "2026-05-11",
+      "tags": ["software-engineering", "devops", "cloud", "architecture"]
+    },
+    {
+      "url": "https://debtserious.substack.com/p/round-35-back-leverage-bank-and-private",
+      "author": "Debt Serious",
+      "title": "Round #35: Back Leverage: Bank & Private Credit",
+      "desc": "Explains how modern finance quietly layers leverage through banks, private credit, and shadow financial structures beyond public markets.",
+      "date": "2026-05-12",
+      "tags": ["finance", "banking", "private-credit", "macro"]
+    },
+    {
+      "url": "https://unchartedterritories.tomaspueyo.com/p/mountains",
+      "author": "Tomas Pueyo",
+      "title": "Why Warm Countries Are Poorer",
+      "desc": "Argues geography and climate heavily shape economic development through agriculture, disease burden, transportation, institutions, and energy efficiency.",
+      "date": "2026-05-13",
+      "tags": ["economics", "geography", "development", "history"]
+    },
+    {
+      "url": "https://tanishkaj.substack.com/p/hindi-albums-you-should-listen-to",
+      "author": "Tanishka J.",
+      "title": "hindi albums you should listen to because there's more than seedhe maut",
+      "desc": "Curated introduction to lesser-known Hindi music albums spanning indie, alternative, experimental, and genre-diverse artists beyond mainstream rap.",
+      "date": "2026-05-14",
+      "tags": ["music", "india", "albums", "culture"]
+    },
+    {
+      "url": "https://substack.com/home/post/p-157592204",
+      "author": "Rohit Shinde",
+      "title": "India doesn't have a right wing",
+      "desc": "Political commentary arguing that Indian political factions often lack coherent ideological alignment with classical right-wing traditions.",
+      "date": "2026-05-15",
+      "tags": ["politics", "india", "ideology", "society"]
+    },
+    {
+      "url": "https://atharvajc.substack.com/p/horn-ok-please",
+      "author": "Atharva Chaporkar",
+      "title": "Horn \"OK\" Please?",
+      "desc": "Reflective essay using Indian truck slogans and road culture to explore identity, communication, aesthetics, and everyday public life.",
+      "date": "2026-05-16",
+      "tags": ["india", "culture", "transport", "essay"]
+    },
+    {
+      "url": "https://youarenotsosmart.com/2010/06/23/confirmation-bias/",
+      "author": "David McRaney",
+      "title": "Confirmation Bias",
+      "desc": "Explains how people selectively notice and interpret information that reinforces existing beliefs while ignoring contradictory evidence.",
+      "date": "2026-05-17",
+      "tags": ["psychology", "cognitive-bias", "thinking", "behavior"]
+    },
+    {
+      "url": "https://harpers.org/archive/2024/09/what-are-you-going-to-do-with-that-erik-baker-college-education/",
+      "author": "Erik Baker",
+      "title": "What Are You Going to Do With That?",
+      "desc": "Critiques modern higher education’s shift from intellectual development toward career optimization and economic signaling.",
+      "date": "2026-05-18",
+      "tags": ["education", "society", "careers", "culture"]
+    },
+    {
+      "url": "https://www.noemamag.com/the-politics-of-superintelligence/",
+      "author": "Dan Hendrycks",
+      "title": "The Politics Of Superintelligence",
+      "desc": "Examines how advanced AI systems could reshape global power, governance, military competition, and institutional stability.",
+      "date": "2026-05-19",
+      "tags": ["ai", "politics", "governance", "technology"]
+    },
+    {
+      "url": "https://thereader.mitpress.mit.edu/a-brief-history-of-consumer-culture/",
+      "author": "Michele Micheletti",
+      "title": "A Brief History of Consumer Culture",
+      "desc": "Historical overview of how industrialization, advertising, globalization, and identity shaped modern consumer behavior.",
+      "date": "2026-05-20",
+      "tags": ["history", "consumerism", "culture", "economics"]
+    },
+    {
+      "url": "https://joecarlsmith.substack.com/p/building-ais-that-do-human-like-philosophy",
+      "author": "Joe Carlsmith",
+      "title": "Building AIs that do human-like philosophy",
+      "desc": "Explores whether AI systems could reason philosophically in ways similar to humans and what that means for alignment and cognition.",
+      "date": "2026-05-21",
+      "tags": ["ai", "philosophy", "alignment", "cognition"]
+    },
+    {
+      "url": "https://www.noemamag.com/the-mythology-of-conscious-ai/",
+      "author": "Jonathan Birch",
+      "title": "The Mythology Of Conscious AI",
+      "desc": "Challenges popular assumptions about conscious machines and argues that human narratives often exaggerate AI sentience.",
+      "date": "2026-05-22",
+      "tags": ["ai", "consciousness", "philosophy", "ethics"]
+    },
+    {
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/154065/1/Prescott%202018%20Synthetic%20Psychology%20of%20the%20Self.pdf",
+      "author": "Tony Prescott",
+      "title": "The synthetic psychology of the self",
+      "desc": "Academic exploration of how robotics, neuroscience, and cognitive modeling can simulate human-like concepts of selfhood and identity.",
+      "date": "2026-05-23",
+      "tags": ["cognitive-science", "robotics", "selfhood", "ai"]
+    },
     {
       "url": "https://wiki.lib.sun.ac.za/images/d/d7/Trouble-with-scientists.pdf",
       "author": "Philip Ball",
