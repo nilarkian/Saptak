@@ -734,6 +734,13 @@ const tabs           = document.querySelectorAll('.cat-tab');
 const collectedCards = document.querySelectorAll('.inspo-card');
 const empty          = document.getElementById('empty-state');
 
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
+function isFuture(card) {
+  const d = card.dataset.date;
+  return d && new Date(d) > TODAY;
+}
+
 let activeCategory = 'all';
 
 // read URL param once
@@ -794,7 +801,7 @@ function applyInspoFilter() {
   let visible = 0;
   collectedCards.forEach(card => {
     const cardTags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
-    const show = matchesCategory(card.dataset.category) && matchesTag(cardTags);
+    const show = matchesCategory(card.dataset.category) && matchesTag(cardTags) && !isFuture(card);
     card.hidden = !show;
     if (show) visible++;
   });
@@ -835,6 +842,7 @@ function refreshCategoriesForTag(activeTag, activeParentTag, parentKids) {
     // Count matching cards in this category
     let count = 0;
     collectedCards.forEach(card => {
+      if (isFuture(card)) return;
       const inCat = (cat === 'all') || (card.dataset.category === cat);
       if (!inCat) return;
       const cardTags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
@@ -872,6 +880,23 @@ function updateResetChip(activeTag, activeParentTag) {
     parts.join(`<span class="chip-divider">×</span>`);
 
   resetChip.classList.add('visible');
+}
+
+function correctInitialCounts() {
+  tabs.forEach(tab => {
+    const cat = tab.dataset.cat;
+    let future = 0;
+    collectedCards.forEach(card => {
+      if (isFuture(card) && (cat === 'all' || card.dataset.category === cat)) future++;
+    });
+    if (!future) return;
+    const el = tab.querySelector('.cat-count');
+    const m = el.textContent.match(/^(\d+)\s+(.+)$/);
+    if (!m) return;
+    const updated = `${Math.max(0, parseInt(m[1]) - future)} ${m[2]}`;
+    el.textContent = updated;
+    tab.dataset.defaultCount = updated;
+  });
 }
 
 function resetAllFilters() {
@@ -961,6 +986,8 @@ window.applyInspoFilter = applyInspoFilter;
 
 // initial load — defer until after first paint
 requestAnimationFrame(() => {
+  correctInitialCounts();
+
   if (urlCat) {
     tabs.forEach(t => t.classList.remove('active'));
 

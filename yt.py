@@ -1,7 +1,7 @@
 import json
 import os
 import subprocess
-from datetime import datetime, UTC
+from datetime import datetime, UTC, date as date_cls, timedelta
 import yaml
 import re
 
@@ -142,6 +142,33 @@ def assign_category(tags):
     return "uncategorized"
 
 
+# ---------- date scheduling ----------
+
+def get_occupied_dates():
+    yt = load_json("_data/inspo/youtube.json")
+    mu = load_json("_data/inspo/music.json")
+    return {e["date"][:10] for e in yt + mu if e.get("date")}
+
+
+def next_free_dates(n, occupied):
+    if not n:
+        return []
+    if occupied:
+        parsed = [date_cls.fromisoformat(d) for d in occupied]
+        cursor = max(parsed) + timedelta(days=1)
+    else:
+        cursor = date_cls.today()
+    used = set(occupied)
+    result = []
+    while len(result) < n:
+        ds = cursor.isoformat()
+        if ds not in used:
+            result.append(ds)
+            used.add(ds)
+        cursor += timedelta(days=1)
+    return result
+
+
 # -------------- music feed ------------------
 def build_feed(playlist_name, output_file, transform_fn):
     source = load_json("_data/all-yt.json")
@@ -191,6 +218,7 @@ def main():
     existing_map = {v["id"]: v for v in existing}
 
     live_ids = {pl["name"]: set() for pl in PLAYLISTS}
+    new_video_ids = []
 
     for playlist in PLAYLISTS:
         name = playlist["name"]
@@ -245,6 +273,7 @@ def main():
                 }
 
                 existing_map[vid] = norm
+                new_video_ids.append(vid)
 
             else:
                 v_existing = existing_map[vid]
@@ -285,6 +314,13 @@ def main():
 
     if retagged:
         print(f"Re-tagged {retagged} existing videos")
+
+    if new_video_ids:
+        occupied = get_occupied_dates()
+        dates = next_free_dates(len(new_video_ids), occupied)
+        for vid_id, ds in zip(new_video_ids, dates):
+            existing_map[vid_id]["added_at"] = ds + "T00:00:00Z"
+        print(f"Scheduled {len(new_video_ids)} new item(s): {dates[0]} → {dates[-1]}")
 
     final = list(existing_map.values())
     save_json(OUTPUT_FILE, final)

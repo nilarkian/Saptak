@@ -1,53 +1,130 @@
-[  
-  {
-    "url": "https://same.energy/",
-    "name": "Same Energy",
-    "desc": "AI-powered visual search engine that finds aesthetically similar images based on mood, style, composition, and texture instead of keywords.",
-    "date": "2026-05-10",
-    "tags": ["visual-search", "ai", "design", "inspiration", "image-discovery"]
-  },
-  {
-    "url": "https://www.tree.fm/",
-    "name": "tree.fm",
-    "desc": "Ambient nature platform that streams real forest soundscapes from around the world for relaxation, focus, meditation, and virtual nature immersion.",
-    "date": "2026-05-09",
-    "tags": ["nature", "ambient", "soundscape", "relaxation", "audio"]
-  },
-  {
-    "url": "https://citywalks.live/",
-    "name": "City Walks Live",
-    "desc": "Virtual travel platform featuring immersive walking tours through cities worldwide using long-form street exploration videos and live-style travel experiences.",
-    "date": "2026-05-08",
-    "tags": ["virtual-travel", "walking-tours", "cities", "travel", "immersive"]
-  },
-  {
-    "url": "https://fieldsofthe.world",
-    "name": "Fields of The World",
-    "desc": "Open-source global agricultural field boundary mapping platform using satellite imagery and machine learning for crop monitoring, land-use analysis, and geospatial research.",
-    "date": "2026-05-04",
-    "tags": ["geospatial", "machine-learning", "satellite-imagery", "agriculture", "mapping"]
-  },
-  {
-    "url": "https://www.3dtuning.com/en-US/",
-    "name": "3DTuning",
-    "desc": "Interactive 3D car customization simulator where users can modify vehicles with body kits, wheels, paint, suspension, and tuning parts in real time.",
-    "date": "2026-05-05",
-    "tags": ["cars", "3d", "customization", "simulation", "automotive"]
-  },
-  {
-    "url": "https://demo.f4map.com/",
-    "name": "F4map Demo",
-    "desc": "Interactive WebGL-powered 3D map viewer built on OpenStreetMap data with realistic buildings, terrain, shadows, and city exploration.",
-    "date": "2026-05-06",
-    "tags": ["maps", "3d", "webgl", "openstreetmap", "geospatial"]
-  },
-  {
-    "url": "https://messenger.abeto.co/",
-    "name": "Messenger",
-    "desc": "Relaxing browser-based multiplayer delivery game where players explore a tiny stylized planet delivering messages in a beautifully crafted WebGL world.",
-    "date": "2026-05-07",
-    "tags": ["browser-game", "webgl", "multiplayer", "indie-game", "interactive"]
-  },
+[
+    {
+      "url": "https://windows93.net/",
+      "name": "WINDOWS93",
+      "desc": "Chaotic browser-based parody operating system packed with retro apps, memes, fake desktop tools, games, and early-internet nostalgia experiments.",
+      "date": "2026-05-11",
+      "tags": ["retro-web", "web-os", "nostalgia", "interactive", "experimental"]
+    },
+    {
+      "url": "https://youraislopbores.me/",
+      "name": "your ai slop bores me",
+      "desc": "Viral multiplayer social experiment where humans pretend to be AI chatbots and answer prompts in real time as a playful protest against AI-generated content.",
+      "date": "2026-05-11",
+      "tags": ["anti-ai", "social-experiment", "multiplayer", "internet-culture", "interactive"]
+    },
+    {
+      "url": "https://www.linerider.com/",
+      "name": "Line Rider",
+      "desc": "Classic physics sandbox game where players draw sled tracks and create kinetic animations, stunts, and music-synced motion art.",
+      "date": "2026-05-13",
+      "tags": ["physics", "sandbox", "drawing", "game", "animation"]
+    },
+    {
+      "url": "https://www.oldmapsonline.org/en",
+      "name": "OldMapsOnline",
+      "desc": "Historical map search engine that lets users explore digitized old maps from libraries and archives across different time periods and regions.",
+      "date": "2026-05-14",
+      "tags": ["history", "maps", "archives", "geography", "research"]
+    },
+    {
+      "url": "https://www.runningreality.org/",
+      "name": "Running Reality",
+      "desc": "Interactive world history simulation that models civilizations, wars, trade, politics, and technological development across time.",
+      "date": "2026-05-15",
+      "tags": ["history", "simulation", "civilizations", "education", "interactive"]
+    },
+    {
+      "url": "https://www.zooniverse.org/",
+      "name": "Zooniverse",
+      "desc": "Citizen science platform where volunteers help researchers classify galaxies, transcribe archives, identify wildlife, and analyze scientific data.",
+      "date": "2026-05-16",
+      "tags": ["citizen-science", "research", "science", "crowdsourcing", "education"]
+    },
+    {
+      "url": "https://explorabl.es/",
+      "name": "Explorable Explanations",
+      "desc": "Curated collection of interactive essays and simulations that teach complex concepts through hands-on visual experimentation.",
+      "date": "2026-05-17",
+      "tags": ["education", "interactive", "learning", "simulation", "visualization"]
+    },
+    {
+      "url": "https://www.phantom.land/projects/letters-from-the-future",
+      "name": "Letters from the Future",
+      "desc": "Speculative interactive storytelling project presenting fictional future letters that explore climate, technology, politics, and society.",
+      "date": "2026-05-18",
+      "tags": ["speculative-fiction", "interactive", "storytelling", "future", "design"]
+    },
+    {
+      "url": "https://visdeurbel.nl/en/",
+      "name": "The Fish Doorbell",
+      "desc": "Live-streamed Dutch canal project where viewers press a virtual doorbell to help migrating fish pass through a river lock.",
+      "date": "2026-05-19",
+      "tags": ["livestream", "nature", "crowdsourcing", "wildlife", "interactive"]
+    },
+    {
+      "url": "https://inakshikar.com/makeyourselfacoldcoffee",
+      "name": "make yourself a cold coffee",
+      "desc": "Playful interactive web experience that guides users through making cold coffee using animated storytelling and tactile interactions.",
+      "date": "2026-05-20",
+      "tags": ["interactive", "food", "web-experience", "design", "playful"]
+    },
+    {
+      "url": "https://gradient.horse/",
+      "name": "gradient.horse",
+      "desc": "Massive searchable collection of CSS gradients for designers and developers exploring color palettes, backgrounds, and visual inspiration.",
+      "date": "2026-05-21",
+      "tags": ["gradients", "design", "css", "colors", "developer-tools"]
+    },
+    {
+      "url": "https://same.energy/",
+      "name": "Same Energy",
+      "desc": "AI-powered visual search engine that finds aesthetically similar images based on mood, style, composition, and texture instead of keywords.",
+      "date": "2026-05-09",
+      "tags": ["visual-search", "ai", "design", "inspiration", "image-discovery"]
+    },
+    {
+      "url": "https://www.tree.fm/",
+      "name": "tree.fm",
+      "desc": "Ambient nature platform that streams real forest soundscapes from around the world for relaxation, focus, meditation, and virtual nature immersion.",
+      "date": "2026-05-11",
+      "tags": ["nature", "ambient", "soundscape", "relaxation", "audio"]
+    },
+    {
+      "url": "https://citywalks.live/",
+      "name": "City Walks Live",
+      "desc": "Virtual travel platform featuring immersive walking tours through cities worldwide using long-form street exploration videos and live-style travel experiences.",
+      "date": "2026-05-08",
+      "tags": ["virtual-travel", "walking-tours", "cities", "travel", "immersive"]
+    },
+    {
+      "url": "https://fieldsofthe.world",
+      "name": "Fields of The World",
+      "desc": "Open-source global agricultural field boundary mapping platform using satellite imagery and machine learning for crop monitoring, land-use analysis, and geospatial research.",
+      "date": "2026-05-04",
+      "tags": ["geospatial", "machine-learning", "satellite-imagery", "agriculture", "mapping"]
+    },
+    {
+      "url": "https://www.3dtuning.com/en-US/",
+      "name": "3DTuning",
+      "desc": "Interactive 3D car customization simulator where users can modify vehicles with body kits, wheels, paint, suspension, and tuning parts in real time.",
+      "date": "2026-05-05",
+      "tags": ["cars", "3d", "customization", "simulation", "automotive"]
+    },
+    {
+      "url": "https://demo.f4map.com/",
+      "name": "F4map Demo",
+      "desc": "Interactive WebGL-powered 3D map viewer built on OpenStreetMap data with realistic buildings, terrain, shadows, and city exploration.",
+      "date": "2026-05-06",
+      "tags": ["maps", "3d", "webgl", "openstreetmap", "geospatial"]
+    },
+    {
+      "url": "https://messenger.abeto.co/",
+      "name": "Messenger",
+      "desc": "Relaxing browser-based multiplayer delivery game where players explore a tiny stylized planet delivering messages in a beautifully crafted WebGL world.",
+      "date": "2026-05-07",
+      "tags": ["browser-game", "webgl", "multiplayer", "indie-game", "interactive"]
+    },
       {
       "url": "https://metazooa.com/",
       "name": "Metazooa",
