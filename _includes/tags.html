@@ -293,6 +293,38 @@ const tagList = document.getElementById('tag-list');
 const allBtn  = document.getElementById('all-btn');
 const toc     = document.getElementById('toc');
 
+
+// ── 2. Build tag lookup maps ──────────────────────────────────────────
+const parentToChildren = {};
+const aliasToCanonical = {};
+const allKnownTags     = new Set();
+
+TAG_TREE.forEach(p => {
+
+  const parent = p.name.toLowerCase();
+
+  parentToChildren[parent] = (p.children || []).map(c => c.toLowerCase());
+
+  allKnownTags.add(parent);
+
+  // children
+  (p.children || []).forEach(c => {
+    allKnownTags.add(c.toLowerCase());
+  });
+
+  // aliases
+  (p.aliases || []).forEach(alias => {
+    const cleanAlias = alias.toLowerCase();
+    if (aliasToCanonical[cleanAlias]) {
+      console.warn(`Duplicate alias: ${cleanAlias}`);
+    } else {
+      aliasToCanonical[cleanAlias] = parent;
+    }
+    allKnownTags.add(alias.toLowerCase());
+  });
+
+});
+
 // ── 1. Context detection — collect usedTags + filter function ─────────
 const timelineBody = document.getElementById('timeline-body');
 const noteList     = document.getElementById('note-list');
@@ -320,7 +352,7 @@ if (timelineBody) {
       if (tagDateMatch) {
         currentEntry.tags = tagDateMatch[1]
           .split(',')
-          .map(t => t.trim().toLowerCase())
+          .map(t => (aliasToCanonical[t.trim().toLowerCase()] || t.trim().toLowerCase()))
           .filter(Boolean);
 
         if (tagDateMatch[2]) {
@@ -457,7 +489,7 @@ if (timelineBody) {
 
   rows.forEach(row => {
     const tags = row.dataset.tags ? row.dataset.tags.split(',').filter(Boolean) : [];
-    tags.forEach(t => usedTags.add(t.trim().toLowerCase()));
+    tags.forEach(t => usedTags.add((aliasToCanonical[t.trim().toLowerCase()] || t.trim().toLowerCase())));
   });
 
   filterFn = (activeTag, activeIsParent, parentToChildren) => {
@@ -473,7 +505,7 @@ if (timelineBody) {
 
   cards.forEach(card => {
     const tags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
-    tags.forEach(t => usedTags.add(t.trim().toLowerCase()));
+    tags.forEach(t => usedTags.add((aliasToCanonical[t.trim().toLowerCase()] || t.trim().toLowerCase())));
   });
 
   filterFn = (activeTag, activeIsParent, parentToChildren) => {
@@ -493,7 +525,7 @@ if (timelineBody) {
     cards.forEach(card => {
       if (category !== 'all' && card.dataset.category !== category) return;
       const tags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
-      tags.forEach(t => catUsed.add(t.trim().toLowerCase()));
+      tags.forEach(t => catUsed.add((aliasToCanonical[t.trim().toLowerCase()] || t.trim().toLowerCase())));
     });
 
     let activeTagDied = false;
@@ -561,7 +593,7 @@ if (timelineBody) {
 
   scriptCards.forEach(card => {
     const tags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
-    tags.forEach(t => usedTags.add(t.trim().toLowerCase()));
+    tags.forEach(t => usedTags.add((aliasToCanonical[t.trim().toLowerCase()] || t.trim().toLowerCase())));
   });
 
   filterFn = (activeTag, activeIsParent, parentToChildren) => {
@@ -572,26 +604,24 @@ if (timelineBody) {
   };
 }
 
-// ── 2. Build tag lookup maps ──────────────────────────────────────────
-const parentToChildren = {};
-const allKnownTags     = new Set();
-
-TAG_TREE.forEach(p => {
-  parentToChildren[p.name] = p.children || [];
-  allKnownTags.add(p.name);
-  (p.children || []).forEach(c => allKnownTags.add(c));
-});
 
 // ── 3. Which tags visible + orphans ──────────────────────────────────
 const visibleParents  = new Set();
 const visibleChildren = {};
 
 TAG_TREE.forEach(p => {
-  const usedKids = (p.children || []).filter(c => usedTags.has(c));
-  if (usedTags.has(p.name) || usedKids.length > 0) {
-    visibleParents.add(p.name);
-    visibleChildren[p.name] = usedKids;
+
+  const parent = p.name.toLowerCase();
+
+  const usedKids = (p.children || [])
+    .map(c => c.toLowerCase())
+    .filter(c => usedTags.has(c));
+
+  if (usedTags.has(parent) || usedKids.length > 0) {
+    visibleParents.add(parent);
+    visibleChildren[parent] = usedKids;
   }
+
 });
 
 const orphanTags = [...usedTags].filter(t => !allKnownTags.has(t)).sort();
@@ -639,9 +669,10 @@ function makeChevronSVG() {
 allBtn.addEventListener('click', () => setActive(null, false, null));
 
 TAG_TREE.forEach(parent => {
-  if (!visibleParents.has(parent.name)) return;
+  if (!visibleParents.has(parent.name.toLowerCase())) return;
 
-  const kids  = visibleChildren[parent.name] || [];
+
+  const kids = visibleChildren[parent.name.toLowerCase()] || [];
   const li    = document.createElement('li');
   const group = document.createElement('div');
   group.className = 'tag-group';
@@ -653,9 +684,9 @@ TAG_TREE.forEach(parent => {
     const filterBtn       = document.createElement('button');
     filterBtn.className   = 'parent-filter-btn';
     filterBtn.textContent = parent.name;
-    filterBtn.dataset.tag = parent.name;
+    filterBtn.dataset.tag = parent.name.toLowerCase();
     filterBtn.addEventListener('click', () => {
-      setActive(parent.name, true, row);
+      setActive(parent.name.toLowerCase(), true, row);
       const isCollapsed = childRow.classList.toggle('collapsed');
       svg.classList.toggle('open', !isCollapsed);
     });
@@ -677,8 +708,8 @@ TAG_TREE.forEach(parent => {
       const btn         = document.createElement('button');
       btn.className     = 'child-tag-btn';
       btn.textContent   = child;
-      btn.dataset.tag   = child;
-      btn.addEventListener('click', () => setActive(child, false, null));
+      btn.dataset.tag   = child.toLowerCase();
+      btn.addEventListener('click', () => setActive(child.toLowerCase(), false, null));
       childRow.appendChild(btn);
     });
 
@@ -693,8 +724,8 @@ TAG_TREE.forEach(parent => {
     const btn         = document.createElement('button');
     btn.className     = 'standalone-tag-btn';
     btn.textContent   = parent.name;
-    btn.dataset.tag   = parent.name;
-    btn.addEventListener('click', () => setActive(parent.name, false, null));
+    btn.dataset.tag = parent.name.toLowerCase();
+    btn.addEventListener('click', () => setActive(parent.name.toLowerCase(), false, null));
     group.appendChild(btn);
   }
 

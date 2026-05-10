@@ -2,10 +2,10 @@
   children: [nuclear, fusion, battery, renewable]
 
 
-- name: reccomendation
-  children: [reading-list, youtube, swipe, article, music, website]
+- name: recommendation
+  aliases: [inspo, swipe, swipefile]
+  children: [reading-list, youtube, article, music, website]
 
-- name: inspo
 
 - name: cure-boredom
   children: [sports, travel, music, anime, gaming, memes, puzzles, ambient, crafts
@@ -64,7 +64,7 @@
 
 - name: design
   children: [ads, landing-pages, typography, email, ui, icons, assets, animation
-  , textures, stickers, inspiration, swipefile, data-viz, visual, 3d, animations
+  , textures, stickers, inspiration, data-viz, visual, 3d, animations
   , backgrounds, collage, colors, creative, creative-resources, creative-tools
   , data-visualization, design-tools, digital-art, drawing, gradients, image-discovery
   , images, immersive, interactive, mail-art, motion-design, open-assets, patterns
