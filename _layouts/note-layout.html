@@ -222,12 +222,45 @@ a{text-decoration:none;color:#111;}
 .note-body pre{
   background:#1a1a1a;
   color:#f0f0f0;
-  padding:24px;
+  padding:48px 24px 24px;
   border-radius:12px;
   overflow-x:auto;
   margin-bottom:28px;
   font-size:14px;
   line-height:1.7;
+  position:relative; /* important */
+}
+.note-body pre code{
+  background:none;
+  padding:0;
+  border-radius:0;
+}
+.copy-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.55);
+  font-family:Arial,sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.copy-btn:hover{
+  background:rgba(255,255,255,.15);
+  color:rgba(255,255,255,.9);
+}
+
+.copy-btn.copied{
+  color:#6fcf97;
+  border-color:#6fcf97;
 }
 
 /* ── FOOTER ── */
@@ -327,3 +360,41 @@ const observer = new IntersectionObserver((entries) => {
 
 heads.forEach(h => observer.observe(h));
 </script>
+<script>
+// ── COPY BUTTONS ──
+document.querySelectorAll('.note-body pre').forEach(pre => {
+
+  const code = pre.querySelector('code');
+  if (!code) return;
+
+  const btn = document.createElement('button');
+
+  btn.className = 'copy-btn';
+  btn.innerHTML = '⎘ Copy';
+
+  btn.addEventListener('click', () => {
+
+    navigator.clipboard.writeText(code.textContent.trim()).then(() => {
+
+      btn.innerHTML = '✓ Copied';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btn.innerHTML = '⎘ Copy';
+        btn.classList.remove('copied');
+      }, 1500);
+
+    });
+
+  });
+
+  pre.insertBefore(btn, pre.firstChild);
+
+});
+</script>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>

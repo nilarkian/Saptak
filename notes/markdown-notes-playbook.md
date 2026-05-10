@@ -488,3 +488,24 @@ DRAFT:
 ---
 
 *This playbook reflects the structure and conventions of notes in this repository as of May 2026. Update it when a new pattern appears consistently across three or more new notes.*
+
+---
+
+## 10. Copyable Code Blocks
+
+**Use only when the reader must copy and run the snippet.** §5 covers code blocks as a display element; this section covers the intent: the reader is meant to paste and execute this code, not just read it.
+
+If the reader only needs to recognise a value, path, or field name — use inline code (`` `text` ``) instead. If the snippet illustrates a concept but isn't meant to be run, don't use a code block.
+
+**Pattern:**
+
+1. **Setup sentence first** — 1–3 sentences: what to run, the observable result, the execution context.
+2. **Fenced block with language declared** — never a bare triple-backtick fence.
+3. **Executable code only** — no pseudocode, no illustrative fragments, no placeholder skeletons.
+4. **Structural comments only** — section markers (`// ── NAME ──`) are fine; explanatory comments inside the block are not.
+
+
+**Don't use a code block for:**
+- Paths, identifiers, or field names the reader just needs to recognise (use inline code)
+- Markdown element examples that the reader won't run (show them inline or in a table)
+- Pseudocode or templates with fill-in-the-blank placeholders

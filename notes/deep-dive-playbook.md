@@ -511,3 +511,28 @@ DRAFT:
 ---
 
 *This playbook reflects the voice and structure of the existing deep dives as of May 2026. Update it when a new pattern emerges across three or more new entries.*
+
+---
+
+## 10. Copyable Code Blocks
+
+Deep dives are prose. Copyable code blocks are rare and almost always wrong here — if you're reaching for one, check whether the piece has drifted into documentation territory.
+
+**The one exception:** a Subject Profile deep dive covering a CLI tool, API, or dataset may include a single installation or query command the reader is meant to run to verify or access the subject. One block maximum.
+
+**Use only when the reader must copy and run the snippet.** If they only need to recognise a command syntax or URL — use inline code (`` `text` ``) or mention it in prose.
+
+**Pattern when used:**
+
+1. **Setup sentence first** — 1–2 sentences: what this runs, what the reader gets back.
+2. **Fenced block with language declared** — never a bare triple-backtick fence.
+3. **Executable code only** — no pseudocode, no illustrative fragments.
+
+```bash
+curl https://api.example.com/v1/resource
+```
+
+**Don't use a code block for:**
+- Syntax examples illustrating a concept (use inline code or a table)
+- Commands mentioned in passing — only the one the reader should actually run
+- Any code in a Curated List deep dive — those are never about running code

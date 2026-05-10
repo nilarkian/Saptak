@@ -353,7 +353,7 @@ Updates:
 
 by changing:
 
-```json
+```javascripton
 "cssTheme"
 ```
 

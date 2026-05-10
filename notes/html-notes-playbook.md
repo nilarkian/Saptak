@@ -1061,3 +1061,27 @@ Reference implementation for the Quick Playbook archetype. Editorial palette. Co
 ---
 
 *This playbook reflects the design system and component patterns of `feyn.html` and `signposts.html` as of May 2026. Update when a new component pattern appears across two or more new notes.*
+
+---
+
+## 11. Copyable Code Blocks
+
+**Use only when the reader must copy and run the snippet.** HTML notes are themselves code — this section covers executable code that appears *within* the note's content: CLI commands, config blocks, JS hooks the reader will paste elsewhere.
+
+If the reader only needs to recognise a value, path, or identifier — use inline code (`` `text` ``) instead. If the snippet illustrates a concept but isn't meant to be run, don't use a code block.
+
+**Pattern:**
+
+1. **Setup sentence first** — 1–3 sentences: what to run, what it produces, which context it runs in.
+2. **Fenced block with language declared** — never a bare triple-backtick fence.
+3. **Executable code only** — no pseudocode, no placeholder skeletons, no illustrative fragments.
+4. **Structural comments only** — `// ── SECTION ──` style markers are fine; explanatory comments are not.
+
+```bash
+bundle exec jekyll serve --livereload
+```
+
+**Don't use a code block for:**
+- Paths or class names the reader just needs to recognise (use inline code)
+- CSS token lists shown for reference — those belong in a table or inline
+- Pseudocode or scaffolds with fill-in-the-blank placeholders

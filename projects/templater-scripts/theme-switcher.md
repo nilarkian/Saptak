@@ -214,7 +214,7 @@ appearance.json
 
 Only this key changes:
 
-```json
+```javascripton
 "cssTheme"
 ```
 
@@ -222,7 +222,7 @@ Everything else stays untouched.
 
 That means settings like:
 
-```json
+```javascripton
 "theme": "system"
 ```
 
