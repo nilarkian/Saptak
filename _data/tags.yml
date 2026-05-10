@@ -1,26 +1,30 @@
 - name: energy
   children: [nuclear, fusion, battery, renewable]
 
-- name: cure-boredom
 
 - name: reccomendation
   children: [reading-list, youtube, swipe, article, music, website]
 
-
 - name: inspo
 
+- name: cure-boredom
+  children: [sports, travel, music, anime, gaming, memes, puzzles, ambient, crafts
+  , diy, photography, animal-crossing, browser-game, coffee-shop, curiosities
+  , exploration, food, game, humor, indie-game, multiplayer, relaxation
+  , riding, royal-enfield, sharing, speculative-fiction, stories, transport
+  , virtual-travel, walking-tours]
+
 - name: interests
-  children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought
-  , thought-experiment, biology, farming, music, health, fashion, anime, linguistics, gaming
-  , memes, art, reading, space, games, geography, nostalgia, discovery, puzzles, ambient
-  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, photography
-  , agriculture, animal-crossing, animals, anthropology, architecture, automotive, bikes
-  , browser-game, cars, citizen-science, civilizations, coffee-shop, curiosities
-  , digital-culture, education, exploration, food, game, humor, ideas, indie, indie-game
-  , internet-culture, journalism, life-design, literature, mapping, maps, mental-health
-  , multiplayer, nature, personal-growth, physics, relaxation, riding, royal-enfield
-  , selfhood, sharing, society, speculative-fiction, stories, storytelling, substances
-  , sustainability, transport, virtual-travel, walking-tours, wildlife, world-culture]
+  children: [history, cartography, cities, mindset, writing, tools-for-thought
+  , thought-experiment, biology, farming, health, fashion, linguistics
+  , art, reading, space, geography, nostalgia, discovery, military
+  , infrastructure, environment, epistemology, pepakura, agriculture
+  , animals, anthropology, architecture, automotive, bikes, cars
+  , citizen-science, civilizations, digital-culture, education, ideas, indie
+  , internet-culture, journalism, life-design, literature, mapping, maps
+  , mental-health, nature, personal-growth, physics, selfhood, society
+  , storytelling, substances, sustainability, wildlife, world-culture]
+
 
 - name: music
   children: [bass, dancing, albums, audio, playlist, soundscape]
