@@ -13,49 +13,77 @@
   children: [history, cartography, cities, sports, mindset, travel, writing, tools-for-thought
   , thought-experiment, biology, farming, music, health, fashion, anime, linguistics, gaming
   , memes, art, reading, space, games, geography, nostalgia, discovery, puzzles, ambient
-  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, photography]
+  , crafts, diy, military, infrastructure, environment, epistemology, pepakura, photography
+  , agriculture, animal-crossing, animals, anthropology, architecture, automotive, bikes
+  , browser-game, cars, citizen-science, civilizations, coffee-shop, curiosities
+  , digital-culture, education, exploration, food, game, humor, ideas, indie, indie-game
+  , internet-culture, journalism, life-design, literature, mapping, maps, mental-health
+  , multiplayer, nature, personal-growth, physics, relaxation, riding, royal-enfield
+  , selfhood, sharing, society, speculative-fiction, stories, storytelling, substances
+  , sustainability, transport, virtual-travel, walking-tours, wildlife, world-culture]
 
 - name: music
-  children: [bass, dancing]
+  children: [bass, dancing, albums, audio, playlist, soundscape]
 
 - name: news
   children: [china, turkey, russia, america, south-asia, canada]
 
 - name: coding
   children: [webdev, open-source, linux, database, data, javascript, development, react
-  , git]
+  , git, computer-science, creative-coding, css, cursor, developer-tools, devops
+  , engineering, frameworks, frontend, hackathons, html, indie-web, networking
+  , personal-site, personal-sites, sandbox, self-hosted, simulation, software-engineering
+  , web, webgl]
 
 - name: ai
-  children: [prompt, claude, token-efficiency]
+  children: [prompt, claude, token-efficiency, ai-tools, alignment, anti-ai, machine-learning]
 
 - name: tech
   children: [ai, ar, gene-editing, drones, semiconductors, manufacturing, fintech, google
   , amazon, nvidia, meta, hardware, social, media, video, internet-history, tech-history
-  , security]
+  , security, automation, browsers, cloud, creative-tech, customization, encryption
+  , generator, geospatial, hosting, internet, livestream, openstreetmap, privacy, radio
+  , retro-web, robotics, satellite-imagery, social-media, technology, telecommunications
+  , web-os]
 
 - name: business
   children: [branding, capex, marketing, copywriting, equities, markets, macro
-  , commodities, royal-efield]
+  , commodities, royal-efield, advertising, banking, billing, bootstrapping, business-models
+  , capital-efficiency, case-studies, case-study, compliance, consumer-behavior
+  , customer-development, entrepreneurship, execution, founders, innovation, lean-startup
+  , operations, positioning, private-credit, product, product-market-fit, product-strategy
+  , saas, startup, startup-failures, startup-insights, startup-tools, startups, strategy
+  , validation, value-proposition]
 
 - name: governance
   children: [policy, regulation, geopolitics, defence]
 
 - name: design
   children: [ads, landing-pages, typography, email, ui, icons, assets, animation
-  , textures, stickers, inspiration, swipefile, data-viz, visual]
+  , textures, stickers, inspiration, swipefile, data-viz, visual, 3d, animations
+  , backgrounds, collage, colors, creative, creative-resources, creative-tools
+  , data-visualization, design-tools, digital-art, drawing, gradients, image-discovery
+  , images, immersive, interactive, mail-art, motion-design, open-assets, patterns
+  , photo-editor, photobooth, photoshop, playful, postcards, printables, retro, text
+  , vintage, visual-search, visualization, visuals, web-design, web-experience, web-toys]
 
 - name: india
   children: [cricket, kolkata, isro, upi, politics, bollywood, realestate, culture]
 
 - name: money
-  children: [economics, personal-finance]
+  children: [economics, personal-finance, budgeting, finance]
 
 - name: resources
   children: [learning, research, tools, quotes, productivity, mockups, science, read
-  ,  reference, archive, taxonomy, job]
+  ,  reference, archive, taxonomy, job, archives, archiving, content, essay, essays
+  , fan-tools, focus, lessons, public-domain, publishing, screen-recording, study]
 
 - name: misc
-  children: [psychology, ambition, criticism]
+  children: [psychology, ambition, criticism, behavior, beliefs, challenges, cognition
+  , cognitive-bias, cognitive-science, community, consciousness, consumerism, creativity
+  , crowdsourcing, ethics, experimental, experimentation, experiments, future, human-nature
+  , humanism, ideology, inequality, morality, philosophy, random, social-experiment
+  , theory, thinking]
 
 - name: career
-  children: [job-search, internships, linkedin, job-hunt, resume]
+  children: [job-search, internships, linkedin, job-hunt, resume, careers, work]
