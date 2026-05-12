@@ -7,41 +7,8 @@ permalink: /watchlist.html
 
 ## MAY 2026
 
-### <span class="date">May 12</span> 📈 AI becomes India’s deep‑tech default  
-tags: [ai, deep tech, india, funding]  
 
-A 2025 report shows AI‑led ventures now account for **84% of deep‑tech startups** and **91% of deep‑tech funding** in India, with generative AI and infrastructure‑grade AI pulling most institutional capital.  This isn’t just a valuation spike; it effectively redefines the deep‑tech barbell, pushing capital and talent away from low‑R&D SaaS plays and toward long‑cycle, AI‑first models.  The result is an AI‑centric innovation stack where non‑AI deep‑tech verticals must now justify higher marginal returns on R&D, while VCs are forced to price in longer break‑even horizons and deeper technical moats. 
-[source](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220) 
-[deccanherald](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220)
-
----
-
-### <span class="date">May 12</span> 📉TD Cowen Slashes Infosys Target to $13 on AI Disruption Fears
-tags: [infosys, AI, IT-services]
-
-Analyst downgrades accelerate as TD Cowen cuts Infosys target to $13 from $15 (Hold), joining BMO, Susquehanna, and Jefferies amid OpenAI's $4B-backed DeployCo launch embedding AI engineers in enterprises.
-
-Unlike past cycles, this targets core IT services revenue—Infosys FY27 guidance signals just 1.5-3.5% growth as AI automates workflows.
-
-Indian IT faces existential margin pressure; partnerships with AI vendors offer no shield against direct competition eroding $20B+ annual bookings.
-
-Broader sector weakness deepens, with Infosys ADRs at 52-week lows, signaling AI's commoditization of traditional consulting.
-
-[source](https://www.investing.com/news/stock-market-news/td-cowen-cuts-infosys-target-price-to-13-as-ai-disruption-fears-weigh-on-it-sector-93CH-3578923)
-
----
-
-### <span class="date">May 11</span> 💰 India’s deep‑tech momentum outpaces broader startup system  
-tags: [deep tech, india, vc, semiconductors]  
-
-Deep‑tech ventures in India are growing at a **five‑year CAGR of ~41%**, materially outpacing the broader startup ecosystem and pulling disproportionate attention from VC and institutional capital.  This acceleration is concentrated in AI, semiconductors, and advanced materials, indicating a structural shift from consumer‑app‑driven cycles to hardware‑ and IP‑heavy plays.  The run‑up compresses the time window for early‑stage R&D bets, raises the stakes for dilution‑intensive cap‑tables, and forces founders to treat capital efficiency as a technical constraint, not just a board‑room metric. 
-[source1](https://timesofindia.indiatimes.com/business/india-business/with-eye-on-ai-deeptech-funding-rises-37-to-2-3bn/articleshow/12883409.cms) 
-[source2](https://timesofindia.indiatimes.com/business/india-business/with-eye-on-ai-deeptech-funding-rises-37-to-2-3bn/articleshow/128834944.cms)
-
----
-
-
-### <span class="date">May 11</span> 🤖AI Crafts First Zero-Day Exploit
+### <span class="date">May 12</span> 🤖AI Crafts First Zero-Day Exploit
 tags: [AI, cybersecurity, zero-day]
 
 Google detects cybercrime group using AI to generate a Python zero-day exploiting 2FA in a major open-source admin tool—hallucinated CVSS scores and textbook code confirm LLM origins.
@@ -52,9 +19,44 @@ This collapses vuln-to-weaponization timelines from months to days, as Big Sleep
 
 Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to AI-proof code assumptions and harden logic layers.
 
-[source](https://cyberscoop.com/google-ai-zero-day-exploit/)
+[source1](https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html),
+[source2](https://www.securityweek.com/google-detects-first-ai-generated-zero-day-exploit/)
 
 ---
+
+### <span class="date">May 12</span> 📈 AI becomes India’s deep‑tech default  
+tags: [ai, deep tech, india, funding]  
+
+A 2025 report shows AI‑led ventures now account for **84% of deep‑tech startups** and **91% of deep‑tech funding** in India, with generative AI and infrastructure‑grade AI pulling most institutional capital.  This isn’t just a valuation spike; it effectively redefines the deep‑tech barbell, pushing capital and talent away from low‑R&D SaaS plays and toward long‑cycle, AI‑first models.  The result is an AI‑centric innovation stack where non‑AI deep‑tech verticals must now justify higher marginal returns on R&D, while VCs are forced to price in longer break‑even horizons and deeper technical moats. 
+[source](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220) 
+
+---
+
+### <span class="date">May 11</span> 🤝 OpenAI Moves Into Consulting, Indian IT Stocks Slip
+tags: [openai, consulting, india, IT-services, enterprise-ai]
+
+OpenAI is reportedly expanding beyond model licensing into direct enterprise consulting, triggering a selloff in Indian IT majors heavily exposed to outsourced software and transformation work. The shift matters because OpenAI is no longer just an infrastructure layer for vendors like Infosys or Tata Consultancy Services, it is starting to compete for the high-margin advisory and implementation layer itself.
+
+The deeper threat is margin compression: enterprises may increasingly buy AI-native workflows directly from model providers instead of funding multi-year integration projects. That weakens the traditional “body-shopping + customization” model Indian IT firms scaled on. It also accelerates a broader industry split between commodity AI integration and firms owning proprietary enterprise context, data, and agents.
+
+[source1](https://finance.yahoo.com/markets/stocks/articles/infosys-nsei-infy-story-shifting-060740844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cucGVycGxleGl0eS5haS8&guce_referrer_sig=AQAAAJT05M0NzOc7Hzh_rOR-ttWKgBGHEkLu2Xm5mYiIDXrMzaDqEnckFYXUuo_R2oAmm7yPFc2b1c2Oa-ODWwJHwG8mNyWMSheiYUGj5u0SrLCiarfYow_AEghCcBEhnC2xCdAeQ_6FijIt-vcL5qs9qDR5HcG2iyLP9aDTslaCvPNi)
+
+[source2](https://www.marketbeat.com/instant-alerts/infosys-nyseinfy-sets-new-12-month-low-whats-next-2026-05-06/)
+
+[source3](https://analyticsindiamag.com/it-services/openai-enters-consulting-arena-and-indias-it-stocks-are-paying-the-price)
+
+---
+
+### <span class="date">May 11</span> 💰 India’s deep‑tech momentum outpaces broader startup system  
+tags: [deep tech, india, vc, semiconductors]  
+
+Deep‑tech ventures in India are growing at a **five‑year CAGR of ~37-41%**, materially outpacing the broader startup ecosystem and pulling disproportionate attention from VC and institutional capital.  This acceleration is concentrated in AI, semiconductors, and advanced materials, indicating a structural shift from consumer‑app‑driven cycles to hardware‑ and IP‑heavy plays.  The run‑up compresses the time window for early‑stage R&D bets, raises the stakes for dilution‑intensive cap‑tables, and forces founders to treat capital efficiency as a technical constraint, not just a board‑room metric. 
+    
+[source1](https://timesofindia.indiatimes.com/business/india-business/with-eye-on-ai-deeptech-funding-rises-37-to-2-3bn/articleshow/12883409.cms) 
+
+---
+
+
 
 
 
@@ -62,6 +64,7 @@ Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to 
 tags: [deep tech, india, policy, us, eu]  
 
 A **$1+ billion US–India deep‑tech alliance** and a **₹1 lakh crore RDI fund** are hardwiring India into the global deep‑tech capital stack, specifically targeting AI, semiconductors, quantum, and advanced manufacturing.  Complementing this, the **draft National Deep Tech Startup Policy (NDTSP)** is designing tailored incentives, IP frameworks, and regulatory sandboxes to de‑risk long‑cycle R&D and lower the cost of experimentation for frontier‑tech founders.  Taken together, these moves flip the script on India’s traditional role as a digitization‑only market, positioning it as a sovereign‑grade node for AI‑hardware convergence and forcing global players to treat India not just as a talent pool but as a core innovation basin. 
+
 [source](https://legal.economictimes.indiatimes.com/news/industry/nishith-desai-steers-1b-u-s-india-deep-tech-alliance/123670582)
 
 ---
@@ -76,8 +79,9 @@ What's new: Permanent inactivation via nucleotide conversion — unlike reversib
 This breaks the escape bottleneck plaguing biocontainment, enabling safer deployment of engineered microbes in biofuels, plastics, and live therapeutics.
 
 Second-order: NIH-compliant durability could unlock contained biomanufacturing at scale while minimizing ecological risks in clinical probiotics.
+[source](https://bioengineer.org/snu-professor-sangwoo-seos-team-develops-next-generation-crispr-biocontainment-technology-to-control-microbial-survival-without-dna-cleavage/),
 
-[source](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkae456)
+[source2](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkae456)
 
 ---
 
@@ -88,7 +92,9 @@ ByteDance hiked its 2026 AI infrastructure spend 25% to $29B, boosting domestic 
 
 This counters U.S. export controls, cutting reliance on sanctioned imports that already forced $2.5B offshore builds. Enables ByteDance to accelerate TikTok AI, e-commerce models without delays, pressuring China's fabless ecosystem to deliver volume-scale performance amid memory price surges.
 
-[source](https://www.ft.com/content/byte-dance-ai-budget-2026)  
+[source](https://byteiota.com/memory-chip-crisis-adds-25b-to-microsoft-ai-budget/)
+
+[source2](https://www.tomshardware.com/tech-industry/big-tech/microsoft-attributed-25-billion-of-its-record-ai-budget-to-memory-chip-costs)
 
 ---
 ### <span class="date">May 9</span> 🚀 SpaceX wants robots—not humans—for its first Mars foothold
