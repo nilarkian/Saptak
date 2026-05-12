@@ -734,11 +734,18 @@ const tabs           = document.querySelectorAll('.cat-tab');
 const collectedCards = document.querySelectorAll('.inspo-card');
 const empty          = document.getElementById('empty-state');
 
-const TODAY = new Date();
-TODAY.setHours(0, 0, 0, 0);
+// const TODAY = new Date();
+// TODAY.setHours(0, 0, 0, 0);
+// function isFuture(card) {
+//   const d = card.dataset.date;
+//   return d && new Date(d) > TODAY;
+// }
+
+const TODAY = new Date().toISOString().split('T')[0];
+
 function isFuture(card) {
   const d = card.dataset.date;
-  return d && new Date(d) > TODAY;
+  return d && d > TODAY;
 }
 
 let activeCategory = 'all';
