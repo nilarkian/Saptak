@@ -19,8 +19,7 @@ This collapses vuln-to-weaponization timelines from months to days, as Big Sleep
 
 Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to AI-proof code assumptions and harden logic layers.
 
-[source1](https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html),
-[source2](https://www.securityweek.com/google-detects-first-ai-generated-zero-day-exploit/)
+[source1](https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html)</br>   [source2](https://www.securityweek.com/google-detects-first-ai-generated-zero-day-exploit/) 
 
 ---
 
@@ -39,11 +38,7 @@ OpenAI is reportedly expanding beyond model licensing into direct enterprise con
 
 The deeper threat is margin compression: enterprises may increasingly buy AI-native workflows directly from model providers instead of funding multi-year integration projects. That weakens the traditional “body-shopping + customization” model Indian IT firms scaled on. It also accelerates a broader industry split between commodity AI integration and firms owning proprietary enterprise context, data, and agents.
 
-[source1](https://finance.yahoo.com/markets/stocks/articles/infosys-nsei-infy-story-shifting-060740844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cucGVycGxleGl0eS5haS8&guce_referrer_sig=AQAAAJT05M0NzOc7Hzh_rOR-ttWKgBGHEkLu2Xm5mYiIDXrMzaDqEnckFYXUuo_R2oAmm7yPFc2b1c2Oa-ODWwJHwG8mNyWMSheiYUGj5u0SrLCiarfYow_AEghCcBEhnC2xCdAeQ_6FijIt-vcL5qs9qDR5HcG2iyLP9aDTslaCvPNi)
-
-[source2](https://www.marketbeat.com/instant-alerts/infosys-nyseinfy-sets-new-12-month-low-whats-next-2026-05-06/)
-
-[source3](https://analyticsindiamag.com/it-services/openai-enters-consulting-arena-and-indias-it-stocks-are-paying-the-price)
+[source1](https://finance.yahoo.com/markets/stocks/articles/infosys-nsei-infy-story-shifting-060740844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cucGVycGxleGl0eS5haS8&guce_referrer_sig=AQAAAJT05M0NzOc7Hzh_rOR-ttWKgBGHEkLu2Xm5mYiIDXrMzaDqEnckFYXUuo_R2oAmm7yPFc2b1c2Oa-ODWwJHwG8mNyWMSheiYUGj5u0SrLCiarfYow_AEghCcBEhnC2xCdAeQ_6FijIt-vcL5qs9qDR5HcG2iyLP9aDTslaCvPNi)</br>[source2](https://www.marketbeat.com/instant-alerts/infosys-nyseinfy-sets-new-12-month-low-whats-next-2026-05-06/)</br>[source3](https://analyticsindiamag.com/it-services/openai-enters-consulting-arena-and-indias-it-stocks-are-paying-the-price) 
 
 ---
 
