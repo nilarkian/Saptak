@@ -7,6 +7,90 @@ permalink: /watchlist.html
 
 ## MAY 2026
 
+### <span class="date">May 12</span> 📈 AI becomes India’s deep‑tech default  
+tags: [ai, deep tech, india, funding]  
+
+A 2025 report shows AI‑led ventures now account for **84% of deep‑tech startups** and **91% of deep‑tech funding** in India, with generative AI and infrastructure‑grade AI pulling most institutional capital.  This isn’t just a valuation spike; it effectively redefines the deep‑tech barbell, pushing capital and talent away from low‑R&D SaaS plays and toward long‑cycle, AI‑first models.  The result is an AI‑centric innovation stack where non‑AI deep‑tech verticals must now justify higher marginal returns on R&D, while VCs are forced to price in longer break‑even horizons and deeper technical moats. 
+[source](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220) 
+[deccanherald](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220)
+
+---
+
+### <span class="date">May 12</span> 📉TD Cowen Slashes Infosys Target to $13 on AI Disruption Fears
+tags: [infosys, AI, IT-services]
+
+Analyst downgrades accelerate as TD Cowen cuts Infosys target to $13 from $15 (Hold), joining BMO, Susquehanna, and Jefferies amid OpenAI's $4B-backed DeployCo launch embedding AI engineers in enterprises.
+
+Unlike past cycles, this targets core IT services revenue—Infosys FY27 guidance signals just 1.5-3.5% growth as AI automates workflows.
+
+Indian IT faces existential margin pressure; partnerships with AI vendors offer no shield against direct competition eroding $20B+ annual bookings.
+
+Broader sector weakness deepens, with Infosys ADRs at 52-week lows, signaling AI's commoditization of traditional consulting.
+
+[source](https://www.investing.com/news/stock-market-news/td-cowen-cuts-infosys-target-price-to-13-as-ai-disruption-fears-weigh-on-it-sector-93CH-3578923)
+
+---
+
+### <span class="date">May 11</span> 💰 India’s deep‑tech momentum outpaces broader startup system  
+tags: [deep tech, india, vc, semiconductors]  
+
+Deep‑tech ventures in India are growing at a **five‑year CAGR of ~41%**, materially outpacing the broader startup ecosystem and pulling disproportionate attention from VC and institutional capital.  This acceleration is concentrated in AI, semiconductors, and advanced materials, indicating a structural shift from consumer‑app‑driven cycles to hardware‑ and IP‑heavy plays.  The run‑up compresses the time window for early‑stage R&D bets, raises the stakes for dilution‑intensive cap‑tables, and forces founders to treat capital efficiency as a technical constraint, not just a board‑room metric. 
+[source1](https://timesofindia.indiatimes.com/business/india-business/with-eye-on-ai-deeptech-funding-rises-37-to-2-3bn/articleshow/12883409.cms) 
+[source2](https://timesofindia.indiatimes.com/business/india-business/with-eye-on-ai-deeptech-funding-rises-37-to-2-3bn/articleshow/128834944.cms)
+
+---
+
+
+### <span class="date">May 11</span> 🤖AI Crafts First Zero-Day Exploit
+tags: [AI, cybersecurity, zero-day]
+
+Google detects cybercrime group using AI to generate a Python zero-day exploiting 2FA in a major open-source admin tool—hallucinated CVSS scores and textbook code confirm LLM origins.
+
+Novelty: First verified AI-generated exploit, targeting semantic logic flaws via contextual reasoning, not brute-force fuzzing.
+
+This collapses vuln-to-weaponization timelines from months to days, as Big Sleep already proved defensively.
+
+Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to AI-proof code assumptions and harden logic layers.
+
+[source](https://cyberscoop.com/google-ai-zero-day-exploit/)
+
+---
+
+
+
+### <span class="date">May 10</span> 🌐 Global capital and policy align on India’s deep‑tech core  
+tags: [deep tech, india, policy, us, eu]  
+
+A **$1+ billion US–India deep‑tech alliance** and a **₹1 lakh crore RDI fund** are hardwiring India into the global deep‑tech capital stack, specifically targeting AI, semiconductors, quantum, and advanced manufacturing.  Complementing this, the **draft National Deep Tech Startup Policy (NDTSP)** is designing tailored incentives, IP frameworks, and regulatory sandboxes to de‑risk long‑cycle R&D and lower the cost of experimentation for frontier‑tech founders.  Taken together, these moves flip the script on India’s traditional role as a digitization‑only market, positioning it as a sovereign‑grade node for AI‑hardware convergence and forcing global players to treat India not just as a talent pool but as a core innovation basin. 
+[source](https://legal.economictimes.indiatimes.com/news/industry/nishith-desai-steers-1b-u-s-india-deep-tech-alliance/123670582)
+
+---
+
+### <span class="date">May 10</span> 🧬 CRISPR Base Editing Delivers Permanent Microbial Kill Switch
+tags: [CRISPR, biotech, biosafety]
+
+Seoul National University engineers a dCas9-cytidine deaminase system that multiplexes base edits across three essential gene start codons, slashing E. coli escape rates below 10⁻⁸ without DNA cleavage toxicity.
+
+What's new: Permanent inactivation via nucleotide conversion — unlike reversible CRISPRi or mutagenic Cas9 cuts — works portably across lab, industrial, and probiotic strains.
+
+This breaks the escape bottleneck plaguing biocontainment, enabling safer deployment of engineered microbes in biofuels, plastics, and live therapeutics.
+
+Second-order: NIH-compliant durability could unlock contained biomanufacturing at scale while minimizing ecological risks in clinical probiotics.
+
+[source](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkae456)
+
+---
+
+### <span class="date">May  9</span> 🛡️ByteDance Shifts $29B AI Budget Toward Domestic Chips Amid U.S. Chip Curbs
+tags: [AI, chips, ByteDance, geopolitics]
+
+ByteDance hiked its 2026 AI infrastructure spend 25% to $29B, boosting domestic chip allocation while scaling offshore Nvidia capacity via Malaysia. The real pivot: in-house inference chips rivaling Nvidia H20 at lower cost, backed by Samsung foundry talks for 350K units.
+
+This counters U.S. export controls, cutting reliance on sanctioned imports that already forced $2.5B offshore builds. Enables ByteDance to accelerate TikTok AI, e-commerce models without delays, pressuring China's fabless ecosystem to deliver volume-scale performance amid memory price surges.
+
+[source](https://www.ft.com/content/byte-dance-ai-budget-2026)  
+
+---
 ### <span class="date">May 9</span> 🚀 SpaceX wants robots—not humans—for its first Mars foothold
 tags: [space, robotics, spacex]
 
