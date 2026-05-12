@@ -1,4 +1,638 @@
 [
+  
+  {
+    "url": "https://searchcode.com",
+    "name": "Searchcode",
+    "desc": "Search source code snippets across public repositories.",
+    "date": "2026-07-04",
+    "tags": ["code", "search", "developers"]
+  },
+  {
+    "url": "https://boardreader.com",
+    "name": "BoardReader",
+    "desc": "Search forum discussions and community conversations across the web.",
+    "date": "2026-07-05",
+    "tags": ["forums", "search", "communities"]
+  },
+  {
+    "url": "https://refseek.com",
+    "name": "RefSeek",
+    "desc": "Academic search engine for students, researchers and scholarly resources.",
+    "date": "2026-07-06",
+    "tags": ["academic", "research", "search"]
+  },
+  {
+    "url": "https://pdfdrive.com",
+    "name": "PDF Drive",
+    "desc": "Search and access millions of PDF books and documents.",
+    "date": "2026-07-07",
+    "tags": ["books", "pdf", "library"]
+  },
+  {
+    "url": "https://base-search.net",
+    "name": "BASE",
+    "desc": "Search academic papers from open-access repositories worldwide.",
+    "date": "2026-07-08",
+    "tags": ["research", "papers", "open-access"]
+  },
+  {
+    "url": "https://icons8.com",
+    "name": "Icons8",
+    "desc": "Search icons, illustrations, photos and design assets.",
+    "date": "2026-07-09",
+    "tags": ["design", "icons", "assets"]
+  },
+  {
+    "url": "https://web.archive.org",
+    "name": "Wayback Machine",
+    "desc": "Browse archived versions of websites from different points in time.",
+    "date": "2026-07-10",
+    "tags": ["archive", "history", "web"]
+  },
+  {
+    "url": "https://unsplash.com",
+    "name": "Unsplash",
+    "desc": "High-quality royalty-free stock photography search platform.",
+    "date": "2026-07-11",
+    "tags": ["photos", "stock-images", "design"]
+  },
+  {
+    "url": "https://projecteuclid.org",
+    "name": "Project Euclid",
+    "desc": "Mathematics and statistics research paper database.",
+    "date": "2026-07-12",
+    "tags": ["math", "statistics", "research"]
+  },
+  {
+    "url": "https://dblp.org",
+    "name": "DBLP",
+    "desc": "Computer science bibliography and publication search engine.",
+    "date": "2026-07-13",
+    "tags": ["computer-science", "research", "publications"]
+  },
+  {
+    "url": "https://eric.ed.gov",
+    "name": "ERIC",
+    "desc": "Education research database with reports, papers and studies.",
+    "date": "2026-07-14",
+    "tags": ["education", "research", "papers"]
+  },
+  {
+    "url": "https://metager.org",
+    "name": "MetaGer",
+    "desc": "Privacy-focused metasearch engine with anonymous queries.",
+    "date": "2026-07-15",
+    "tags": ["privacy", "search", "metasearch"]
+  },
+  {
+    "url": "https://pubchem.ncbi.nlm.nih.gov",
+    "name": "PubChem",
+    "desc": "Search chemical compounds, molecules and substance data.",
+    "date": "2026-07-16",
+    "tags": ["chemistry", "science", "database"]
+  },
+  {
+    "url": "https://clinicaltrials.gov",
+    "name": "ClinicalTrials.gov",
+    "desc": "Global database of clinical research studies and trials.",
+    "date": "2026-07-17",
+    "tags": ["medical", "clinical-trials", "research"]
+  },
+  {
+    "url": "https://gutenberg.org",
+    "name": "Project Gutenberg",
+    "desc": "Free ebook and public domain literature archive.",
+    "date": "2026-07-18",
+    "tags": ["ebooks", "literature", "books"]
+  },
+  {
+    "url": "https://ccmixter.org",
+    "name": "ccMixter",
+    "desc": "Search royalty-free music and remix tracks for creative projects.",
+    "date": "2026-07-19",
+    "tags": ["music", "audio", "creative"]
+  },
+  {
+    "url": "https://radio-browser.info",
+    "name": "Radio Browser",
+    "desc": "Search online radio stations from around the world.",
+    "date": "2026-07-20",
+    "tags": ["radio", "audio", "streaming"]
+  },
+  {
+    "url": "https://archive.org",
+    "name": "Internet Archive",
+    "desc": "Massive archive of websites, books, videos and digital media.",
+    "date": "2026-07-21",
+    "tags": ["archive", "media", "history"]
+  },
+  {
+    "url": "https://packagist.org",
+    "name": "Packagist",
+    "desc": "Search PHP packages and open-source libraries.",
+    "date": "2026-07-22",
+    "tags": ["php", "packages", "developers"]
+  },
+  {
+    "url": "https://npmjs.com",
+    "name": "npm",
+    "desc": "JavaScript package registry for libraries and developer tools.",
+    "date": "2026-07-23",
+    "tags": ["javascript", "packages", "developers"]
+  },
+  {
+    "url": "https://crates.io",
+    "name": "Crates.io",
+    "desc": "Rust programming language package and dependency registry.",
+    "date": "2026-07-24",
+    "tags": ["rust", "packages", "developers"]
+  },
+  {
+    "url": "https://searx.space",
+    "name": "SearX Space",
+    "desc": "Directory of privacy-friendly metasearch engine instances.",
+    "date": "2026-07-25",
+    "tags": ["privacy", "search", "opensource"]
+  },
+  {
+    "url": "https://wolframalpha.com",
+    "name": "Wolfram Alpha",
+    "desc": "Computational knowledge engine for factual and mathematical queries.",
+    "date": "2026-07-26",
+    "tags": ["computation", "math", "knowledge"]
+  },
+  {
+    "url": "https://dogpile.com",
+    "name": "Dogpile",
+    "desc": "Aggregates results from multiple search engines.",
+    "date": "2026-07-27",
+    "tags": ["search", "metasearch", "web"]
+  },
+  {
+    "url": "https://tinypng.com",
+    "name": "TinyPNG",
+    "desc": "Compress PNG and JPEG images for faster loading.",
+    "date": "2026-07-28",
+    "tags": ["images", "compression", "optimization"]
+  },
+  {
+    "url": "https://millionshort.com",
+    "name": "Million Short",
+    "desc": "Alternative search engine that removes top popular sites from results.",
+    "date": "2026-07-29",
+    "tags": ["search", "discovery", "alternative"]
+  },
+  {
+    "url": "https://freesound.org",
+    "name": "Freesound",
+    "desc": "Search sound effects and audio samples by similarity.",
+    "date": "2026-07-30",
+    "tags": ["audio", "sound-effects", "creative"]
+  },
+  {
+    "url": "https://ascii2d.net",
+    "name": "Ascii2D",
+    "desc": "Reverse image search engine focused on anime artwork.",
+    "date": "2026-07-31",
+    "tags": ["reverse-image-search", "anime", "art"]
+  },
+  {
+    "url": "https://browserling.com",
+    "name": "Browserling",
+    "desc": "Test and preview websites across multiple browsers online.",
+    "date": "2026-08-01",
+    "tags": ["browsers", "testing", "web-development"]
+  },
+  {
+    "url": "https://keywordtool.io",
+    "name": "Keyword Tool",
+    "desc": "Generate keyword ideas from Google, YouTube and other platforms.",
+    "date": "2026-08-02",
+    "tags": ["seo", "keywords", "marketing"]
+  },
+  {
+    "url": "https://slideplayer.com",
+    "name": "SlidePlayer",
+    "desc": "Search presentation slides from uploaded documents and decks.",
+    "date": "2026-08-03",
+    "tags": ["slides", "presentations", "documents"]
+  },
+  {
+    "url": "https://issuu.com",
+    "name": "Issuu",
+    "desc": "Search digital magazines, catalogs and online publications.",
+    "date": "2026-08-04",
+    "tags": ["magazines", "publishing", "documents"]
+  },
+  {
+    "url": "https://pypi.org",
+    "name": "PyPI",
+    "desc": "Python package index for libraries and developer tools.",
+    "date": "2026-08-05",
+    "tags": ["python", "packages", "developers"]
+  },
+  {
+    "url": "https://docplayer.net",
+    "name": "DocPlayer",
+    "desc": "Search manuals, guides and uploaded document archives.",
+    "date": "2026-08-06",
+    "tags": ["documents", "manuals", "guides"]
+  },
+
+  {
+    "url": "https://earth.nullschool.net",
+    "name": "Earth Nullschool",
+    "desc": "Animated real-time global wind, weather and ocean current visualization.",
+    "date": "2026-06-06",
+    "tags": ["weather", "ocean", "wind"]
+  },
+  {
+    "url": "https://www.marinetraffic.com",
+    "name": "MarineTraffic",
+    "desc": "Track ships, ports and maritime movement worldwide in real time.",
+    "date": "2026-06-07",
+    "tags": ["shipping", "tracking", "maritime"]
+  },
+  {
+    "url": "https://mempool.space",
+    "name": "Mempool Space",
+    "desc": "Monitor pending Bitcoin transactions, blocks and network activity.",
+    "date": "2026-06-08",
+    "tags": ["bitcoin", "crypto", "blockchain"]
+  },
+  {
+    "url": "https://www.flightradar24.com",
+    "name": "Flightradar24",
+    "desc": "Live map of commercial and private aircraft around the world.",
+    "date": "2026-06-09",
+    "tags": ["aviation", "tracking", "flights"]
+  },
+  {
+    "url": "https://cybermap.kaspersky.com",
+    "name": "Kaspersky Cybermap",
+    "desc": "Visualizes live cyberattack activity and threat detections globally.",
+    "date": "2026-06-10",
+    "tags": ["cybersecurity", "attacks", "threat-intelligence"]
+  },
+  {
+    "url": "https://netc.com",
+    "name": "NETC Radiation Map",
+    "desc": "Displays live nuclear radiation monitoring data from global sensors.",
+    "date": "2026-06-11",
+    "tags": ["radiation", "nuclear", "monitoring"]
+  },
+  {
+    "url": "https://iqair.com/earth",
+    "name": "IQAir Earth",
+    "desc": "Interactive global air quality and pollution tracking map.",
+    "date": "2026-06-12",
+    "tags": ["air-quality", "pollution", "environment"]
+  },
+  {
+    "url": "https://globalfishingwatch.org",
+    "name": "Global Fishing Watch",
+    "desc": "Tracks commercial fishing vessel activity using satellite data.",
+    "date": "2026-06-13",
+    "tags": ["fishing", "satellite", "oceans"]
+  },
+  {
+    "url": "https://globalquake.net",
+    "name": "GlobalQuake",
+    "desc": "Real-time earthquake detection and seismic monitoring platform.",
+    "date": "2026-06-14",
+    "tags": ["earthquakes", "seismic", "geology"]
+  },
+  {
+    "url": "https://www.globalforestwatch.org",
+    "name": "Global Forest Watch",
+    "desc": "Satellite-powered forest loss and deforestation monitoring system.",
+    "date": "2026-06-15",
+    "tags": ["forests", "deforestation", "satellite"]
+  },
+  {
+    "url": "https://climatetrace.org",
+    "name": "Climate TRACE",
+    "desc": "Tracks greenhouse gas emissions using AI and satellite analysis.",
+    "date": "2026-06-16",
+    "tags": ["climate", "emissions", "carbon"]
+  },
+  {
+    "url": "https://earthquaketrack.com",
+    "name": "Earthquake Track",
+    "desc": "Shows recent earthquakes worldwide as they happen.",
+    "date": "2026-06-17",
+    "tags": ["earthquakes", "alerts", "disasters"]
+  },
+  {
+    "url": "https://opensky-network.org",
+    "name": "OpenSky Network",
+    "desc": "Open aviation data platform with live global air traffic tracking.",
+    "date": "2026-06-18",
+    "tags": ["aviation", "open-data", "tracking"]
+  },
+  {
+    "url": "https://geomag.bgs.ac.uk",
+    "name": "BGS Geomagnetism",
+    "desc": "Live readings and monitoring of Earth’s magnetic field.",
+    "date": "2026-06-19",
+    "tags": ["geomagnetism", "space-weather", "science"]
+  },
+  {
+    "url": "https://observe.earth",
+    "name": "Observe Earth",
+    "desc": "Tracks global conflicts, outbreaks, disasters and economic disruptions.",
+    "date": "2026-06-20",
+    "tags": ["geopolitics", "disasters", "monitoring"]
+  },
+  {
+    "url": "https://worldview.earthdata.nasa.gov",
+    "name": "NASA Worldview",
+    "desc": "Interactive NASA satellite imagery and Earth observation platform.",
+    "date": "2026-06-21",
+    "tags": ["nasa", "satellite", "earth-observation"]
+  },
+  {
+    "url": "https://acleddata.com",
+    "name": "ACLED",
+    "desc": "Conflict, protest and political violence event tracking database.",
+    "date": "2026-06-22",
+    "tags": ["conflict", "politics", "data"]
+  },
+  {
+    "url": "https://outbreaks.globalincidentmap.com",
+    "name": "Global Incident Map Outbreaks",
+    "desc": "Maps disease outbreaks and epidemic incidents globally.",
+    "date": "2026-06-23",
+    "tags": ["disease", "health", "outbreaks"]
+  },
+  {
+    "url": "https://the-world-now.com",
+    "name": "The World Now",
+    "desc": "Live globe showing disasters, wars and major global incidents.",
+    "date": "2026-06-24",
+    "tags": ["global-events", "conflicts", "disasters"]
+  },
+  {
+    "url": "https://isstracker.live",
+    "name": "ISS Tracker",
+    "desc": "Track the International Space Station in real time.",
+    "date": "2026-06-25",
+    "tags": ["space", "iss", "tracking"]
+  },
+  {
+    "url": "https://deaddrops.com",
+    "name": "Dead Drops",
+    "desc": "Map of hidden offline USB data-sharing dead drops worldwide.",
+    "date": "2026-06-26",
+    "tags": ["usb", "offline", "cyberculture"]
+  },
+  {
+    "url": "https://co2.earth",
+    "name": "CO2 Earth",
+    "desc": "Tracks atmospheric carbon dioxide concentration levels.",
+    "date": "2026-06-27",
+    "tags": ["climate", "carbon", "environment"]
+  },
+  {
+    "url": "https://oceancolor.gsfc.nasa.gov",
+    "name": "NASA Ocean Color",
+    "desc": "Ocean chlorophyll, temperature and marine ecosystem satellite data.",
+    "date": "2026-06-28",
+    "tags": ["ocean", "satellite", "marine-science"]
+  },
+  {
+    "url": "https://globe.adsbexchange.com",
+    "name": "ADS-B Exchange Globe",
+    "desc": "Unfiltered live aircraft tracking including military flights.",
+    "date": "2026-06-29",
+    "tags": ["aviation", "military", "tracking"]
+  },
+  {
+    "url": "https://tide-forecast.com",
+    "name": "Tide Forecast",
+    "desc": "Real-time tide forecasts and coastal water level information.",
+    "date": "2026-06-30",
+    "tags": ["tides", "ocean", "coastlines"]
+  },
+  {
+    "url": "https://stats.wikimedia.org",
+    "name": "Wikimedia Statistics",
+    "desc": "Live statistics and edit activity across Wikimedia projects.",
+    "date": "2026-07-01",
+    "tags": ["wikipedia", "analytics", "live-data"]
+  },
+  {
+    "url": "https://www.swpc.noaa.gov",
+    "name": "NOAA Space Weather Prediction Center",
+    "desc": "Solar flare alerts, geomagnetic storms and space weather forecasts.",
+    "date": "2026-07-02",
+    "tags": ["space-weather", "solar", "alerts"]
+  },
+  {
+    "url": "https://internetlivestats.com",
+    "name": "Internet Live Stats",
+    "desc": "Tracks live internet usage, traffic and digital activity metrics.",
+    "date": "2026-07-03",
+    "tags": ["internet", "analytics", "live-data"]
+  },
+  
+
+  {
+    "url": "https://earth.nullschool.net",
+    "name": "Earth Nullschool",
+    "desc": "Animated real-time global wind, weather and ocean current visualization.",
+    "date": "2026-06-06",
+    "tags": ["weather", "ocean", "wind"]
+  },
+  {
+    "url": "https://www.marinetraffic.com",
+    "name": "MarineTraffic",
+    "desc": "Track ships, ports and maritime movement worldwide in real time.",
+    "date": "2026-06-07",
+    "tags": ["shipping", "tracking", "maritime"]
+  },
+  {
+    "url": "https://mempool.space",
+    "name": "Mempool Space",
+    "desc": "Monitor pending Bitcoin transactions, blocks and network activity.",
+    "date": "2026-06-08",
+    "tags": ["bitcoin", "crypto", "blockchain"]
+  },
+  {
+    "url": "https://www.flightradar24.com",
+    "name": "Flightradar24",
+    "desc": "Live map of commercial and private aircraft around the world.",
+    "date": "2026-06-09",
+    "tags": ["aviation", "tracking", "flights"]
+  },
+  {
+    "url": "https://cybermap.kaspersky.com",
+    "name": "Kaspersky Cybermap",
+    "desc": "Visualizes live cyberattack activity and threat detections globally.",
+    "date": "2026-06-10",
+    "tags": ["cybersecurity", "attacks", "threat-intelligence"]
+  },
+  {
+    "url": "https://netc.com",
+    "name": "NETC Radiation Map",
+    "desc": "Displays live nuclear radiation monitoring data from global sensors.",
+    "date": "2026-06-11",
+    "tags": ["radiation", "nuclear", "monitoring"]
+  },
+  {
+    "url": "https://iqair.com/earth",
+    "name": "IQAir Earth",
+    "desc": "Interactive global air quality and pollution tracking map.",
+    "date": "2026-06-12",
+    "tags": ["air-quality", "pollution", "environment"]
+  },
+  {
+    "url": "https://globalfishingwatch.org",
+    "name": "Global Fishing Watch",
+    "desc": "Tracks commercial fishing vessel activity using satellite data.",
+    "date": "2026-06-13",
+    "tags": ["fishing", "satellite", "oceans"]
+  },
+  {
+    "url": "https://globalquake.net",
+    "name": "GlobalQuake",
+    "desc": "Real-time earthquake detection and seismic monitoring platform.",
+    "date": "2026-06-14",
+    "tags": ["earthquakes", "seismic", "geology"]
+  },
+  {
+    "url": "https://www.globalforestwatch.org",
+    "name": "Global Forest Watch",
+    "desc": "Satellite-powered forest loss and deforestation monitoring system.",
+    "date": "2026-06-15",
+    "tags": ["forests", "deforestation", "satellite"]
+  },
+  {
+    "url": "https://climatetrace.org",
+    "name": "Climate TRACE",
+    "desc": "Tracks greenhouse gas emissions using AI and satellite analysis.",
+    "date": "2026-06-16",
+    "tags": ["climate", "emissions", "carbon"]
+  },
+  {
+    "url": "https://earthquaketrack.com",
+    "name": "Earthquake Track",
+    "desc": "Shows recent earthquakes worldwide as they happen.",
+    "date": "2026-06-17",
+    "tags": ["earthquakes", "alerts", "disasters"]
+  },
+  {
+    "url": "https://opensky-network.org",
+    "name": "OpenSky Network",
+    "desc": "Open aviation data platform with live global air traffic tracking.",
+    "date": "2026-06-18",
+    "tags": ["aviation", "open-data", "tracking"]
+  },
+  {
+    "url": "https://geomag.bgs.ac.uk",
+    "name": "BGS Geomagnetism",
+    "desc": "Live readings and monitoring of Earth’s magnetic field.",
+    "date": "2026-06-19",
+    "tags": ["geomagnetism", "space-weather", "science"]
+  },
+  {
+    "url": "https://observe.earth",
+    "name": "Observe Earth",
+    "desc": "Tracks global conflicts, outbreaks, disasters and economic disruptions.",
+    "date": "2026-06-20",
+    "tags": ["geopolitics", "disasters", "monitoring"]
+  },
+  {
+    "url": "https://worldview.earthdata.nasa.gov",
+    "name": "NASA Worldview",
+    "desc": "Interactive NASA satellite imagery and Earth observation platform.",
+    "date": "2026-06-21",
+    "tags": ["nasa", "satellite", "earth-observation"]
+  },
+  {
+    "url": "https://acleddata.com",
+    "name": "ACLED",
+    "desc": "Conflict, protest and political violence event tracking database.",
+    "date": "2026-06-22",
+    "tags": ["conflict", "politics", "data"]
+  },
+  {
+    "url": "https://outbreaks.globalincidentmap.com",
+    "name": "Global Incident Map Outbreaks",
+    "desc": "Maps disease outbreaks and epidemic incidents globally.",
+    "date": "2026-06-23",
+    "tags": ["disease", "health", "outbreaks"]
+  },
+  {
+    "url": "https://the-world-now.com",
+    "name": "The World Now",
+    "desc": "Live globe showing disasters, wars and major global incidents.",
+    "date": "2026-06-24",
+    "tags": ["global-events", "conflicts", "disasters"]
+  },
+  {
+    "url": "https://isstracker.live",
+    "name": "ISS Tracker",
+    "desc": "Track the International Space Station in real time.",
+    "date": "2026-06-25",
+    "tags": ["space", "iss", "tracking"]
+  },
+  {
+    "url": "https://deaddrops.com",
+    "name": "Dead Drops",
+    "desc": "Map of hidden offline USB data-sharing dead drops worldwide.",
+    "date": "2026-06-26",
+    "tags": ["usb", "offline", "cyberculture"]
+  },
+  {
+    "url": "https://co2.earth",
+    "name": "CO2 Earth",
+    "desc": "Tracks atmospheric carbon dioxide concentration levels.",
+    "date": "2026-06-27",
+    "tags": ["climate", "carbon", "environment"]
+  },
+  {
+    "url": "https://oceancolor.gsfc.nasa.gov",
+    "name": "NASA Ocean Color",
+    "desc": "Ocean chlorophyll, temperature and marine ecosystem satellite data.",
+    "date": "2026-06-28",
+    "tags": ["ocean", "satellite", "marine-science"]
+  },
+  {
+    "url": "https://globe.adsbexchange.com",
+    "name": "ADS-B Exchange Globe",
+    "desc": "Unfiltered live aircraft tracking including military flights.",
+    "date": "2026-06-29",
+    "tags": ["aviation", "military", "tracking"]
+  },
+  {
+    "url": "https://tide-forecast.com",
+    "name": "Tide Forecast",
+    "desc": "Real-time tide forecasts and coastal water level information.",
+    "date": "2026-06-30",
+    "tags": ["tides", "ocean", "coastlines"]
+  },
+  {
+    "url": "https://stats.wikimedia.org",
+    "name": "Wikimedia Statistics",
+    "desc": "Live statistics and edit activity across Wikimedia projects.",
+    "date": "2026-07-01",
+    "tags": ["wikipedia", "analytics", "live-data"]
+  },
+  {
+    "url": "https://www.swpc.noaa.gov",
+    "name": "NOAA Space Weather Prediction Center",
+    "desc": "Solar flare alerts, geomagnetic storms and space weather forecasts.",
+    "date": "2026-07-02",
+    "tags": ["space-weather", "solar", "alerts"]
+  },
+  {
+    "url": "https://internetlivestats.com",
+    "name": "Internet Live Stats",
+    "desc": "Tracks live internet usage, traffic and digital activity metrics.",
+    "date": "2026-07-03",
+    "tags": ["internet", "analytics", "live-data"]
+  },
     {
   "url": "https://www.indiehackers.com/",
   "name": "Indie Hackers",
