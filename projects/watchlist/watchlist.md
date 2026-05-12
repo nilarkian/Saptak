@@ -19,7 +19,8 @@ This collapses vuln-to-weaponization timelines from months to days, as Big Sleep
 
 Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to AI-proof code assumptions and harden logic layers.
 
-[source1](https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html)</br>   [source2](https://www.securityweek.com/google-detects-first-ai-generated-zero-day-exploit/) 
+[source1](https://thehackernews.com/2026/05/hackers-used-ai-to-develop-first-known.html) , 
+[source2](https://www.securityweek.com/google-detects-first-ai-generated-zero-day-exploit/) 
 
 ---
 
@@ -27,6 +28,7 @@ Expect mass AI-augmented zero-days from DPRK/China actors, forcing defenders to 
 tags: [ai, deep tech, india, funding]  
 
 A 2025 report shows AI‑led ventures now account for **84% of deep‑tech startups** and **91% of deep‑tech funding** in India, with generative AI and infrastructure‑grade AI pulling most institutional capital.  This isn’t just a valuation spike; it effectively redefines the deep‑tech barbell, pushing capital and talent away from low‑R&D SaaS plays and toward long‑cycle, AI‑first models.  The result is an AI‑centric innovation stack where non‑AI deep‑tech verticals must now justify higher marginal returns on R&D, while VCs are forced to price in longer break‑even horizons and deeper technical moats. 
+
 [source](https://www.deccanherald.com/business/ai-accounts-for-84-of-deeptech-startups-and-91-of-funding-report-3912220) 
 
 ---
@@ -38,7 +40,9 @@ OpenAI is reportedly expanding beyond model licensing into direct enterprise con
 
 The deeper threat is margin compression: enterprises may increasingly buy AI-native workflows directly from model providers instead of funding multi-year integration projects. That weakens the traditional “body-shopping + customization” model Indian IT firms scaled on. It also accelerates a broader industry split between commodity AI integration and firms owning proprietary enterprise context, data, and agents.
 
-[source1](https://finance.yahoo.com/markets/stocks/articles/infosys-nsei-infy-story-shifting-060740844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cucGVycGxleGl0eS5haS8&guce_referrer_sig=AQAAAJT05M0NzOc7Hzh_rOR-ttWKgBGHEkLu2Xm5mYiIDXrMzaDqEnckFYXUuo_R2oAmm7yPFc2b1c2Oa-ODWwJHwG8mNyWMSheiYUGj5u0SrLCiarfYow_AEghCcBEhnC2xCdAeQ_6FijIt-vcL5qs9qDR5HcG2iyLP9aDTslaCvPNi)</br>[source2](https://www.marketbeat.com/instant-alerts/infosys-nyseinfy-sets-new-12-month-low-whats-next-2026-05-06/)</br>[source3](https://analyticsindiamag.com/it-services/openai-enters-consulting-arena-and-indias-it-stocks-are-paying-the-price) 
+[source1](https://finance.yahoo.com/markets/stocks/articles/infosys-nsei-infy-story-shifting-060740844.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cucGVycGxleGl0eS5haS8&guce_referrer_sig=AQAAAJT05M0NzOc7Hzh_rOR-ttWKgBGHEkLu2Xm5mYiIDXrMzaDqEnckFYXUuo_R2oAmm7yPFc2b1c2Oa-ODWwJHwG8mNyWMSheiYUGj5u0SrLCiarfYow_AEghCcBEhnC2xCdAeQ_6FijIt-vcL5qs9qDR5HcG2iyLP9aDTslaCvPNi),
+[source2](https://www.marketbeat.com/instant-alerts/infosys-nyseinfy-sets-new-12-month-low-whats-next-2026-05-06/),
+[source3](https://analyticsindiamag.com/it-services/openai-enters-consulting-arena-and-indias-it-stocks-are-paying-the-price) 
 
 ---
 
