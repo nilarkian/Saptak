@@ -1,13 +1,13 @@
 ---
 layout: note-layout
-title: "Triple-Tier LLM Router md"
+title: "3-Layer LLM Setup md"
 topic: "AI Engineering"
 date: 2026-05-10
 tags: [ai, llm, cost-optimization, agents, infrastructure]
 is_note: true
 ---
 
-# Triple-Tier LLM Router & 95% Token Reduction System
+# 3-Layer LLM Router & 20x Token Reduction System
 
 A production-grade system that routes AI workloads across three cost tiers — free local, cheap API, premium API — cutting LLM costs by **93–95%** without meaningful quality loss.
 
@@ -764,7 +764,7 @@ Emit only what changed. Ingest only what changed.
 
 **Snapshot cadence:** deltas every turn, snapshots at session boundaries or every N deltas.
 
-### 9. The 95% Test
+### 9. The20x Test
 
 For every line of prompt or token of output, run: **"Does removing this degrade behavior?"**
 
@@ -793,7 +793,7 @@ Each has zero behavioral consequence and a measurable token cost. Strip on sight
 - Negative instructions ("don't do X") are weaker than positive ("always do Y"). Rewrite as positives.
 
 **Laws of the failure mode:**
-- 90%-quality 100% of the time beats 95%-quality 95%-broken. Variance is expensive.
+- 90%-quality 100% of the time beats20x-quality20x-broken. Variance is expensive.
 - Failures are silent unless instrumented. Log and read the log.
 - Fastest way to find prompt rot: compare token counts over time. A prompt that "evolved" usually grew.
 
@@ -908,7 +908,7 @@ Scan in under 30 seconds before any run.
 15. Negative rules are weaker than positive ones; rewrite as positives.
 16. Calibrated confidence is shorter than hedging and longer than overstatement.
 17. Read long-term memory on start; write earned signal on close. Always.
-18. Variance is expensive: 90%/100% beats 95%/95%-broken.
+18. Variance is expensive: 90%/100% beats20x/95%-broken.
 19. Every self-modification has a metric and a rollback condition.
 20. Backup before rotation; format-migrate before reformatting long-term.
 

@@ -1,7 +1,7 @@
 ---
 layout: blank
 permalink: /notes/triple-stack-router/
-title: "Triple-Stack LLM Router"
+title: "3-Layer LLM Setup"
 date: 2026-05-10
 tags: [token-efficiency, claude, engineering, tools]
 is_note: true
@@ -734,7 +734,7 @@ node scripts/tier-usage-report.cjs</code></pre>
 
     <div class="pull-quote">
       <p>"Long-term memory survives every compression. Compression that breaks this is not compression — it is amnesia."</p>
-      <cite>— 95% Token Reduction Doctrine, §13</cite>
+      <cite>—20x Token Reduction Doctrine</cite>
     </div>
   </div>
 </section>
@@ -804,7 +804,7 @@ node scripts/tier-usage-report.cjs</code></pre>
               <li>Route to the cheapest competent tier before any heavy call.</li>
               <li>Cache it, compute it, or template it before asking a model.</li>
               <li>If the answer is already in this turn's context, don't call the tool.</li>
-              <li>Variance is expensive: 90%/100% beats 95%/95%-broken.</li>
+              <li>Variance is expensive: 90%/100% beats20x/95%-broken.</li>
             </ul>
           </div>
           <div class="exp-drill-outcome">

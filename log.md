@@ -6,7 +6,7 @@
 
 **Done:**
 - Extracted copyable-code-block pattern from `publishing-template.md`; appended §11 to `html-notes-playbook.md`, §10 to `markdown-notes-playbook.md`, §10 to `deep-dive-playbook.md`; each section has format-specific gate ("only if reader must copy and run")
-- Full overhaul of `notes/triple-stack-router.html` (v1 → v2): rewrote content from `triple-tier-llm-router.md`, added §03 Usage (new) with 3 copyable JS/CLI blocks, split setup into interleaved protocol+code phases, tightened heuristics to 20 one-sentence laws (5 clusters), added clipboard copy-button component
+- Full overhaul of `notes/triple-stack-router.html` (v1 → v2): rewrote content from `3-Layer-llm-router.md`, added §03 Usage (new) with 3 copyable JS/CLI blocks, split setup into interleaved protocol+code phases, tightened heuristics to 20 one-sentence laws (5 clusters), added clipboard copy-button component
 
 **Worked:** Interleaving setup steps with their code blocks (vs. prose-then-code) significantly reduced cognitive load; one-sentence laws per expanded-drill are far more scannable than paragraph-per-step format.
 
