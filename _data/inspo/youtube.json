@@ -8,18 +8,31 @@
 {"date":"2026-05-10","tags":["product-market-fit","positioning","startup","product-strategy","validation"],"title":"Pain Killers - Problem or Need","url":"https://youtu.be/HuxkIVyrUWk","desc":"Classic startup framework explaining why products solving painful urgent problems outperform nice-to-have solutions."},
 {"date":"2026-02-01","tags":["india","politics"],"title":"Hardtalk India Jyoti Basu 18 8 1999","url":"https://youtu.be/f83dd_z70m0","desc":"only delulu no solulu"},
 {"date":"2026-05-05","tags":["riding","bikes","royal-enfield","india"],"title":"Riding to the World's Higest Monastery","url":"https://youtu.be/AG0rkpICoiw","desc":""},
-{"date":"2026-02-05","url":"https://youtu.be/Iu2L7oA9QRg","title":"Edvard Munch: What A Cigarette Means","desc":"","tags":["archive","art","video"]},
-{"date":"2026-04-19","tags":["media", "politics", "the-state", "social-contract"],"title":"Syed Muzammil Shah |Fascism and Media| The Black Hole Islamabad| Full talk","url":"https://youtu.be/uiwbq-U4pF0","desc":""},
-{"date":"2026-04-25","url":"https://youtu.be/n6QoNDiLb5c","title":"What My Family Used to Watch in the Soviet Union","desc":"","tags":["music","business","india","video"]},
-{"date":"2026-03-05","url":"https://youtu.be/2SwLtDpxjqs","title":"Soviet Army Dancing to Hard Bass [REMASTERED HD]","desc":"","tags":["dancing","bass"]},
-{"url":"https://youtu.be/FE8l55PVV0I","title":"How one FMCG giant's complaint changed how IPL advertising works","date":"2026-05-05","tags":["india","cricket","marketing","advertising"]},
-{"url":"https://youtu.be/hpgK51w6uhk","title":"America's Iron Giants — The World's Most Powerful Metalworkers","date":"2025-08-12","tags":["tech","manufacturing"]},
-{"url":"https://youtu.be/Q6m5-kYTcfM","title":"What Japan Understands About Branding No One Else Does","desc":"","date":"2026-04-04","tags":["design","branding"]},
-{"url":"https://youtu.be/kfeytgohT6A","title":"Muji – The Brand That Designed Nothing","desc":"How Muji's no-brand philosophy redefined Japanese consumer design.","date":"2025-07-15","tags":["design","branding"]},
-{"url":"https://youtu.be/uFbxUPbZovM","title":"The Deadliest Design Mistakes in History","desc":"Engineering blunders that caused massive disasters.","date":"2025-06-22","tags":["design","history"]},
-{"url":"https://youtu.be/LfBfuxzX6Y0","title":"Lachung Beyond the Map — A Hidden Side of Sikkim","desc":"Stunning visuals of Sikkim's remote paradise.","date":"2025-05-10","tags":["india","travel"]},
-{"url":"https://youtu.be/h6FS70B0blQ","title":"Indian Premier League Cricket","desc":"Audio highlights — IPL's high-stakes drama.","date":"2025-12-01","tags":["india","sports"]},
-{"url":"https://youtu.be/lYXKjuIHQIU","title":"The NFL","desc":"Deep dive into NFL's business empire.","date":"2025-12-25","tags":["sports","business"]},
-{"url":"https://youtu.be/tuB3_fJyC5Q","title":"TSMC (Remastered)","desc":"TSMC's semiconductor dominance — key to understanding AI supply chains.","date":"2025-02-14","tags":["tech","semiconductors"]},
-{"url":"https://youtu.be/2KjW4BqNFy0","title":"Renaissance Technologies","desc":"Audio story of RenTech's quant trading revolution.","date":"2025-01-20","tags":["markets","fintech"]}
+{"date":"2026-02-05","tags":["archive","art","video"],"title":"Edvard Munch: What A Cigarette Means","url":"https://youtu.be/Iu2L7oA9QRg","desc":""},
+
+{"date":"2026-04-19","tags":["media","politics","the-state","social-contract"],"title":"Syed Muzammil Shah |Fascism and Media| The Black Hole Islamabad| Full talk","url":"https://youtu.be/uiwbq-U4pF0","desc":""},
+
+{"date":"2026-04-25","tags":["music","business","india","video"],"title":"What My Family Used to Watch in the Soviet Union","url":"https://youtu.be/n6QoNDiLb5c","desc":""},
+
+{"date":"2026-03-05","tags":["dancing","bass"],"title":"Soviet Army Dancing to Hard Bass [REMASTERED HD]","url":"https://youtu.be/2SwLtDpxjqs","desc":""},
+
+{"date":"2026-05-05","tags":["india","cricket","marketing","advertising"],"title":"How one FMCG giant's complaint changed how IPL advertising works","url":"https://youtu.be/FE8l55PVV0I","desc":""},
+
+{"date":"2025-08-12","tags":["tech","manufacturing"],"title":"America's Iron Giants — The World's Most Powerful Metalworkers","url":"https://youtu.be/hpgK51w6uhk","desc":""},
+
+{"date":"2026-04-04","tags":["design","branding"],"title":"What Japan Understands About Branding No One Else Does","url":"https://youtu.be/Q6m5-kYTcfM","desc":""},
+
+{"date":"2025-07-15","tags":["design","branding"],"title":"Muji – The Brand That Designed Nothing","url":"https://youtu.be/kfeytgohT6A","desc":"How Muji's no-brand philosophy redefined Japanese consumer design."},
+
+{"date":"2025-06-22","tags":["design","history"],"title":"The Deadliest Design Mistakes in History","url":"https://youtu.be/uFbxUPbZovM","desc":"Engineering blunders that caused massive disasters."},
+
+{"date":"2025-05-10","tags":["india","travel"],"title":"Lachung Beyond the Map — A Hidden Side of Sikkim","url":"https://youtu.be/LfBfuxzX6Y0","desc":"Stunning visuals of Sikkim's remote paradise."},
+
+{"date":"2025-12-01","tags":["india","sports"],"title":"Indian Premier League Cricket","url":"https://youtu.be/h6FS70B0blQ","desc":"Audio highlights — IPL's high-stakes drama."},
+
+{"date":"2025-12-25","tags":["sports","business"],"title":"The NFL","url":"https://youtu.be/lYXKjuIHQIU","desc":"Deep dive into NFL's business empire."},
+
+{"date":"2025-02-14","tags":["tech","semiconductors"],"title":"TSMC (Remastered)","url":"https://youtu.be/tuB3_fJyC5Q","desc":"TSMC's semiconductor dominance — key to understanding AI supply chains."},
+
+{"date":"2025-01-20","tags":["markets","fintech"],"title":"Renaissance Technologies","url":"https://youtu.be/2KjW4BqNFy0","desc":"Audio story of RenTech's quant trading revolution."}
 ]
