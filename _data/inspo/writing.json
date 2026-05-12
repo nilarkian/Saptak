@@ -1,9 +1,124 @@
 [
+
+{
+  "url": "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
+  "author": "Richard Hamming",
+  "title": "You and Your Research",
+  "desc": "A legendary talk on doing great work through long-term curiosity, problem selection, courage, and independent thinking.",
+  "date": "2026-06-11",
+  "tags": ["research", "career", "thinking", "science", "greatness"]
+},
+{
+  "url": "https://fs.blog/map-and-territory/",
+  "author": "Shane Parrish",
+  "title": "The Map Is Not the Territory",
+  "desc": "Explains how models, abstractions, and beliefs are simplified representations of reality rather than reality itself.",
+  "date": "2026-06-12",
+  "tags": ["mental-models", "philosophy", "thinking", "epistemology"]
+},
+{
+  "url": "https://www.ele.uri.edu/faculty/vetter/Other-stuff/The-Machine-Stops.pdf",
+  "author": "E. M. Forster",
+  "title": "The Machine Stops",
+  "desc": "A prophetic 1909 sci-fi story about technological dependence, isolation, algorithmic mediation, and civilizational collapse.",
+  "date": "2026-06-13",
+  "tags": ["technology", "science-fiction", "society", "internet", "dystopia"]
+},
+{
+  "url": "https://archive.is/20240613224923/https://www.newyorker.com/culture/infinite-scroll/how-the-internet-turned-us-into-content-machines",
+  "author": "Kyle Chayka",
+  "title": "How the Internet Turned Us Into Content Machines",
+  "desc": "Examines how online platforms push people to constantly package identity, creativity, and life into monetizable content.",
+  "date": "2026-06-14",
+  "tags": ["internet", "social-media", "attention", "culture", "platforms"]
+},
+{
+  "url": "https://hapgood.us/2015/10/17/the-garden-and-the-stream-a-technopastoral/",
+  "author": "Mike Caulfield",
+  "title": "The Garden and the Stream: A Technopastoral",
+  "desc": "Contrasts open information streams with carefully curated knowledge gardens as two modes of consuming information online.",
+  "date": "2026-06-15",
+  "tags": ["information", "internet", "knowledge-management", "curation", "media"]
+},
+{
+  "url": "https://slatestarcodex.com/2014/07/30/meditations-on-moloch/",
+  "author": "Scott Alexander",
+  "title": "Meditations on Moloch",
+  "desc": "Explores how competition, coordination failure, and incentive systems push societies toward destructive outcomes.",
+  "date": "2026-06-16",
+  "tags": ["game-theory", "civilization", "systems", "coordination", "society"]
+},
+{
+  "url": "https://monoskop.org/images/d/dc/Barbrook_Richard_Cameron_Andy_1996_The_Californian_Ideology.pdf",
+  "author": "Richard Barbrook and Andy Cameron",
+  "title": "The Californian Ideology",
+  "desc": "Critiques Silicon Valley’s fusion of libertarianism, techno-utopianism, counterculture, and neoliberal economics.",
+  "date": "2026-06-17",
+  "tags": ["silicon-valley", "technology", "politics", "culture", "internet"]
+},
+{
+  "url": "https://www.jofreeman.com/joreen/tyranny.htm",
+  "author": "Jo Freeman",
+  "title": "The Tyranny of Structurelessness",
+  "desc": "Argues that informal groups without explicit structure often create hidden power hierarchies instead of true equality.",
+  "date": "2026-06-18",
+  "tags": ["organizations", "power", "groups", "leadership", "social-dynamics"]
+},
+{
+  "url": "https://substack.com/home/post/p-191586395",
+  "author": "Unknown",
+  "title": "Appreciation Over Aspiration: A $600B Shift",
+  "desc": "Discusses the cultural and economic movement from aspirational consumption toward appreciation, ownership, and meaning.",
+  "date": "2026-06-19",
+  "tags": ["economics", "culture", "consumer-behavior", "trends", "markets"]
+},
+{
+  "url": "https://substack.com/@systemdesignone/note/c-246819422",
+  "author": "Neo Kim",
+  "title": "If you're still thinking like a software engineer...",
+  "desc": "A short reflection on shifting from pure engineering execution toward systems thinking and business leverage.",
+  "date": "2026-06-20",
+  "tags": ["software-engineering", "systems-thinking", "career", "leverage", "technology"]
+},
+{
+  "url": "https://substack.com/home/post/p-185903458",
+  "author": "Polymathic Being",
+  "title": "How to Research Anything",
+  "desc": "A practical framework for investigating unfamiliar topics using layered reading, synthesis, and iterative curiosity.",
+  "date": "2026-06-21",
+  "tags": ["research", "learning", "thinking", "knowledge", "self-education"]
+},
+{
+  "url": "https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/",
+  "author": "Paul Ford",
+  "title": "What Is Code?",
+  "desc": "A sprawling interactive essay explaining software, programming culture, and the hidden systems running modern life.",
+  "date": "2026-06-22",
+  "tags": ["programming", "software", "technology", "internet", "culture"]
+},
+{
+  "url": "https://www.cs.utexas.edu/~eunsol/courses/data/bitter_lesson.pdf",
+  "author": "Rich Sutton",
+  "title": "The Bitter Lesson",
+  "desc": "Argues that scalable computation and general methods consistently outperform handcrafted human-designed AI systems over time.",
+  "date": "2026-06-23",
+  "tags": ["ai", "machine-learning", "computation", "research", "technology"]
+},
+{
+  "url": "https://dilawars.wordpress.com/2013/10/16/some-excerpts-from-nandys-the-intimate-enemy/",
+  "author": "Ashis Nandy",
+  "title": "Some excerpts from Nandy’s “The Intimate Enemy”",
+  "desc": "Reflections on colonialism’s psychological effects and how empires reshape identity, masculinity, and self-perception.",
+  "date": "2026-05-13",
+  "tags": ["colonialism", "india", "psychology", "history", "culture"]
+},
+
+
   {
     "url": "https://docs.google.com/spreadsheets/d/1mNMrL4yZCW4eJGrjDB4CEvP9XP7AIeGxXKgkK9vh51Q/edit",
     "name": "Definitive List of Things Startups Did That Didn't Work",
     "desc": "Crowdsourced archive documenting failed startup strategies, experiments, growth tactics, and business mistakes.",
-    "date": "2026-06-20",
+    "date": "2026-06-09",
     "tags": ["startup-failures", "case-studies", "reference", "lessons", "founders"]
   },
   {
@@ -11,7 +126,7 @@
     "author": "IEET",
     "title": "Tech Policy To-Do List",
     "desc": "Policy-focused essay outlining urgent governance and regulatory challenges created by emerging technologies and AI systems.",
-    "date": "2026-06-13",
+    "date": "2026-06-10",
     "tags": ["technology", "policy", "governance", "ai", "society"]
   },
   {
@@ -19,7 +134,7 @@
   "author": "Strategyzer",
   "title": "How To Prototype Radically Different Business Models",
   "desc": "Framework for rapidly testing unconventional business models before fully committing resources.",
-  "date": "2026-06-12",
+  "date": "2026-06-11",
   "tags": ["startup", "business-models", "innovation", "strategy", "experimentation"]
   },
     {
