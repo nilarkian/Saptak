@@ -121,7 +121,8 @@ Nvidia unveiled Blackwell Ultra GPUs, doubling H100 performance for trillion-par
 Trained GPT-5 scale models 3x faster, cutting costs 40%. Positions Nvidia to dominate hyperscaler builds, forcing AMD and Intel to pivot to custom silicon. Data center power demands spike, accelerating nuclear and grid upgrades worldwide.
 
 [source](https://nvidianews.nvidia.com/news/nvidia-blackwell-ultra-gtc)
-***
+
+---
 
 ### <span class="date">May 8</span> 📈SEBI Caps Algo Trading at 50% Retail Volume
 tags: [finance, india, algo-trading]
@@ -131,7 +132,8 @@ SEBI imposed 50% volume caps on retail algo trading, mandating API approvals and
 Restores fairness for non-algo investors, stabilizes Nifty volatility by 15%. Big funds gain edge via exemptions, widening institutional-retail gap. Spurs compliant platforms like Zerodha's next-gen APIs.
 
 [source](https://blog.liquide.life/sebi-algo-trading-regulations-2026/)
-***
+
+---
 
 ### <span class="date">May 8</span> ⚛️ Quantum computing is shifting from research bet to infrastructure race
 tags: [quantum-computing, semiconductors, ai]
