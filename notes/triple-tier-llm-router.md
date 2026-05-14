@@ -1,9 +1,14 @@
 ---
 layout: note-layout
-title: "3-Layer LLM Setup md"
-topic: "AI Engineering"
+title: 3-Layer LLM Setup md
+topic: "AI"
 date: 2026-05-10
-tags: [ai, llm, cost-optimization, agents, infrastructure]
+tags:
+  - ai
+  - llm
+  - cost-optimization
+  - agents
+  - infrastructure
 is_note: true
 ---
 

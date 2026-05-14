@@ -127,13 +127,6 @@ def atomic_save_json(path, data):
 
 
 
-
-
-
-
-
-
-
 # ---------- tagging ----------
 
 STOPWORDS = {
@@ -179,29 +172,29 @@ def assign_category(tags):
 
 # ---------- date scheduling ----------
 
-# def get_occupied_dates():
-#     yt = load_json("_data/inspo/youtube.json")
-#     mu = load_json("_data/inspo/music.json")
-#     return {e["date"][:10] for e in yt + mu if e.get("date")}
+def get_occupied_dates():
+    yt = load_json("_data/inspo/youtube.json")
+    mu = load_json("_data/inspo/music.json")
+    return {e["date"][:10] for e in yt + mu if e.get("date")}
 
 
-# def next_free_dates(n, occupied):
-#     if not n:
-#         return []
-#     if occupied:
-#         parsed = [date_cls.fromisoformat(d) for d in occupied]
-#         cursor = max(parsed) + timedelta(days=1)
-#     else:
-#         cursor = date_cls.today()
-#     used = set(occupied)
-#     result = []
-#     while len(result) < n:
-#         ds = cursor.isoformat()
-#         if ds not in used:
-#             result.append(ds)
-#             used.add(ds)
-#         cursor += timedelta(days=1)
-#     return result
+def next_free_dates(n, occupied):
+    if not n:
+        return []
+    if occupied:
+        parsed = [date_cls.fromisoformat(d) for d in occupied]
+        cursor = max(parsed) + timedelta(days=1)
+    else:
+        cursor = date_cls.today()
+    used = set(occupied)
+    result = []
+    while len(result) < n:
+        ds = cursor.isoformat()
+        if ds not in used:
+            result.append(ds)
+            used.add(ds)
+        cursor += timedelta(days=1)
+    return result
 
 
 # ---------- music date randomizer ----------
@@ -284,7 +277,7 @@ def generate_music_feed(output_file, start_date_str):
 
     # how many new songs today
     featured_count = min(
-        random.randint(0, 2),
+        random.randint(0, 1),
         len(eligible_pool)
     )
 
@@ -316,45 +309,16 @@ def generate_music_feed(output_file, start_date_str):
     ).days
 
     if total_days > 0:
-        
-        sorted_items = sorted(
-            final,
-            key=lambda _: random.random() ** 1.8
-        )
-
-        for item in sorted_items:
-
-            ds = item.get("date")
-
-            if not ds:
-                continue
-
-            try:
-                item_date = date_cls.fromisoformat(
-                    ds[:10]
-                )
-            except ValueError:
-                continue
-
-            # never move today's surfaced songs
-            if item_date >= today:
-                continue
-
-            # recent bias
-            bias = 1 - (
-                random.random() ** 0.8
-            )
-
-            random_days = int(
-                total_days * bias
-            )
-
-            random_date = (
-                start_date +
-                timedelta(days=random_days)
-            ).isoformat()
-
-            item["date"] = random_date
+        historical = [
+            item for item in final
+            if item.get("date")
+            and date_cls.fromisoformat(item["date"][:10]) < today
+        ]
+        random.shuffle(historical)
+        n = len(historical)
+        for i, item in enumerate(historical):
+            days_offset = int(i * total_days / n) if n > 1 else 0
+            item["date"] = (start_date + timedelta(days=days_offset)).isoformat()
 
     # newest first
     final.sort(
@@ -467,6 +431,31 @@ def get_existing_feed_urls():
 
 
 
+
+
+def build_youtube_feed(output_file):
+    source = load_json("_data/all-yt.json")
+    existing_feed = load_json(output_file)
+    existing_urls = {item["url"] for item in existing_feed}
+
+    new_videos = [
+        v for v in source
+        if "yt" in v.get("source_playlists", [])
+        and f"https://youtu.be/{v['id']}" not in existing_urls
+    ]
+
+    occupied = get_occupied_dates()
+    free_dates = next_free_dates(len(new_videos), occupied)
+
+    final = existing_feed.copy()
+    for v, date in zip(new_videos, free_dates):
+        entry = transform_youtube(v)
+        entry["date"] = date
+        final.append(entry)
+
+    final.sort(key=lambda x: x.get("date", ""), reverse=True)
+    atomic_save_json(output_file, final)
+    print(f"{output_file}: +{len(new_videos)} appended, {len(final)} total items")
 
 
 # ---------- main ----------
@@ -605,7 +594,7 @@ def main():
     "2025-01-01"
     )
 
-    build_feed("yt", "_data/inspo/youtube.json", transform_youtube)
+    build_youtube_feed("_data/inspo/youtube.json")
 
 if __name__ == "__main__":
     main()

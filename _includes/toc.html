@@ -116,7 +116,7 @@
 
 <aside class="sidebar" id="toc-sidebar">
   <div class="sidebar-inner">
-    <a class="back" href="{{ site.baseurl }}/">← Home</a>
+    <a class="back" href="{{ include.back_url | default: site.baseurl }}">{{ include.back_label | default: "← Home" }}</a>
     <div>
       <div class="toc-label">On this page</div>
     </div>
@@ -167,7 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const toc      = document.getElementById('toc');
   const sidebar  = document.getElementById('toc-sidebar');
-  const headings = [...document.querySelectorAll('.article-body h1, .article-body h2, .article-body h3')];
+  const sel = '{{ include.body_selector | default: ".article-body" }}';
+  const headings = [...document.querySelectorAll(`${sel} h1, ${sel} h2, ${sel} h3`)];
 
   if (!headings.length) return;
 
