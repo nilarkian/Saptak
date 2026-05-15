@@ -583,7 +583,7 @@ body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
 (function(){
   const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
   const stored = localStorage.getItem('note-theme');
-  const isDark = stored !== null ? stored === 'dark' : prefersDark;
+  const isDark = stored !== null ? stored === 'dark' : false;
 
   const sun = document.getElementById('icon-sun');
   const moon = document.getElementById('icon-moon');
