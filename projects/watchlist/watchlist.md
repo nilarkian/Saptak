@@ -8,6 +8,64 @@ permalink: /watchlist.html
 ## MAY 2026
 
 
+### <span class="date">May 15</span> 💡 Silicon photonics escapes the lab
+tags: [ai, semiconductors, photonics, datacenters]
+
+AI datacenter scaling is forcing a transition from copper interconnects toward silicon photonics because bandwidth density and thermal limits are becoming harder than compute itself Tower Semiconductor surged after photonics demand accelerated meaning optical IO is moving from niche infrastructure to default AI scaling strategy This shifts leverage toward fabs packaging and optical networking vendors while making power inefficient architectures economically fragile
+
+[Source](https://www.investors.com/news/technology/tsem-stock-tower-semiconductor-q1-2026-earnings/)
+
+---
+
+### <span class="date">May 15</span> 🇮🇳 Deep tech becomes Indian industrial policy
+tags [india, semiconductors, ai, startups]
+
+IIT Madras startup valuations crossed massive scale as India intensified investment into semiconductors AI and advanced manufacturing The important shift is not startup count but capability localization Global supply chain fragmentation and chip nationalism are pushing India from software outsourcing toward sovereign deep tech infrastructure creation This increases regional competition for fabs talent and research commercialization
+
+ [source](https://timesofindia.indiatimes.com/city/chennai/iit-madras-incubates-more-than-100-startups-for-second-year-in-a-row/articleshow/130563015.cms)
+
+---
+
+### <span class="date">May 14</span> 🧪 Helium becomes semiconductor bottleneck
+tags [semiconductors, supplychain, manufacturing]
+
+Middle East instability disrupted roughly one third of global helium supply exposing how semiconductor manufacturing still depends on obscure physical inputs AI demand growth increased focus on GPUs but fabrication fragility now matters more because advanced fabs cannot scale without stable industrial gases This makes supply resilience strategic infrastructure rather than procurement optimization
+
+[source](https://semiengineering.com/chip-industry-week-in-review-129/)
+
+---
+
+### <span class="date">May 14</span> 🤖 Nvidia pivots from chatbots to physical AI
+tags [ai robotics digitaltwins automation]
+
+Nvidia shifted emphasis from generative AI software toward robotics digital twins and industrial automation signaling that model intelligence is becoming commoditized while embodied deployment becomes the new bottleneck Physical AI requires simulation sensors inference networking and real world reliability which expands the competitive surface beyond foundation models into manufacturing logistics and autonomous systems
+
+[source](https://blogs.nvidia.com/blog/gtc-2026-news/)
+
+---
+
+
+### <span class="date">May 13</span> ⚓ Single point prevents AI collapse
+tags: [AI, LLM, research]
+
+Researchers found that adding one real world data point or statistical prior to recursive training halts model collapse While closed loop learning creates a martingale trap where AI parameters drift into gibberish this anchor breaks the cycle This discovery suggests AI scaling is not capped by human data exhaustion as previously feared Developers can now utilize massive synthetic datasets safely by maintaining a tiny ground truth fraction to stabilize internal weights and prevent convergence on absorbing states
+
+[source](https://www.kcl.ac.uk/news/scientists-come-up-with-way-to-overcome-ai-data-cannibalism)
+
+---
+
+## <span class="date">May 13</span> 🚀 Anthropic inks $30B round at a near-$1T private valuation
+tags: [AI, funding, enterprise]
+
+Anthropic has agreed terms for a $30 billion funding round valuing the company at roughly $900 billion, nearly tripling its value since February. Beyond cash, the deal signals investor conviction in Anthropic’s accelerating enterprise traction—Ramp data shows Anthropic now leads OpenAI in paid business adoption—supporting a revenue trajectory that could exceed $45B annualized. The new capital both underwrites rapid capacity scaling (and likely pushes further partnerships, e.g., data-center deals) and tightens competition among frontier labs, while increasing pressure toward an IPO possibly as soon as October. Expect higher stakes for pricing, margin optimization, and enterprise contract leverage as investors seek exits.
+
+[source](https://techfundingnews.com/anthropic-30b-fundraise-900b-valuation-mega-round/)
+
+
+---
+
+
+
 ### <span class="date">May 12</span> 🤖AI Crafts First Zero-Day Exploit
 tags: [AI, cybersecurity, zero-day]
 
