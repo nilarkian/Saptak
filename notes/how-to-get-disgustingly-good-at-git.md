@@ -8,7 +8,7 @@ tags:
 dateCreated: 2026-05-15
 layout: note-layout
 is_note: true
-date: 2026-05-19
+date: 2026-05-18
 ---
 
 There are two kinds of developers.
