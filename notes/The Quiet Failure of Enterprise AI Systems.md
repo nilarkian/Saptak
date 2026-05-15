@@ -9,11 +9,11 @@ project:
 series: AAM Part 2
 w-status: draft
 date: 2026-05-16
+is_note: true
+layout: note-layout
 ⬅️previous page:
   - "[[How Consistency Became One of the Biggest Problems with LLMs]]"
 title: The Quiet Failure of Enterprise AI Systems
-is_note: true
-layout: note-layout
 ---
 
 
