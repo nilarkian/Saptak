@@ -54,7 +54,7 @@ Researchers found that adding one real world data point or statistical prior to 
 
 ---
 
-## <span class="date">May 13</span> 🚀 Anthropic inks $30B round at a near-$1T private valuation
+### <span class="date">May 13</span> 🚀 Anthropic inks $30B round at a near-$1T private valuation
 tags: [AI, funding, enterprise]
 
 Anthropic has agreed terms for a $30 billion funding round valuing the company at roughly $900 billion, nearly tripling its value since February. Beyond cash, the deal signals investor conviction in Anthropic’s accelerating enterprise traction—Ramp data shows Anthropic now leads OpenAI in paid business adoption—supporting a revenue trajectory that could exceed $45B annualized. The new capital both underwrites rapid capacity scaling (and likely pushes further partnerships, e.g., data-center deals) and tightens competition among frontier labs, while increasing pressure toward an IPO possibly as soon as October. Expect higher stakes for pricing, margin optimization, and enterprise contract leverage as investors seek exits.
