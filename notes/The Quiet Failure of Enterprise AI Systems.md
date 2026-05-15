@@ -226,10 +226,3 @@ That question does not have a clean answer yet.
 
 ---
 
-## What Silent Failure Pattern Has Become Most Visible in Your Systems?
-
-Retrieval drift. Prompt instability. Hallucination rate creep. Formatting failures breaking automations. Governance pressure without auditability to answer it.
-
-Or something your team discovered by accident, weeks after it had already begun.
-
-What does Silent Degradation actually look like in your production environment? At what point did you realize the monitoring infrastructure you had was not built for the system you were running?

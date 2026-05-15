@@ -189,7 +189,3 @@ Teams building the most reliable systems don't have the best models. They have m
 Next generation belongs to teams that operationalize reliability, not model providers.
 
 ---
-
-What's the hardest operational bottleneck in your systems right now?
-
-Retrieval consistency? Schema enforcement? Confidence routing logic? Observability setup? Drift detection speed? Evaluation pipeline maturity?
