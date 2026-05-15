@@ -13,6 +13,7 @@ w-status: draft
   - "[[How Consistency Became One of the Biggest Problems with LLMs]]"
 title: The Quiet Failure of Enterprise AI Systems
 is_note: true
+layout: note-layout
 ---
 
 
