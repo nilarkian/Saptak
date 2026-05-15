@@ -6,9 +6,9 @@ tags:
   - llm
   - RelOps
 project:
-dateCreated: "[[2026-05-15]]"
 series: AAM Part 2
 w-status: draft
+date: 2026-05-16
 ⬅️previous page:
   - "[[How Consistency Became One of the Biggest Problems with LLMs]]"
 title: The Quiet Failure of Enterprise AI Systems

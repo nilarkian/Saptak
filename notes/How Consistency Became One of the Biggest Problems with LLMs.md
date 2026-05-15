@@ -6,11 +6,6 @@ tags:
   - llm
   - RelOps
 project:
-dateCreated: "[[2026-05-12]]"
-⬅️previous page:
-  - "[[linkedin post1  shortform]]"
-next page➡️:
-  - "[[linkedin post2 longform]]"
 is-task: true
 w-status: draft
 layout: note-layout
