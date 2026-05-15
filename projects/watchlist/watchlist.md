@@ -18,7 +18,7 @@ AI datacenter scaling is forcing a transition from copper interconnects toward s
 ---
 
 ### <span class="date">May 15</span> 🇮🇳 Deep tech becomes Indian industrial policy
-tags [india, semiconductors, ai, startups]
+tags: [india, semiconductors, ai, startups]
 
 IIT Madras startup valuations crossed massive scale as India intensified investment into semiconductors AI and advanced manufacturing The important shift is not startup count but capability localization Global supply chain fragmentation and chip nationalism are pushing India from software outsourcing toward sovereign deep tech infrastructure creation This increases regional competition for fabs talent and research commercialization
 
@@ -27,7 +27,7 @@ IIT Madras startup valuations crossed massive scale as India intensified investm
 ---
 
 ### <span class="date">May 14</span> 🧪 Helium becomes semiconductor bottleneck
-tags [semiconductors, supplychain, manufacturing]
+tags: [semiconductors, supplychain, manufacturing]
 
 Middle East instability disrupted roughly one third of global helium supply exposing how semiconductor manufacturing still depends on obscure physical inputs AI demand growth increased focus on GPUs but fabrication fragility now matters more because advanced fabs cannot scale without stable industrial gases This makes supply resilience strategic infrastructure rather than procurement optimization
 
@@ -36,7 +36,7 @@ Middle East instability disrupted roughly one third of global helium supply expo
 ---
 
 ### <span class="date">May 14</span> 🤖 Nvidia pivots from chatbots to physical AI
-tags [ai robotics digitaltwins automation]
+tags: [ai, robotics, digitaltwins, automation]
 
 Nvidia shifted emphasis from generative AI software toward robotics digital twins and industrial automation signaling that model intelligence is becoming commoditized while embodied deployment becomes the new bottleneck Physical AI requires simulation sensors inference networking and real world reliability which expands the competitive surface beyond foundation models into manufacturing logistics and autonomous systems
 
