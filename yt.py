@@ -277,7 +277,7 @@ def generate_music_feed(output_file, start_date_str):
 
     # how many new songs today
     featured_count = min(
-        random.randint(0, 1),
+        random.randint(1, 2),
         len(eligible_pool)
     )
 
