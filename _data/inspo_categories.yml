@@ -46,3 +46,10 @@
   unit: "dives"
   tint: "#f0f0f0"
   card_include: "inspo/deep-dives"
+
+- key: pinned-resources
+  icon: "📌"
+  label: "Resources"
+  unit: "resources"
+  tint: "#e8eafd"
+  card_include: "inspo/pinned-resources"

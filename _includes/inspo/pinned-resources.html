@@ -1,0 +1,17 @@
+{% for r in items %}
+<a class="inspo-card pinned-card"
+   href="{{ r.url | prepend: site.baseurl }}?from=inspo&cat=pinned-resources"
+   data-category="pinned-resources"
+   data-date="{{ r.date | date: '%Y-%m-%d' }}"
+   data-tags="{% for t in r.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+  <div class="pinned-label">📌 Curated · Resource</div>
+  <div class="pinned-title">{{ r.title }}</div>
+  {% if r.blurb %}<div class="pinned-blurb">{{ r.blurb }}</div>{% endif %}
+  {% if r.tags %}
+  <div class="pinned-tags">
+    {% for t in r.tags %}<span class="pinned-tag">{{ t }}</span>{% endfor %}
+  </div>
+  {% endif %}
+  <div class="pinned-meta">Last Updated · {{ r.date | date: '%B %Y' }}</div>
+</a>
+{% endfor %}

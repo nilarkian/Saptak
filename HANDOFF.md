@@ -1,4 +1,4 @@
-# Handoff: Pinned Resources — New Content Type + Inspo Tab + Index Link
+# Handoff: Smart Back-Navigation for Pinned Resources
 
 **Generated**: 2026-05-17
 **Branch**: main
@@ -6,196 +6,178 @@
 
 ## Goal
 
-Create a "Pinned Resources" content type. Pinned resources are markdown files in `notes/` with `is_pinned: true` frontmatter, using `note-layout.html` as layout. They appear in three places:
-
-1. **Inspo page** — as a new category tab (like Deep Dives, YouTube, etc.)
-2. **Notes page** — listed alongside regular notes
-3. **Index page** — replace the Resume nav link with a Pinned Resources link that navigates to `inspo.html?cat=pinned` (same pattern as Deep Dives quick link)
+When a user opens a pinned resource (or any note) from different source pages, the back/breadcrumb navigation should return them to where they came from — not always to `notes.html`. If entered from inspo, go back to inspo. If entered from notes, go back to notes.
 
 ## Completed (Prior Sessions)
 
-- [x] Reset chip extracted into `_includes/reset-chip.html` (reusable include)
-- [x] Reset chip wired into both `inspo.html` and `notes.html`
-- [x] Series pills + filter on `notes.html` (activeSeries, URL param, toggle)
-- [x] Series pill on `note-layout.html`
+- [x] Pinned Resources content type (`is_pinned: true` frontmatter convention)
+- [x] Inspo tab: `pinned-resources` category in `_data/inspo_categories.yml`
+- [x] Card template: `_includes/inspo/pinned-resources.html`
+- [x] CSS for `.pinned-card` in `inspo.html` (lines 529-580)
+- [x] Liquid count + render logic in `inspo.html` (3 `elsif` branches for `pinned-resources`)
+- [x] Index nav: Resume link replaced with "Resources" → `inspo.html?cat=pinned-resources`
+- [x] Index nav: Deep Dives link fixed from hardcoded `/Saptak/` to `relative_url`
+- [x] Notes page: 📌 emoji prefix for pinned notes in note row
+- [x] Notes page: "Resources" topic auto-appears in filter bar
+- [x] Existing file `notes/intereting claude skills & other github repos.md` normalized (Obsidian anti-patterns removed, `title`, `topic: "Resources"`, `blurb` added)
+- [x] Reset chip extracted into `_includes/reset-chip.html` (reusable)
+- [x] Series pills + filter on `notes.html`
+- [x] Build passes clean
 
 ## Not Yet Done
 
-- [ ] Define `is_pinned: true` frontmatter convention for pinned resource files
-- [ ] Create sample pinned resource file(s) in `notes/` with `layout: note-layout`, `is_pinned: true`
-- [ ] Add `pinned` category to `_data/inspo_categories.yml`
-- [ ] Create `_includes/inspo/pinned.html` card template for pinned resources in inspo grid
-- [ ] Wire pinned resources into inspo.html tab system (category filter, counts)
-- [ ] Show pinned resources in `notes.html` note list (they have `is_note: true` + `is_pinned: true`)
-- [ ] In `index.html`: replace Resume link with Pinned Resources link → `inspo.html?cat=pinned`
-- [ ] Decide: should pinned notes have a visual indicator (pin icon, badge) in notes.html rows?
-- [ ] Build check + browser test both pages
+- [ ] Make back-navigation source-aware in `note-layout.html`
+- [ ] Two navigation elements need updating:
+  1. **TOC sidebar back link** (line 551-552) — currently hardcoded to `notes.html`
+  2. **Breadcrumb** (lines 580-584) — currently hardcoded `Notes > Topic`
+- [ ] When entering from inspo → back should go to `inspo.html` (or `inspo.html?cat=pinned-resources`)
+- [ ] When entering from notes → back should go to `notes.html` (current behavior, keep as default)
+- [ ] Build check + browser test
 
 ## Failed Approaches (Don't Repeat These)
 
-None yet — fresh task. But from prior sessions:
+From prior sessions (not this task, but relevant context):
+- **`opacity` on parent with interactive children**: Made child hover states invisible. Use `color` to dim instead.
+- **URL param wrapper for series filter**: Closure approach failed. Integrated `activeSeries` directly into `applyTopicFilter()`.
 
-- **URL param wrapper for series filter**: Tried wrapping `applyTopicFilter` with a closure. Failed — replaced with integrated `activeSeries` variable inside `applyTopicFilter()`.
-- **`opacity` on parent with interactive children**: `.note-row-meta` had `opacity: .35` which made child pill hover states invisible. Fixed with `color: #aaa`.
+For the back-navigation task specifically: None yet — fresh task.
 
 ## Key Decisions
 
 | Decision | Rationale |
 |----------|-----------|
-| Pinned resources use `note-layout.html` | User requirement — they're note-like content |
-| `is_pinned: true` frontmatter flag | Distinguishes pinned from regular notes without a separate directory |
-| Inspo tab pattern (not separate page) | Mirrors Deep Dives — already proven UX pattern |
-| Replace Resume link, not add alongside | User explicitly wants replacement |
+| Pinned resources use `note-layout.html` | User requirement — note-like content |
+| `is_pinned: true` flag (not separate directory) | Minimal, no new collection needed |
+| Back-nav should be source-aware | User explicitly requested: "if we enter from notes we go back to notes, if we enter from inspo we go back to inspo" |
 
 ## Current State
 
-**Working**: Site builds clean. Reset chip works on both inspo + notes. Series filter works. All existing inspo tabs functional.
+**Working**: Full pinned resources feature functional. Inspo tab shows, card renders, notes page lists with 📌, index nav link works, `?cat=pinned-resources` URL param auto-selects tab. Site builds clean.
 
-**Uncommitted Changes**: 16 files modified + 1 new (`_includes/reset-chip.html`). Changes from prior sessions: reset chip extraction, series pills, note frontmatter updates.
+**Problem**: `note-layout.html` always navigates back to `notes.html` regardless of entry source. Two hardcoded locations.
+
+**Uncommitted Changes**: 6 files (4 modified + 2 new):
+- `M _data/inspo_categories.yml` — added pinned-resources entry
+- `M index.html` — replaced Resume with Resources link, fixed Deep Dives baseurl
+- `M inspo.html` — CSS for pinned cards + 3 Liquid elsif branches
+- `M notes.html` — 📌 emoji prefix in note row title
+- `?? _includes/inspo/pinned-resources.html` — new card template
+- `?? notes/intereting claude skills & other github repos.md` — existing file, frontmatter normalized
 
 ## Files to Know
 
 | File | Lines | What |
 |------|-------|------|
-| `_data/inspo_categories.yml` | all | Category registry — add `pinned` entry here |
-| `_includes/inspo/deep-dives.html` | all | Template for deep-dive cards in inspo grid — copy this pattern for pinned |
-| `inspo.html` | 557-600 | Category tab rendering + card include loop |
-| `inspo.html` | 659-666 | URL param `?cat=` → auto-activates tab on load |
-| `notes.html` | 141 | `{% assign all_notes = site.pages \| where_exp: "p", "p.is_note" %}` — pinned notes need `is_note: true` to appear here |
-| `notes.html` | 160-174 | Note row rendering loop — may need pin indicator |
-| `index.html` | 241 | Resume link to replace |
-| `index.html` | 252 | Deep Dives quick link — pattern to follow for pinned |
-| `_layouts/note-layout.html` | all | Layout pinned resources will use |
+| `_layouts/note-layout.html` | 551-552 | TOC include with hardcoded `back_url` to notes.html |
+| `_layouts/note-layout.html` | 580-584 | Breadcrumb: `Notes > Topic` — hardcoded to notes.html |
+| `_includes/toc.html` | 119 | Back link render: `<a class="back" href="{{ include.back_url }}">{{ include.back_label }}</a>` |
+| `inspo.html` | 5752-5760 (built) | Pinned card links to note pages — source of inspo traffic |
+| `notes.html` | 160-174 | Note row links to note pages — source of notes traffic |
+| `index.html` | 241 | Resources nav link → `inspo.html?cat=pinned-resources` |
+| `.claude/rules/core.md` | all | baseurl rules, CSS architecture, dark mode convention |
+| `.claude/rules/jekyll.md` | all | Layout inheritance, toc.html params, JS window binding |
 
 ## Code Context
 
-### Inspo category registration pattern (`_data/inspo_categories.yml`)
-
-```yaml
-- key: deep-dives
-  icon: ""
-  label: "Deep Dives"
-  unit: "dives"
-  tint: "#f0f0f0"
-  card_include: "inspo/deep-dives"
-```
-
-### Deep Dives card include (`_includes/inspo/deep-dives.html`) — model for pinned
-
-```html
-{% for d in items %}
-<a class="inspo-card deepdive-card"
-   href="{{ d.url | prepend: site.baseurl }}"
-   data-category="deep-dives"
-   data-date="{{ d.date | date: '%Y-%m-%d' }}"
-   data-tags="{% for t in d.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
-  <div class="deepdive-title">{{ d.title }}</div>
-  {% if d.blurb %}<div class="deepdive-blurb">{{ d.blurb }}</div>{% endif %}
-</a>
-{% endfor %}
-```
-
-### Inspo tab count logic — Deep Dives uses `site.writing` collection
+### Current back-navigation in note-layout.html (hardcoded)
 
 ```liquid
-{% if cat.key == 'deep-dives' %}
-  {% assign cat_count = site.writing | size %}
-{% else %}
-  {% assign cat_count = site.data.inspo[cat.key] | size %}
-{% endif %}
+{% comment %} LINE 551-552: TOC sidebar back link {% endcomment %}
+{% assign notes_back = site.baseurl | append: "/notes.html" %}
+{% include toc.html body_selector=".note-body" back_url=notes_back back_label="← Notes" %}
+
+{% comment %} LINES 580-584: Breadcrumb {% endcomment %}
+<div class="breadcrumb">
+  <a href="{{ site.baseurl }}/notes.html">Notes</a>
+  <span>›</span>
+  {{ page.topic }}
+</div>
 ```
 
-Pinned resources are pages (not a collection, not data files), so count logic needs a new branch:
-
-```liquid
-{% if cat.key == 'pinned' %}
-  {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
-```
-
-### URL param auto-filter (`inspo.html`)
-
-```javascript
-const urlCat = params.get('cat');
-if (urlCat) { activeCategory = urlCat; }
-```
-
-This already works — `inspo.html?cat=pinned` will auto-select the Pinned tab. No JS changes needed.
-
-### Index.html — Resume link to replace (line 241)
+### toc.html back link (line 119)
 
 ```html
-<a href="assets/files/resume_v2.pdf" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+<a class="back" href="{{ include.back_url | default: site.baseurl }}">{{ include.back_label | default: "← Home" }}</a>
 ```
 
-Replace with:
+The `back_url` and `back_label` are passed as include parameters from the host layout.
+
+### How pinned resource cards link (from inspo)
 
 ```html
-<a href="{{ '/inspo.html?cat=pinned' | relative_url }}">Pinned</a>
+<a class="inspo-card pinned-card"
+   href="/Saptak/notes/intereting%20claude%20skills%20&%20other%20github%20repos/"
+   data-category="pinned-resources" ...>
 ```
 
-### Notes query — pinned notes included automatically
+### How note rows link (from notes)
 
-```liquid
-{% assign all_notes = site.pages | where_exp: "p", "p.is_note" | sort: "date" | reverse %}
+```html
+<a class="note-row"
+   href="/Saptak/notes/intereting%20claude%20skills%20&%20other%20github%20repos/" ...>
 ```
 
-If pinned files have `is_note: true`, they appear in notes list with no changes. If ONLY `is_pinned: true` (no `is_note`), the query needs updating to include both.
+Both link to the same URL — the difference is only the referrer page.
+
+### Approach Options
+
+**Option A: URL parameter (`?from=inspo`)**
+- Inspo card links append `?from=inspo` to href
+- `note-layout.html` reads the param via JS or Liquid (JS since it's client-side)
+- JS on page load: check `?from=inspo`, update breadcrumb href and TOC back link
+- Pro: Explicit, reliable, bookmarkable
+- Con: Pollutes URL, needs JS to override server-rendered Liquid
+
+**Option B: `document.referrer` (JS-only)**
+- JS checks `document.referrer` on page load
+- If referrer contains `inspo.html`, update back links to inspo
+- Pro: No URL pollution, no link changes needed
+- Con: Referrer can be empty (direct nav, bookmarks), less reliable
+
+**Option C: `sessionStorage` breadcrumb trail**
+- Source pages write their identity to sessionStorage on link click
+- Note layout reads sessionStorage to determine back target
+- Pro: Survives page navigation, no URL changes
+- Con: More complex, state management
+
+**Recommended: Option A** — most reliable, simplest to implement. The `?from=` param is standard UX pattern.
 
 ## Resume Instructions
 
-1. Add entry to `_data/inspo_categories.yml`:
-   ```yaml
-   - key: pinned
-     icon: "📌"
-     label: "Pinned"
-     unit: "resources"
-     tint: "#fdf3e8"
-     card_include: "inspo/pinned"
-   ```
+1. **Decide approach** — Option A (URL param) recommended. If using Option A:
 
-2. Create `_includes/inspo/pinned.html` — card template for inspo grid. Model on `deep-dives.html`. Items come from `site.pages | where_exp: "p", "p.is_pinned"`, not from `_data/inspo/`.
-
-3. Update `inspo.html` count logic (around line 557-566) — add a branch for `pinned` alongside `deep-dives`:
+2. **Modify card links to pass source** — In `_includes/inspo/pinned-resources.html`, append `?from=inspo` to href:
    ```liquid
-   {% if cat.key == 'deep-dives' %}
-     {% assign cat_count = site.writing | size %}
-   {% elsif cat.key == 'pinned' %}
-     {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
-   {% else %}
-     {% assign cat_count = site.data.inspo[cat.key] | size %}
-   {% endif %}
+   href="{{ r.url | prepend: site.baseurl }}?from=inspo"
    ```
-   Same for the card rendering loop (line 593-600) — pinned items come from pages, not data.
+   Consider: should ALL inspo cards (deep-dives too) do this? Or only pinned resources?
 
-4. Create 1-2 sample pinned resource files in `notes/`:
-   ```yaml
-   ---
-   layout: note-layout
-   permalink: /notes/sample-pinned-resource
-   title: "Sample Pinned Resource"
-   date: 2026-05-17
-   tags: [example]
-   is_note: true
-   is_pinned: true
-   ---
-   ```
+3. **Update `note-layout.html`** — Add JS at bottom to read `?from` param and update:
+   - TOC back link (`a.back` in sidebar)
+   - Breadcrumb link (`.breadcrumb a`)
+   - Keep `notes.html` as default fallback when no param
 
-5. In `index.html` line 241: replace Resume link with Pinned link using `relative_url` filter
+4. **Test these flows**:
+   - From `inspo.html` → click pinned card → back should go to inspo
+     - Expected: breadcrumb says "Inspo > Resources", back link goes to inspo.html
+   - From `notes.html` → click note row → back should go to notes
+     - Expected: breadcrumb says "Notes > Topic", back link goes to notes.html (unchanged)
+   - Direct URL access (no `?from`) → default to notes.html
+     - Expected: current behavior preserved
+   - From `inspo.html?cat=pinned-resources` → click card → back should return to pinned tab
+     - Expected: back link goes to `inspo.html?cat=pinned-resources` (preserves tab state)
 
-6. Build: `bundle exec jekyll build 2>&1` — must be clean
+5. **Build**: `bundle exec jekyll build 2>&1` — must be clean
 
-7. Test at `localhost:4000/Saptak/`:
-   - `inspo.html` → Pinned tab shows, count correct, cards render
-   - `inspo.html?cat=pinned` → auto-selects Pinned tab
-   - `notes.html` → pinned notes appear in list (with `is_note: true`)
-   - `index.html` → Pinned link in nav works, redirects to inspo pinned tab
-   - All other inspo tabs still work (regression)
+6. **Browser test** at `localhost:4000/Saptak/`
 
 ## Warnings
 
-- **Pinned resources are pages, not collection docs or data files**: The inspo system has two data sources — `site.data.inspo[key]` (JSON files) and `site.writing` (collection). Pinned resources are a THIRD source: `site.pages`. The count logic and card rendering loop in `inspo.html` both need special handling (like deep-dives already has).
-- **`notes/` is NOT a Jekyll collection**: Files need explicit `is_note: true` to appear in notes index. See `.claude/rules/core.md`.
-- **baseurl**: All links must use `{{ site.baseurl }}` or `| relative_url`. Bare `/path` breaks GitHub Pages.
-- **Don't rename DOM IDs**: `#note-list`, `#inspo-body` are used by `tags.html` for page detection.
-- **CSS is inline per layout**: No shared stylesheet. Reset chip include uses `var()` with fallbacks.
-- **Resume link removal**: User wants replacement, not addition. Don't keep both.
+- **baseurl is critical**: All links must use `{{ site.baseurl }}` or `| relative_url`. Bare `/path` breaks GitHub Pages.
+- **notes/ is NOT a Jekyll collection**: Files need `is_note: true` frontmatter.
+- **CSS is inline per layout**: No shared stylesheet. `note-layout.html` has its own `<style>` block.
+- **JS window binding**: Use `window.fn = fn;` explicitly. Never rely on sloppy-mode auto-binding.
+- **Don't rename DOM IDs**: `#note-list`, `#inspo-body` used by `tags.html` for page detection.
+- **toc.html ownership**: `toc.html` fully owns sidebar styling. Don't duplicate `.sidebar` CSS in layouts.
+- **The `?from=inspo` approach may need to also encode the active category** so back goes to `inspo.html?cat=pinned-resources` not just `inspo.html`. Consider `?from=inspo&cat=pinned-resources` or `?from=inspo%3Fcat%3Dpinned-resources`.
+- **Deep-dive notes also open via inspo** — consider whether deep-dives should also get source-aware back-nav (would require changes to `_includes/inspo/deep-dives.html` and potentially `_layouts/deep-dive.html`).

@@ -528,6 +528,80 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   transform: translateX(4px);   /* slow drift — composure */
 }
 
+/* ── PINNED RESOURCE CARD (Warm Brass) ── */
+.pinned-card {
+  display: block;
+  border: 2.5px solid #b8854a;
+  border-radius: 2px;
+  background: #f8f7f5;
+  box-shadow: inset 0 0 0 4px #f8f7f5, inset 0 0 0 5px rgba(160,120,80,.22);
+  padding: 24px 26px 20px;
+  position: relative;
+  transition: .22s ease;
+}
+.pinned-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 4px #f8f7f5, inset 0 0 0 5px rgba(160,120,80,.22),
+    0 10px 30px rgba(160,120,80,.16);
+  background: #f3f1ee;
+}
+.pinned-label {
+  font-family: var(--font-head);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  font-variant: small-caps;
+  text-transform: none;
+  color: #8a7060;
+  margin-bottom: 10px;
+}
+.pinned-title {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -.3px;
+  color: #1f1a16;
+  margin-bottom: 8px;
+}
+.pinned-blurb {
+  font-size: 13px;
+  color: #6b5f55;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.pinned-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(160,120,80,.22);
+}
+.pinned-tag {
+  font-family: var(--font-head);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(160,120,80,.4);
+  color: #8a7060;
+  padding: 3px 8px;
+  border-radius: var(--pill);
+  opacity: .65;
+}
+.pinned-meta {
+  font-family: var(--font-head);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #b8854a;
+  opacity: .6;
+  margin-top: 12px;
+}
+
+
 .empty-state {
   padding: 60px 0; text-align: center;
   opacity: .3; font-size: 15px; display: none;
@@ -559,6 +633,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   {% for cat in site.data.inspo_categories %}
     {% if cat.key == 'deep-dives' %}
       {% assign cat_count = site.writing | size %}
+    {% elsif cat.key == 'pinned-resources' %}
+      {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
     {% else %}
       {% assign cat_count = site.data.inspo[cat.key] | size %}
     {% endif %}
@@ -576,6 +652,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     {% for cat in site.data.inspo_categories %}
       {% if cat.key == 'deep-dives' %}
         {% assign cat_count = site.writing | size %}
+      {% elsif cat.key == 'pinned-resources' %}
+        {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
       {% else %}
         {% assign cat_count = site.data.inspo[cat.key] | size %}
       {% endif %}
@@ -593,6 +671,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
       {% for cat in site.data.inspo_categories %}
         {% if cat.key == 'deep-dives' %}
           {% assign items = site.writing | sort: "date" | reverse %}
+        {% elsif cat.key == 'pinned-resources' %}
+          {% assign items = site.pages | where_exp: "p", "p.is_pinned" | sort: "date" | reverse %}
         {% else %}
           {% assign items = site.data.inspo[cat.key] %}
         {% endif %}
