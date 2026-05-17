@@ -5,6 +5,7 @@ tags:
   - AI
   - llm
   - RelOps
+sub: RelOps 04
 is-task: true
 w-status: draft
 layout: note-layout

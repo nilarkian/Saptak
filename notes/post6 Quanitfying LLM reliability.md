@@ -5,6 +5,7 @@ tags:
   - AI
   - llm
   - RelOps
+sub: RelOps 06
 title: Quanitfying LLM reliability
 series: ReLOps Part 6
 w-status: draft

@@ -117,7 +117,7 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
   font-weight:700;
   line-height:1.2;
   letter-spacing:-1.5px;
-  margin-bottom:16px;
+  margin-bottom:10px;
 }
 
 .meta{
@@ -126,8 +126,31 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
   color:#767676;
   margin-bottom:52px;
   display:flex;
-  gap:20px;
+  gap:8px;
 }
+
+/* ── SERIES PILL ── */
+.series-pill{
+  font-family:'Syne',Arial,sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#767676;
+  padding:2px 10px;
+  border-radius:999px;
+  border:1px solid #ccc;
+  background:transparent;
+  transition:color .15s,border-color .15s,background .15s;
+}
+.series-pill:hover{
+  color:#111;
+  border-color:#999;
+  background:rgba(0,0,0,.04);
+}
+.series-pill:visited{color:#767676;}
+.meta-dot{color:#999;}
 
 /* ── MARKDOWN BODY ── */
 .note-body{
@@ -500,6 +523,10 @@ body.dark .note-body h5,
 body.dark .note-body h6{color:#e8e8e8;}
 body.dark .breadcrumb,
 body.dark .meta{color:#909090;}
+body.dark .series-pill{color:#909090;border-color:#3e3e42;}
+body.dark .series-pill:hover{color:#e8e8e8;border-color:#666;background:rgba(255,255,255,.06);}
+body.dark .series-pill:visited{color:#909090;}
+body.dark .meta-dot{color:#555;}
 body.dark .note-body blockquote{border-left-color:#4e9fd4;background:rgba(78,159,212,.06);}
 body.dark .note-body th{background:#252526;border-color:#3e3e42;color:#e8e8e8;}
 body.dark .note-body td{border-color:#3e3e42;}
@@ -561,7 +588,19 @@ body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
   <h1 class="note-title">{{ page.title }}</h1>
 
   <div class="meta">
-    {% if page.date %}<span><span aria-hidden="true">📅</span> {{ page.date | date: "%B %Y" }}</span>{% endif %}
+    {% if page.sub %}
+      {% assign sub_parts = page.sub | split: " " %}
+      {% assign series_words = "" %}
+      {% for word in sub_parts %}
+        {% unless forloop.last %}
+          {% if series_words == "" %}{% assign series_words = word %}
+          {% else %}{% assign series_words = series_words | append: " " | append: word %}{% endif %}
+        {% endunless %}
+      {% endfor %}
+      <a class="series-pill" href="{{ '/notes.html' | relative_url }}?sub={{ series_words | downcase }}">{{ page.sub }}</a>
+      <span class="meta-dot">·</span>
+    {% endif %}
+    {% if page.date %}<span>{{ page.date | date: "%B %Y" }}</span>{% endif %}
     {% if page.read_time %}<span><span aria-hidden="true">⏱</span> {{ page.read_time }} min read</span>{% endif %}
   </div>
 

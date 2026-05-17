@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "Get-Content .claude/decisions/log.md -TotalCount 30 2>$null; exit 0"
+            "command": "powershell.exe -NoProfile -Command \"Get-Content .claude/decisions/log.md -TotalCount 30 2>$null; exit 0\""
           }
         ]
       }
@@ -46,10 +46,7 @@
     "Stop": [
       {
         "hooks": [
-          {
-            "type": "command",
-            "command": "bundle exec jekyll build 2>&1 | Select-Object -Last 15"
-          }
+          
         ]
       }
     ]

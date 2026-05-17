@@ -5,6 +5,7 @@ tags:
   - AI
   - llm
   - RelOps
+sub: RelOps 01
 project:
 is-task: true
 w-status: draft

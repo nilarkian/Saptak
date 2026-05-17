@@ -21,6 +21,13 @@ that already includes `toc.html`. Violating this duplicates the sidebar.
 ## Build Output
 Never edit `_site/`. It is generated. All changes go to source files.
 
+## JS Window Binding
+Use `window.fn = fn;` explicitly. Never rely on sloppy-mode auto-binding of top-level function declarations.
+
+## opacity vs color for Dimming
+Never use `opacity` on a parent that contains interactive children (hover, active states become invisible).
+Use `color` to dim text instead.
+
 ## notes/ Is Not a Collection
 `notes/` is a regular directory included via `_config.yml → include: [notes]`.
 It is NOT a Jekyll collection. Files need `is_note: true` frontmatter to be treated as notes.

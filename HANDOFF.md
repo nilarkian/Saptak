@@ -1,114 +1,201 @@
-# Handoff: note-layout — TOC + Code Block Fixes
+# Handoff: Pinned Resources — New Content Type + Inspo Tab + Index Link
 
-**Generated**: 2026-05-15
+**Generated**: 2026-05-17
 **Branch**: main
-**Status**: Ready for Review / Visual QA pending
+**Status**: Not Started
 
 ## Goal
 
-Fix three UX issues in `_layouts/note-layout.html`:
-1. Collapsing the TOC sidebar does not widen note content (freed space wasted as right margin)
-2. Long code lines overflow and require horizontal scrolling
-3. Code blocks invisible in dark mode (same bg color as page body)
+Create a "Pinned Resources" content type. Pinned resources are markdown files in `notes/` with `is_pinned: true` frontmatter, using `note-layout.html` as layout. They appear in three places:
 
-## Completed
+1. **Inspo page** — as a new category tab (like Deep Dives, YouTube, etc.)
+2. **Notes page** — listed alongside regular notes
+3. **Index page** — replace the Resume nav link with a Pinned Resources link that navigates to `inspo.html?cat=pinned` (same pattern as Deep Dives quick link)
 
-- [x] **TOC collapse expansion** — added `max-width:1060px` to `body.toc-collapsed .main` rule; content now grows up to 1060px when sidebar collapses from 200px to 44px
-- [x] **Code block wrapping** — changed `overflow-x:auto` → `overflow-x:hidden`, added `white-space:pre-wrap` + `word-break:break-word` to `.note-body pre`; long lines wrap instead of scroll
-- [x] **Dark mode code block visibility** — changed `body.dark .note-body pre { background:#1e1e1e }` (same as body bg) → `background:#252526; border:1px solid #3e3e42`; code blocks now visibly distinct
+## Completed (Prior Sessions)
 
-Also present (from prior session, not yet committed):
-- [x] Full dark mode system (`body.dark` class, theme toggle button, localStorage persistence)
-- [x] Reading progress bar, back-to-top button
-- [x] Prism.js syntax highlighting (JS/Python/Bash/YAML/JSON/TS)
-- [x] Complete markdown element styling (tables, images, kbd, dl, footnotes, task lists, etc.)
-- [x] `toc.html` extracted as reusable include with collapsible sidebar + auto-width measurement
+- [x] Reset chip extracted into `_includes/reset-chip.html` (reusable include)
+- [x] Reset chip wired into both `inspo.html` and `notes.html`
+- [x] Series pills + filter on `notes.html` (activeSeries, URL param, toggle)
+- [x] Series pill on `note-layout.html`
 
 ## Not Yet Done
 
-- [ ] Visual browser test — `bundle exec jekyll serve` not run this session; all changes are CSS only
-- [ ] Test note with long code lines to verify wrap behavior
-- [ ] Confirm collapsed TOC width expansion looks right at various viewport sizes
+- [ ] Define `is_pinned: true` frontmatter convention for pinned resource files
+- [ ] Create sample pinned resource file(s) in `notes/` with `layout: note-layout`, `is_pinned: true`
+- [ ] Add `pinned` category to `_data/inspo_categories.yml`
+- [ ] Create `_includes/inspo/pinned.html` card template for pinned resources in inspo grid
+- [ ] Wire pinned resources into inspo.html tab system (category filter, counts)
+- [ ] Show pinned resources in `notes.html` note list (they have `is_note: true` + `is_pinned: true`)
+- [ ] In `index.html`: replace Resume link with Pinned Resources link → `inspo.html?cat=pinned`
+- [ ] Decide: should pinned notes have a visual indicator (pin icon, badge) in notes.html rows?
+- [ ] Build check + browser test both pages
 
-## Failed Approaches
+## Failed Approaches (Don't Repeat These)
 
-**TOC expand — why not JS?**
-`syncMainMargin()` in `toc.html` only writes `marginLeft` inline. Adding `maxWidth` there would work but mixes layout logic into the include. CSS `body.toc-collapsed .main` rule is cleaner since JS doesn't touch `maxWidth`, so no override conflict.
+None yet — fresh task. But from prior sessions:
 
-**Code wrap — `overflow-wrap:anywhere` instead of `word-break:break-word`?**
-`overflow-wrap:anywhere` only fires on unbreakable sequences. `word-break:break-word` more aggressively breaks identifiers and file paths within code. Chosen for reliability.
+- **URL param wrapper for series filter**: Tried wrapping `applyTopicFilter` with a closure. Failed — replaced with integrated `activeSeries` variable inside `applyTopicFilter()`.
+- **`opacity` on parent with interactive children**: `.note-row-meta` had `opacity: .35` which made child pill hover states invisible. Fixed with `color: #aaa`.
 
 ## Key Decisions
 
 | Decision | Rationale |
 |----------|-----------|
-| `max-width:1060px` on collapsed (not `none`) | 860 (expanded) + 156 (freed px) = 1016; 1060 gives breathing room; prevents text stretching to full viewport on wide screens |
-| `#252526` for dark pre background | Matches existing dark mode surface color (`th`, `kbd`, `topic-tag`); consistent design token |
-| Border on dark pre (`#3e3e42`) | Matches all other dark mode borders; adds contrast without a new color |
+| Pinned resources use `note-layout.html` | User requirement — they're note-like content |
+| `is_pinned: true` frontmatter flag | Distinguishes pinned from regular notes without a separate directory |
+| Inspo tab pattern (not separate page) | Mirrors Deep Dives — already proven UX pattern |
+| Replace Resume link, not add alongside | User explicitly wants replacement |
 
 ## Current State
 
-**Working**: All three CSS fixes applied. Layout is functional.
+**Working**: Site builds clean. Reset chip works on both inspo + notes. Series filter works. All existing inspo tabs functional.
 
-**Broken**: Nothing known.
-
-**Uncommitted Changes**:
-- `_layouts/note-layout.html` — large diff (multiple sessions); includes dark mode, theme toggle, typography, markdown elements, and this session's 3 fixes
-- `_includes/toc.html` — collapsible sidebar include (prior session)
-- `_data/inspo/youtube.json` — unrelated youtube data update
-- `notes/triple-tier-llm-router.md` — unrelated note edit
-- `yt.py` — unrelated youtube script
-- `notes/How Consistency Became One of the Biggest Problems with LLMs.md` — untracked new note
-- `plan.md` — new file at root (this session's plan doc)
+**Uncommitted Changes**: 16 files modified + 1 new (`_includes/reset-chip.html`). Changes from prior sessions: reset chip extraction, series pills, note frontmatter updates.
 
 ## Files to Know
 
-| File | Why It Matters |
-|------|----------------|
-| `_layouts/note-layout.html` | All note page CSS + JS. Inline styles only — no shared stylesheet. All three fixes are here. |
-| `_includes/toc.html` | Collapsible TOC sidebar. Manages `body.toc-collapsed` class and `margin-left` inline style via `syncMainMargin()`. Does NOT touch `maxWidth`. |
-| `_layouts/blank.html` | Parent layout note-layout extends — minimal wrapper, don't touch |
+| File | Lines | What |
+|------|-------|------|
+| `_data/inspo_categories.yml` | all | Category registry — add `pinned` entry here |
+| `_includes/inspo/deep-dives.html` | all | Template for deep-dive cards in inspo grid — copy this pattern for pinned |
+| `inspo.html` | 557-600 | Category tab rendering + card include loop |
+| `inspo.html` | 659-666 | URL param `?cat=` → auto-activates tab on load |
+| `notes.html` | 141 | `{% assign all_notes = site.pages \| where_exp: "p", "p.is_note" %}` — pinned notes need `is_note: true` to appear here |
+| `notes.html` | 160-174 | Note row rendering loop — may need pin indicator |
+| `index.html` | 241 | Resume link to replace |
+| `index.html` | 252 | Deep Dives quick link — pattern to follow for pinned |
+| `_layouts/note-layout.html` | all | Layout pinned resources will use |
 
 ## Code Context
 
-**The three changed CSS rules** in `_layouts/note-layout.html`:
+### Inspo category registration pattern (`_data/inspo_categories.yml`)
 
-```css
-/* Fix 1 — was: margin-left:44px only */
-body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
-
-/* Fix 2 — was: overflow-x:auto, no white-space or word-break */
-.note-body pre{
-  overflow-x:hidden;
-  white-space:pre-wrap;
-  word-break:break-word;
-  /* ...other existing props unchanged... */
-}
-
-/* Fix 3 — was: background:#1e1e1e (identical to body.dark background) */
-body.dark .note-body pre{background:#252526;border:1px solid #3e3e42;}
+```yaml
+- key: deep-dives
+  icon: ""
+  label: "Deep Dives"
+  unit: "dives"
+  tint: "#f0f0f0"
+  card_include: "inspo/deep-dives"
 ```
 
-**Why `max-width` is separate from `margin-left`**: `.main` has `flex:1` + `margin-right:auto`. On wide viewports, flex:1 grows past max-width, and margin-right:auto absorbs the overflow. Changing `margin-left` without changing `max-width` just shifts content left — doesn't widen it. The explicit `max-width:1060px` override on `.toc-collapsed` breaks the cap and lets flex:1 use the freed space.
+### Deep Dives card include (`_includes/inspo/deep-dives.html`) — model for pinned
 
-**TOC state flow** (`_includes/toc.html`):
+```html
+{% for d in items %}
+<a class="inspo-card deepdive-card"
+   href="{{ d.url | prepend: site.baseurl }}"
+   data-category="deep-dives"
+   data-date="{{ d.date | date: '%Y-%m-%d' }}"
+   data-tags="{% for t in d.tags %}{{ t | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+  <div class="deepdive-title">{{ d.title }}</div>
+  {% if d.blurb %}<div class="deepdive-blurb">{{ d.blurb }}</div>{% endif %}
+</a>
+{% endfor %}
 ```
-click toggle → applyTocState() → toggles body.toc-collapsed class
-             → syncMainMargin() → sets main.style.marginLeft (inline)
+
+### Inspo tab count logic — Deep Dives uses `site.writing` collection
+
+```liquid
+{% if cat.key == 'deep-dives' %}
+  {% assign cat_count = site.writing | size %}
+{% else %}
+  {% assign cat_count = site.data.inspo[cat.key] | size %}
+{% endif %}
 ```
-CSS `body.toc-collapsed .main { max-width:1060px }` applies because JS never sets inline `maxWidth`.
+
+Pinned resources are pages (not a collection, not data files), so count logic needs a new branch:
+
+```liquid
+{% if cat.key == 'pinned' %}
+  {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
+```
+
+### URL param auto-filter (`inspo.html`)
+
+```javascript
+const urlCat = params.get('cat');
+if (urlCat) { activeCategory = urlCat; }
+```
+
+This already works — `inspo.html?cat=pinned` will auto-select the Pinned tab. No JS changes needed.
+
+### Index.html — Resume link to replace (line 241)
+
+```html
+<a href="assets/files/resume_v2.pdf" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+```
+
+Replace with:
+
+```html
+<a href="{{ '/inspo.html?cat=pinned' | relative_url }}">Pinned</a>
+```
+
+### Notes query — pinned notes included automatically
+
+```liquid
+{% assign all_notes = site.pages | where_exp: "p", "p.is_note" | sort: "date" | reverse %}
+```
+
+If pinned files have `is_note: true`, they appear in notes list with no changes. If ONLY `is_pinned: true` (no `is_note`), the query needs updating to include both.
 
 ## Resume Instructions
 
-1. Start dev server: `bundle exec jekyll serve` (from repo root)
-2. Open `http://localhost:4000/Saptak/notes/` → click any note with code blocks
-3. Verify code wrap: paste a note with a long single-line code snippet (100+ chars); should wrap inside block, no scrollbar
-4. Verify dark mode code block: click theme toggle → code blocks should have visibly distinct `#252526` surface with border
-5. Verify TOC expand: click `‹` to collapse sidebar → main content area should shift left AND get wider (up to 1060px); click `›` to expand → should shrink back to 860px
+1. Add entry to `_data/inspo_categories.yml`:
+   ```yaml
+   - key: pinned
+     icon: "📌"
+     label: "Pinned"
+     unit: "resources"
+     tint: "#fdf3e8"
+     card_include: "inspo/pinned"
+   ```
+
+2. Create `_includes/inspo/pinned.html` — card template for inspo grid. Model on `deep-dives.html`. Items come from `site.pages | where_exp: "p", "p.is_pinned"`, not from `_data/inspo/`.
+
+3. Update `inspo.html` count logic (around line 557-566) — add a branch for `pinned` alongside `deep-dives`:
+   ```liquid
+   {% if cat.key == 'deep-dives' %}
+     {% assign cat_count = site.writing | size %}
+   {% elsif cat.key == 'pinned' %}
+     {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
+   {% else %}
+     {% assign cat_count = site.data.inspo[cat.key] | size %}
+   {% endif %}
+   ```
+   Same for the card rendering loop (line 593-600) — pinned items come from pages, not data.
+
+4. Create 1-2 sample pinned resource files in `notes/`:
+   ```yaml
+   ---
+   layout: note-layout
+   permalink: /notes/sample-pinned-resource
+   title: "Sample Pinned Resource"
+   date: 2026-05-17
+   tags: [example]
+   is_note: true
+   is_pinned: true
+   ---
+   ```
+
+5. In `index.html` line 241: replace Resume link with Pinned link using `relative_url` filter
+
+6. Build: `bundle exec jekyll build 2>&1` — must be clean
+
+7. Test at `localhost:4000/Saptak/`:
+   - `inspo.html` → Pinned tab shows, count correct, cards render
+   - `inspo.html?cat=pinned` → auto-selects Pinned tab
+   - `notes.html` → pinned notes appear in list (with `is_note: true`)
+   - `index.html` → Pinned link in nav works, redirects to inspo pinned tab
+   - All other inspo tabs still work (regression)
 
 ## Warnings
 
-- CSS is **inline per layout** — no shared stylesheet. Changes here only affect `notes/` pages. `deep-dive`, `watchlist-layout` are separate.
-- `body.toc-collapsed` class is set by JS in `toc.html` (which runs before `<main>` exists in DOM). The CSS rule handles initial collapsed state; JS sets `margin-left` inline on subsequent toggles. Both must agree.
-- `notes/` pages need `is_note: true` in front matter to appear in notes index. `layout: note-layout` alone is insufficient.
-- Prism.js loads at bottom of `note-layout.html` — re-highlight is automatic on load. If adding new language support, add the component script from the same CDN version (`1.29.0`).
+- **Pinned resources are pages, not collection docs or data files**: The inspo system has two data sources — `site.data.inspo[key]` (JSON files) and `site.writing` (collection). Pinned resources are a THIRD source: `site.pages`. The count logic and card rendering loop in `inspo.html` both need special handling (like deep-dives already has).
+- **`notes/` is NOT a Jekyll collection**: Files need explicit `is_note: true` to appear in notes index. See `.claude/rules/core.md`.
+- **baseurl**: All links must use `{{ site.baseurl }}` or `| relative_url`. Bare `/path` breaks GitHub Pages.
+- **Don't rename DOM IDs**: `#note-list`, `#inspo-body` are used by `tags.html` for page detection.
+- **CSS is inline per layout**: No shared stylesheet. Reset chip include uses `var()` with fallbacks.
+- **Resume link removal**: User wants replacement, not addition. Don't keep both.

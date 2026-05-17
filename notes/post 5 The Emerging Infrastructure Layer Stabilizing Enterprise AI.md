@@ -5,6 +5,7 @@ tags:
   - AI
   - llm
   - RelOps
+sub: RelOps 05
 title: The Emerging Infrastructure Layer Stabilizing Enterprise AI
 series: AAM
 part: “5”
@@ -16,7 +17,7 @@ ownable-terms:
   - ReLOps
 layout: note-layout
 is_note: true
-date: 2026-05-19
+date: 2026-05-18
 ---
 
 > RelOps part 5 : The Emerging Infrastructure Layer Stabilizing Enterprise AI

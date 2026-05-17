@@ -85,7 +85,33 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 
 .note-row-inner { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .note-row-title { font-size: 17px; font-weight: 600; line-height: 1.35; }
-.note-row-meta { font-size: 12px; opacity: .35; letter-spacing: .06em; }
+.note-row-meta { font-size: 12px; color: #aaa; letter-spacing: .06em; }
+.row-series-pill{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#aaa;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid #ccc;
+  background:transparent;
+  cursor:pointer;
+  transition:color .15s,border-color .15s,background .15s;
+  position:relative;
+  z-index:1;
+}
+.row-series-pill:hover{
+  color:#111;
+  border-color:#999;
+  background:rgba(0,0,0,.04);
+}
+.row-series-pill.active{
+  background:#111;
+  color:#f7f7f7;
+  border-color:#111;
+}
+.row-meta-dot{color:#bbb;margin:0 2px;}
 .note-row-arrow { font-size: 16px; opacity: .3; flex-shrink: 0; margin-left: 20px; transition: .15s; }
 .note-row:hover .note-row-arrow { opacity: .7; transform: translateX(3px); }
 
@@ -125,6 +151,8 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     {% endfor %}
   </div>
 
+  {% include reset-chip.html %}
+
   <div class="note-count" id="note-count"></div>
 
   <!-- NOTE LIST -->
@@ -133,11 +161,12 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
     <a class="note-row"
        href="{{ note.url | prepend: site.baseurl }}"
        data-cat="{{ note.topic | slugify | default: 'standalone' }}"
-       data-tags="{% for tag in note.tags %}{{ tag | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+       data-tags="{% for tag in note.tags %}{{ tag | downcase }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+       data-sub="{{ note.sub | default: '' }}">
       <div class="note-row-inner">
         <span class="note-row-title">{{ note.title }}</span>
         {% if note.date %}
-        <span class="note-row-meta">{{ note.date | date: "%B %Y" }}</span>
+        <span class="note-row-meta">{% if note.sub %}<span class="row-series-pill">{{ note.sub }}</span><span class="row-meta-dot">·</span>{% endif %}{{ note.date | date: "%B %Y" }}</span>
         {% endif %}
       </div>
       <span class="note-row-arrow">→</span>
@@ -159,6 +188,7 @@ const counter   = document.getElementById('note-count');
 const empty     = document.getElementById('empty-state');
 
 let activeTopic = 'all';
+let activeSeries = null;
 
 function applyTopicFilter() {
   rows.forEach(row => {
@@ -187,12 +217,17 @@ function applyTopicFilter() {
       matchesTag = rowTags.includes(activeParentTag) || kids.some(k => rowTags.includes(k));
     }
 
-    row.hidden = !(matchesTopic && matchesTag);
+    const rowSub = (row.dataset.sub || '').toLowerCase();
+    const rowSeriesName = rowSub.replace(/\s+\d+$/,'').trim();
+    const matchesSeries = !activeSeries || rowSeriesName === activeSeries;
+
+    row.hidden = !(matchesTopic && matchesTag && matchesSeries);
   });
 
   const visible = [...rows].filter(r => !r.hidden).length;
   counter.textContent = visible + ' note' + (visible !== 1 ? 's' : '');
   empty.style.display = visible === 0 ? 'block' : 'none';
+  updateResetChip();
 }
 
 topicBtns.forEach(btn => {
@@ -207,7 +242,93 @@ topicBtns.forEach(btn => {
 // expose for tags.html to call after tag filter changes
 window.applyTopicFilter = applyTopicFilter;
 
+function updateResetChip() {
+  const chip = document.getElementById('reset-chip');
+  const label = document.getElementById('reset-chip-label');
+  const activeTagBtn = document.querySelector('.child-tag-btn.active, .standalone-tag-btn.active');
+  const activeTag = activeTagBtn ? activeTagBtn.dataset.tag : null;
+  const activeParent = document.querySelector('.parent-row.active');
+  const activeParentTag = activeParent ? activeParent.querySelector('.parent-filter-btn').dataset.tag : null;
+  const tagLabel = activeTag || activeParentTag;
+
+  const topicLabel = activeTopic === 'all' ? null
+    : (document.querySelector(`.filter-btn[data-cat="${activeTopic}"]`)?.textContent || activeTopic);
+
+  const seriesLabel = activeSeries
+    ? activeSeries.charAt(0).toUpperCase() + activeSeries.slice(1)
+    : null;
+
+  if (!topicLabel && !tagLabel && !seriesLabel) {
+    chip.classList.remove('visible');
+    return;
+  }
+
+  const parts = [];
+  if (topicLabel) parts.push(`<span class="chip-cat">${topicLabel}</span>`);
+  if (seriesLabel) parts.push(`<span class="chip-cat">${seriesLabel}</span>`);
+  if (tagLabel) parts.push(`<span class="chip-tag">#${tagLabel}</span>`);
+
+  label.innerHTML =
+    `<span class="chip-meta">Filtered:</span>` +
+    parts.join(`<span class="chip-divider">×</span>`);
+
+  chip.classList.add('visible');
+}
+
+function resetAllFilters() {
+  document.querySelectorAll(
+    '.child-tag-btn.active, .standalone-tag-btn.active, .parent-row.active'
+  ).forEach(el => el.classList.remove('active'));
+
+  const sidebarAllBtn = document.getElementById('all-btn');
+  if (sidebarAllBtn) sidebarAllBtn.classList.add('active');
+
+  topicBtns.forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-cat="all"]').classList.add('active');
+  activeTopic = 'all';
+
+  activeSeries = null;
+  document.querySelectorAll('.row-series-pill').forEach(p => p.classList.remove('active'));
+
+  applyTopicFilter();
+}
+window.resetAllFilters = resetAllFilters;
+
 applyTopicFilter();
+
+// ── SERIES PILL FILTER ──
+document.querySelectorAll('.row-series-pill').forEach(pill => {
+  pill.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const sub = pill.textContent.trim().toLowerCase();
+    const seriesName = sub.replace(/\s+\d+$/,'').trim();
+
+    activeSeries = (activeSeries === seriesName) ? null : seriesName;
+
+    document.querySelectorAll('.row-series-pill').forEach(p => {
+      const pSub = p.textContent.trim().toLowerCase();
+      const pSeries = pSub.replace(/\s+\d+$/,'').trim();
+      p.classList.toggle('active', activeSeries && pSeries === activeSeries);
+    });
+
+    applyTopicFilter();
+  });
+});
+
+// ── URL PARAM: auto-activate series filter ──
+const params = new URLSearchParams(window.location.search);
+const seriesParam = params.get('sub');
+if (seriesParam) {
+  activeSeries = seriesParam;
+  document.querySelectorAll('.row-series-pill').forEach(p => {
+    const pSub = p.textContent.trim().toLowerCase();
+    const pSeries = pSub.replace(/\s+\d+$/,'').trim();
+    p.classList.toggle('active', pSeries === activeSeries);
+  });
+  applyTopicFilter();
+  history.replaceState(null, '', window.location.pathname);
+}
 </script>
 
 {% include tags.html %}

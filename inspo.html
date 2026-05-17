@@ -179,94 +179,6 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
 }
 
 
-/* ── RESET CHIP — appears only when something is filtered ── */
-.reset-chip {
-  display: none;
-  align-items: center;
-  gap: 14px;
-  padding: 7px 7px 7px 16px;
-  margin: 0 0 28px auto;
-  background: rgba(200, 68, 10, 0.07);
-  border: 1.5px solid var(--ink);
-  border-radius: var(--pill);
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  cursor: pointer;
-  transition: background .2s ease, transform .18s ease, box-shadow .2s ease;
-  width: fit-content;
-  user-select: none;
-}
-.reset-chip.visible {
-  display: flex;
-  animation: chipFadeIn .26s ease;
-}
-.reset-chip:hover {
-  background: rgba(200, 68, 10, 0.14);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0,0,0,.08);
-}
-.reset-chip:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.reset-chip-label .chip-meta {
-  opacity: .55;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: 700;
-  margin-right: 6px;
-}
-.reset-chip-label .chip-cat {
-  font-weight: 700;
-  letter-spacing: -.2px;
-}
-.reset-chip-label .chip-tag {
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: -.2px;
-}
-.reset-chip-label .chip-divider {
-  opacity: .35;
-  margin: 0 8px;
-  font-weight: 400;
-}
-
-.reset-chip-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 13px;
-  background: var(--ink);
-  color: var(--bg);
-  border-radius: var(--pill);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.chip-kbd {
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 700;
-  padding: 1px 5px;
-  margin-left: 2px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 4px;
-  letter-spacing: 0;
-  line-height: 1;
-}
-
-@keyframes chipFadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 /* ── COLLECTED MIXED GRID — masonry via flex columns ── */
 .collected-grid{
@@ -640,11 +552,7 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
   <h1 class="page-title">Inspo</h1>
   <p class="page-subtitle">A collection of things worth revisiting — videos, tweets, tools, writing, and sites I keep coming back to.</p>
 
-  <!-- ── RESET CHIP — only renders when filters are active ── -->
-  <div class="reset-chip" id="reset-chip" role="button" tabindex="0" aria-label="Reset all filters">
-    <span class="reset-chip-label" id="reset-chip-label" aria-live="polite"></span>
-    <span class="reset-chip-action">↺ Reset · <kbd class="chip-kbd">R</kbd></span>
-  </div>
+  {% include reset-chip.html %}
 
   {% comment %} ─── AUTO-COMPUTE COUNTS FROM REGISTRY ─── {% endcomment %}
   {% assign all_count = 0 %}
@@ -930,37 +838,7 @@ function resetAllFilters() {
   applyInspoFilter();
   sortCollectedByDate();
 }
-
-resetChip.addEventListener('click', resetAllFilters);
-resetChip.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    resetAllFilters();
-  }
-});
-
-// ── GLOBAL HOTKEY: R → reset filters ──────────────────────────
-// Guards: ignore modifier combos (Cmd/Ctrl/Alt+R reload etc.),
-// ignore typing in inputs/textareas/contenteditable, and only fire
-// when there's actually something to reset (silent no-op otherwise).
-document.addEventListener('keydown', (e) => {
-  if (e.key.toLowerCase() !== 'r') return;
-  if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
-
-  const t = e.target;
-  const tag = t.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t.isContentEditable) return;
-
-  // Only react if a filter is actually active (chip is visible)
-  if (!resetChip.classList.contains('visible')) return;
-
-  e.preventDefault();
-  resetAllFilters();
-
-  // Brief visual ack so users see the chip "received" the press
-  resetChip.style.transform = 'translateY(-1px) scale(0.96)';
-  setTimeout(() => { resetChip.style.transform = ''; }, 130);
-});
+window.resetAllFilters = resetAllFilters;
 
 // tab click handler
 tabs.forEach(tab => {

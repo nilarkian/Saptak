@@ -5,6 +5,7 @@ tags:
   - AI
   - llm
   - RelOps
+sub: RelOps 03
 w-status: draft
 date: 2026-05-17
 is_note: true
