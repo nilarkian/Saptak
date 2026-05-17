@@ -14,6 +14,8 @@ title: "LLM: The Intelligence Problem vs. The Orchestration Problem"
   - "[[The Quiet Failure of Enterprise AI Systems]]"
 ---
 
+> RelOps part 3 : Intelligence vs Orchestration
+
 Most production AI problems are not model problems.
 
 They are orchestration problems.

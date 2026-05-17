@@ -19,6 +19,7 @@ is_note: true
 date: 2026-05-19
 ---
 
+> RelOps part 5 : The Emerging Infrastructure Layer Stabilizing Enterprise AI
 
 
 Your support assistant passed every test in staging. It worked perfectly in the demo. In production, it still broke your business.

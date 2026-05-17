@@ -16,7 +16,7 @@ date: 2026-05-18
 ---
 
 
-> AAM Series Part 5 — Organizations scale predictable systems faster than unpredictable ones, even when the unpredictable system is smarter.
+ > RelOps Part 4 — Organizations scale predictable systems faster than unpredictable ones, even when the unpredictable system is smarter.
 
 ---
 

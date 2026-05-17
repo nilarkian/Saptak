@@ -16,8 +16,7 @@ layout: note-layout
 title: The Quiet Failure of Enterprise AI Systems
 ---
 
-
-### AAM Series Part 2: LLM ReLOps
+> ReLops Part 2: LLM ReLOps
 
 ---
 
