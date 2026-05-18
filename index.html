@@ -154,6 +154,97 @@ body.light-mode .nav a:hover {
   font-size: 11px;
 }
 
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── RESOURCES SECTION ── */
+.resources-section {
+  border-top: 1px solid var(--border);
+  padding-top: 60px;
+  margin-bottom: 72px;
+}
+
+.resources-section h2 {
+  font-size: 34px;
+  margin-bottom: 32px;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  text-align: left;
+}
+
+.pinned-card-index {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  transition: .2s ease;
+}
+
+.pinned-card-index:hover {
+  border-color: var(--hover-border);
+  box-shadow: 0 6px 18px var(--hover-shadow);
+  transform: translateY(-3px);
+}
+
+.pinned-card-label {
+  font-size: 12px;
+  opacity: .5;
+  margin-bottom: 8px;
+  font-family: var(--font-head);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pinned-card-title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.pinned-card-blurb {
+  font-size: 14px;
+  opacity: .65;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.pinned-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pinned-card-tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  opacity: .7;
+}
+
+.pinned-card-meta {
+  font-size: 12px;
+  opacity: .4;
+}
+
 /* CONNECT */
 .connect {
   border-top: 1px solid var(--border);
@@ -254,9 +345,43 @@ body.light-mode .nav a:hover {
 
 {% include connect.html %}
 
+<!-- ── RESOURCES — revealed on scroll ── -->
+<section id="resources" class="resources-section reveal">
+  <h2>📌 Resources</h2>
+  <div class="resources-grid">
+    {% assign pinned = site.pages | where_exp: "p", "p.is_pinned" | sort: "date" | reverse %}
+    {% assign dives = site.writing | sort: "date" | reverse %}
+    {% assign all_resources = dives | concat: pinned %}
+    {% for r in all_resources %}
+    <a class="pinned-card-index" href="{{ r.url | relative_url }}">
+      <div class="pinned-card-label">{% if r.number %}Deep Dive{% else %}Curated · Resource{% endif %}</div>
+      <div class="pinned-card-title">{{ r.title }}</div>
+      {% if r.blurb %}<div class="pinned-card-blurb">{{ r.blurb }}</div>{% endif %}
+      {% if r.tags %}
+      <div class="pinned-card-tags">
+        {% for t in r.tags %}<span class="pinned-card-tag">{{ t }}</span>{% endfor %}
+      </div>
+      {% endif %}
+      <div class="pinned-card-meta">{% if r.number %}Published{% else %}Last Updated{% endif %} · {{ r.date | date: '%B %Y' }}</div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
 <div class="footer">Built, coded and written by Saptak</div>
 
 </div>
+
+<script>
+(function () {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+}());
+</script>
 
 </body>
 </html>

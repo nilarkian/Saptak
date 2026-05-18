@@ -653,7 +653,9 @@ body.tag-collapsed .inner { margin-right: calc(44px + 30px); }
       {% if cat.key == 'deep-dives' %}
         {% assign cat_count = site.writing | size %}
       {% elsif cat.key == 'pinned-resources' %}
-        {% assign cat_count = site.pages | where_exp: "p", "p.is_pinned" | size %}
+        {% assign _dv = site.writing | size %}
+        {% assign _pr = site.pages | where_exp: "p", "p.is_pinned" | size %}
+        {% assign cat_count = _pr | plus: _dv %}
       {% else %}
         {% assign cat_count = site.data.inspo[cat.key] | size %}
       {% endif %}
@@ -790,7 +792,8 @@ function applyInspoFilter() {
   }
 
   function matchesCategory(cardCat) {
-    return activeCategory === 'all' || cardCat === activeCategory;
+    return activeCategory === 'all' || cardCat === activeCategory
+      || (activeCategory === 'pinned-resources' && cardCat === 'deep-dives');
   }
 
   let visible = 0;
@@ -838,7 +841,8 @@ function refreshCategoriesForTag(activeTag, activeParentTag, parentKids) {
     let count = 0;
     collectedCards.forEach(card => {
       if (isFuture(card)) return;
-      const inCat = (cat === 'all') || (card.dataset.category === cat);
+      const inCat = (cat === 'all') || (card.dataset.category === cat)
+        || (cat === 'pinned-resources' && card.dataset.category === 'deep-dives');
       if (!inCat) return;
       const cardTags = card.dataset.tags ? card.dataset.tags.split(',').filter(Boolean) : [];
       if (cardMatchesTag(cardTags)) count++;

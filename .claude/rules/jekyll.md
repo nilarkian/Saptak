@@ -55,3 +55,39 @@ Pages define different CSS custom properties — fallbacks prevent breakage.
 
 ## kramdown Features Available
 Footnotes, definition lists, task lists. Use them — they render correctly on GitHub Pages.
+
+## Type Incompatibility in Liquid Filters
+Jekyll 3.x Document objects (from collections like `site.writing`) and Page objects (from `site.pages`) are incompatible in concat operations.
+Comparing or mixing them in `sort_by` or `concat` filters throws "comparison of Array with Array failed".
+
+**Fix:** Sort each collection independently before concatenation:
+```liquid
+{% assign sorted_writing = site.writing | sort: "date" | reverse %}
+{% assign sorted_pages = site.pages | sort: "date" | reverse %}
+{% assign combined = sorted_writing | concat: sorted_pages %}
+```
+NOT: `site.writing | concat: site.pages | sort: "date"`
+
+**When:** Any Liquid template mixing site.writing (Document) with site.pages (Page) or iterating over both.
+
+## Discriminating Collections by Type
+In mixed Document/Page loops, use the `number` field:
+- `item.number` exists → Document (collection item, e.g., from `site.writing`)
+- `item.number` absent → Page (regular file, from `site.pages`)
+
+Use this instead of trying to detect type via `collection_name` or `layout` which don't reliably exist in Liquid context.
+
+## Tab Visibility Control Point
+In pages with filterable tabs (like inspo.html), `matchesCategory()` in the JS filter function is the single source of truth for which items appear in which tabs.
+
+Never duplicate category logic in both the HTML generation loop and the JS filter.
+Instead, extend `matchesCategory()` with OR rules — don't add duplicate DOM elements for cross-category items.
+
+**When:** Adding a new category to inspo or implementing cross-category display.
+
+## Count Loop Isolation
+When a page has both an "all items" count and "tab-specific" counts (e.g., inspo.html pills):
+- Update ONLY the tab pills count loop when adding cross-category logic
+- The all-count loop counts raw data and should not be modified — modifying both causes double-counting
+
+**When:** Implementing category-aware filtering that spans multiple count displays.

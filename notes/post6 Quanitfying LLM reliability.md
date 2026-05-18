@@ -1,15 +1,14 @@
 ---
 id: 2026MayW2017
+sub: RelOps 06
+title: Quanitfying LLM reliability
+series: ReLOps Part 6
+date: 2026-05-19
 topic: AI
 tags:
   - AI
   - llm
   - RelOps
-sub: RelOps 06
-title: Quanitfying LLM reliability
-series: ReLOps Part 6
-w-status: draft
-date: 2026-05-19
 is_note: true
 layout: note-layout
 ---
