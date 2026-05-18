@@ -13,6 +13,8 @@ tags:
   - AI
   - llm
   - RelOps
+is_note: true
+layout: note-layout
 ---
 
 > This post was inspired by [Can AI agents build real Stripe integrat...](https://stripe.com/blog/can-ai-agents-build-real-stripe-integrations)

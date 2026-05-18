@@ -11,20 +11,18 @@ dateCreated: "[[2026-05-06]]"
 ```base
 filters:
   or:
-    - project.contains(this.file.name)
-    - file.folder.contains(this.file.name)
+    - project == ["[[notes]]"]
+    - file.folder == "projects/P1-(⚡blitz)__  get a job/P1A-saptak.github.io/P1A1-notes"
 formulas:
   created: (file.ctime).format("Do MMM")
 views:
   - type: table
     name: Table
-    groupBy:
-      property: file.folder
-      direction: ASC
     order:
-      - is-task
       - formula.created
       - file.name
+      - layout
+      - is_note
       - project
       - tags
     sort:
