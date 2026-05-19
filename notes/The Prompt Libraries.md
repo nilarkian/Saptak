@@ -8,13 +8,13 @@ tags:
   - prompt
 is_pinned: true
 date: 2026-05-19
-topic: "Resources"
+topic: Resources
+blurb: A curated map of the prompt ecosystem — sorted by actual use-case instead of random link dumping.
 ---
 
 
 > last updated **🌞19th May 2026:**
 
-*A curated map of the prompt ecosystem — sorted by actual use-case instead of random link dumping.*
 
 ---
 
@@ -34,7 +34,7 @@ topic: "Resources"
 
 # 1. Official Vendor Prompt Libraries
 
-*Highest signal-to-noise. Best for learning modern prompting patterns.*
+*Highest signal-to-noise.*
 
 | Platform                                                                                                             | Strength                           | Best Use                            |
 | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------------------------------- |
@@ -61,20 +61,9 @@ topic: "Resources"
 | [The Prompt Collection](https://the-prompt-collection.github.io/?utm_source=chatgpt.com) | Open-source collection         | Lightweight                                 |
 | [Prompt Search](https://www.ptsearch.info/tags/list/?utm_source=chatgpt.com)             | Tag-based exploration          | Useful for niche hunting                    |
 
-### Best strategy
 
-Don’t copy prompts literally.
+Don’t copy prompts literally. tailor them 
 
-Instead extract:
-
-* structures
-* instruction patterns
-* formatting tricks
-* decomposition methods
-* role framing
-* evaluation loops
-
-That’s where the real leverage is.
 
 ---
 
@@ -88,7 +77,7 @@ That’s where the real leverage is.
 | [OpenAI Examples](https://platform.openai.com/docs/examples?utm_source=chatgpt.com)                                  | API patterns + reasoning setups   |
 | [Claude Prompt Library](https://platform.claude.com/docs/en/resources/prompt-library/library?utm_source=chatgpt.com) | Long-context & workflow prompting |
 
-### Learn these patterns specifically
+### Specific Patterns 
 
 | Pattern                    | Why It Matters                |
 | -------------------------- | ----------------------------- |
@@ -111,13 +100,6 @@ That’s where the real leverage is.
 | [Cursor Directory](https://cursor.directory/?utm_source=chatgpt.com)                                                         | Cursor rules + MCP setups |
 | [ChatGPT Data Science Prompts (GitHub)](https://github.com/travistangvh/ChatGPT-Data-Science-Prompts?utm_source=chatgpt.com) | Data science workflows    |
 
-### High-value things to extract
-
-* repo-level instruction design
-* coding agent workflows
-* debugging loops
-* MCP orchestration
-* autonomous coding structures
 
 ---
 
@@ -127,14 +109,6 @@ That’s where the real leverage is.
 | ----------------------------------------------------------------------------------------------- | ---------------------- |
 | [Temaniaga AI Prompt Hub](https://www.temaniaga.com/apps/ai-prompt-hub/?utm_source=chatgpt.com) | Business professionals |
 
-Useful for:
-
-* marketing
-* sales
-* operations
-* presentations
-* customer communication
-* internal documentation
 
 ---
 
@@ -147,19 +121,8 @@ Useful for:
 | [PromptBase](https://promptbase.com/?utm_source=chatgpt.com)                              | Largest paid prompt marketplace  |
 | [God of Prompt Library](https://www.godofprompt.ai/prompt-library?utm_source=chatgpt.com) | Mass-market productivity prompts |
 
-### Important insight
+> most prompts are over-engineered 
 
-Most marketplace prompts are:
-
-* over-engineered
-* verbose
-* optimized for perceived sophistication
-
-But they’re still useful for:
-
-* discovering workflow ideas
-* finding niches
-* studying packaging psychology
 
 ---
 
@@ -170,12 +133,4 @@ But they’re still useful for:
 | Resource                                                                                                                                                               | Purpose                                |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
 | [ChatGPT Transparency & Debug Tools Prompts](https://www.seolondonsurrey.co.uk/blog/full-list-of-prompts-for-chatgpts-transparency-debug-tools?utm_source=chatgpt.com) | Reverse engineering assistant behavior |
-
-Useful for:
-
-* hidden system prompt analysis
-* tracing model behavior
-* jailbreak research
-* evaluation methodology
-* instruction hierarchy understanding
 
