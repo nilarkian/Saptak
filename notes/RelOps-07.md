@@ -1,6 +1,6 @@
 ---
 title: AI Agents Can Write Code. The Real Problem Starts After That.
-date: 2026-05-20
+date: 2026-04-14
 ownable_terms:
   procedural hallucination: 6
   verification layer: 6

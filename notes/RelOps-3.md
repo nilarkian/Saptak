@@ -7,7 +7,7 @@ tags:
   - RelOps
 sub: RelOps 03
 w-status: draft
-date: 2026-05-17
+date: 2026-02-26
 is_note: true
 layout: note-layout
 title: "LLM: The Intelligence Problem vs. The Orchestration Problem"

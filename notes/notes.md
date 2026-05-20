@@ -22,15 +22,16 @@ views:
       - formula.created
       - file.name
       - layout
+      - date
       - is_note
       - project
       - tags
     sort:
-      - property: file.ctime
+      - property: date
         direction: DESC
     columnSize:
       formula.created: 66
-      file.name: 581
+      file.name: 451
       note.project: 357
   - type: tasknotesKanban
     name: kanban board

@@ -1,8 +1,8 @@
 ---
 layout: pinned-layout
-title: "Interesting Claude Skills & Other GitHub Repos"
-topic: "Resources"
-date: 2026-05-16
+title: Interesting Claude Skills & Other GitHub Repos
+topic: Resources
+date: 2026-05-12
 tags:
   - claude
   - claude-code
@@ -10,7 +10,7 @@ tags:
   - llm
 is_note: true
 is_pinned: true
-blurb: "Curated list of Claude Code skills and useful GitHub repositories."
+blurb: Curated list of Claude Code skills and useful GitHub repositories.
 ---
 
 > last updated: **🌞16th May 2026:**

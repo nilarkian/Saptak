@@ -9,7 +9,7 @@ sub: RelOps 02
 project:
 series: AAM Part 2
 w-status: draft
-date: 2026-05-16
+date: 2026-02-21
 is_note: true
 layout: note-layout
 ⬅️previous page:

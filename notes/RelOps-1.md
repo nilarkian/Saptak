@@ -1,6 +1,6 @@
 ---
 id: 2026MayW2012Tue1045pm27
-topic: "AI"
+topic: AI
 tags:
   - AI
   - llm
@@ -10,7 +10,7 @@ project:
 is-task: true
 w-status: draft
 layout: note-layout
-date: 2026-05-15
+date: 2026-01-14
 is_note: true
 title: How Consistency Became One of the Biggest Problems with LLMs
 ---

@@ -1,8 +1,8 @@
 ---
 layout: note-layout
 title: 3-Layer LLM Setup md
-topic: "AI"
-date: 2026-05-10
+topic: AI
+date: 2026-03-10
 tags:
   - ai
   - llm

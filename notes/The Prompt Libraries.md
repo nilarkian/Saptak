@@ -7,7 +7,7 @@ tags:
   - AI
   - prompt
 is_pinned: true
-date: 2026-05-19
+date: 2026-02-19
 topic: Resources
 blurb: A curated map of the prompt ecosystem — sorted by actual use-case instead of random link dumping.
 ---

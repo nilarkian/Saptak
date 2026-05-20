@@ -13,7 +13,7 @@ layout: note-layout
   - "[[LLM -- The Intelligence Problem vs. The Orchestration Problem]]"
 title: The Biggest Momentum Creator in Enterprise AI Might Be Predictability
 is_note: true
-date: 2026-05-18
+date: 2026-03-25
 ---
 
 

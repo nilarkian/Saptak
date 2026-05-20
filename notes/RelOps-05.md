@@ -17,7 +17,7 @@ ownable-terms:
   - ReLOps
 layout: note-layout
 is_note: true
-date: 2026-05-18
+date: 2026-03-19
 ---
 
 > RelOps part 5 : The Emerging Infrastructure Layer Stabilizing Enterprise AI

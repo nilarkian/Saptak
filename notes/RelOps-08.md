@@ -3,9 +3,9 @@ topic: AI
 is_note: true
 layout: note-layout
 series: ReLOps
-date: 2026-05-21
+date: 2026-05-07
 title: "Harness Engineering: The Operational Control Layer Above ReLOps"
-sub: RelOps 08 
+sub: RelOps 08
 ---
 
 > Autonomous agents don't just need better prompts. They need runtime infrastructure — execution environments that govern state, orchestration, failure, and observability at scale.
