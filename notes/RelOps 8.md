@@ -3,7 +3,7 @@ topic: AI
 is_note: true
 layout: note-layout
 series: ReLOps
-date: 2026-05-20
+date: 2026-05-21
 title: Harness Engineering: The Operational Control Layer Above ReLOps
 sub: RelOps 08 
 ---

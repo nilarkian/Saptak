@@ -3,7 +3,7 @@ topic: AI
 is_note: true
 layout: note-layout
 series: RelOps
-date: 2026-05-20
+date: 2026-05-22
 title: The Harness Is Becoming the Product
 sub: RelOps 09
 ---

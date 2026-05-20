@@ -3,7 +3,7 @@ topic: AI
 is_note: true
 layout: note-layout
 series: RelOps
-date: 2026-05-20
+date: 2026-05-19
 title: Enterprise AI Reliability Is a Stack Property, Not a Model Property
 sub: RelOps 06
 tags:
