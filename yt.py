@@ -170,34 +170,6 @@ def assign_category(tags):
     return "uncategorized"
 
 
-# ---------- date scheduling ----------
-
-def get_occupied_dates():
-    yt = load_json("_data/inspo/youtube.json")
-    mu = load_json("_data/inspo/music.json")
-    return {e["date"][:10] for e in yt + mu if e.get("date")}
-
-
-def next_free_dates(n, occupied):
-    if not n:
-        return []
-    if occupied:
-        parsed = [date_cls.fromisoformat(d) for d in occupied]
-        cursor = max(parsed) + timedelta(days=1)
-    else:
-        cursor = date_cls.today()
-    used = set(occupied)
-    result = []
-    while len(result) < n:
-        ds = cursor.isoformat()
-        if ds not in used:
-            result.append(ds)
-            used.add(ds)
-        cursor += timedelta(days=1)
-    return result
-
-
-# ---------- music date randomizer ----------
 
 
 
@@ -205,10 +177,13 @@ def next_free_dates(n, occupied):
 # -------------- music feed ------------------
 
 
-def transform_music(v, date_value, last_featured_at=None):
+def transform_video(v, date_value, last_featured_at=None):
     result = {
         "url": f"https://youtu.be/{v['id']}",
-        "date": date_value
+        "date": date_value,
+        "tags": v.get("auto_tags", []),
+        "title": v.get("title", ""),
+        "desc": ""
     }
 
     if last_featured_at:
@@ -216,22 +191,19 @@ def transform_music(v, date_value, last_featured_at=None):
 
     return result
 
-def transform_youtube(v):
-    return {
-        "date": v.get("added_at", "")[:10],  # 👈 first now
-        "tags": v.get("auto_tags", []),
-        "title": v.get("title", ""),
-        "url": f"https://youtu.be/{v['id']}",
-        "desc": ""
-    }
-
 # ---------- dynamic music feed generator ----------
 
 
 
-def generate_music_feed(output_file, start_date_str):
+def generate_feeds(
+    music_output,
+    youtube_output,
+    start_date_str
+):
+    """Generate both music and youtube feeds with mixed distributions."""
     source = load_json("_data/all-yt.json")
-    existing_feed = load_json(output_file)
+    music_existing = load_json(music_output)
+    youtube_existing = load_json(youtube_output)
 
     today = date_cls.today()
     today_str = today.isoformat()
@@ -239,190 +211,117 @@ def generate_music_feed(output_file, start_date_str):
     start_date = date_cls.fromisoformat(start_date_str)
     historical_limit = today - timedelta(days=1)
 
-    # canonical music universe
+    # canonical pools
     music_pool = [
         v for v in source
         if "mu" in v.get("source_playlists", [])
     ]
+    youtube_pool = [
+        v for v in source
+        if "yt" in v.get("source_playlists", [])
+    ]
 
-    if not music_pool:
-        print("No music items found.")
-        return
-
-    # unseen songs only
-    unseen_pool = [
+    # unseen items only
+    music_unseen = [
         v for v in music_pool
         if not v.get("music_seen", False)
     ]
+    youtube_unseen = [
+        v for v in youtube_pool
+        if not v.get("yt_seen", False)
+    ]
 
-    # avoid immediate repeats from yesterday
+    # avoid yesterday's repeats
     yesterday_str = (
         today - timedelta(days=1)
     ).isoformat()
 
-    recently_featured_urls = {
+    music_yesterday = {
         item["url"]
-        for item in existing_feed
+        for item in music_existing
+        if item.get("last_featured_at") == yesterday_str
+    }
+    youtube_yesterday = {
+        item["url"]
+        for item in youtube_existing
         if item.get("last_featured_at") == yesterday_str
     }
 
-    eligible_pool = [
-        v for v in unseen_pool
-        if f"https://youtu.be/{v['id']}"
-        not in recently_featured_urls
-    ]
+    music_eligible = [
+        v for v in music_unseen
+        if f"https://youtu.be/{v['id']}" not in music_yesterday
+    ] or music_unseen
+    youtube_eligible = [
+        v for v in youtube_unseen
+        if f"https://youtu.be/{v['id']}" not in youtube_yesterday
+    ] or youtube_unseen
 
-    if not eligible_pool:
-        eligible_pool = unseen_pool
+    # pick distribution: 1M1V, 2M0V, or 1M0V
+    distributions = [(1, 1), (2, 0), (1, 0)]
+    music_count, video_count = random.choice(distributions)
 
-    # how many new songs today
-    featured_count = min(
-        random.randint(1, 2),
-        len(eligible_pool)
-    )
+    # cap by pool size
+    music_count = min(music_count, len(music_eligible))
+    video_count = min(video_count, len(youtube_eligible))
 
-    featured = random.sample(
-        eligible_pool,
-        featured_count
-    ) if featured_count > 0 else []
+    # sample
+    featured_music = random.sample(music_eligible, music_count) if music_count > 0 else []
+    featured_youtube = random.sample(youtube_eligible, video_count) if video_count > 0 else []
 
-    # persist canonical seen-state
-    for v in featured:
+    # persist seen-state
+    for v in featured_music:
         v["music_seen"] = True
+    for v in featured_youtube:
+        v["yt_seen"] = True
 
-    # start from existing archive
-    final = existing_feed.copy()
+    # build feeds
+    music_final = music_existing.copy()
+    youtube_final = youtube_existing.copy()
 
-    # append only new surfaced songs
-    for v in featured:
-        final.append(
-            transform_music(
-                v,
-                today_str,
-                last_featured_at=today_str
-            )
+    for v in featured_music:
+        music_final.append(
+            transform_video(v, today_str, last_featured_at=today_str)
         )
 
-    # reshuffle historical archive only
-    total_days = (
-        historical_limit - start_date
-    ).days
+    for v in featured_youtube:
+        youtube_final.append(
+            transform_video(v, today_str, last_featured_at=today_str)
+        )
 
-    if total_days > 0:
-        historical = [
-            item for item in final
-            if item.get("date")
-            and date_cls.fromisoformat(item["date"][:10]) < today
-        ]
-        random.shuffle(historical)
-        n = len(historical)
-        for i, item in enumerate(historical):
-            days_offset = int(i * total_days / n) if n > 1 else 0
-            item["date"] = (start_date + timedelta(days=days_offset)).isoformat()
+    # reshuffle historical
+    def shuffle_historical(feed):
+        total_days = (historical_limit - start_date).days
+        if total_days > 0:
+            historical = [
+                item for item in feed
+                if item.get("date")
+                and date_cls.fromisoformat(item["date"][:10]) < today
+            ]
+            random.shuffle(historical)
+            n = len(historical)
+            for i, item in enumerate(historical):
+                days_offset = int(i * total_days / n) if n > 1 else 0
+                item["date"] = (start_date + timedelta(days=days_offset)).isoformat()
 
-    # newest first
-    final.sort(
-        key=lambda x: x.get("date", ""),
-        reverse=True
-    )
+    shuffle_historical(music_final)
+    shuffle_historical(youtube_final)
 
-    atomic_save_json(output_file, final)
+    # sort newest first
+    music_final.sort(key=lambda x: x.get("date", ""), reverse=True)
+    youtube_final.sort(key=lambda x: x.get("date", ""), reverse=True)
 
-    # persist canonical DB updates
-    save_json(OUTPUT_FILE, source)
-
-    print(
-        f"{output_file}: "
-        f"+{len(featured)} appended, "
-        f"{len(final)} total archive items"
-    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# -------------- generic feed builder ------------------
-
-def build_feed(
-    playlist_name,
-    output_file,
-    transform_fn
-):
-    source = load_json("_data/all-yt.json")
-    existing_feed = load_json(output_file)
-
-    existing_urls = {
-        item["url"]
-        for item in existing_feed
-    }
-
-    final = existing_feed.copy()
-
-    appended = 0
-
-    for v in source:
-
-        if playlist_name not in v.get(
-            "source_playlists",
-            []
-        ):
-            continue
-
-        entry = transform_fn(v)
-
-        if not entry:
-            continue
-
-        if entry["url"] in existing_urls:
-            continue
-
-        final.append(entry)
-        existing_urls.add(entry["url"])
-        appended += 1
-
-    final.sort(
-        key=lambda x: x.get("date", ""),
-        reverse=True
-    )
-
-    atomic_save_json(
-        output_file,
-        final
-    )
+    # save
+    atomic_save_json(music_output, music_final)
+    atomic_save_json(youtube_output, youtube_final)
+    save_json("_data/all-yt.json", source)
 
     print(
-        f"{output_file}: "
-        f"+{appended} appended, "
-        f"{len(final)} total items"
+        f"Feeds updated: "
+        f"+{len(featured_music)}M (+{len(featured_youtube)}V) | "
+        f"{len(music_final)} music total, {len(youtube_final)} youtube total"
     )
 
 
-def get_existing_feed_urls():
-    urls = set()
-
-    for path in [
-        "_data/inspo/music.json",
-        "_data/inspo/youtube.json"
-    ]:
-        items = load_json(path)
-
-        for item in items:
-            url = item.get("url")
-
-            if url:
-                urls.add(url)
-
-    return urls
 
 
 
@@ -433,37 +332,19 @@ def get_existing_feed_urls():
 
 
 
-def build_youtube_feed(output_file):
-    source = load_json("_data/all-yt.json")
-    existing_feed = load_json(output_file)
-    existing_urls = {item["url"] for item in existing_feed}
 
-    new_videos = [
-        v for v in source
-        if "yt" in v.get("source_playlists", [])
-        and f"https://youtu.be/{v['id']}" not in existing_urls
-    ]
 
-    occupied = get_occupied_dates()
-    free_dates = next_free_dates(len(new_videos), occupied)
 
-    final = existing_feed.copy()
-    for v, date in zip(new_videos, free_dates):
-        entry = transform_youtube(v)
-        entry["date"] = date
-        final.append(entry)
 
-    final.sort(key=lambda x: x.get("date", ""), reverse=True)
-    atomic_save_json(output_file, final)
-    print(f"{output_file}: +{len(new_videos)} appended, {len(final)} total items")
+
+
+
 
 
 # ---------- main ----------
 def main():
     existing = load_json(OUTPUT_FILE)
     existing_map = {v["id"]: v for v in existing}
-
-    existing_feed_urls = get_existing_feed_urls()
 
     live_ids = {pl["name"]: set() for pl in PLAYLISTS}
     new_video_ids = []
@@ -497,16 +378,6 @@ def main():
 
             live_ids[name].add(vid)
 
-            
-            video_url = f"https://youtu.be/{vid}"
-
-            # skip creating duplicate canonical items
-            if (
-                vid not in existing_map
-                and video_url in existing_feed_urls
-            ):
-                continue
-
             # new canonical item
             if vid not in existing_map:
 
@@ -531,6 +402,7 @@ def main():
                     "first_seen_position": position_map.get(vid),
                     "source_playlists": [name],
                     "music_seen": name != "mu",
+                    "yt_seen": name != "yt",
                 }
 
                 existing_map[vid] = norm
@@ -588,13 +460,11 @@ def main():
 
     print(f"\nDone. Total unique videos: {len(final)}")
 
-    # 👇 ADD THIS
-    generate_music_feed(
-    "_data/inspo/music.json",
-    "2025-01-01"
+    generate_feeds(
+        "_data/inspo/music.json",
+        "_data/inspo/youtube.json",
+        "2025-01-01"
     )
-
-    build_youtube_feed("_data/inspo/youtube.json")
 
 if __name__ == "__main__":
     main()
