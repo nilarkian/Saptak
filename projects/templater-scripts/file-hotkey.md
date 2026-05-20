@@ -424,7 +424,7 @@ opens:
 
 * Requires:
 
-  * [Templater Plugin](https://silentvoid13.github.io/Templater/?utm_source=chatgpt.com)
+  * [Templater Plugin](https://silentvoid13.github.io/Templater/)
 * Designed for startup templates
 * Uses one global keyboard listener
 * Prevents duplicate installation with a window-scoped guard

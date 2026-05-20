@@ -234,7 +234,7 @@ survive safely.
 
 * Requires:
 
-  * [Templater Plugin](https://silentvoid13.github.io/Templater/?utm_source=chatgpt.com)
+  * [Templater Plugin](https://silentvoid13.github.io/Templater/)
 * Desktop Obsidian only
 * Works best with multiple installed themes
 * Safe for startup automation

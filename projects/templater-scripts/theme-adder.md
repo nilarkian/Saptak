@@ -366,7 +366,7 @@ to the downloaded theme folder.
 
 * Requires:
 
-  * [Templater Plugin](https://silentvoid13.github.io/Templater/?utm_source=chatgpt.com)
+  * [Templater Plugin](https://silentvoid13.github.io/Templater/)
 * Desktop Obsidian only
 * Requires internet access
 * Uses Obsidian’s official theme registry
