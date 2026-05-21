@@ -55,3 +55,4 @@ For example:
 * Prestige ← Status Competition
 * Property ← Reciprocity + Future Simulation
 
+>**🌞1st May 2025:** iceberg would be a better format

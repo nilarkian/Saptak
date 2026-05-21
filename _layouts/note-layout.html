@@ -239,7 +239,14 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
   margin-bottom:0;
 }
 
-.table-scroll-wrapper{overflow-x:auto;margin-bottom:28px;-webkit-overflow-scrolling:touch;}
+/* .table-scroll-wrapper{overflow-x:auto;margin-bottom:28px;-webkit-overflow-scrolling:touch;} */
+.table-scroll-wrapper{
+  overflow-x:auto;
+  margin-bottom:28px;
+  -webkit-overflow-scrolling:touch;
+  position:relative;
+}
+
 .table-scroll-wrapper table{margin-bottom:0;}
 
 .note-body table{
@@ -332,6 +339,36 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
   border-radius:6px;
   cursor:pointer;
   transition:.15s;
+}
+.table-copy-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+
+  background:#111;
+  color:#f7f7f7;
+
+  border:none;
+  border-radius:6px;
+
+  padding:6px 12px;
+
+  font-family:'Syne',Arial,sans-serif;
+  font-size:11px;
+  font-weight:600;
+
+  cursor:pointer;
+  z-index:10;
+}
+
+.table-copy-btn:hover{
+  opacity:.85;
+}
+
+body.dark .table-copy-btn{
+  background:#252526;
+  color:#d4d4d4;
+  border:1px solid #3e3e42;
 }
 
 .copy-btn:hover{
@@ -687,6 +724,59 @@ document.querySelectorAll('.note-body table').forEach(t => {
   wrapper.appendChild(t);
 });
 
+
+// ── PNG COPY BUTTONS FOR TABLES ──
+
+document.querySelectorAll('.note-body table').forEach(table => {
+
+  const wrapper = table.parentElement;
+
+  const btn = document.createElement('button');
+  btn.className = 'table-copy-btn';
+  btn.textContent = '📷 copy';
+
+  btn.addEventListener('click', async () => {
+
+    try {
+
+      const blob = await htmlToImage.toBlob(table, {
+        pixelRatio: 4,
+        cacheBust: true,
+        backgroundColor: document.body.classList.contains('dark')
+          ? '#1e1e1e'
+          : '#f7f7f7'
+      });
+
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'image/png': blob
+        })
+      ]);
+
+      btn.textContent = '✓ Copied';
+
+      setTimeout(() => {
+        btn.textContent = '📷 copy';
+      }, 1500);
+
+    } catch (err) {
+
+      console.error(err);
+
+      btn.textContent = '✗ Failed';
+
+      setTimeout(() => {
+        btn.textContent = '📷 copy';
+      }, 1500);
+
+    }
+
+  });
+
+  wrapper.appendChild(btn);
+
+});
+
 // ── COPY BUTTONS ──
 document.querySelectorAll('.note-body pre').forEach(pre => {
 
@@ -777,3 +867,4 @@ document.querySelectorAll('.note-body img').forEach(img => { img.loading = 'lazy
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://unpkg.com/html-to-image/dist/html-to-image.js"></script>
