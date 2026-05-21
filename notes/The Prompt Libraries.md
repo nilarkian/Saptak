@@ -20,19 +20,6 @@ project:
 
 ---
 
-# Quick Navigation
-
-| Category                       | Best For                             | Start Here               |
-| ------------------------------ | ------------------------------------ | ------------------------ |
-| Official Vendor Libraries      | High-quality reference prompts       | Claude / OpenAI / Gemini |
-| Community Prompt Marketplaces  | Discovering practical prompts        | SnackPrompt              |
-| Massive General Libraries      | Breadth & browsing                   | PromptDen / GodOfPrompt  |
-| Structured Prompt Engineering  | Learning patterns systematically     | PromptingGuide           |
-| Specialized Prompt Collections | Domain-specific workflows            | Data Science / Coding    |
-| Business-Oriented Prompts      | Sales, ops, marketing                | Temaniaga                |
-| Meta / Tracing / Debugging     | Inspecting hidden prompting behavior | Transparency Debug Tools |
-
----
 
 # 1. Official Vendor Prompt Libraries
 
