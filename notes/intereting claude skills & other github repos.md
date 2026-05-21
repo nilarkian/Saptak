@@ -11,6 +11,8 @@ tags:
 is_note: true
 is_pinned: true
 blurb: Curated list of Claude Code skills and useful GitHub repositories.
+project:
+  - "[[notes]]"
 ---
 
 > last updated: **🌞16th May 2026:**
