@@ -740,7 +740,7 @@ document.querySelectorAll('.note-body table').forEach(table => {
     try {
 
       const blob = await htmlToImage.toBlob(table, {
-        pixelRatio: 1,
+        pixelRatio: 2,
         skipFonts: false,
         cacheBust: true,
         backgroundColor: document.body.classList.contains('dark')
