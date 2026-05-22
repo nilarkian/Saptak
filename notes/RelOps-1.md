@@ -14,7 +14,6 @@ date: 2026-01-14
 is_note: true
 title: How Consistency Became One of the Biggest Problems with LLMs
 ---
-
 > AAM Series Part 1: LLM ReLOps (Reliability Operations)
 
 ---

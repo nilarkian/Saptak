@@ -120,7 +120,7 @@ The Reliability Layer is not a single tool. It is a stack of operational functio
 
 ---
 
-**Structure Sentry**
+**Output Contract Layer**
 
 | Internal Function | Business Effect |
 |---|---|
@@ -129,11 +129,11 @@ The Reliability Layer is not a single tool. It is a stack of operational functio
 | Output normalization | Standardizes formatting across model versions |
 | Deterministic formatting | Converts probabilistic output into a stable integration surface |
 
-Structure Sentry converts Probabilistic Failure in the output layer into a deterministic failure mode: inspectable, debuggable, controllable.
+Output Contract Layer converts Probabilistic Failure in the output layer into a deterministic failure mode: inspectable, debuggable, controllable.
 
 ---
 
-**Uncertainty Gateway**
+**Inference Router**
 
 | Internal Function | Business Effect |
 |---|---|
@@ -144,7 +144,7 @@ Structure Sentry converts Probabilistic Failure in the output layer into a deter
 
 ---
 
-**Drift Sentinel**
+**Model Drift Monitor(MDM)**
 
 | Internal Function | Business Effect |
 |---|---|
@@ -153,7 +153,7 @@ Structure Sentry converts Probabilistic Failure in the output layer into a deter
 | Output quality tracking | Measures distributional changes in response characteristics |
 | Benchmark comparisons | Compares current behavior against historical production baseline |
 
-Drift Sentinel is what makes Silent Degradation visible. Without it, the behavioral erosion gradient is undetectable until organizational damage has already occurred.
+Model Drift Monitor(MDM) is what makes Silent Degradation visible. Without it, the behavioral erosion gradient is undetectable until organizational damage has already occurred.
 
 ---
 
