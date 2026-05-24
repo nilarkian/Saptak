@@ -180,9 +180,7 @@ def assign_category(tags):
 def transform_video(v, date_value, last_featured_at=None):
     result = {
         "date": date_value,
-        "tags": v.get("auto_tags", []),
         "url": f"https://youtu.be/{v['id']}",
-        "title": v.get("title", ""),
         "desc": ""
     }
 
