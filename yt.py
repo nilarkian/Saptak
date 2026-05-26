@@ -191,6 +191,27 @@ def transform_video(v, date_value, last_featured_at=None):
 
 # ---------- dynamic music feed generator ----------
 
+def calculate_start_date(youtube_count, music_count, today):
+    """Calculate start date to spread items at ≤1 per day.
+
+    Spreads youtube_count + music_count items across equal number of days,
+    ensuring balanced distribution over time.
+
+    Args:
+        youtube_count: Number of unseen youtube videos
+        music_count: Number of unseen music videos
+        today: date object for current day
+
+    Returns:
+        ISO format date string for start_date
+    """
+    total_items = youtube_count + music_count
+    if total_items == 0:
+        return today.isoformat()
+
+    start_date = today - timedelta(days=total_items)
+    return start_date.isoformat()
+
 
 
 def generate_feeds(
@@ -254,8 +275,8 @@ def generate_feeds(
         if f"https://youtu.be/{v['id']}" not in youtube_yesterday
     ] or youtube_unseen
 
-    # pick distribution: 1M1V, 2M0V, or 1M0V
-    distributions = [(1, 1), (2, 0), (1, 0)]
+    # pick distribution: 1M0V or 0M1V to enforce ≤1 item per day
+    distributions = [(1, 0), (0, 1)]
     music_count, video_count = random.choice(distributions)
 
     # cap by pool size
@@ -272,9 +293,15 @@ def generate_feeds(
     for v in featured_youtube:
         v["yt_seen"] = True
 
-    # build feeds
-    music_final = music_existing.copy()
-    youtube_final = youtube_existing.copy()
+    # build feeds: remove today's items from existing (they'll be readded fresh)
+    music_final = [
+        item for item in music_existing
+        if item.get("date") != today_str
+    ]
+    youtube_final = [
+        item for item in youtube_existing
+        if item.get("date") != today_str
+    ]
 
     for v in featured_music:
         music_final.append(
@@ -286,23 +313,33 @@ def generate_feeds(
             transform_video(v, today_str, last_featured_at=today_str)
         )
 
-    # reshuffle historical
-    def shuffle_historical(feed):
+    # reshuffle historical: unified shuffle across both feeds to enforce ≤1 item per day
+    def shuffle_historical_unified(music_feed, youtube_feed):
         total_days = (historical_limit - start_date).days
         if total_days > 0:
-            historical = [
-                item for item in feed
+            # collect all historical items from both feeds
+            music_historical = [
+                item for item in music_feed
                 if item.get("date")
                 and date_cls.fromisoformat(item["date"][:10]) < today
             ]
-            random.shuffle(historical)
-            n = len(historical)
-            for i, item in enumerate(historical):
+            youtube_historical = [
+                item for item in youtube_feed
+                if item.get("date")
+                and date_cls.fromisoformat(item["date"][:10]) < today
+            ]
+
+            # combine and shuffle
+            all_historical = music_historical + youtube_historical
+            random.shuffle(all_historical)
+
+            # assign dates: each item gets a unique date slot
+            n = len(all_historical)
+            for i, item in enumerate(all_historical):
                 days_offset = int(i * total_days / n) if n > 1 else 0
                 item["date"] = (start_date + timedelta(days=days_offset)).isoformat()
 
-    shuffle_historical(music_final)
-    shuffle_historical(youtube_final)
+    shuffle_historical_unified(music_final, youtube_final)
 
     # sort newest first
     music_final.sort(key=lambda x: x.get("date", ""), reverse=True)
@@ -458,10 +495,31 @@ def main():
 
     print(f"\nDone. Total unique videos: {len(final)}")
 
+    # Calculate dynamic start date based on unseen items
+    today = date_cls.today()
+    youtube_unseen_count = sum(
+        1 for v in final
+        if "yt" in v.get("source_playlists", []) and not v.get("yt_seen", False)
+    )
+    music_unseen_count = sum(
+        1 for v in final
+        if "mu" in v.get("source_playlists", []) and not v.get("music_seen", False)
+    )
+    start_date_str = calculate_start_date(
+        youtube_unseen_count,
+        music_unseen_count,
+        today
+    )
+
+    print(
+        f"Feed generation: {youtube_unseen_count} unseen youtube, "
+        f"{music_unseen_count} unseen music → start_date={start_date_str}"
+    )
+
     generate_feeds(
         "_data/inspo/music.json",
         "_data/inspo/youtube.json",
-        "2025-01-01"
+        start_date_str
     )
 
 if __name__ == "__main__":
