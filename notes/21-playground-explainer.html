@@ -1,0 +1,1108 @@
+<!-- Copyright 2026 Anthropic PBC · SPDX-License-Identifier: Apache-2.0 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The /playground skill — an interactive explainer</title>
+<style>
+  :root {
+    --ivory:   #FAF9F5;
+    --slate:   #141413;
+    --clay:    #D97757;
+    --oat:     #E3DACC;
+    --olive:   #788C5D;
+    --sky:     #6A8CAF;
+    --gray-150:#F0EEE6;
+    --gray-300:#D1CFC5;
+    --gray-500:#87867F;
+    --gray-700:#3D3D3A;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory);
+    color: var(--gray-700);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 24px 120px;
+  }
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 920px) { .page { grid-template-columns: 1fr; } nav { display: none; } }
+
+  /* ── nav ── */
+  nav {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    font-size: 13px;
+  }
+  nav .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+  nav a {
+    display: block;
+    padding: 5px 0 5px 12px;
+    border-left: 2px solid var(--gray-300);
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: color 100ms, border-color 100ms;
+  }
+  nav a:hover { color: var(--slate); border-color: var(--slate); }
+  nav a.l2 { padding-left: 24px; font-size: 12px; color: var(--gray-500); }
+  nav a.l2:hover { color: var(--slate); }
+  nav .files {
+    margin-top: 28px;
+    border-top: 1px solid var(--gray-300);
+    padding-top: 16px;
+  }
+  nav .files code {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    padding: 3px 0;
+    cursor: pointer;
+    transition: color 100ms;
+  }
+  nav .files code:hover { color: var(--clay); }
+
+  /* ── header ── */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 32px;
+    color: var(--slate);
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--slate);
+    margin: 44px 0 14px;
+    scroll-margin-top: 24px;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--slate);
+    margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; max-width: 680px; }
+  code { font-family: var(--mono); font-size: 13px; }
+  strong { color: var(--slate); }
+
+  /* ── tldr ── */
+  .tldr {
+    border: 1.5px solid var(--gray-300);
+    border-left: 3px solid var(--clay);
+    border-radius: 10px;
+    background: #fff;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    max-width: 680px;
+  }
+  .tldr b { color: var(--slate); }
+
+  /* ── 3-zone diagram ── */
+  .zone-diagram {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px;
+    margin: 16px 0;
+    max-width: 640px;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .zone-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px;
+  }
+  .zone {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--gray-150);
+  }
+  .zone.controls { border-color: var(--sky); background: rgba(106,140,175,0.08); }
+  .zone.preview  { border-color: var(--olive); background: rgba(120,140,93,0.08); }
+  .zone.prompt   {
+    grid-column: 1 / -1;
+    border-color: var(--clay);
+    background: rgba(217,119,87,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .zone .zone-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .zone.controls .zone-label { color: var(--sky); }
+  .zone.preview .zone-label { color: var(--olive); }
+  .zone.prompt .zone-label  { color: var(--clay); }
+  .zone-desc { color: var(--gray-700); font-size: 12px; line-height: 1.5; }
+  .copy-badge {
+    background: var(--clay);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── loop arrow ── */
+  .loop-strip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 12px 0;
+    font-size: 12.5px;
+    font-family: var(--mono);
+    flex-wrap: wrap;
+  }
+  .loop-step {
+    background: var(--gray-150);
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+    padding: 4px 10px;
+    color: var(--slate);
+  }
+  .loop-arrow { color: var(--clay); font-size: 14px; }
+
+  /* ── collapsible templates ── */
+  details {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 10px;
+    background: #fff;
+    margin: 12px 0;
+    overflow: hidden;
+    max-width: 680px;
+  }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary .arrow {
+    color: var(--clay);
+    font-family: var(--sans);
+    font-size: 12px;
+    transition: transform 140ms;
+    flex-shrink: 0;
+  }
+  details[open] summary .arrow { transform: rotate(90deg); }
+  summary .t-name {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--slate);
+    flex: 1;
+  }
+  summary .t-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-500);
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 2px 7px;
+  }
+  .details-body { padding: 0 16px 18px; }
+  .details-body p { font-size: 14px; max-width: none; }
+
+  /* ── ascii layout ── */
+  .ascii {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+    background: var(--gray-150);
+    border: 1px solid var(--gray-300);
+    border-radius: 7px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    white-space: pre;
+    overflow-x: auto;
+    color: var(--gray-700);
+  }
+
+  /* ── control type table ── */
+  .ctrl-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    margin: 10px 0;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .ctrl-table th {
+    background: var(--gray-150);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    font-weight: 500;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-300);
+  }
+  .ctrl-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--gray-300);
+    vertical-align: top;
+  }
+  .ctrl-table tr:last-child td { border-bottom: none; }
+  .ctrl-table td:first-child { color: var(--slate); font-weight: 500; }
+
+  /* ── use-case chips ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--gray-150);
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 3px 9px;
+    color: var(--slate);
+  }
+
+  /* ── tabs ── */
+  .tabs {
+    border: 1.5px solid var(--gray-300);
+    border-radius: 10px;
+    background: #fff;
+    margin: 16px 0 8px;
+    overflow: hidden;
+    max-width: 680px;
+  }
+  .tabbar {
+    display: flex;
+    border-bottom: 1px solid var(--gray-300);
+    background: var(--gray-150);
+  }
+  .tabbar button {
+    appearance: none;
+    border: none;
+    background: none;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gray-500);
+    padding: 10px 16px;
+    cursor: pointer;
+    border-right: 1px solid var(--gray-300);
+    transition: background 100ms, color 100ms;
+  }
+  .tabbar button.on {
+    background: #fff;
+    color: var(--slate);
+    border-bottom: 2px solid var(--clay);
+    margin-bottom: -1px;
+  }
+  .tabs .panel { display: none; padding: 16px 18px; }
+  .tabs .panel.on { display: block; }
+
+  /* ── code blocks ── */
+  pre {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    background: var(--slate);
+    color: #E3DACC;
+    padding: 16px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  pre .kw  { color: #D97757; }
+  pre .fn  { color: #6A8CAF; }
+  pre .cm  { color: #787878; font-style: italic; }
+  pre .st  { color: #788C5D; }
+  pre .nm  { color: #C2A83E; }
+
+  /* ── callout ── */
+  .callout {
+    display: flex;
+    gap: 12px;
+    border: 1.5px solid var(--oat);
+    background: rgba(227,218,204,0.35);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    font-size: 14px;
+    max-width: 680px;
+  }
+  .callout.tip .ico { color: var(--clay); font-weight: 700; font-size: 15px; }
+  .callout.warn .ico { color: #B04A3F; font-weight: 700; font-size: 15px; }
+  .callout.olive { border-color: rgba(120,140,93,0.4); background: rgba(120,140,93,0.08); }
+  .callout.olive .ico { color: var(--olive); font-weight: 700; font-size: 15px; }
+
+  /* ── mistakes table ── */
+  .mistakes {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13.5px;
+    margin: 12px 0;
+    max-width: 680px;
+    border: 1px solid var(--gray-300);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .mistakes th {
+    background: var(--gray-150);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    font-weight: 500;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-300);
+  }
+  .mistakes td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--gray-300);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .mistakes tr:last-child td { border-bottom: none; }
+  .mistakes td.bad { color: #B04A3F; font-weight: 500; }
+  .mistakes td.fix { color: var(--olive); }
+  .mistakes td code { background: var(--gray-150); padding: 1px 5px; border-radius: 3px; }
+
+  /* ── trigger prompts ── */
+  .prompt-card {
+    border: 1.5px solid var(--gray-300);
+    border-left: 3px solid var(--sky);
+    border-radius: 8px;
+    background: #fff;
+    padding: 12px 14px;
+    margin: 8px 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--slate);
+    max-width: 680px;
+  }
+  .prompt-card .badge {
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  /* ── req list ── */
+  .req-list { list-style: none; padding: 0; margin: 10px 0; max-width: 680px; }
+  .req-list li {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 14px;
+  }
+  .req-list li:last-child { border-bottom: none; }
+  .req-list .req-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--clay);
+    flex-shrink: 0;
+    width: 16px;
+  }
+  .req-list b { color: var(--slate); }
+
+  /* ── state diagram inline ── */
+  .state-diagram {
+    background: var(--gray-150);
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    max-width: 540px;
+  }
+  .state-diagram .row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+  .state-diagram .box {
+    background: #fff;
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+    padding: 4px 10px;
+    color: var(--slate);
+  }
+  .state-diagram .arrow { color: var(--clay); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── side nav ── -->
+  <nav>
+    <div class="label">On this page</div>
+    <a href="#what">What is /playground?</a>
+    <a href="#loop">The loop</a>
+    <a href="#templates">6 templates</a>
+    <a href="#design" class="l2">design-playground</a>
+    <a href="#data" class="l2">data-explorer</a>
+    <a href="#concept" class="l2">concept-map</a>
+    <a href="#critique" class="l2">document-critique</a>
+    <a href="#diff" class="l2">diff-review</a>
+    <a href="#codemap" class="l2">code-map</a>
+    <a href="#requirements">Core requirements</a>
+    <a href="#prompt-pattern">Prompt output</a>
+    <a href="#state">State management</a>
+    <a href="#trigger">How to trigger</a>
+    <a href="#mistakes">Common mistakes</a>
+    <div class="files">
+      <div class="label">Template files</div>
+      <code data-href="#design">design-playground.md</code>
+      <code data-href="#data">data-explorer.md</code>
+      <code data-href="#concept">concept-map.md</code>
+      <code data-href="#critique">document-critique.md</code>
+      <code data-href="#diff">diff-review.md</code>
+      <code data-href="#codemap">code-map.md</code>
+    </div>
+  </nav>
+
+  <!-- ── main ── -->
+  <main>
+    <div class="eyebrow">Research &amp; Learning · skill explainer</div>
+    <h1>The <code>/playground</code> skill</h1>
+
+    <div class="tldr" id="what">
+      <b>TL;DR</b> — <code>/playground</code> builds self-contained single-file HTML explorers. Three zones: a
+      <strong>controls panel</strong> (left), a <strong>live preview</strong> (right), and a
+      <strong>natural-language prompt output</strong> (bottom) with a copy button. User tweaks controls,
+      preview updates instantly, prompt updates live, user copies it back into Claude. No server, no CDN,
+      zero dependencies. Six templates cover design, data, learning, document review, code diffs, and
+      architecture diagrams.
+    </div>
+
+    <!-- ── 3-zone diagram ── -->
+    <div class="zone-diagram">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-500);margin-bottom:12px;">Every playground has these three zones</div>
+      <div class="zone-grid">
+        <div class="zone controls">
+          <div class="zone-label">Controls</div>
+          <div class="zone-desc">Sliders, toggles, dropdowns, chips, canvas — whatever fits the domain. Every change fires instantly.</div>
+        </div>
+        <div class="zone preview">
+          <div class="zone-label">Live preview</div>
+          <div class="zone-desc">Renders the result of the current state. Updates on every keypress or drag — no Apply button.</div>
+        </div>
+        <div class="zone prompt">
+          <div>
+            <div class="zone-label">Prompt output</div>
+            <div class="zone-desc">Natural-language instruction. Only non-default choices mentioned. Self-contained — actionable without the playground.</div>
+          </div>
+          <div class="copy-badge">Copy ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── loop ── -->
+    <h2 id="loop">The loop</h2>
+    <p>The playground exists to bridge the gap between visual exploration and Claude instructions. The loop is:</p>
+    <div class="loop-strip">
+      <span class="loop-step">Adjust controls</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Preview updates</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Prompt updates</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Copy prompt</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Paste into Claude</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Repeat</span>
+    </div>
+    <p>The key insight: the hardest part of complex requests is <em>articulating</em> what you want. The playground handles that articulation for you — you explore visually and it writes the prompt.</p>
+
+    <div class="callout tip">
+      <span class="ico">★</span>
+      <div>A playground isn't a finished product. It's a <strong>prompt-generation tool</strong>. The output is always a natural-language instruction you send back to Claude to act on.</div>
+    </div>
+
+    <!-- ── 6 templates ── -->
+    <h2 id="templates">The 6 templates</h2>
+    <p>Playground picks the closest template automatically based on your request. Each template defines the layout, control types, preview rendering approach, and prompt output format.</p>
+
+    <!-- design -->
+    <details id="design">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">design-playground</span>
+        <span class="t-tag">visual design</span>
+      </summary>
+      <div class="details-body">
+        <p>For visual design decisions: components, layouts, spacing, color, typography, animation, responsive behavior. Controls map directly to CSS properties; the prompt describes the result as a direction to a developer.</p>
+        <div class="ascii">+-------------------+----------------------+
+|                   |                      |
+|  Controls         |  Live component/     |
+|  grouped by:      |  layout preview      |
+|  • Spacing        |  (renders in a       |
+|  • Color          |   mock page or       |
+|  • Typography     |   isolated card)     |
+|  • Shadow/Border  |                      |
+|  • Interaction    |                      |
+|                   +----------------------+
+|                   |  Prompt output       |
+|                   |  [ Copy Prompt ]     |
++-------------------+----------------------+</div>
+
+        <h3>Control types</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Decision</th><th>Control</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Sizes, spacing, radius</td><td>Slider</td><td>border-radius 0–24px</td></tr>
+            <tr><td>On/off features</td><td>Toggle</td><td>show border, hover effect</td></tr>
+            <tr><td>Choosing from a set</td><td>Dropdown</td><td>font-family, easing curve</td></tr>
+            <tr><td>Colors</td><td>H+S+L sliders</td><td>shadow color, accent hue</td></tr>
+            <tr><td>Layout structure</td><td>Clickable cards</td><td>sidebar-left / top-nav / no-nav</td></tr>
+            <tr><td>Responsive behavior</td><td>Viewport-width slider</td><td>watch grid reflow at breakpoints</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Example prompt output</h3>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:6px;">Written as a direction to a developer, not a spec sheet:</p>
+        <div class="tldr" style="margin:0;border-left-color:var(--olive);">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with translateY(-1px) and deepen the shadow slightly."</div>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">button style explorer</span>
+          <span class="chip">card component</span>
+          <span class="chip">layout builder</span>
+          <span class="chip">typography scale</span>
+          <span class="chip">color palette generator</span>
+          <span class="chip">dashboard density slider</span>
+          <span class="chip">modal / dialog designer</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- data -->
+    <details id="data">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">data-explorer</span>
+        <span class="t-tag">data &amp; queries</span>
+      </summary>
+      <div class="details-body">
+        <p>For data queries, APIs, pipelines, and structured config: SQL builders, API designers, regex builders, pipeline visuals, cron schedules. Preview renders syntax-highlighted output or a visual flow diagram.</p>
+        <div class="ascii">+-------------------+----------------------+
+|                   |                      |
+|  Controls         |  Formatted output    |
+|  grouped by:      |  (syntax-highlighted |
+|  • Source/tables  |   code, or a         |
+|  • Columns/fields |   visual diagram)    |
+|  • Filters        |                      |
+|  • Grouping       |                      |
+|  • Ordering       |                      |
+|  • Limits         |                      |
+|                   +----------------------+
+|                   |  Prompt output       |
+|                   |  [ Copy Prompt ]     |
++-------------------+----------------------+</div>
+
+        <h3>Control types</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Decision</th><th>Control</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Select from available items</td><td>Clickable cards / chips</td><td>table names, columns, HTTP methods</td></tr>
+            <tr><td>Add filter / condition rows</td><td>Add button → row of dropdowns + input</td><td>WHERE column op value</td></tr>
+            <tr><td>Join type or aggregation</td><td>Dropdown per row</td><td>INNER/LEFT/RIGHT, COUNT/SUM/AVG</td></tr>
+            <tr><td>Limit / offset</td><td>Slider</td><td>result count 1–500</td></tr>
+            <tr><td>Ordering</td><td>Dropdown + ASC/DESC toggle</td><td>order by column</td></tr>
+            <tr><td>On/off features</td><td>Toggle</td><td>include header, show descriptions</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Preview rendering</h3>
+        <p style="font-size:13px;">Syntax-highlighted output using <code>&lt;span&gt;</code> tags with color classes for keywords, table names, strings. Or a horizontal/vertical flow diagram with arrow connectors for pipeline-style playgrounds.</p>
+
+        <h3>Example prompt output</h3>
+        <div class="tldr" style="margin:8px 0;border-left-color:var(--olive);">"Write a SQL query that joins <code>orders</code> to <code>users</code> on <code>user_id</code>, filters for orders after 2024-01-01 with total &gt; $50, groups by user, and returns the top 10 users by order count."</div>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">SQL query builder</span>
+          <span class="chip">API endpoint designer</span>
+          <span class="chip">data pipeline</span>
+          <span class="chip">regex builder with live highlight</span>
+          <span class="chip">cron schedule builder</span>
+          <span class="chip">GraphQL query builder</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- concept map -->
+    <details id="concept">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">concept-map</span>
+        <span class="t-tag">learning &amp; exploration</span>
+      </summary>
+      <div class="details-body">
+        <p>Canvas-based learning and knowledge maps. The visual IS the control — users drag nodes, draw connections, mark knowledge levels. Different from other templates: there's no separate controls panel, the canvas is the interaction.</p>
+        <div class="ascii">+--------------------------------------+
+|  Canvas (draggable nodes, edges)     |
+|  with tooltip on hover               |
++-------------------------+------------+
+|                         |            |
+|  Sidebar:               | Prompt     |
+|  • Knowledge levels     | output     |
+|  • Connection types     |            |
+|  • Node list            | [Copy]     |
+|  • Actions              |            |
++-------------------------+------------+</div>
+
+        <h3>Interaction model</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Decision</th><th>Control</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Knowledge level per node</td><td>Click-to-cycle in sidebar</td><td>Know → Fuzzy → Unknown</td></tr>
+            <tr><td>Connection type</td><td>Selector before drawing edge</td><td>calls, depends on, contains, reads from</td></tr>
+            <tr><td>Node arrangement</td><td>Drag on canvas</td><td>spatial layout reflects mental model</td></tr>
+            <tr><td>Which nodes to include</td><td>Toggle per node</td><td>hide/show concepts</td></tr>
+            <tr><td>Auto-layout</td><td>Button</td><td>Force-directed spring simulation</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout olive">
+          <span class="ico">⌘</span>
+          <div>For codebases, pre-populate with <strong>15–20 real nodes</strong> (file paths + short descriptions) and <strong>20–30 pre-drawn edges</strong> based on actual imports/calls. Default all knowledge levels to "Fuzzy" — let the user adjust upward from there.</div>
+        </div>
+
+        <h3>Example prompt output</h3>
+        <div class="tldr" style="margin:8px 0;border-left-color:var(--olive);">"I'm learning React. I already understand: useState, useEffect. I'm fuzzy on: useContext, useReducer. I have no idea about: useMemo, useCallback. Explain the fuzzy and unknown hooks, focusing on these relationships: useReducer → dispatch → state, useContext → Provider → Consumer. Build on what I already know."</div>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">codebase architecture map</span>
+          <span class="chip">framework learning</span>
+          <span class="chip">system design</span>
+          <span class="chip">task decomposition</span>
+          <span class="chip">API surface map</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- document critique -->
+    <details id="critique">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">document-critique</span>
+        <span class="t-tag">doc review</span>
+      </summary>
+      <div class="details-body">
+        <p>Review and critique documents with an approve/reject/comment workflow. Left panel shows the document with line-level highlights; right panel shows filterable suggestions. Only approved items make it into the prompt.</p>
+        <div class="ascii">+---------------------------+--------------------+
+|                           |                    |
+|  Document content         |  Suggestions panel |
+|  with line numbers        |  (filterable list) |
+|  and suggestion           |  • Approve         |
+|  highlighting             |  • Reject          |
+|                           |  • Comment         |
+|                           |                    |
++---------------------------+--------------------+
+|  Prompt output (approved + commented items)    |
+|  [ Copy Prompt ]                               |
++------------------------------------------------+</div>
+
+        <h3>Color coding</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>State</th><th>Left border color</th><th>Background</th></tr></thead>
+          <tbody>
+            <tr><td>Pending</td><td style="color:#bf8700;">Amber #bf8700</td><td>rgba(191,135,0,0.08)</td></tr>
+            <tr><td>Approved</td><td style="color:#1a7f37;">Green #1a7f37</td><td>rgba(26,127,55,0.08)</td></tr>
+            <tr><td>Rejected</td><td style="color:#cf222e;">Red #cf222e</td><td>rgba(207,34,46,0.08) + opacity 0.6</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Pre-populating for a specific doc</h3>
+        <p style="font-size:13px;">When building a critique playground for your document: read the doc → analyze and generate suggestions with specific line references + category tags (clarity, completeness, performance, accessibility, ux) → embed both the doc content and suggestions array in the HTML.</p>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">SKILL.md review</span>
+          <span class="chip">README critique</span>
+          <span class="chip">spec review</span>
+          <span class="chip">proposal feedback</span>
+          <span class="chip">code comment review</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- diff review -->
+    <details id="diff">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">diff-review</span>
+        <span class="t-tag">git diffs</span>
+      </summary>
+      <div class="details-body">
+        <p>Review git diffs with interactive line-level commenting. Click any diff line to open a textarea, save a comment, and see a 💬 badge appear. The prompt output formats all comments as structured code review feedback with file:line references.</p>
+        <div class="ascii">+-------------------+----------------------------------+
+|                   |                                  |
+|  Commit Header:   |  Diff Content                    |
+|  • Hash           |  (files with hunks)              |
+|  • Message        |  with line numbers               |
+|  • Author/Date    |  and +/- indicators              |
+|                   |                                  |
++-------------------+----------------------------------+
+|  Prompt Output Panel (fixed bottom-right)            |
+|  [ Copy All ]                                        |
+|  Shows all comments formatted for prompt             |
++------------------------------------------------------+</div>
+
+        <h3>Line type styling</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Type</th><th>Background</th><th>Prefix</th></tr></thead>
+          <tbody>
+            <tr><td>context</td><td>transparent</td><td><code>&nbsp;</code> (space)</td></tr>
+            <tr><td style="color:#1a7f37;">addition</td><td>#dafbe1 (light) / rgba(46,160,67,0.15) (dark)</td><td><code>+</code></td></tr>
+            <tr><td style="color:#cf222e;">deletion</td><td>#ffebe9 (light) / rgba(248,81,73,0.15) (dark)</td><td><code>-</code></td></tr>
+            <tr><td style="color:#0969da;">hunk header</td><td>#ddf4ff (light)</td><td><code>@@</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Pre-populating with a real commit</h3>
+        <p style="font-size:13px;">Run <code>git show &lt;commit&gt; --format="%H%n%s%n%an%n%ad" -p</code> and paste the output when requesting the playground. Claude parses it into the <code>diffData</code> structure automatically.</p>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">git commit review</span>
+          <span class="chip">PR review</span>
+          <span class="chip">before/after refactoring</span>
+          <span class="chip">merge conflict annotation</span>
+          <span class="chip">security audit</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- code map -->
+    <details id="codemap">
+      <summary>
+        <span class="arrow">▸</span>
+        <span class="t-name">code-map</span>
+        <span class="t-tag">architecture</span>
+      </summary>
+      <div class="details-body">
+        <p>SVG architecture diagrams with click-to-comment on any node. Supports layer visibility filtering, connection type filtering, view presets, and zoom controls. Comments accumulate in the sidebar and build a targeted prompt about specific components.</p>
+        <div class="ascii">+-------------------+----------------------------------+
+|                   |                                  |
+|  Controls:        |  SVG Canvas                      |
+|  • View presets   |  (nodes + connections)           |
+|  • Layer toggles  |  with zoom controls              |
+|  • Connection     |                                  |
+|    type filters   |  Legend (bottom-left)            |
+|                   |                                  |
+|  Comments (n):    +----------------------------------+
+|  • List of user   |  Prompt output                   |
+|    comments with  |  [ Copy Prompt ]                 |
+|    delete buttons |                                  |
++-------------------+----------------------------------+</div>
+
+        <h3>Connection types</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Type</th><th>Color</th><th>Style</th><th>Use for</th></tr></thead>
+          <tbody>
+            <tr><td>data-flow</td><td style="color:#3b82f6;">Blue #3b82f6</td><td>Solid</td><td>Request/response, data passing</td></tr>
+            <tr><td>tool-call</td><td style="color:#10b981;">Green #10b981</td><td>Dashed (6,3)</td><td>Function calls, API invocations</td></tr>
+            <tr><td>event</td><td style="color:#ef4444;">Red #ef4444</td><td>Short dash (4,4)</td><td>Async events, pub/sub</td></tr>
+            <tr><td>skill-invoke</td><td style="color:#f97316;">Orange #f97316</td><td>Long dash (8,4)</td><td>Plugin / skill activation</td></tr>
+            <tr><td>dependency</td><td style="color:#6b7280;">Gray #6b7280</td><td>Dotted</td><td>Import / require relationships</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Layer color palette</h3>
+        <table class="ctrl-table">
+          <thead><tr><th>Layer</th><th>Node fill</th></tr></thead>
+          <tbody>
+            <tr><td>Client / UI</td><td style="background:#dbeafe;padding:4px 10px;border-radius:4px;display:inline-block;">#dbeafe (blue-100)</td></tr>
+            <tr><td>Server / API</td><td style="background:#fef3c7;padding:4px 10px;border-radius:4px;display:inline-block;">#fef3c7 (amber-100)</td></tr>
+            <tr><td>SDK / Core</td><td style="background:#f3e8ff;padding:4px 10px;border-radius:4px;display:inline-block;">#f3e8ff (purple-100)</td></tr>
+            <tr><td>Agent / Logic</td><td style="background:#dcfce7;padding:4px 10px;border-radius:4px;display:inline-block;">#dcfce7 (green-100)</td></tr>
+            <tr><td>Data</td><td style="background:#fce7f3;padding:4px 10px;border-radius:4px;display:inline-block;">#fce7f3 (pink-100)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Use cases</h3>
+        <div class="chips">
+          <span class="chip">microservices map</span>
+          <span class="chip">React component tree</span>
+          <span class="chip">API architecture</span>
+          <span class="chip">agent system</span>
+          <span class="chip">data pipeline</span>
+          <span class="chip">plugin architecture</span>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── core requirements ── -->
+    <h2 id="requirements">Core requirements</h2>
+    <p>Every playground produced by this skill satisfies all of these, regardless of template:</p>
+    <ul class="req-list">
+      <li><span class="req-icon">①</span><div><b>Single HTML file.</b> Inline all CSS and JS. No external CDN dependencies. If the CDN goes down, your playground should still work.</div></li>
+      <li><span class="req-icon">②</span><div><b>Live preview.</b> Updates instantly on every control change — keypress, slider drag, toggle flip. No "Apply" button. The gap between action and feedback must be zero.</div></li>
+      <li><span class="req-icon">③</span><div><b>Natural-language prompt output.</b> Not a JSON value dump. Only mentions choices that differ from defaults. Uses qualitative language alongside numbers. Includes enough context to act on <em>without</em> seeing the playground.</div></li>
+      <li><span class="req-icon">④</span><div><b>Copy button with "Copied!" feedback.</b> One click to clipboard. Brief flash confirmation so the user knows it worked.</div></li>
+      <li><span class="req-icon">⑤</span><div><b>Sensible defaults + 3–5 named presets.</b> Looks good on first load. Presets snap all controls to a cohesive combination (e.g., "Minimal", "Elevated", "Compact").</div></li>
+      <li><span class="req-icon">⑥</span><div><b>Dark theme, system fonts.</b> System font for UI chrome, monospace for code and values. Minimal chrome that doesn't compete with the preview.</div></li>
+    </ul>
+
+    <!-- ── prompt output pattern ── -->
+    <h2 id="prompt-pattern">The prompt output pattern</h2>
+    <p>This is the most important part to get right. The prompt output is <strong>not a value dump</strong>. It's a natural instruction a developer could act on.</p>
+
+    <div class="tabs" data-tabs="prompt">
+      <div class="tabbar">
+        <button class="on" data-tab="good">✓ Good (natural)</button>
+        <button data-tab="bad">✗ Bad (value dump)</button>
+        <button data-tab="code">Code pattern</button>
+      </div>
+      <div class="panel on" data-panel="good">
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px;">Reads like a direction from a designer to a developer:</p>
+        <div class="tldr" style="border-left-color:var(--olive);margin:0;">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with <code>translateY(-1px)</code> and deepen the shadow slightly. Use the Inter font family."</div>
+        <p style="font-size:13px;color:var(--gray-500);margin-top:10px;">Notice: uses qualitative framing ("soft and elevated"), quantitative specifics only where precise, omits default values (border-color was already correct), includes context to act on alone.</p>
+      </div>
+      <div class="panel" data-panel="bad">
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px;">This is what <strong>not</strong> to produce:</p>
+        <pre style="margin:0;">{ borderRadius: 12, padding: 24, shadow: true,
+  shadowY: 4, shadowBlur: 12, shadowOpacity: 0.1,
+  font: "Inter", hover: true, hoverTranslate: -1,
+  color: "#141413", bg: "#ffffff" }</pre>
+        <p style="font-size:13px;color:#B04A3F;margin-top:10px;">Unusable without the playground. Includes defaults. No qualitative context. Can't be acted on as a Claude prompt.</p>
+      </div>
+      <div class="panel" data-panel="code">
+        <pre><span class="cm">// Keep a DEFAULTS object — only emit lines that differ</span>
+<span class="kw">const</span> DEFAULTS = { borderRadius: <span class="nm">4</span>, padding: <span class="nm">16</span>,
+                    shadowBlur: <span class="nm">0</span>, font: <span class="st">'system-ui'</span> };
+
+<span class="kw">function</span> <span class="fn">updatePrompt</span>() {
+  <span class="kw">const</span> parts = [];
+
+  <span class="cm">// Only mention non-default values</span>
+  <span class="kw">if</span> (state.borderRadius !== DEFAULTS.borderRadius)
+    parts.push(<span class="st">`</span><span class="nm">${state.borderRadius}</span><span class="st">px border-radius`</span>);
+
+  <span class="cm">// Use qualitative language alongside numbers</span>
+  <span class="kw">if</span> (state.shadowBlur > <span class="nm">16</span>)  parts.push(<span class="st">'a pronounced shadow'</span>);
+  <span class="kw">else if</span> (state.shadowBlur > <span class="nm">0</span>) parts.push(<span class="st">'a subtle shadow'</span>);
+
+  <span class="kw">if</span> (state.font !== DEFAULTS.font)
+    parts.push(<span class="st">`the </span><span class="nm">${state.font}</span><span class="st"> font family`</span>);
+
+  <span class="cm">// Write as direction, not spec sheet</span>
+  prompt.textContent = parts.length
+    ? <span class="st">`Update the card to use </span><span class="nm">${parts.join(<span class="st">', '</span>)}</span><span class="st">.`</span>
+    : <span class="st">'(using all defaults — adjust controls to build a prompt)'</span>;
+}</pre>
+      </div>
+    </div>
+
+    <!-- ── state management ── -->
+    <h2 id="state">State management pattern</h2>
+    <p>Every playground uses a single state object. Every control writes to it. Every render reads from it. No scattered variables.</p>
+
+    <pre><span class="cm">// Single source of truth</span>
+<span class="kw">const</span> state = {
+  borderRadius: <span class="nm">4</span>,
+  padding: <span class="nm">16</span>,
+  shadowBlur: <span class="nm">0</span>,
+  font: <span class="st">'system-ui'</span>,
+  preset: <span class="st">'default'</span>
+};
+
+<span class="cm">// One function that does both — called after every control change</span>
+<span class="kw">function</span> <span class="fn">updateAll</span>() {
+  <span class="fn">renderPreview</span>(); <span class="cm">// update the visual</span>
+  <span class="fn">updatePrompt</span>();  <span class="cm">// rebuild the prompt text</span>
+}
+
+<span class="cm">// Every control calls updateAll() on change</span>
+slider.addEventListener(<span class="st">'input'</span>, () => {
+  state.borderRadius = +slider.value;
+  <span class="fn">updateAll</span>();
+});
+
+<span class="cm">// Presets snap all controls at once</span>
+<span class="kw">const</span> PRESETS = {
+  minimal:  { borderRadius: <span class="nm">2</span>,  padding: <span class="nm">12</span>, shadowBlur: <span class="nm">0</span>  },
+  elevated: { borderRadius: <span class="nm">12</span>, padding: <span class="nm">24</span>, shadowBlur: <span class="nm">12</span> },
+  compact:  { borderRadius: <span class="nm">4</span>,  padding: <span class="nm">8</span>,  shadowBlur: <span class="nm">4</span>  },
+};
+
+<span class="kw">function</span> <span class="fn">applyPreset</span>(name) {
+  Object.assign(state, PRESETS[name]);
+  <span class="fn">syncControlsToState</span>(); <span class="cm">// update slider/toggle DOM to match</span>
+  <span class="fn">updateAll</span>();
+}</pre>
+
+    <div class="callout tip">
+      <span class="ico">★</span>
+      <div>Always call <code>updateAll()</code> on initial load with defaults — never start with a blank or broken preview. The user should see a polished result before touching anything.</div>
+    </div>
+
+    <!-- ── how to trigger ── -->
+    <h2 id="trigger">How to trigger <code>/playground</code></h2>
+    <p>Just describe what you want to explore. Claude picks the template, builds all controls, wires up live preview and prompt output, then opens the file in your browser.</p>
+
+    <div class="prompt-card">
+      <span class="badge">design-playground</span>
+      "Make me a playground for exploring button styles — radius, padding, shadow, hover effects"
+    </div>
+    <div class="prompt-card">
+      <span class="badge">data-explorer</span>
+      "Create a SQL query builder playground for my users, orders, and products tables"
+    </div>
+    <div class="prompt-card">
+      <span class="badge">concept-map</span>
+      "Build an interactive concept map for learning React hooks — pre-populate with all the main hooks"
+    </div>
+    <div class="prompt-card">
+      <span class="badge">diff-review</span>
+      "Make a diff reviewer playground for this commit: [paste git diff output]"
+    </div>
+    <div class="prompt-card">
+      <span class="badge">document-critique</span>
+      "Create a playground to critique my README — analyze it and generate suggestions I can approve/reject"
+    </div>
+    <div class="prompt-card">
+      <span class="badge">code-map</span>
+      "Build an architecture map playground for my codebase — map out the components and their connections"
+    </div>
+
+    <div class="callout olive">
+      <span class="ico">↗</span>
+      <div>For <strong>diff-review</strong> and <strong>code-map</strong>, paste real data (git diff output, or a file list with your codebase structure) when triggering — this lets Claude pre-populate with actual content instead of placeholder data.</div>
+    </div>
+
+    <!-- ── common mistakes ── -->
+    <h2 id="mistakes">Common mistakes to avoid</h2>
+
+    <table class="mistakes">
+      <thead><tr><th>Mistake</th><th>Problem</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="bad">Prompt is a value dump</td>
+          <td>JSON object of all current state values</td>
+          <td class="fix">Write as natural instruction. Only non-defaults. Qualitative framing.</td>
+        </tr>
+        <tr>
+          <td class="bad">Too many controls at once</td>
+          <td>Overwhelming; user doesn't know where to start</td>
+          <td class="fix">Group by concern (spacing / color / typography). Hide advanced options in a collapsible section.</td>
+        </tr>
+        <tr>
+          <td class="bad">Preview doesn't update instantly</td>
+          <td>Added an "Apply" button or debounce delay</td>
+          <td class="fix">Every control <code>change</code>/<code>input</code> event must call <code>updateAll()</code> immediately.</td>
+        </tr>
+        <tr>
+          <td class="bad">No defaults or presets</td>
+          <td>Starts blank or broken on load</td>
+          <td class="fix">Set sensible defaults in <code>state</code>. Call <code>updateAll()</code> on page load. Add 3–5 presets.</td>
+        </tr>
+        <tr>
+          <td class="bad">External dependencies</td>
+          <td>CDN request, npm package, iframe to external URL</td>
+          <td class="fix">Inline everything. If CDN goes down, playground must still work.</td>
+        </tr>
+        <tr>
+          <td class="bad">Prompt lacks context</td>
+          <td>Output only makes sense while looking at the playground</td>
+          <td class="fix">Include entity names, schema context, or qualitative framing so prompt is actionable standalone.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <span class="ico">!</span>
+      <div>The most common failure mode: <strong>prompt output as a value dump</strong>. Test your playground by covering the controls and reading only the prompt output — if it's not a clear, actionable instruction on its own, rewrite <code>updatePrompt()</code>.</div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── Tabs ──────────────────────────────────────────────────────
+document.querySelectorAll('[data-tabs]').forEach(container => {
+  const id = container.dataset.tabs;
+  const btns = container.querySelectorAll('.tabbar button');
+  const panels = container.querySelectorAll('.panel');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.tab;
+      btns.forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+      panels.forEach(p => p.classList.toggle('on', p.dataset.panel === t));
+    });
+  });
+});
+
+// ── Nav file links → scroll + open details ────────────────────
+document.querySelectorAll('nav .files code[data-href]').forEach(el => {
+  el.addEventListener('click', () => {
+    const target = document.querySelector(el.dataset.href);
+    if (!target) return;
+    // Open if it's a details element
+    if (target.tagName === 'DETAILS') target.open = true;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ── Nav anchor links → open matching details ──────────────────
+document.querySelectorAll('nav a[href]').forEach(link => {
+  link.addEventListener('click', () => {
+    const id = link.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') target.open = true;
+  });
+});
+</script>
+</body>
+</html>
