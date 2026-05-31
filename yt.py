@@ -201,6 +201,7 @@ def generate_feeds(music_output, youtube_output):
 
     today = date_cls.today()
     today_str = today.isoformat()
+    rng = random.Random(today_str)
 
     # canonical pools
     music_pool = [
@@ -246,8 +247,8 @@ def generate_feeds(music_output, youtube_output):
     ] or youtube_unseen
 
     # feature 1 of each independently
-    featured_music = random.sample(music_eligible, 1) if music_eligible else []
-    featured_youtube = random.sample(youtube_eligible, 1) if youtube_eligible else []
+    featured_music = rng.sample(music_eligible, 1) if music_eligible else []
+    featured_youtube = rng.sample(youtube_eligible, 1) if youtube_eligible else []
 
     # persist seen-state
     for v in featured_music:
@@ -275,20 +276,110 @@ def generate_feeds(music_output, youtube_output):
             transform_video(v, today_str, last_featured_at=today_str)
         )
 
-    # backfill each feed independently: yesterday, yesterday-1, yesterday-2, ...
-    # this also corrects any existing future-date corruption
-    def backfill(feed):
-        historical = [it for it in feed if it.get("date") != today_str]
-        random.shuffle(historical)
-        for i, it in enumerate(historical):
-            it["date"] = (today - timedelta(days=i + 1)).isoformat()
+    # build one historical timeline containing both feeds
 
-    backfill(music_final)
-    backfill(youtube_final)
+    music_historical = [
+        it for it in music_final
+        if it.get("date") != today_str
+    ]
+
+    youtube_historical = [
+        it for it in youtube_final
+        if it.get("date") != today_str
+    ]
+
+    rng.shuffle(music_historical)
+    rng.shuffle(youtube_historical)
+
+
+    def build_historical_timeline(
+        music_items,
+        youtube_items
+    ):
+        timeline = []
+
+        music_items = music_items[:]
+        youtube_items = youtube_items[:]
+
+        music_remaining = len(music_items)
+        youtube_remaining = len(youtube_items)
+
+        while music_items or youtube_items:
+
+            if not music_items:
+                timeline.append(
+                    ("yt", youtube_items.pop())
+                )
+                youtube_remaining -= 1
+                continue
+
+            if not youtube_items:
+                timeline.append(
+                    ("mu", music_items.pop())
+                )
+                music_remaining -= 1
+                continue
+
+            total = (
+                music_remaining +
+                youtube_remaining
+            )
+
+            choose_music = (
+                rng.random()
+                < (music_remaining / total)
+            )
+
+            if choose_music:
+                timeline.append(
+                    ("mu", music_items.pop())
+                )
+                music_remaining -= 1
+            else:
+                timeline.append(
+                    ("yt", youtube_items.pop())
+                )
+                youtube_remaining -= 1
+
+        return timeline
+
+
+    historical = build_historical_timeline(
+        music_historical,
+        youtube_historical
+    )
+
+    music_final = [
+    item for item in music_final
+    if item.get("date") == today_str
+    ]
+
+    youtube_final = [
+        item for item in youtube_final
+        if item.get("date") == today_str
+    ]
+
+    for i, (feed_type, item) in enumerate(historical):
+
+        item["date"] = (
+            today - timedelta(days=i + 1)
+        ).isoformat()
+
+        if feed_type == "mu":
+            music_final.append(item)
+        else:
+            youtube_final.append(item)
 
     # sort newest first
-    music_final.sort(key=lambda x: x.get("date", ""), reverse=True)
-    youtube_final.sort(key=lambda x: x.get("date", ""), reverse=True)
+    music_final.sort(
+        key=lambda x: x.get("date", ""),
+        reverse=True
+    )
+
+    youtube_final.sort(
+        key=lambda x: x.get("date", ""),
+        reverse=True
+    )
 
     # save
     atomic_save_json(music_output, music_final)
