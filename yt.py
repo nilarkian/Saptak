@@ -181,7 +181,9 @@ def transform_video(v, date_value, last_featured_at=None):
     result = {
         "date": date_value,
         "url": f"https://youtu.be/{v['id']}",
-        "desc": ""
+        "title": v.get("title", ""),
+        "tags": v.get("auto_tags", []),
+        "desc": "",
     }
 
     if last_featured_at:
@@ -189,46 +191,16 @@ def transform_video(v, date_value, last_featured_at=None):
 
     return result
 
-# ---------- dynamic music feed generator ----------
+# ---------- dynamic feed generator ----------
 
-def calculate_start_date(youtube_count, music_count, today):
-    """Calculate start date to spread items at ≤1 per day.
-
-    Spreads youtube_count + music_count items across equal number of days,
-    ensuring balanced distribution over time.
-
-    Args:
-        youtube_count: Number of unseen youtube videos
-        music_count: Number of unseen music videos
-        today: date object for current day
-
-    Returns:
-        ISO format date string for start_date
-    """
-    total_items = youtube_count + music_count
-    if total_items == 0:
-        return today.isoformat()
-
-    start_date = today - timedelta(days=total_items)
-    return start_date.isoformat()
-
-
-
-def generate_feeds(
-    music_output,
-    youtube_output,
-    start_date_str
-):
-    """Generate both music and youtube feeds with mixed distributions."""
+def generate_feeds(music_output, youtube_output):
+    """Generate music and youtube feeds as two independent backward-filled timelines."""
     source = load_json("_data/all-yt.json")
     music_existing = load_json(music_output)
     youtube_existing = load_json(youtube_output)
 
     today = date_cls.today()
     today_str = today.isoformat()
-
-    start_date = date_cls.fromisoformat(start_date_str)
-    historical_limit = today - timedelta(days=1)
 
     # canonical pools
     music_pool = [
@@ -251,9 +223,7 @@ def generate_feeds(
     ]
 
     # avoid yesterday's repeats
-    yesterday_str = (
-        today - timedelta(days=1)
-    ).isoformat()
+    yesterday_str = (today - timedelta(days=1)).isoformat()
 
     music_yesterday = {
         item["url"]
@@ -275,17 +245,9 @@ def generate_feeds(
         if f"https://youtu.be/{v['id']}" not in youtube_yesterday
     ] or youtube_unseen
 
-    # pick distribution: 1M0V or 0M1V to enforce ≤1 item per day
-    distributions = [(1, 0), (0, 1)]
-    music_count, video_count = random.choice(distributions)
-
-    # cap by pool size
-    music_count = min(music_count, len(music_eligible))
-    video_count = min(video_count, len(youtube_eligible))
-
-    # sample
-    featured_music = random.sample(music_eligible, music_count) if music_count > 0 else []
-    featured_youtube = random.sample(youtube_eligible, video_count) if video_count > 0 else []
+    # feature 1 of each independently
+    featured_music = random.sample(music_eligible, 1) if music_eligible else []
+    featured_youtube = random.sample(youtube_eligible, 1) if youtube_eligible else []
 
     # persist seen-state
     for v in featured_music:
@@ -313,33 +275,16 @@ def generate_feeds(
             transform_video(v, today_str, last_featured_at=today_str)
         )
 
-    # reshuffle historical: unified shuffle across both feeds to enforce ≤1 item per day
-    def shuffle_historical_unified(music_feed, youtube_feed):
-        total_days = (historical_limit - start_date).days
-        if total_days > 0:
-            # collect all historical items from both feeds
-            music_historical = [
-                item for item in music_feed
-                if item.get("date")
-                and date_cls.fromisoformat(item["date"][:10]) < today
-            ]
-            youtube_historical = [
-                item for item in youtube_feed
-                if item.get("date")
-                and date_cls.fromisoformat(item["date"][:10]) < today
-            ]
+    # backfill each feed independently: yesterday, yesterday-1, yesterday-2, ...
+    # this also corrects any existing future-date corruption
+    def backfill(feed):
+        historical = [it for it in feed if it.get("date") != today_str]
+        random.shuffle(historical)
+        for i, it in enumerate(historical):
+            it["date"] = (today - timedelta(days=i + 1)).isoformat()
 
-            # combine and shuffle
-            all_historical = music_historical + youtube_historical
-            random.shuffle(all_historical)
-
-            # assign dates: each item gets a unique date slot
-            n = len(all_historical)
-            for i, item in enumerate(all_historical):
-                days_offset = int(i * total_days / n) if n > 1 else 0
-                item["date"] = (start_date + timedelta(days=days_offset)).isoformat()
-
-    shuffle_historical_unified(music_final, youtube_final)
+    backfill(music_final)
+    backfill(youtube_final)
 
     # sort newest first
     music_final.sort(key=lambda x: x.get("date", ""), reverse=True)
@@ -495,31 +440,9 @@ def main():
 
     print(f"\nDone. Total unique videos: {len(final)}")
 
-    # Calculate dynamic start date based on unseen items
-    today = date_cls.today()
-    youtube_unseen_count = sum(
-        1 for v in final
-        if "yt" in v.get("source_playlists", []) and not v.get("yt_seen", False)
-    )
-    music_unseen_count = sum(
-        1 for v in final
-        if "mu" in v.get("source_playlists", []) and not v.get("music_seen", False)
-    )
-    start_date_str = calculate_start_date(
-        youtube_unseen_count,
-        music_unseen_count,
-        today
-    )
-
-    print(
-        f"Feed generation: {youtube_unseen_count} unseen youtube, "
-        f"{music_unseen_count} unseen music → start_date={start_date_str}"
-    )
-
     generate_feeds(
         "_data/inspo/music.json",
         "_data/inspo/youtube.json",
-        start_date_str
     )
 
 if __name__ == "__main__":
