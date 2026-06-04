@@ -280,9 +280,19 @@ def generate_feeds(music_output, youtube_output):
         )
 
     for v in featured_youtube:
-        youtube_final.append(
-            transform_video(v, today_str, last_featured_at=today_str)
+        url = f"https://youtu.be/{v['id']}"
+        # if video already has a historical entry, update it in-place (avoid duplicate)
+        existing_idx = next(
+            (i for i, it in enumerate(youtube_final) if it.get("url") == url),
+            None
         )
+        if existing_idx is not None:
+            youtube_final[existing_idx]["date"] = today_str
+            youtube_final[existing_idx]["last_featured_at"] = today_str
+        else:
+            youtube_final.append(
+                transform_video(v, today_str, last_featured_at=today_str)
+            )
 
     # build one historical timeline containing both feeds
 
