@@ -1,32 +1,46 @@
+---
+layout: blank
+permalink: /notes/21-playground/
+title: "The /playground Skill"
+date: 2026-01-01
+is_note: true
+tags: [learning, tools]
+---
 <!-- Copyright 2026 Anthropic PBC · SPDX-License-Identifier: Apache-2.0 -->
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <title>The /playground skill — an interactive explainer</title>
 <style>
   :root {
-    --ivory:   #FAF9F5;
-    --slate:   #141413;
-    --clay:    #D97757;
-    --oat:     #E3DACC;
-    --olive:   #788C5D;
-    --sky:     #6A8CAF;
-    --gray-150:#F0EEE6;
-    --gray-300:#D1CFC5;
-    --gray-500:#87867F;
-    --gray-700:#3D3D3A;
-    --serif: ui-serif, Georgia, "Times New Roman", serif;
-    --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --paper:     #f7f4ee;
+    --paper-alt: #edeae0;
+    --paper-dark:#e4e0d4;
+    --ink:       #1c1a14;
+    --ink-soft:  #3d3a2e;
+    --muted:     #7a7460;
+    --border:    #ccc9b8;
+    --amber:     #c8860a;
+    --amber-lt:  #fef3dc;
+    --amber-mid: #fde8a8;
+    --red:       #b83c2a;
+    --red-lt:    #fdf0ee;
+    --green:     #2a6639;
+    --green-lt:  #eaf4ed;
+    --blue:      #1e4478;
+    --blue-lt:   #e8eef8;
+    --chalk:     #ffffff;
+    --board:     #1a1f1c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--ivory);
-    color: var(--gray-700);
-    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
@@ -48,98 +62,110 @@
     align-self: start;
     font-size: 13px;
   }
-  nav .label {
-    font-family: var(--mono);
+  nav .back-link {
+    display: block;
+    padding: 0 0 14px 0;
+    border-left: none;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gray-500);
+    transition: color 100ms;
+  }
+  nav .back-link:hover { color: var(--amber); border-color: transparent; }
+  nav .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
     margin-bottom: 12px;
   }
   nav a {
     display: block;
     padding: 5px 0 5px 12px;
-    border-left: 2px solid var(--gray-300);
-    color: var(--gray-700);
+    border-left: 2px solid var(--border);
+    color: var(--ink-soft);
     text-decoration: none;
     transition: color 100ms, border-color 100ms;
   }
-  nav a:hover { color: var(--slate); border-color: var(--slate); }
-  nav a.l2 { padding-left: 24px; font-size: 12px; color: var(--gray-500); }
-  nav a.l2:hover { color: var(--slate); }
+  nav a:hover { color: var(--ink); border-color: var(--ink); }
+  nav a.l2 { padding-left: 24px; font-size: 12px; color: var(--muted); }
+  nav a.l2:hover { color: var(--ink); }
   nav .files {
     margin-top: 28px;
-    border-top: 1px solid var(--gray-300);
+    border-top: 1px solid var(--border);
     padding-top: 16px;
   }
   nav .files code {
     display: block;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
-    color: var(--gray-500);
+    color: var(--muted);
     padding: 3px 0;
     cursor: pointer;
     transition: color 100ms;
   }
-  nav .files code:hover { color: var(--clay); }
+  nav .files code:hover { color: var(--amber); }
 
   /* ── header ── */
   .eyebrow {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--gray-500);
+    color: var(--muted);
     margin-bottom: 10px;
   }
   h1 {
-    font-family: var(--serif);
+    font-family: 'Lora', serif;
     font-weight: 500;
     font-size: 32px;
-    color: var(--slate);
+    color: var(--ink);
     letter-spacing: -0.01em;
     margin-bottom: 14px;
   }
   h2 {
-    font-family: var(--serif);
+    font-family: 'Lora', serif;
     font-weight: 500;
     font-size: 22px;
-    color: var(--slate);
+    color: var(--ink);
     margin: 44px 0 14px;
     scroll-margin-top: 24px;
   }
   h3 {
-    font-family: var(--sans);
+    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: 14px;
-    color: var(--slate);
+    color: var(--ink);
     margin: 20px 0 8px;
   }
   p { margin-bottom: 12px; max-width: 680px; }
-  code { font-family: var(--mono); font-size: 13px; }
-  strong { color: var(--slate); }
+  code { font-family: 'DM Mono', monospace; font-size: 13px; }
+  strong { color: var(--ink); }
 
   /* ── tldr ── */
   .tldr {
-    border: 1.5px solid var(--gray-300);
-    border-left: 3px solid var(--clay);
-    border-radius: 10px;
-    background: #fff;
+    border: 1.5px solid var(--amber-mid);
+    border-radius: 6px;
+    background: var(--amber-lt);
     padding: 16px 18px;
     margin-bottom: 8px;
     max-width: 680px;
   }
-  .tldr b { color: var(--slate); }
+  .tldr b { color: var(--ink); }
 
   /* ── 3-zone diagram ── */
   .zone-diagram {
-    border: 1.5px solid var(--gray-300);
+    border: 1.5px solid var(--border);
     border-radius: 12px;
     background: #fff;
     padding: 20px;
     margin: 16px 0;
     max-width: 640px;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
   }
   .zone-grid {
@@ -149,17 +175,17 @@
     gap: 8px;
   }
   .zone {
-    border: 1.5px solid var(--gray-300);
+    border: 1.5px solid var(--border);
     border-radius: 8px;
     padding: 12px 14px;
-    background: var(--gray-150);
+    background: var(--paper-alt);
   }
-  .zone.controls { border-color: var(--sky); background: rgba(106,140,175,0.08); }
-  .zone.preview  { border-color: var(--olive); background: rgba(120,140,93,0.08); }
+  .zone.controls { border-color: var(--blue); background: rgba(30,68,120,0.07); }
+  .zone.preview  { border-color: var(--green); background: rgba(42,102,57,0.07); }
   .zone.prompt   {
     grid-column: 1 / -1;
-    border-color: var(--clay);
-    background: rgba(217,119,87,0.08);
+    border-color: var(--amber);
+    background: rgba(200,134,10,0.07);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -172,12 +198,12 @@
     margin-bottom: 4px;
     font-weight: 600;
   }
-  .zone.controls .zone-label { color: var(--sky); }
-  .zone.preview .zone-label { color: var(--olive); }
-  .zone.prompt .zone-label  { color: var(--clay); }
-  .zone-desc { color: var(--gray-700); font-size: 12px; line-height: 1.5; }
+  .zone.controls .zone-label { color: var(--blue); }
+  .zone.preview .zone-label { color: var(--green); }
+  .zone.prompt .zone-label  { color: var(--amber); }
+  .zone-desc { color: var(--ink-soft); font-size: 12px; line-height: 1.5; }
   .copy-badge {
-    background: var(--clay);
+    background: var(--amber);
     color: #fff;
     font-size: 11px;
     padding: 4px 10px;
@@ -193,21 +219,21 @@
     gap: 6px;
     margin: 12px 0;
     font-size: 12.5px;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     flex-wrap: wrap;
   }
   .loop-step {
-    background: var(--gray-150);
-    border: 1px solid var(--gray-300);
+    background: var(--paper-alt);
+    border: 1px solid var(--border);
     border-radius: 5px;
     padding: 4px 10px;
-    color: var(--slate);
+    color: var(--ink);
   }
-  .loop-arrow { color: var(--clay); font-size: 14px; }
+  .loop-arrow { color: var(--amber); font-size: 14px; }
 
   /* ── collapsible templates ── */
   details {
-    border: 1.5px solid var(--gray-300);
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     background: #fff;
     margin: 12px 0;
@@ -225,24 +251,24 @@
   }
   summary::-webkit-details-marker { display: none; }
   summary .arrow {
-    color: var(--clay);
-    font-family: var(--sans);
+    color: var(--amber);
+    font-family: 'DM Sans', sans-serif;
     font-size: 12px;
     transition: transform 140ms;
     flex-shrink: 0;
   }
   details[open] summary .arrow { transform: rotate(90deg); }
   summary .t-name {
-    font-family: var(--serif);
+    font-family: 'Lora', serif;
     font-size: 16px;
-    color: var(--slate);
+    color: var(--ink);
     flex: 1;
   }
   summary .t-tag {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
-    color: var(--gray-500);
-    border: 1px solid var(--gray-300);
+    color: var(--muted);
+    border: 1px solid var(--border);
     border-radius: 4px;
     padding: 2px 7px;
   }
@@ -251,17 +277,17 @@
 
   /* ── ascii layout ── */
   .ascii {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 11.5px;
     line-height: 1.5;
-    background: var(--gray-150);
-    border: 1px solid var(--gray-300);
+    background: var(--paper-alt);
+    border: 1px solid var(--border);
     border-radius: 7px;
     padding: 12px 14px;
     margin: 12px 0;
     white-space: pre;
     overflow-x: auto;
-    color: var(--gray-700);
+    color: var(--ink-soft);
   }
 
   /* ── control type table ── */
@@ -271,45 +297,45 @@
     border-spacing: 0;
     font-size: 13px;
     margin: 10px 0;
-    border: 1px solid var(--gray-300);
+    border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
   }
   .ctrl-table th {
-    background: var(--gray-150);
-    font-family: var(--mono);
+    background: var(--paper-alt);
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--gray-500);
+    color: var(--muted);
     font-weight: 500;
     padding: 9px 12px;
     text-align: left;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--border);
   }
   .ctrl-table td {
     padding: 9px 12px;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--border);
     vertical-align: top;
   }
   .ctrl-table tr:last-child td { border-bottom: none; }
-  .ctrl-table td:first-child { color: var(--slate); font-weight: 500; }
+  .ctrl-table td:first-child { color: var(--ink); font-weight: 500; }
 
   /* ── use-case chips ── */
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
   .chip {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
-    background: var(--gray-150);
-    border: 1px solid var(--gray-300);
+    background: var(--paper-alt);
+    border: 1px solid var(--border);
     border-radius: 4px;
     padding: 3px 9px;
-    color: var(--slate);
+    color: var(--ink);
   }
 
   /* ── tabs ── */
   .tabs {
-    border: 1.5px solid var(--gray-300);
+    border: 1.5px solid var(--border);
     border-radius: 10px;
     background: #fff;
     margin: 16px 0 8px;
@@ -318,25 +344,25 @@
   }
   .tabbar {
     display: flex;
-    border-bottom: 1px solid var(--gray-300);
-    background: var(--gray-150);
+    border-bottom: 1px solid var(--border);
+    background: var(--paper-alt);
   }
   .tabbar button {
     appearance: none;
     border: none;
     background: none;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
-    color: var(--gray-500);
+    color: var(--muted);
     padding: 10px 16px;
     cursor: pointer;
-    border-right: 1px solid var(--gray-300);
+    border-right: 1px solid var(--border);
     transition: background 100ms, color 100ms;
   }
   .tabbar button.on {
     background: #fff;
-    color: var(--slate);
-    border-bottom: 2px solid var(--clay);
+    color: var(--ink);
+    border-bottom: 2px solid var(--amber);
     margin-bottom: -1px;
   }
   .tabs .panel { display: none; padding: 16px 18px; }
@@ -344,11 +370,11 @@
 
   /* ── code blocks ── */
   pre {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 12.5px;
     line-height: 1.65;
-    background: var(--slate);
-    color: #E3DACC;
+    background: var(--ink);
+    color: var(--paper);
     padding: 16px 18px;
     border-radius: 8px;
     overflow-x: auto;
@@ -364,18 +390,18 @@
   .callout {
     display: flex;
     gap: 12px;
-    border: 1.5px solid var(--oat);
-    background: rgba(227,218,204,0.35);
+    border: 1.5px solid var(--border);
+    background: var(--paper-alt);
     border-radius: 10px;
     padding: 14px 16px;
     margin: 16px 0;
     font-size: 14px;
     max-width: 680px;
   }
-  .callout.tip .ico { color: var(--clay); font-weight: 700; font-size: 15px; }
-  .callout.warn .ico { color: #B04A3F; font-weight: 700; font-size: 15px; }
-  .callout.olive { border-color: rgba(120,140,93,0.4); background: rgba(120,140,93,0.08); }
-  .callout.olive .ico { color: var(--olive); font-weight: 700; font-size: 15px; }
+  .callout.tip .ico { color: var(--amber); font-weight: 700; font-size: 15px; }
+  .callout.warn .ico { color: var(--red); font-weight: 700; font-size: 15px; }
+  .callout.olive { border-color: rgba(42,102,57,0.4); background: rgba(42,102,57,0.07); }
+  .callout.olive .ico { color: var(--green); font-weight: 700; font-size: 15px; }
 
   /* ── mistakes table ── */
   .mistakes {
@@ -385,51 +411,50 @@
     font-size: 13.5px;
     margin: 12px 0;
     max-width: 680px;
-    border: 1px solid var(--gray-300);
+    border: 1px solid var(--border);
     border-radius: 10px;
     overflow: hidden;
   }
   .mistakes th {
-    background: var(--gray-150);
-    font-family: var(--mono);
+    background: var(--paper-alt);
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--gray-500);
+    color: var(--muted);
     font-weight: 500;
     padding: 10px 14px;
     text-align: left;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--border);
   }
   .mistakes td {
     padding: 11px 14px;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--border);
     vertical-align: top;
     line-height: 1.5;
   }
   .mistakes tr:last-child td { border-bottom: none; }
-  .mistakes td.bad { color: #B04A3F; font-weight: 500; }
-  .mistakes td.fix { color: var(--olive); }
-  .mistakes td code { background: var(--gray-150); padding: 1px 5px; border-radius: 3px; }
+  .mistakes td.bad { color: var(--red); font-weight: 500; }
+  .mistakes td.fix { color: var(--green); }
+  .mistakes td code { background: var(--paper-alt); padding: 1px 5px; border-radius: 3px; }
 
   /* ── trigger prompts ── */
   .prompt-card {
-    border: 1.5px solid var(--gray-300);
-    border-left: 3px solid var(--sky);
-    border-radius: 8px;
-    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: var(--chalk);
     padding: 12px 14px;
     margin: 8px 0;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 13px;
-    color: var(--slate);
+    color: var(--ink);
     max-width: 680px;
   }
   .prompt-card .badge {
     font-size: 10px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--sky);
+    color: var(--blue);
     margin-bottom: 4px;
     display: block;
   }
@@ -441,39 +466,39 @@
     gap: 10px;
     align-items: baseline;
     padding: 9px 0;
-    border-bottom: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--border);
     font-size: 14px;
   }
   .req-list li:last-child { border-bottom: none; }
   .req-list .req-icon {
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
-    color: var(--clay);
+    color: var(--amber);
     flex-shrink: 0;
     width: 16px;
   }
-  .req-list b { color: var(--slate); }
+  .req-list b { color: var(--ink); }
 
   /* ── state diagram inline ── */
   .state-diagram {
-    background: var(--gray-150);
-    border: 1px solid var(--gray-300);
+    background: var(--paper-alt);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 14px 16px;
     margin: 12px 0;
-    font-family: var(--mono);
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     max-width: 540px;
   }
   .state-diagram .row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
   .state-diagram .box {
     background: #fff;
-    border: 1px solid var(--gray-300);
+    border: 1px solid var(--border);
     border-radius: 5px;
     padding: 4px 10px;
-    color: var(--slate);
+    color: var(--ink);
   }
-  .state-diagram .arrow { color: var(--clay); }
+  .state-diagram .arrow { color: var(--amber); }
 </style>
 </head>
 <body>
@@ -481,6 +506,7 @@
 
   <!-- ── side nav ── -->
   <nav>
+    <a href="{{ '/notes.html' | relative_url }}" class="back-link">← Notes</a>
     <div class="label">On this page</div>
     <a href="#what">What is /playground?</a>
     <a href="#loop">The loop</a>
@@ -523,7 +549,7 @@
 
     <!-- ── 3-zone diagram ── -->
     <div class="zone-diagram">
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-500);margin-bottom:12px;">Every playground has these three zones</div>
+      <div style="font-family:'DM Mono', monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Every playground has these three zones</div>
       <div class="zone-grid">
         <div class="zone controls">
           <div class="zone-label">Controls</div>
@@ -607,8 +633,8 @@
         </table>
 
         <h3>Example prompt output</h3>
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:6px;">Written as a direction to a developer, not a spec sheet:</p>
-        <div class="tldr" style="margin:0;border-left-color:var(--olive);">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with translateY(-1px) and deepen the shadow slightly."</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">Written as a direction to a developer, not a spec sheet:</p>
+        <div class="tldr" style="margin:0;">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with translateY(-1px) and deepen the shadow slightly."</div>
 
         <h3>Use cases</h3>
         <div class="chips">
@@ -664,7 +690,7 @@
         <p style="font-size:13px;">Syntax-highlighted output using <code>&lt;span&gt;</code> tags with color classes for keywords, table names, strings. Or a horizontal/vertical flow diagram with arrow connectors for pipeline-style playgrounds.</p>
 
         <h3>Example prompt output</h3>
-        <div class="tldr" style="margin:8px 0;border-left-color:var(--olive);">"Write a SQL query that joins <code>orders</code> to <code>users</code> on <code>user_id</code>, filters for orders after 2024-01-01 with total &gt; $50, groups by user, and returns the top 10 users by order count."</div>
+        <div class="tldr" style="margin:8px 0;">"Write a SQL query that joins <code>orders</code> to <code>users</code> on <code>user_id</code>, filters for orders after 2024-01-01 with total &gt; $50, groups by user, and returns the top 10 users by order count."</div>
 
         <h3>Use cases</h3>
         <div class="chips">
@@ -717,7 +743,7 @@
         </div>
 
         <h3>Example prompt output</h3>
-        <div class="tldr" style="margin:8px 0;border-left-color:var(--olive);">"I'm learning React. I already understand: useState, useEffect. I'm fuzzy on: useContext, useReducer. I have no idea about: useMemo, useCallback. Explain the fuzzy and unknown hooks, focusing on these relationships: useReducer → dispatch → state, useContext → Provider → Consumer. Build on what I already know."</div>
+        <div class="tldr" style="margin:8px 0;">"I'm learning React. I already understand: useState, useEffect. I'm fuzzy on: useContext, useReducer. I have no idea about: useMemo, useCallback. Explain the fuzzy and unknown hooks, focusing on these relationships: useReducer → dispatch → state, useContext → Provider → Consumer. Build on what I already know."</div>
 
         <h3>Use cases</h3>
         <div class="chips">
@@ -905,17 +931,17 @@
         <button data-tab="code">Code pattern</button>
       </div>
       <div class="panel on" data-panel="good">
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px;">Reads like a direction from a designer to a developer:</p>
-        <div class="tldr" style="border-left-color:var(--olive);margin:0;">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with <code>translateY(-1px)</code> and deepen the shadow slightly. Use the Inter font family."</div>
-        <p style="font-size:13px;color:var(--gray-500);margin-top:10px;">Notice: uses qualitative framing ("soft and elevated"), quantitative specifics only where precise, omits default values (border-color was already correct), includes context to act on alone.</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">Reads like a direction from a designer to a developer:</p>
+        <div class="tldr" style="margin:0;">"Update the card to feel soft and elevated: 12px border-radius, 24px horizontal padding, a medium box-shadow (0 4px 12px rgba(0,0,0,0.1)). On hover, lift it with <code>translateY(-1px)</code> and deepen the shadow slightly. Use the Inter font family."</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:10px;">Notice: uses qualitative framing ("soft and elevated"), quantitative specifics only where precise, omits default values (border-color was already correct), includes context to act on alone.</p>
       </div>
       <div class="panel" data-panel="bad">
-        <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px;">This is what <strong>not</strong> to produce:</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">This is what <strong>not</strong> to produce:</p>
         <pre style="margin:0;">{ borderRadius: 12, padding: 24, shadow: true,
   shadowY: 4, shadowBlur: 12, shadowOpacity: 0.1,
   font: "Inter", hover: true, hoverTranslate: -1,
   color: "#141413", bg: "#ffffff" }</pre>
-        <p style="font-size:13px;color:#B04A3F;margin-top:10px;">Unusable without the playground. Includes defaults. No qualitative context. Can't be acted on as a Claude prompt.</p>
+        <p style="font-size:13px;color:var(--red);margin-top:10px;">Unusable without the playground. Includes defaults. No qualitative context. Can't be acted on as a Claude prompt.</p>
       </div>
       <div class="panel" data-panel="code">
         <pre><span class="cm">// Keep a DEFAULTS object — only emit lines that differ</span>

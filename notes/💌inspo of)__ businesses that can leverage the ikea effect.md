@@ -12,7 +12,7 @@ topic: Resources
 is_note: true
 is_pinned: true
 layout: pinned-layout
-title: business that can leverage the ikea effect
+title: businesses that can leverage the ikea effect
 blurb: A collection of businesses that have figured out how to leverage the IKEA Effect
 project:
   - "[[notes]]"

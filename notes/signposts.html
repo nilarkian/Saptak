@@ -12,25 +12,27 @@ is_note: true
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to Use Signposts in Your Writing</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1207;
-    --paper: #faf8f3;
-    --paper-alt: #f3f0e8;
-    --accent: #f5b800;
-    --accent-dark: #c9920a;
-    --red: #e03c2f;
-    --green: #2a7a3b;
-    --blue: #1e4fa8;
-    --blue-light: #dce8ff;
-    --yellow-light: #fff8d6;
-    --muted: #7a7060;
-    --border: #d6d0c0;
-    --before-bg: #fff0ee;
-    --after-bg: #edfaf1;
-    --signpost-bg: #fff9e3;
-    --effect-bg: #e8eeff;
+    --paper:     #f7f4ee;
+    --paper-alt: #edeae0;
+    --paper-dark:#e4e0d4;
+    --ink:       #1c1a14;
+    --ink-soft:  #3d3a2e;
+    --muted:     #7a7460;
+    --border:    #ccc9b8;
+    --amber:     #c8860a;
+    --amber-lt:  #fef3dc;
+    --amber-mid: #fde8a8;
+    --red:       #b83c2a;
+    --red-lt:    #fdf0ee;
+    --green:     #2a6639;
+    --green-lt:  #eaf4ed;
+    --blue:      #1e4478;
+    --blue-lt:   #e8eef8;
+    --chalk:     #ffffff;
+    --board:     #1a1f1c;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,9 +47,9 @@ is_note: true
 
   /* ─── HERO ─── */
   .hero {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 80px 40px 60px;
+    background: var(--board);
+    color: var(--chalk);
+    padding: 90px 48px 72px;
     position: relative;
     overflow: hidden;
   }
@@ -57,28 +59,39 @@ is_note: true
     top: -60px; right: -60px;
     width: 320px; height: 320px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--amber);
     opacity: 0.12;
   }
   .hero-label {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--amber);
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-label::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
   }
   .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 6vw, 72px);
-    font-weight: 900;
-    line-height: 1.05;
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 5.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.08;
     max-width: 780px;
     margin-bottom: 28px;
+    letter-spacing: -0.01em;
   }
   .hero h1 em {
-    color: var(--accent);
-    font-style: normal;
+    color: var(--amber);
+    font-style: italic;
   }
   .hero-sub {
     font-size: 18px;
@@ -89,7 +102,7 @@ is_note: true
   }
   .hero-tagline {
     display: inline-block;
-    background: var(--accent);
+    background: var(--amber);
     color: var(--ink);
     font-weight: 600;
     font-size: 13px;
@@ -100,37 +113,41 @@ is_note: true
 
   /* ─── NAV / TOC ─── */
   .toc-bar {
-    background: var(--accent);
-    padding: 0 40px;
+    background: var(--ink);
+    padding: 0 48px;
     display: flex;
     gap: 0;
     overflow-x: auto;
     scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   .toc-bar::-webkit-scrollbar { display: none; }
   .toc-bar a {
     display: block;
-    padding: 14px 20px;
-    font-size: 12px;
+    padding: 13px 18px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--ink);
+    color: rgba(247,244,238,0.55);
     text-decoration: none;
     white-space: nowrap;
-    border-right: 1px solid rgba(0,0,0,0.12);
-    transition: background 0.15s;
+    font-family: 'DM Mono', monospace;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    transition: color 0.15s;
   }
-  .toc-bar a:hover { background: rgba(0,0,0,0.08); }
+  .toc-bar a:hover { color: var(--amber); }
 
   /* ─── LAYOUT ─── */
   .wrapper {
-    max-width: 1000px;
+    max-width: 980px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 48px;
   }
   .section {
-    padding: 60px 0 48px;
+    padding: 64px 0 52px;
     border-bottom: 1px solid var(--border);
   }
   .section:last-child { border-bottom: none; }
@@ -155,7 +172,7 @@ is_note: true
   }
 
   h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: clamp(26px, 4vw, 38px);
     font-weight: 700;
     line-height: 1.15;
@@ -176,13 +193,13 @@ is_note: true
   .lead {
     font-size: 19px;
     line-height: 1.65;
-    color: #3a3228;
+    color: var(--ink-soft);
     margin-bottom: 28px;
     max-width: 720px;
   }
   .lead em {
     font-style: italic;
-    color: var(--accent-dark);
+    color: var(--amber);
   }
 
   /* ─── HIGHLIGHT BOX ─── */
@@ -195,7 +212,7 @@ is_note: true
     font-size: 17px;
     line-height: 1.6;
   }
-  .fire-box strong { color: var(--accent); }
+  .fire-box strong { color: var(--amber); }
 
   /* ─── WHY BULLETS ─── */
   .why-list {
@@ -212,7 +229,7 @@ is_note: true
   }
   .why-list li:first-child { border-top: none; }
   .why-arrow {
-    color: var(--accent-dark);
+    color: var(--amber);
     font-weight: 700;
     font-size: 18px;
     flex-shrink: 0;
@@ -220,13 +237,13 @@ is_note: true
   }
   .bottom-line {
     display: inline-block;
-    background: var(--yellow-light);
-    border-left: 4px solid var(--accent);
+    background: var(--amber-lt);
+    border: 1.5px solid var(--amber-mid);
     padding: 12px 20px;
     margin-top: 16px;
     font-weight: 600;
     font-size: 16px;
-    border-radius: 0 4px 4px 0;
+    border-radius: 6px;
     width: 100%;
   }
 
@@ -246,13 +263,13 @@ is_note: true
     transition: box-shadow 0.2s, border-color 0.2s;
   }
   .core-card:hover {
-    box-shadow: 4px 4px 0 var(--accent);
-    border-color: var(--accent-dark);
+    box-shadow: 4px 4px 0 var(--amber);
+    border-color: var(--amber);
   }
   .core-card-num {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 40px;
-    font-weight: 900;
+    font-weight: 700;
     color: var(--border);
     line-height: 1;
     margin-bottom: 8px;
@@ -287,8 +304,8 @@ is_note: true
   }
   .swipe-tag {
     display: inline-block;
-    background: var(--yellow-light);
-    color: var(--accent-dark);
+    background: var(--amber-lt);
+    color: var(--amber);
     font-size: 11px;
     font-weight: 600;
     padding: 3px 8px;
@@ -325,10 +342,10 @@ is_note: true
   .types-table td code {
     font-family: 'DM Mono', monospace;
     font-size: 12px;
-    background: var(--yellow-light);
+    background: var(--amber-lt);
     padding: 1px 6px;
     border-radius: 2px;
-    color: var(--accent-dark);
+    color: var(--amber);
   }
 
   /* ─── VISUAL SIGNPOSTING IMAGES ─── */
@@ -389,8 +406,8 @@ is_note: true
     text-transform: uppercase;
     font-family: 'DM Mono', monospace;
   }
-  .ba-before .ba-header { background: var(--before-bg); color: var(--red); }
-  .ba-after .ba-header { background: var(--after-bg); color: var(--green); }
+  .ba-before .ba-header { background: var(--red-lt); color: var(--red); }
+  .ba-after .ba-header { background: var(--green-lt); color: var(--green); }
   .ba-body {
     padding: 16px 18px;
     font-size: 15px;
@@ -424,7 +441,7 @@ is_note: true
   }
   .ba-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
   .ba-section h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -433,9 +450,9 @@ is_note: true
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--signpost-bg);
-    border: 1px solid #e0cc80;
-    color: var(--accent-dark);
+    background: var(--amber-lt);
+    border: 1px solid var(--amber-mid);
+    color: var(--amber);
     padding: 4px 12px;
     border-radius: 3px;
     font-size: 12px;
@@ -447,8 +464,8 @@ is_note: true
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--effect-bg);
-    border: 1px solid #b0c4ee;
+    background: var(--blue-lt);
+    border: 1px solid var(--blue-lt);
     color: var(--blue);
     padding: 4px 12px;
     border-radius: 3px;
@@ -475,11 +492,11 @@ is_note: true
     opacity: 0.1;
   }
   .prep-banner h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lora', serif;
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--accent);
+    color: var(--amber);
   }
   .prep-banner p { color: #c8c2b4; font-size: 15px; }
   .prep-table {
@@ -522,7 +539,7 @@ is_note: true
   }
   .swipe-card-header {
     background: var(--ink);
-    color: var(--accent);
+    color: var(--amber);
     padding: 10px 16px;
     font-size: 12px;
     font-weight: 700;
@@ -543,7 +560,7 @@ is_note: true
   .swipe-card li:last-child { border-bottom: none; }
   .swipe-card li::before {
     content: '"';
-    color: var(--accent);
+    color: var(--amber);
     font-weight: 700;
     margin-right: 2px;
   }
@@ -563,8 +580,8 @@ is_note: true
     transition: box-shadow 0.15s, border-color 0.15s;
   }
   .dtree-card:hover {
-    border-color: var(--accent);
-    box-shadow: 3px 3px 0 var(--accent);
+    border-color: var(--amber);
+    box-shadow: 3px 3px 0 var(--amber);
   }
   .dtree-want {
     font-size: 14px;
@@ -579,7 +596,7 @@ is_note: true
     margin-bottom: 10px;
   }
   .dtree-arrow {
-    color: var(--accent-dark);
+    color: var(--amber);
     font-weight: 700;
   }
   .dtree-type {
@@ -591,7 +608,7 @@ is_note: true
     font-size: 11px;
     color: var(--blue);
     line-height: 1.7;
-    background: var(--blue-light);
+    background: var(--blue-lt);
     padding: 8px 10px;
     border-radius: 4px;
     margin-top: 8px;
@@ -605,7 +622,7 @@ is_note: true
     text-align: center;
     font-size: 13px;
   }
-  .doc-footer strong { color: var(--accent); }
+  .doc-footer strong { color: var(--amber); }
 
   /* ─── HELPERS ─── */
   mark { background: #fff176; padding: 0 3px; border-radius: 2px; }
@@ -614,7 +631,7 @@ is_note: true
     align-items: center;
     justify-content: center;
     width: 26px; height: 26px;
-    background: var(--accent);
+    background: var(--amber);
     color: var(--ink);
     border-radius: 50%;
     font-size: 12px;
@@ -629,7 +646,7 @@ is_note: true
   }
   .sticky-label {
     display: inline-block;
-    background: var(--accent);
+    background: var(--amber);
     color: var(--ink);
     font-size: 11px;
     font-weight: 700;
@@ -755,7 +772,7 @@ is_note: true
 <div class="wrapper">
   <div class="section-label">03 — The Complete Reference</div>
   <h2>📊 All 18 Types of Signposting</h2>
-  <p class="lead">Here's the full arsenal. First, scan the table. Then, use the <a href="#tree" style="color:var(--accent-dark); font-weight:600;">Decision Tree</a> to pick the right one for your situation.</p>
+  <p class="lead">Here's the full arsenal. First, scan the table. Then, use the <a href="#tree" style="color:var(--amber); font-weight:600;">Decision Tree</a> to pick the right one for your situation.</p>
 
   <table class="types-table">
     <thead>
@@ -903,7 +920,7 @@ is_note: true
     </tbody>
   </table>
 
-  <h3 style="font-size:18px; margin: 32px 0 24px; font-family:'Playfair Display', serif;">Before & After — 10 Prep Signpost Examples</h3>
+  <h3 style="font-size:18px; margin: 32px 0 24px; font-family:'Lora', serif;">Before & After — 10 Prep Signpost Examples</h3>
 
   <!-- Prep BA Examples -->
   <div class="ba-section">
