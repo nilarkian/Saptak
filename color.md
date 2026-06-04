@@ -19,7 +19,7 @@ contrast direction; they are not applied verbatim to CSS.
 | 03 | ember   | `#1a1614, #f2e9e0, #e8743b, #0f0c0a`   | Dark warm, glowing orange accent, near-black ground |
 | 04 | forest  | `#f2f5f0, #1a2418, #3a7d44, #141f18`   | Organic green, earthy ink, natural depth            |
 | 05 | mono    | `#f5f5f5, #111111, #6b4fbb, #0d0d0d`   | High-contrast neutral, single bold purple accent    |
-| 06 | dusk    | `#fdf6ee, #2d1f3d, #c0608e, #1a1028`   | Warm cream surface, deep plum ink, rose accent      |
+| 06 | dusk   | `#fdf6ee, #2d1f3d, #c0608e, #1a1028`   | Warm cream surface, deep plum ink, rose accent      |
 | 07 | arctic  | `#edf6fb, #0d2030, #1eb8d0, #061420`   | Icy pale surface, deep navy ink, cyan accent        |
 | 08 | sepia   | `#f5ede0, #2c1e0f, #9b5d27, #1a1208`   | Old-paper tones, deep brown ink, bronze accent      |
 
