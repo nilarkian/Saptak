@@ -1,0 +1,1352 @@
+---
+layout: blank
+permalink: /notes/workflows/
+title: "Mastering /workflows in Claude Code"
+date: 2026-06-03
+tags: [claude, tools, developer-tools]
+is_note: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering /workflows — Claude Code</title>
+  <style>
+    /* ═══════════════════════════════════════════
+       DARK THEME — GitHub-inspired dev docs
+       ═══════════════════════════════════════════ */
+    :root {
+      --bg:         #0d1117;
+      --bg-2:       #161b22;
+      --bg-3:       #21262d;
+      --bg-4:       #30363d;
+      --border:     #30363d;
+      --border-l:   #3d444d;
+      --text:       #e6edf3;
+      --text-m:     #9198a1;
+      --text-s:     #656d76;
+      --accent:     #58a6ff;
+      --accent-d:   #1f6feb;
+      --success:    #3fb950;
+      --warning:    #d29922;
+      --danger:     #f85149;
+      --purple:     #d2a8ff;
+      --orange:     #ffa657;
+      --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .shell {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    /* ── LEFT NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--bg-2);
+      border-right: 1px solid var(--border);
+      padding: 28px 0 60px;
+      align-self: start;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .nav-section {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      padding: 14px 20px 6px;
+    }
+    nav a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-m);
+      text-decoration: none;
+      padding: 5px 20px;
+      border-left: 2px solid transparent;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    nav a:hover { color: var(--text); background: var(--bg-3); }
+    nav a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(88,166,255,.06); }
+
+    /* ── MAIN ── */
+    main {
+      padding: 48px 64px 120px 56px;
+      max-width: 900px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 52px;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-m);
+      max-width: 620px;
+    }
+    .hero-chips { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border-l);
+      color: var(--text-m);
+      background: var(--bg-3);
+    }
+    .chip.acc { border-color: var(--accent-d); color: var(--accent); background: rgba(88,166,255,.08); }
+    .chip.suc { border-color: #2ea043; color: var(--success); background: rgba(63,185,80,.08); }
+    .chip.war { border-color: #9e6a03; color: var(--warning); background: rgba(210,153,34,.08); }
+
+    /* ── SECTIONS ── */
+    section { margin-bottom: 64px; scroll-margin-top: 28px; }
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sec-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-s);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 7px;
+    }
+    .sec-rule { height: 1px; background: var(--border); margin-bottom: 24px; }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 10px;
+    }
+    h3:first-child { margin-top: 0; }
+
+    p { color: var(--text-m); margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol { padding-left: 20px; color: var(--text-m); }
+    li { margin-bottom: 6px; }
+    li strong { color: var(--text); }
+    strong { color: var(--text); }
+
+    /* ── CODE BLOCKS ── */
+    pre {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      margin: 14px 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+    code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--text);
+    }
+    p code, li code, td code {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      color: #e6edf3;
+    }
+    /* syntax colors */
+    .kw  { color: #ff7b72; }   /* const, await, return, if, while */
+    .fn  { color: #d2a8ff; }   /* function names */
+    .str { color: #a5d6ff; }   /* strings */
+    .cm  { color: #8b949e; font-style: italic; }  /* comments */
+    .num { color: #79c0ff; }   /* numbers */
+    .prp { color: #ffa657; }   /* object keys/properties */
+    .op  { color: #ff7b72; }   /* operators */
+    .typ { color: #3fb950; }   /* types/schema keys */
+    .pln { color: #e6edf3; }   /* plain */
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13.5px;
+    }
+    th {
+      background: var(--bg-3);
+      color: var(--text-m);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    th:first-child { border-radius: 8px 0 0 0; border-left: 1px solid var(--border); border-top: 1px solid var(--border); }
+    th:last-child  { border-radius: 0 8px 0 0; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+    th:not(:first-child):not(:last-child) { border-top: 1px solid var(--border); }
+    td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-m); }
+    td:first-child { border-left: 1px solid var(--border); }
+    td:last-child  { border-right: 1px solid var(--border); }
+    tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+    tr:last-child td:last-child  { border-radius: 0 0 8px 0; }
+    td strong { color: var(--text); }
+    tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-left: 3px solid;
+      font-size: 13.5px;
+    }
+    .callout .callout-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .callout p { margin-bottom: 0; font-size: 13.5px; }
+    .callout ul { font-size: 13.5px; }
+    .callout li { margin-bottom: 4px; }
+    .info  { background: rgba(88,166,255,.08);  border-color: var(--accent);   }
+    .info  .callout-title { color: var(--accent); }
+    .tip   { background: rgba(63,185,80,.08);   border-color: var(--success);  }
+    .tip   .callout-title { color: var(--success); }
+    .warn  { background: rgba(210,153,34,.08);  border-color: var(--warning);  }
+    .warn  .callout-title { color: var(--warning); }
+    .danger-box { background: rgba(248,81,73,.08); border-color: var(--danger); }
+    .danger-box .callout-title { color: var(--danger); }
+
+    /* ── DIAGRAM ── */
+    .diagram {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin: 18px 0;
+      overflow-x: auto;
+    }
+    .diagram-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-s);
+      margin-bottom: 20px;
+    }
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .flow-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border-l);
+      border-radius: 6px;
+      padding: 5px 10px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .flow-item.stage1 { border-color: var(--accent-d); color: var(--accent); background: rgba(88,166,255,.1); }
+    .flow-item.stage2 { border-color: #2ea043; color: var(--success); background: rgba(63,185,80,.1); }
+    .flow-item.stage3 { border-color: #9e6a03; color: var(--warning); background: rgba(210,153,34,.1); }
+    .flow-item.item   { border-color: var(--purple); color: var(--purple); background: rgba(210,168,255,.08); }
+    .flow-arrow { color: var(--text-s); padding: 0 6px; font-size: 14px; }
+    .flow-barrier {
+      width: 3px;
+      align-self: stretch;
+      background: var(--danger);
+      margin: 0 10px;
+      border-radius: 2px;
+      opacity: .7;
+    }
+    .flow-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-s);
+      margin-left: 8px;
+    }
+    .flow-section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .06em;
+      color: var(--text-s);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+    .flow-section-label:first-child { margin-top: 0; }
+
+    /* ── GOTCHA CARDS ── */
+    .gotcha-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .gotcha {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--danger);
+    }
+    .gotcha-head {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--danger);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 7px;
+    }
+    .gotcha p { font-size: 13px; margin-bottom: 6px; }
+    .gotcha code { font-size: 11.5px; }
+    .gotcha .fix {
+      font-size: 12px;
+      color: var(--success);
+      font-family: var(--mono);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── DECISION TABLE ── */
+    .decision-row-head { background: var(--bg-3) !important; }
+    td.use-inline { color: var(--text-m); }
+    td.use-agent  { color: var(--accent); }
+    td.use-wf     { color: var(--success); }
+
+    /* ── PATTERN CARDS ── */
+    .pattern-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 22px 0;
+      overflow: hidden;
+    }
+    .pattern-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-3);
+    }
+    .pattern-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+    .pattern-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .pattern-desc {
+      font-size: 12.5px;
+      color: var(--text-m);
+      margin-left: auto;
+    }
+    .pattern-card pre {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      border-top: none;
+      background: var(--bg-2);
+    }
+
+    /* ── RESUME STEPS ── */
+    .steps { margin: 18px 0; }
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-d);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--accent-d);
+    }
+    .step-body { flex: 1; padding-top: 3px; }
+    .step-body strong { color: var(--text); }
+    .step-body p { font-size: 13.5px; margin-bottom: 4px; }
+
+    /* ── LIMIT PILLS ── */
+    .limits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .limit-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      text-align: center;
+    }
+    .limit-val {
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .limit-label {
+      font-size: 12px;
+      color: var(--text-m);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; }
+      nav { position: static; height: auto; }
+      main { padding: 32px 24px 80px; }
+      .gotcha-grid { grid-template-columns: 1fr; }
+      .limits { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── LEFT NAV ── -->
+  <nav id="side-nav">
+    <div class="nav-logo">/ workflows</div>
+    <div class="nav-section">Overview</div>
+    <a href="#what" id="nav-what">1 · What is a Workflow</a>
+    <a href="#anatomy" id="nav-anatomy">2 · Anatomy of a Script</a>
+
+    <div class="nav-section">API Reference</div>
+    <a href="#api" id="nav-api">3 · Full API</a>
+    <a href="#pipeline-vs-parallel" id="nav-pvp">4 · pipeline vs parallel</a>
+    <a href="#schema" id="nav-schema">5 · Structured Output</a>
+
+    <div class="nav-section">Patterns</div>
+    <a href="#patterns" id="nav-patterns">6 · Quality Patterns</a>
+    <a href="#resume" id="nav-resume">7 · Resume & Iteration</a>
+
+    <div class="nav-section">Reference</div>
+    <a href="#limits" id="nav-limits">8 · Concurrency & Limits</a>
+    <a href="#gotchas" id="nav-gotchas">9 · Gotchas</a>
+    <a href="#decision" id="nav-decision">10 · When to Use What</a>
+  </nav>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="eyebrow">Claude Code · Internal Reference</div>
+      <h1>Mastering /workflows</h1>
+      <p class="hero-sub">
+        A precise, beyond-the-basics guide to the <code>Workflow</code> tool — deterministic multi-agent orchestration,
+        the live monitor, every API function, all quality patterns, and every sharp edge.
+      </p>
+      <div class="hero-chips">
+        <span class="chip acc">plain JavaScript</span>
+        <span class="chip acc">async/await</span>
+        <span class="chip suc">deterministic</span>
+        <span class="chip suc">resumable</span>
+        <span class="chip war">explicit opt-in required</span>
+      </div>
+    </header>
+
+    <!-- ─────────────── SECTION 1 ─────────────── -->
+    <section id="what">
+      <h2><span class="sec-num">01</span> What is a Workflow</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        A <strong>Workflow</strong> is a deterministic multi-agent orchestration script. You write plain JavaScript,
+        Claude Code executes it, spawning subagents for each <code>agent()</code> call — potentially dozens or hundreds
+        of them — with control flow you define: loops, conditionals, fan-out, fan-in.
+      </p>
+
+      <div class="callout info">
+        <div class="callout-title">Core mental model</div>
+        <p>
+          A workflow is a <em>harness</em>, not a conversation. You write the structure; the agents do the work.
+          The harness is deterministic — same script, same args → same execution graph. The agents are not.
+        </p>
+      </div>
+
+      <h3>The two pieces: Workflow tool vs /workflows command</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Piece</th><th>What it is</th><th>When you use it</th>
+          </tr>
+          <tr>
+            <td><code>Workflow</code> tool</td>
+            <td>Launches the script. Returns immediately with a run ID like <code>wf_abc123</code>.</td>
+            <td>Claude calls it when you ask for a workflow or say "ultracode".</td>
+          </tr>
+          <tr>
+            <td><code>/workflows</code></td>
+            <td>Live monitor. Shows running agents, phases, tree, progress in real-time.</td>
+            <td>Type it while a workflow is running to watch it. Also shows completed runs.</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Key properties</h3>
+      <ul>
+        <li><strong>Scripts are plain JS, not TypeScript.</strong> No type annotations, no interfaces, no generics.</li>
+        <li><strong>Runs in an async context.</strong> Use <code>await</code> directly at the top level — no wrapper needed.</li>
+        <li><strong>Always returns immediately.</strong> The <code>Workflow</code> tool call returns the run ID; agents run in the background.</li>
+        <li><strong>Resumable.</strong> Every run is journaled. Edit the script and re-invoke with <code>resumeFromRunId</code> — unchanged agents return cached results instantly.</li>
+        <li><strong>Explicit opt-in required.</strong> Claude will NOT launch a workflow unless you say "use a workflow", "ultracode", or name a specific workflow type.</li>
+      </ul>
+
+      <div class="callout warn">
+        <div class="callout-title">Cost awareness</div>
+        <p>Workflows can spawn dozens of agents. They are the expensive path. A task that "would benefit from parallelism" is NOT a reason to launch one unprompted. Always opt in explicitly.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 2 ─────────────── -->
+    <section id="anatomy">
+      <h2><span class="sec-num">02</span> Anatomy of a Workflow Script</h2>
+      <div class="sec-rule"></div>
+
+      <p>Every script must begin with <code>export const meta = {...}</code> — a <strong>pure literal</strong> — followed by the script body.</p>
+
+<pre><code><span class="kw">export const</span> <span class="prp">meta</span> = {
+  <span class="prp">name</span>: <span class="str">'find-dead-code'</span>,        <span class="cm">// kebab-case slug, required</span>
+  <span class="prp">description</span>: <span class="str">'Find unused exports across the codebase'</span>,  <span class="cm">// shown in permission dialog, required</span>
+  <span class="prp">phases</span>: [                          <span class="cm">// optional — titles must match phase() calls exactly</span>
+    { <span class="prp">title</span>: <span class="str">'Scan'</span>,  <span class="prp">detail</span>: <span class="str">'grep for exports and imports'</span> },
+    { <span class="prp">title</span>: <span class="str">'Verify'</span>, <span class="prp">detail</span>: <span class="str">'confirm each candidate is truly unused'</span> },
+    { <span class="prp">title</span>: <span class="str">'Fix'</span>,    <span class="prp">detail</span>: <span class="str">'remove dead exports'</span>, <span class="prp">model</span>: <span class="str">'haiku'</span> },  <span class="cm">// per-phase model override</span>
+  ],
+}
+
+<span class="cm">// ── Script body — async context, await directly ──</span>
+
+<span class="kw">const</span> <span class="prp">FINDINGS_SCHEMA</span> = {
+  <span class="prp">type</span>: <span class="str">'object'</span>,
+  <span class="prp">properties</span>: { <span class="prp">exports</span>: { <span class="prp">type</span>: <span class="str">'array'</span>, <span class="prp">items</span>: { <span class="prp">type</span>: <span class="str">'string'</span> } } },
+  <span class="prp">required</span>: [<span class="str">'exports'</span>]
+}
+
+<span class="fn">phase</span>(<span class="str">'Scan'</span>)
+<span class="kw">const</span> <span class="prp">found</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'Find all exported symbols with no import anywhere'</span>, {
+  <span class="prp">label</span>: <span class="str">'scan:exports'</span>,
+  <span class="prp">phase</span>: <span class="str">'Scan'</span>,
+  <span class="prp">schema</span>: <span class="prp">FINDINGS_SCHEMA</span>
+})
+<span class="fn">log</span>(<span class="str">`Found <span class="pln">${</span><span class="prp">found</span>.<span class="prp">exports</span>.<span class="prp">length</span><span class="pln">}</span> candidates`</span>)
+</code></pre>
+
+      <h3>The meta literal rule — CRITICAL</h3>
+      <div class="callout danger-box">
+        <div class="callout-title">meta must be a pure literal — no exceptions</div>
+        <p>No variables, no function calls, no spreads, no template strings. The parser reads <code>meta</code> before executing the script. Any dynamism causes a hard error or silent breakage.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>❌ Breaks</th><th>✅ Works</th></tr>
+          <tr>
+            <td><code>name: getWorkflowName()</code></td>
+            <td><code>name: 'find-dead-code'</code></td>
+          </tr>
+          <tr>
+            <td><code>phases: PHASES_VAR</code></td>
+            <td><code>phases: [{ title: 'Scan', detail: '...' }]</code></td>
+          </tr>
+          <tr>
+            <td><code>description: `${PREFIX} audit`</code></td>
+            <td><code>description: 'full audit'</code></td>
+          </tr>
+          <tr>
+            <td><code>...baseConfig</code></td>
+            <td>Inline all fields explicitly</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>The resume-breaking functions</h3>
+      <p>These three are banned in workflow scripts because they would make the same script produce different results on resume, breaking the cache:</p>
+      <div class="callout danger-box">
+        <div class="callout-title">Never use inside a workflow script</div>
+        <ul>
+          <li><code>Date.now()</code> — use <code>args.timestamp</code> passed from outside</li>
+          <li><code>Math.random()</code> — use <code>args.seed</code> or vary agent labels by index</li>
+          <li><code>new Date()</code> (no args) — use <code>new Date(args.timestamp)</code></li>
+        </ul>
+      </div>
+
+      <pre><code><span class="cm">// ✅ Correct — stamp time BEFORE calling Workflow, pass it in</span>
+<span class="cm">// In the main loop (not inside the script):</span>
+<span class="kw">await</span> <span class="fn">Workflow</span>({ <span class="prp">script</span>: <span class="str">'...'</span>, <span class="prp">args</span>: { <span class="prp">timestamp</span>: <span class="fn">Date</span>.<span class="fn">now</span>() } })
+
+<span class="cm">// Inside the workflow script:</span>
+<span class="kw">const</span> <span class="prp">ts</span> = <span class="kw">new</span> <span class="fn">Date</span>(<span class="prp">args</span>.<span class="prp">timestamp</span>)  <span class="cm">// ✅ deterministic — same value on resume</span>
+</code></pre>
+    </section>
+
+    <!-- ─────────────── SECTION 3 ─────────────── -->
+    <section id="api">
+      <h2><span class="sec-num">03</span> Full API Reference</h2>
+      <div class="sec-rule"></div>
+
+      <!-- agent() -->
+      <h3>agent(prompt, opts?)</h3>
+      <p>Spawns a subagent with the given prompt. The subagent's final text is its return value (not a human-facing message — so it returns raw data).</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>label</code></td>
+            <td><code>string</code></td>
+            <td>first 40 chars of prompt</td>
+            <td>Display name in <code>/workflows</code> tree. Use <code>scope:item</code> convention for readability.</td>
+          </tr>
+          <tr>
+            <td><code>phase</code></td>
+            <td><code>string</code></td>
+            <td>current phase</td>
+            <td>Groups this agent under a named phase box. <strong>Always pass explicitly inside pipeline/parallel</strong> to avoid races.</td>
+          </tr>
+          <tr>
+            <td><code>schema</code></td>
+            <td>JSON Schema object</td>
+            <td>none</td>
+            <td>Forces structured output. <code>agent()</code> returns validated object. Model auto-retries on mismatch.</td>
+          </tr>
+          <tr>
+            <td><code>model</code></td>
+            <td><code>'haiku' | 'sonnet' | 'opus'</code></td>
+            <td>inherits session model</td>
+            <td>Override model for this agent only. <strong>Omit by default</strong> — only set when you have strong reason.</td>
+          </tr>
+          <tr>
+            <td><code>isolation</code></td>
+            <td><code>'worktree'</code></td>
+            <td>none</td>
+            <td><strong>EXPENSIVE</strong> (~200–500ms + disk per agent). Use ONLY when agents mutate files in parallel and would conflict. Auto-removed if unchanged.</td>
+          </tr>
+          <tr>
+            <td><code>agentType</code></td>
+            <td><code>string</code></td>
+            <td>default workflow agent</td>
+            <td>Use a registered custom agent (e.g. <code>'Explore'</code>, <code>'code-reviewer'</code>). Composes with <code>schema</code>.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-title">Always filter nulls</div>
+        <p><code>agent()</code> returns <code>null</code> if the user skips it. After any parallel/pipeline, always: <code>results.filter(Boolean)</code> before using results.</p>
+      </div>
+
+      <!-- pipeline() -->
+      <h3>pipeline(items, ...stages)</h3>
+      <p>Runs each item through all stages independently — <strong>no barrier between stages</strong>. Item A can be in stage 3 while item B is still in stage 1.</p>
+      <ul>
+        <li>Wall clock = slowest single-item chain (not sum of slowest per stage)</li>
+        <li>Each stage receives <code>(prevResult, originalItem, index)</code></li>
+        <li>A stage that throws drops that item to <code>null</code> and skips its remaining stages</li>
+        <li><strong>This is the default. Use it unless you genuinely need a barrier.</strong></li>
+      </ul>
+
+      <!-- parallel() -->
+      <h3>parallel(thunks)</h3>
+      <p>Runs tasks concurrently. <strong>This is a barrier</strong> — awaits all thunks before returning.</p>
+      <ul>
+        <li>Takes <code>Array&lt;() =&gt; Promise&lt;any&gt;&gt;</code> — thunk functions, not promises</li>
+        <li>A thunk that throws resolves to <code>null</code> in the result — the call itself never rejects</li>
+        <li>Use ONLY when stage N needs cross-item context from all of stage N-1</li>
+      </ul>
+
+      <!-- phase() -->
+      <h3>phase(title)</h3>
+      <p>Starts a new named phase. Subsequent <code>agent()</code> calls are grouped under this phase box in <code>/workflows</code>.</p>
+      <pre><code><span class="fn">phase</span>(<span class="str">'Scan'</span>)       <span class="cm">// opens "Scan" box in /workflows</span>
+<span class="kw">const</span> <span class="prp">a</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'...'</span>)  <span class="cm">// appears under Scan</span>
+<span class="fn">phase</span>(<span class="str">'Verify'</span>)     <span class="cm">// opens "Verify" box</span>
+<span class="kw">const</span> <span class="prp">b</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'...'</span>)  <span class="cm">// appears under Verify</span>
+</code></pre>
+      <div class="callout warn">
+        <div class="callout-title">phase() inside pipeline/parallel</div>
+        <p>The global <code>phase()</code> call races when items run concurrently. Pass <code>{ phase: 'Scan' }</code> as an opt to each <code>agent()</code> call instead.</p>
+      </div>
+
+      <!-- log() -->
+      <h3>log(message)</h3>
+      <p>Emits a narrator line <em>above</em> the progress tree in <code>/workflows</code>. Use for progress milestones and loop counters.</p>
+      <pre><code><span class="fn">log</span>(<span class="str">`Round <span class="pln">${<span class="prp">round</span>}</span>: <span class="pln">${<span class="prp">bugs</span>.<span class="prp">length</span>}</span> found, <span class="pln">${<span class="prp">dryStreak</span>}</span> dry`</span>)</code></pre>
+
+      <!-- args -->
+      <h3>args</h3>
+      <p>The value passed as <code>Workflow</code>'s <code>args</code> input, verbatim. Pass arrays/objects as actual JSON values — not JSON-encoded strings.</p>
+      <pre><code><span class="cm">// Caller (main loop):</span>
+<span class="kw">await</span> <span class="fn">Workflow</span>({ <span class="prp">script</span>: <span class="str">'...'</span>, <span class="prp">args</span>: [<span class="str">'src/auth.ts'</span>, <span class="str">'src/user.ts'</span>] })
+<span class="cm">// NOT: args: JSON.stringify(['src/auth.ts', ...])  ← breaks args.map()</span>
+
+<span class="cm">// Inside script:</span>
+<span class="kw">const</span> <span class="prp">results</span> = <span class="kw">await</span> <span class="fn">pipeline</span>(
+  <span class="prp">args</span>,  <span class="cm">// ← the array of file paths</span>
+  <span class="prp">path</span> <span class="op">=></span> <span class="fn">agent</span>(<span class="str">`Review <span class="pln">${<span class="prp">path</span>}</span>`</span>)
+)
+</code></pre>
+
+      <!-- budget -->
+      <h3>budget</h3>
+      <p>Token budget from the user's <code>+500k</code>-style directive. Shared across main loop and all workflows.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Property</th><th>Type</th><th>Meaning</th></tr>
+          <tr><td><code>budget.total</code></td><td><code>number | null</code></td><td><code>null</code> if no target was set</td></tr>
+          <tr><td><code>budget.spent()</code></td><td><code>number</code></td><td>Output tokens spent this turn (live)</td></tr>
+          <tr><td><code>budget.remaining()</code></td><td><code>number</code></td><td><code>max(0, total - spent())</code>, or <code>Infinity</code> if no target</td></tr>
+        </table>
+      </div>
+      <pre><code><span class="cm">// Guard: only loop when a budget was set AND tokens remain</span>
+<span class="kw">while</span> (<span class="prp">budget</span>.<span class="prp">total</span> <span class="op">&&</span> <span class="prp">budget</span>.<span class="fn">remaining</span>() <span class="op">></span> <span class="num">50_000</span>) {
+  <span class="kw">const</span> <span class="prp">r</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'Find more issues'</span>, { <span class="prp">schema</span>: <span class="prp">SCHEMA</span> })
+  <span class="prp">results</span>.<span class="fn">push</span>(...<span class="prp">r</span>.<span class="prp">items</span>)
+  <span class="fn">log</span>(<span class="str">`<span class="pln">${<span class="prp">results</span>.<span class="prp">length</span>}</span> found, <span class="pln">${<span class="fn">Math</span>.<span class="fn">round</span>(<span class="prp">budget</span>.<span class="fn">remaining</span>()/<span class="num">1000</span>)}</span>k remaining`</span>)
+}
+</code></pre>
+
+      <!-- workflow() -->
+      <h3>workflow(nameOrRef, args?)</h3>
+      <p>Runs another workflow inline as a sub-step. Returns whatever the child returns.</p>
+      <pre><code><span class="cm">// By name (saved workflow):</span>
+<span class="kw">const</span> <span class="prp">map</span> = <span class="kw">await</span> <span class="fn">workflow</span>(<span class="str">'codebase-mapper'</span>)
+
+<span class="cm">// By script file:</span>
+<span class="kw">const</span> <span class="prp">r</span> = <span class="kw">await</span> <span class="fn">workflow</span>({ <span class="prp">scriptPath</span>: <span class="str">'.claude/workflows/my-scan.js'</span> }, { <span class="prp">target</span>: <span class="str">'src/'</span> })
+</code></pre>
+      <ul>
+        <li>Child shares concurrency cap, agent counter, abort signal, token budget</li>
+        <li>Child's agents appear under a <code>▸ name</code> group in <code>/workflows</code></li>
+        <li><strong>One level only</strong> — calling <code>workflow()</code> inside a child throws</li>
+      </ul>
+    </section>
+
+    <!-- ─────────────── SECTION 4 ─────────────── -->
+    <section id="pipeline-vs-parallel">
+      <h2><span class="sec-num">04</span> pipeline() vs parallel() — The Critical Distinction</h2>
+      <div class="sec-rule"></div>
+
+      <p>This is the most commonly misunderstood part of the API. The names suggest similarity; the behavior is fundamentally different.</p>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <div class="diagram-title">pipeline() — non-barrier, items flow independently</div>
+        <div class="flow-section-label">Items start stage 2 without waiting for other items to finish stage 1</div>
+        <div class="flow-row">
+          <div class="flow-item item">Item A</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage2">Stage 2</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage3">Stage 3 ✓</div>
+          <div class="flow-label">finishes first</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-item item">Item B</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage2">Stage 2 ···</div>
+          <div class="flow-label">still running while A is done</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-item item">Item C</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1 ···</div>
+          <div class="flow-label">still in stage 1</div>
+        </div>
+
+        <div class="diagram-title" style="margin-top:28px;">parallel() — barrier, all must complete before next proceeds</div>
+        <div class="flow-section-label">Nothing proceeds past stage 1 until ALL items finish stage 1</div>
+        <div class="flow-row">
+          <div class="flow-item item">Item A</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1 ✓</div>
+          <div class="flow-arrow" style="opacity:.3">→</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-item item">Item B</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1 ✓</div>
+          <div class="flow-barrier"></div>
+          <div class="flow-item stage2" style="opacity:.6">Stage 2 (blocked)</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-item item">Item C</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item stage1">Stage 1 ···</div>
+          <div class="flow-label" style="color:var(--danger)">← barrier: all wait for this</div>
+        </div>
+      </div>
+
+      <h3>When to use each</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Scenario</th><th>Use</th></tr>
+          <tr><td>Most multi-stage work</td><td><code>pipeline()</code> — default, no barrier overhead</td></tr>
+          <tr><td>Dedup across full result set before downstream work</td><td><code>parallel()</code> — need ALL results at once</td></tr>
+          <tr><td>Early-exit if total count is zero</td><td><code>parallel()</code> — check count before spawning next phase</td></tr>
+          <tr><td>Stage N prompt references "the other findings"</td><td><code>parallel()</code> — genuine cross-item dependency</td></tr>
+          <tr><td>Flatten/map/filter between stages</td><td><code>pipeline()</code> — do it inside a stage</td></tr>
+        </table>
+      </div>
+
+      <h3>The smell test</h3>
+      <div class="callout warn">
+        <div class="callout-title">Unnecessary barrier smell</div>
+        <p>If you wrote <code>parallel()</code> → transform (map/filter/flatten) → <code>parallel()</code>, the middle transform does NOT need the barrier. The transform has no cross-item dependency. Rewrite as a <code>pipeline()</code> with the transform inside a stage.</p>
+      </div>
+
+      <pre><code><span class="cm">// ❌ Unnecessary barrier — transform doesn't need all results first</span>
+<span class="kw">const</span> <span class="prp">a</span> = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">items</span>.<span class="fn">map</span>(<span class="prp">x</span> <span class="op">=></span> () <span class="op">=></span> <span class="fn">agent</span>(<span class="prp">x</span>)))
+<span class="kw">const</span> <span class="prp">b</span> = <span class="prp">a</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>).<span class="fn">flatMap</span>(<span class="prp">r</span> <span class="op">=></span> <span class="prp">r</span>.<span class="prp">items</span>)   <span class="cm">// just a transform</span>
+<span class="kw">const</span> <span class="prp">c</span> = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">b</span>.<span class="fn">map</span>(<span class="prp">x</span> <span class="op">=></span> () <span class="op">=></span> <span class="fn">agent</span>(<span class="prp">x</span>)))
+
+<span class="cm">// ✅ Pipeline — A can verify while B and C are still scanning</span>
+<span class="kw">const</span> <span class="prp">results</span> = <span class="kw">await</span> <span class="fn">pipeline</span>(
+  <span class="prp">items</span>,
+  <span class="prp">item</span> <span class="op">=></span> <span class="fn">agent</span>(<span class="str">`Scan <span class="pln">${<span class="prp">item</span>}</span>`</span>, { <span class="prp">schema</span>: <span class="prp">FINDINGS</span> }),
+  <span class="prp">scan</span> <span class="op">=></span> [<span class="prp">scan</span>].<span class="fn">flatMap</span>(<span class="prp">r</span> <span class="op">=></span> <span class="prp">r</span>.<span class="prp">items</span>),        <span class="cm">// transform inside a stage — no barrier</span>
+  (<span class="prp">flat</span>, <span class="prp">_orig</span>, <span class="prp">i</span>) <span class="op">=></span> <span class="fn">agent</span>(<span class="str">`Verify item <span class="pln">${<span class="prp">i</span>}</span>: <span class="pln">${<span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="prp">flat</span>)}</span>`</span>)
+)
+
+<span class="cm">// ✅ Barrier IS justified — dedup needs all results before verification</span>
+<span class="kw">const</span> <span class="prp">scans</span>    = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">FINDERS</span>.<span class="fn">map</span>(<span class="prp">f</span> <span class="op">=></span> () <span class="op">=></span> <span class="fn">agent</span>(<span class="prp">f</span>, { <span class="prp">schema</span>: <span class="prp">FINDINGS</span> })))
+<span class="kw">const</span> <span class="prp">deduped</span>  = <span class="fn">dedupeByKey</span>(<span class="prp">scans</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>).<span class="fn">flatMap</span>(<span class="prp">r</span> <span class="op">=></span> <span class="prp">r</span>.<span class="prp">items</span>))  <span class="cm">// needs ALL</span>
+<span class="kw">const</span> <span class="prp">verified</span> = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">deduped</span>.<span class="fn">map</span>(<span class="prp">b</span> <span class="op">=></span> () <span class="op">=></span> <span class="fn">agent</span>(<span class="str">`Verify: <span class="pln">${<span class="prp">b</span>}</span>`</span>)))
+</code></pre>
+    </section>
+
+    <!-- ─────────────── SECTION 5 ─────────────── -->
+    <section id="schema">
+      <h2><span class="sec-num">05</span> Structured Output — The Schema Pattern</h2>
+      <div class="sec-rule"></div>
+
+      <p>When you pass a <code>schema</code> option to <code>agent()</code>, the agent is forced to call a <code>StructuredOutput</code> tool. Validation happens at the tool-call layer — if the output doesn't match the schema, the model retries automatically. <code>agent()</code> returns the validated object directly. No <code>JSON.parse</code>, no <code>try/catch</code>.</p>
+
+      <pre><code><span class="cm">// Define the schema once as a plain JS object (not TypeScript)</span>
+<span class="kw">const</span> <span class="prp">BUGS_SCHEMA</span> = {
+  <span class="prp">type</span>: <span class="str">'object'</span>,
+  <span class="prp">properties</span>: {
+    <span class="prp">bugs</span>: {
+      <span class="prp">type</span>: <span class="str">'array'</span>,
+      <span class="prp">items</span>: {
+        <span class="prp">type</span>: <span class="str">'object'</span>,
+        <span class="prp">properties</span>: {
+          <span class="prp">file</span>:     { <span class="prp">type</span>: <span class="str">'string'</span> },
+          <span class="prp">line</span>:     { <span class="prp">type</span>: <span class="str">'number'</span> },
+          <span class="prp">desc</span>:     { <span class="prp">type</span>: <span class="str">'string'</span> },
+          <span class="prp">severity</span>: { <span class="prp">type</span>: <span class="str">'string'</span>, <span class="prp">enum</span>: [<span class="str">'low'</span>, <span class="str">'medium'</span>, <span class="str">'high'</span>, <span class="str">'critical'</span>] }
+        },
+        <span class="prp">required</span>: [<span class="str">'file'</span>, <span class="str">'line'</span>, <span class="str">'desc'</span>, <span class="str">'severity'</span>]
+      }
+    }
+  },
+  <span class="prp">required</span>: [<span class="str">'bugs'</span>]
+}
+
+<span class="cm">// Use it</span>
+<span class="kw">const</span> <span class="prp">result</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'Find all null pointer dereference bugs in src/'</span>, {
+  <span class="prp">schema</span>: <span class="prp">BUGS_SCHEMA</span>
+})
+
+<span class="cm">// result.bugs is a validated Bug[] — no parsing needed</span>
+<span class="kw">const</span> <span class="prp">critical</span> = <span class="prp">result</span>.<span class="prp">bugs</span>.<span class="fn">filter</span>(<span class="prp">b</span> <span class="op">=></span> <span class="prp">b</span>.<span class="prp">severity</span> <span class="op">===</span> <span class="str">'critical'</span>)
+</code></pre>
+
+      <div class="callout tip">
+        <div class="callout-title">Design schemas for downstream use</div>
+        <p>Include all fields you'll need in subsequent stages. Include a <code>key</code> field (file + line hash) if you plan to dedup across agents. Include a <code>confidence</code> field if you'll use adversarial verification.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 6 ─────────────── -->
+    <section id="patterns">
+      <h2><span class="sec-num">06</span> Quality Patterns</h2>
+      <div class="sec-rule"></div>
+      <p>These are composable recipes. Mix them freely — e.g. multi-modal sweep → dedup (barrier) → adversarial verify (pipeline) → loop-until-dry.</p>
+
+      <!-- Adversarial Verify -->
+      <div class="pattern-card">
+        <div class="pattern-header">
+          <div class="pattern-icon">⚔️</div>
+          <div class="pattern-name">Adversarial Verify</div>
+          <div class="pattern-desc">Kill plausible-but-wrong findings before they ship</div>
+        </div>
+        <pre><code><span class="cm">// Spawn N independent skeptics per finding — each is prompted to REFUTE</span>
+<span class="cm">// Majority rules: ≥2 of 3 must fail to refute for the finding to survive</span>
+<span class="kw">const</span> <span class="prp">VERDICT_SCHEMA</span> = {
+  <span class="prp">type</span>: <span class="str">'object'</span>,
+  <span class="prp">properties</span>: {
+    <span class="prp">refuted</span>: { <span class="prp">type</span>: <span class="str">'boolean'</span> },
+    <span class="prp">reason</span>:  { <span class="prp">type</span>: <span class="str">'string'</span>  }
+  },
+  <span class="prp">required</span>: [<span class="str">'refuted'</span>, <span class="str">'reason'</span>]
+}
+
+<span class="kw">async function</span> <span class="fn">adversarialVerify</span>(<span class="prp">claim</span>) {
+  <span class="kw">const</span> <span class="prp">votes</span> = <span class="kw">await</span> <span class="fn">parallel</span>(
+    <span class="fn">Array</span>.<span class="fn">from</span>({ <span class="prp">length</span>: <span class="num">3</span> }, (<span class="prp">_</span>, <span class="prp">i</span>) <span class="op">=></span> () <span class="op">=></span>
+      <span class="fn">agent</span>(
+        <span class="str">`Try to REFUTE: "<span class="pln">${<span class="prp">claim</span>}</span>". Default refuted=true if uncertain.`</span>,
+        { <span class="prp">label</span>: <span class="str">`refute:<span class="pln">${<span class="prp">i</span>}</span>`</span>, <span class="prp">phase</span>: <span class="str">'Verify'</span>, <span class="prp">schema</span>: <span class="prp">VERDICT_SCHEMA</span> }
+      )
+  )
+  <span class="kw">return</span> <span class="prp">votes</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>).<span class="fn">filter</span>(<span class="prp">v</span> <span class="op">=></span> !<span class="prp">v</span>.<span class="prp">refuted</span>).<span class="prp">length</span> <span class="op">>=</span> <span class="num">2</span>
+}
+
+<span class="cm">// Usage in pipeline — each finding verified as soon as it's found</span>
+<span class="kw">const</span> <span class="prp">confirmed</span> = <span class="kw">await</span> <span class="fn">pipeline</span>(
+  <span class="prp">findings</span>,
+  <span class="prp">f</span> <span class="op">=></span> <span class="fn">adversarialVerify</span>(<span class="prp">f</span>.<span class="prp">desc</span>),
+  (<span class="prp">survives</span>, <span class="prp">f</span>) <span class="op">=></span> <span class="prp">survives</span> ? <span class="prp">f</span> : <span class="kw">null</span>
+).<span class="fn">then</span>(<span class="prp">r</span> <span class="op">=></span> <span class="prp">r</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>))
+</code></pre>
+      </div>
+
+      <!-- Loop-Until-Dry -->
+      <div class="pattern-card">
+        <div class="pattern-header">
+          <div class="pattern-icon">🔄</div>
+          <div class="pattern-name">Loop-Until-Dry</div>
+          <div class="pattern-desc">Unknown-size discovery — keep going until K empty rounds</div>
+        </div>
+        <pre><code><span class="cm">// Dedup against `seen` (not `confirmed`) — else rejected findings reappear every round</span>
+<span class="kw">const</span> <span class="prp">seen</span> = <span class="kw">new</span> <span class="fn">Set</span>()
+<span class="kw">const</span> <span class="prp">bugs</span> = []
+<span class="kw">let</span> <span class="prp">dry</span> = <span class="num">0</span>
+
+<span class="kw">while</span> (<span class="prp">dry</span> <span class="op"><</span> <span class="num">2</span>) {
+  <span class="kw">const</span> <span class="prp">found</span> = <span class="kw">await</span> <span class="fn">agent</span>(
+    <span class="str">`Find bugs. Already know about: <span class="pln">${<span class="fn">JSON</span>.<span class="fn">stringify</span>([...<span class="prp">seen</span>])}</span>`</span>,
+    { <span class="prp">schema</span>: <span class="prp">BUGS_SCHEMA</span> }
+  )
+  <span class="kw">const</span> <span class="prp">key</span>  = <span class="prp">b</span> <span class="op">=></span> <span class="str">`<span class="pln">${<span class="prp">b</span>.<span class="prp">file</span>}</span>:<span class="pln">${<span class="prp">b</span>.<span class="prp">line</span>}</span>`</span>
+  <span class="kw">const</span> <span class="prp">fresh</span> = <span class="prp">found</span>.<span class="prp">bugs</span>.<span class="fn">filter</span>(<span class="prp">b</span> <span class="op">=></span> !<span class="prp">seen</span>.<span class="fn">has</span>(<span class="fn">key</span>(<span class="prp">b</span>)))
+
+  <span class="kw">if</span> (!<span class="prp">fresh</span>.<span class="prp">length</span>) { <span class="prp">dry</span>++; <span class="kw">continue</span> }
+  <span class="prp">dry</span> = <span class="num">0</span>
+  <span class="prp">fresh</span>.<span class="fn">forEach</span>(<span class="prp">b</span> <span class="op">=></span> <span class="prp">seen</span>.<span class="fn">add</span>(<span class="fn">key</span>(<span class="prp">b</span>)))
+  <span class="prp">bugs</span>.<span class="fn">push</span>(...<span class="prp">fresh</span>)
+  <span class="fn">log</span>(<span class="str">`<span class="pln">${<span class="prp">bugs</span>.<span class="prp">length</span>}</span> total, dry streak reset`</span>)
+}
+</code></pre>
+      </div>
+
+      <!-- Multi-Modal Sweep -->
+      <div class="pattern-card">
+        <div class="pattern-header">
+          <div class="pattern-icon">🔭</div>
+          <div class="pattern-name">Multi-Modal Sweep</div>
+          <div class="pattern-desc">Parallel agents with different search angles — each blind to the others</div>
+        </div>
+        <pre><code><span class="kw">const</span> <span class="prp">FINDERS</span> = [
+  { <span class="prp">key</span>: <span class="str">'by-file'</span>,    <span class="prp">prompt</span>: <span class="str">'Scan every modified file for security issues'</span> },
+  { <span class="prp">key</span>: <span class="str">'by-import'</span>,  <span class="prp">prompt</span>: <span class="str">'Trace import chains for vulnerable dependencies'</span> },
+  { <span class="prp">key</span>: <span class="str">'by-test'</span>,    <span class="prp">prompt</span>: <span class="str">'Find issues surfaced by failing test patterns'</span> },
+  { <span class="prp">key</span>: <span class="str">'by-history'</span>, <span class="prp">prompt</span>: <span class="str">'Read recent git commits for regressions'</span> },
+]
+
+<span class="fn">phase</span>(<span class="str">'Sweep'</span>)
+<span class="kw">const</span> <span class="prp">sweeps</span> = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">FINDERS</span>.<span class="fn">map</span>(<span class="prp">f</span> <span class="op">=></span> () <span class="op">=></span>
+  <span class="fn">agent</span>(<span class="prp">f</span>.<span class="prp">prompt</span>, { <span class="prp">label</span>: <span class="prp">f</span>.<span class="prp">key</span>, <span class="prp">phase</span>: <span class="str">'Sweep'</span>, <span class="prp">schema</span>: <span class="prp">FINDINGS_SCHEMA</span> })
+))
+
+<span class="cm">// Barrier justified: need ALL sweep results to dedup before verification</span>
+<span class="kw">const</span> <span class="prp">all</span>     = <span class="prp">sweeps</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>).<span class="fn">flatMap</span>(<span class="prp">r</span> <span class="op">=></span> <span class="prp">r</span>.<span class="prp">items</span>)
+<span class="kw">const</span> <span class="prp">deduped</span> = <span class="fn">dedupeByKey</span>(<span class="prp">all</span>)
+<span class="fn">log</span>(<span class="str">`<span class="pln">${<span class="prp">all</span>.<span class="prp">length</span>}</span> raw → <span class="pln">${<span class="prp">deduped</span>.<span class="prp">length</span>}</span> unique after dedup`</span>)
+</code></pre>
+      </div>
+
+      <!-- Judge Panel -->
+      <div class="pattern-card">
+        <div class="pattern-header">
+          <div class="pattern-icon">⚖️</div>
+          <div class="pattern-name">Judge Panel</div>
+          <div class="pattern-desc">N independent approaches → scored synthesis → best of all worlds</div>
+        </div>
+        <pre><code><span class="kw">const</span> <span class="prp">APPROACHES</span> = [<span class="str">'MVP-first'</span>, <span class="str">'risk-first'</span>, <span class="str">'user-first'</span>]
+
+<span class="fn">phase</span>(<span class="str">'Design'</span>)
+<span class="kw">const</span> <span class="prp">proposals</span> = <span class="kw">await</span> <span class="fn">parallel</span>(<span class="prp">APPROACHES</span>.<span class="fn">map</span>(<span class="prp">angle</span> <span class="op">=></span> () <span class="op">=></span>
+  <span class="fn">agent</span>(<span class="str">`Design the auth system from a <span class="pln">${<span class="prp">angle</span>}</span> perspective`</span>, {
+    <span class="prp">label</span>: <span class="prp">angle</span>, <span class="prp">phase</span>: <span class="str">'Design'</span>, <span class="prp">schema</span>: <span class="prp">PROPOSAL_SCHEMA</span>
+  })
+))
+
+<span class="fn">phase</span>(<span class="str">'Judge'</span>)
+<span class="kw">const</span> <span class="prp">synthesis</span> = <span class="kw">await</span> <span class="fn">agent</span>(
+  <span class="str">`Score these proposals, pick the winner, graft the best ideas from runners-up: `</span> +
+  <span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="prp">proposals</span>.<span class="fn">filter</span>(<span class="prp">Boolean</span>)),
+  { <span class="prp">phase</span>: <span class="str">'Judge'</span>, <span class="prp">schema</span>: <span class="prp">SYNTHESIS_SCHEMA</span> }
+)
+</code></pre>
+      </div>
+
+      <!-- Budget-Gated Loop -->
+      <div class="pattern-card">
+        <div class="pattern-header">
+          <div class="pattern-icon">💰</div>
+          <div class="pattern-name">Budget-Gated Loop</div>
+          <div class="pattern-desc">Scale depth to the user's +500k token directive</div>
+        </div>
+        <pre><code><span class="cm">// Guard on budget.total first — without a target, remaining() is Infinity</span>
+<span class="cm">// and the loop runs to the 1000-agent cap</span>
+<span class="kw">const</span> <span class="prp">findings</span> = []
+
+<span class="kw">while</span> (<span class="prp">budget</span>.<span class="prp">total</span> <span class="op">&&</span> <span class="prp">budget</span>.<span class="fn">remaining</span>() <span class="op">></span> <span class="num">50_000</span>) {
+  <span class="kw">const</span> <span class="prp">r</span> = <span class="kw">await</span> <span class="fn">agent</span>(<span class="str">'Find more edge cases not already in the list: '</span> +
+    <span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="prp">findings</span>), { <span class="prp">schema</span>: <span class="prp">FINDINGS_SCHEMA</span> })
+  <span class="prp">findings</span>.<span class="fn">push</span>(...<span class="prp">r</span>.<span class="prp">items</span>)
+  <span class="fn">log</span>(<span class="str">`<span class="pln">${<span class="prp">findings</span>.<span class="prp">length</span>}</span> found, <span class="pln">${<span class="fn">Math</span>.<span class="fn">round</span>(<span class="prp">budget</span>.<span class="fn">remaining</span>()/<span class="num">1000</span>)}</span>k tokens remaining`</span>)
+}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 7 ─────────────── -->
+    <section id="resume">
+      <h2><span class="sec-num">07</span> Resume &amp; Iteration</h2>
+      <div class="sec-rule"></div>
+
+      <p>Every <code>Workflow</code> invocation auto-persists its script under the session directory and returns the path in the tool result. This enables a tight edit-and-resume loop.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Run the workflow.</strong>
+            <p>Tool result includes both the <code>runId</code> (<code>wf_abc123</code>) and the <code>scriptPath</code>. Note both.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Edit the script at <code>scriptPath</code>.</strong>
+            <p>Change an agent prompt, add a new stage, modify a schema. Only edited/new calls will re-run.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Stop the prior run first.</strong>
+            <p>Use <code>TaskStop</code> on the run before resuming. Running two instances against the same journal causes corruption.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Resume with the run ID.</strong>
+            <p><code>Workflow({ scriptPath: '...', resumeFromRunId: 'wf_abc123' })</code></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-title">Cache mechanics</div>
+        <ul>
+          <li>Same <code>(prompt, opts)</code> pair → instant cache hit, no re-run</li>
+          <li>First edited or new <code>agent()</code> call runs live</li>
+          <li>Everything <em>after</em> the first changed call also runs live (forward dependency)</li>
+          <li><strong>Same-session only</strong> — run IDs don't persist across session restarts</li>
+        </ul>
+      </div>
+
+      <pre><code><span class="cm">// Typical resume invocation:</span>
+<span class="kw">await</span> <span class="fn">Workflow</span>({
+  <span class="prp">scriptPath</span>: <span class="str">'.claude/sessions/abc123/workflow-wf_abc123.js'</span>,
+  <span class="prp">resumeFromRunId</span>: <span class="str">'wf_abc123'</span>
+})
+</code></pre>
+    </section>
+
+    <!-- ─────────────── SECTION 8 ─────────────── -->
+    <section id="limits">
+      <h2><span class="sec-num">08</span> Concurrency &amp; Limits</h2>
+      <div class="sec-rule"></div>
+
+      <div class="limits">
+        <div class="limit-card">
+          <div class="limit-val">min(16, cpu−2)</div>
+          <div class="limit-label">Max concurrent agents at once</div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-val">1,000</div>
+          <div class="limit-label">Max total agents per workflow (backstop)</div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-val">shared</div>
+          <div class="limit-label">Token budget — main loop + all workflows combined</div>
+        </div>
+      </div>
+
+      <h3>What happens when you exceed concurrency</h3>
+      <p>Excess <code>agent()</code> calls queue and run as slots free. You can pass 100 items to <code>pipeline()</code> or <code>parallel()</code> — all 100 will complete, just not all simultaneously. Wall-clock time scales with the slowest item, not the count.</p>
+
+      <h3>worktree isolation cost</h3>
+      <div class="callout warn">
+        <div class="callout-title">isolation: 'worktree' is expensive</div>
+        <ul>
+          <li>~200–500ms setup + disk space per agent</li>
+          <li>Use ONLY when agents mutate files in parallel and would otherwise conflict</li>
+          <li>Worktree is auto-removed if the agent makes no changes</li>
+          <li>Most review workflows don't need it — only mutation workflows do</li>
+        </ul>
+      </div>
+
+      <h3>Token budget is a hard ceiling</h3>
+      <p>When <code>budget.spent()</code> reaches <code>budget.total</code>, further <code>agent()</code> calls throw. Always guard loops with <code>budget.total &&</code> to avoid this in unconstrained sessions.</p>
+    </section>
+
+    <!-- ─────────────── SECTION 9 ─────────────── -->
+    <section id="gotchas">
+      <h2><span class="sec-num">09</span> Common Gotchas &amp; Anti-Patterns</h2>
+      <div class="sec-rule"></div>
+
+      <div class="gotcha-grid">
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 1 · Date.now() throws</div>
+          <p><code>Date.now()</code>, <code>Math.random()</code>, and <code>new Date()</code> (no args) are banned inside workflow scripts. They would break resume determinism.</p>
+          <div class="fix">✅ Pass <code>args: { timestamp: Date.now() }</code> from the caller before calling Workflow. Read <code>args.timestamp</code> inside.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 2 · TypeScript syntax fails</div>
+          <p>Scripts are plain JS. No <code>: string[]</code>, no <code>interface Foo {}</code>, no generics like <code>Array&lt;Bug&gt;</code>. All are parse errors.</p>
+          <div class="fix">✅ Write plain JS. Use JSDoc comments for type hints if needed — they don't affect execution.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 3 · parallel(promises) fails</div>
+          <p><code>parallel</code> takes thunks (<code>() =&gt; Promise</code>), NOT promises directly. Passing raw promises starts them all immediately and loses laziness.</p>
+          <div class="fix">✅ Always wrap: <code>parallel([() => agent(...), () => agent(...)])</code></div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 4 · Not filtering nulls</div>
+          <p>An agent returns <code>null</code> when the user skips it. Calling <code>.bugs</code> on <code>null</code> throws and crashes the workflow.</p>
+          <div class="fix">✅ Always: <code>results.filter(Boolean)</code> before accessing properties.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 5 · Unnecessary barrier</div>
+          <p>Using <code>parallel()</code> where <code>pipeline()</code> suffices means every fast item waits for the slowest. Wall-clock doubles or triples for no benefit.</p>
+          <div class="fix">✅ Default to <code>pipeline()</code>. Only use <code>parallel()</code> when you genuinely need ALL results together.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 6 · meta with computed values</div>
+          <p><code>name: getWorkflowName()</code> or <code>phases: PHASES_VAR</code> silently fail or hard-error. The parser reads meta before running the script.</p>
+          <div class="fix">✅ meta must be a pure literal — all values inline, no variables, no spreads.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 7 · Nested workflow() calls</div>
+          <p>Calling <code>workflow()</code> inside a child workflow throws. Nesting is one level only by design.</p>
+          <div class="fix">✅ Compose at the top-level script. Use sub-functions inside a single script instead of nested workflows.</div>
+        </div>
+
+        <div class="gotcha">
+          <div class="gotcha-head">Gotcha 8 · Global phase() inside pipeline()</div>
+          <p>When items run concurrently, a global <code>phase('Scan')</code> call races — items in different stages overwrite each other's phase assignment.</p>
+          <div class="fix">✅ Pass <code>{ phase: 'Scan' }</code> as an opt on each <code>agent()</code> call inside pipeline/parallel.</div>
+        </div>
+
+      </div>
+
+      <div class="callout info">
+        <div class="callout-title">Debugging a stuck workflow</div>
+        <ul>
+          <li>Open <code>/workflows</code> — look for agents stuck in a queue or a phase box that never advances</li>
+          <li>If an agent returns null unexpectedly, check whether the user skipped it (approval dialog)</li>
+          <li>A loop that never exits: check your dedup key — are you deduping against <code>seen</code> or <code>confirmed</code>? (should be <code>seen</code>)</li>
+          <li>Budget exhaustion: check <code>budget.spent()</code> against <code>budget.total</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 10 ─────────────── -->
+    <section id="decision">
+      <h2><span class="sec-num">10</span> When to Use What</h2>
+      <div class="sec-rule"></div>
+
+      <div class="callout danger-box">
+        <div class="callout-title">Explicit opt-in rule</div>
+        <p>Claude will NOT launch a workflow unless you say <strong>"use a workflow"</strong>, <strong>"ultracode"</strong>, or name a specific workflow type. A task that "would benefit from parallelism" is NOT opt-in. Claude should describe the workflow and ask first.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Scenario</th>
+            <th>Tool</th>
+            <th>Why</th>
+          </tr>
+          <tr>
+            <td>Single lookup, known file path</td>
+            <td class="use-inline"><code>Read</code> / <code>Grep</code> directly</td>
+            <td>Fastest path. No agent overhead.</td>
+          </tr>
+          <tr>
+            <td>1–3 targeted research queries</td>
+            <td class="use-agent"><code>Agent</code> tool</td>
+            <td>Subagent protects main context window from results. No orchestration needed.</td>
+          </tr>
+          <tr>
+            <td>Cross-file exploration, pattern finding</td>
+            <td class="use-agent"><code>Agent(Explore)</code></td>
+            <td>Explore agent is optimized for read-only codebase navigation.</td>
+          </tr>
+          <tr>
+            <td>Fan-out over N files/items with control flow</td>
+            <td class="use-wf">Workflow</td>
+            <td>pipeline() or parallel() over items is the core workflow use case.</td>
+          </tr>
+          <tr>
+            <td>Parallel file mutations (parallel agents writing)</td>
+            <td class="use-wf">Workflow + <code>isolation: 'worktree'</code></td>
+            <td>Worktree isolation prevents write conflicts between concurrent agents.</td>
+          </tr>
+          <tr>
+            <td>User said "use a workflow" or "ultracode"</td>
+            <td class="use-wf">Workflow</td>
+            <td>Explicit opt-in. Launch confidently.</td>
+          </tr>
+          <tr>
+            <td>Unknown-size discovery (bugs, issues, edge cases)</td>
+            <td class="use-wf">Workflow (loop-until-dry)</td>
+            <td>Static agent count misses the tail. Loop converges naturally.</td>
+          </tr>
+          <tr>
+            <td>Multi-phase work (understand → design → implement → review)</td>
+            <td class="use-wf">Multiple workflows in sequence</td>
+            <td>One workflow per phase keeps main loop in the loop between phases.</td>
+          </tr>
+          <tr>
+            <td>Quick review, audit, or code explanation</td>
+            <td class="use-agent"><code>Agent(code-reviewer)</code></td>
+            <td>Single specialized agent is often sufficient. Workflows reserved for scale.</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Decision heuristic</h3>
+      <ul>
+        <li><strong>1 thing to look up</strong> → inline tool</li>
+        <li><strong>1–3 things to research</strong> → Agent tool</li>
+        <li><strong>N items × M stages, or unknown N</strong> → Workflow</li>
+        <li><strong>N agents writing files simultaneously</strong> → Workflow + worktree</li>
+        <li><strong>Uncertain scope</strong> → scout inline first, then call Workflow once you know the work-list shape</li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="callout-title">Hybrid pattern — scout then orchestrate</div>
+        <p>You don't need to know the work-list shape before deciding to use a workflow — only before writing the orchestration step. Scout with inline tools (grep, list files, check git diff), discover the items, then call Workflow with that list as <code>args</code>. This avoids writing a workflow that immediately spawns an agent just to discover what to do next.</p>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // ── Active nav highlight on scroll ──
+  const sections = document.querySelectorAll('section[id]')
+  const navLinks  = document.querySelectorAll('nav a[id]')
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id
+        navLinks.forEach(a => a.classList.remove('active'))
+        const active = document.getElementById('nav-' + id)
+        if (active) active.classList.add('active')
+      }
+    })
+  }, { rootMargin: '-20% 0px -70% 0px' })
+
+  sections.forEach(s => observer.observe(s))
+</script>
+
+</body>
+</html>

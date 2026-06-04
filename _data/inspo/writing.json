@@ -400,5 +400,53 @@
       "desc": "The mindset that separates people who make things happen from people who wait for them to happen. Short, punchy, worth re-reading once a year.",
       "date": "2025-11-04",
       "tags": ["mindset"]
+    },
+    {
+      "url": "https://www.chinatalk.media/p/chinas-ai-optimism-isnt-what-it-seems",
+      "author": "Zilan Qian",
+      "title": "China's AI Optimism Isn't What It Seems",
+      "desc": "What looks like Chinese enthusiasm for AI actually masks deep economic anxiety rooted in memories of 1990s mass layoffs, reframing it as desperate adaptation rather than genuine optimism.",
+      "date": "2026-06-24",
+      "tags": ["china", "ai", "society", "economics"]
+    },
+    {
+      "url": "https://www.anthropic.com/research/glasswing-initial-update",
+      "author": "Anthropic",
+      "title": "Project Glasswing: An initial update",
+      "desc": "Anthropic's AI-powered security initiative found over 10,000 high-severity vulnerabilities in critical software in its first month, revealing that finding flaws has become trivial while patching remains the bottleneck.",
+      "date": "2026-06-25",
+      "tags": ["security", "ai", "alignment", "research"]
+    },
+    {
+      "url": "https://jasmi.news/p/party-in-the-permanent-underclass",
+      "author": "Jasmine Sun",
+      "title": "Party in the Permanent Underclass",
+      "desc": "Explores why China experiences less visible panic than the US about AI-driven job displacement, arguing that policy intervention is necessary rather than relying on market-led optimism.",
+      "date": "2026-06-26",
+      "tags": ["ai", "china", "policy", "economics"]
+    },
+    {
+      "url": "https://thariqs.github.io/html-effectiveness/",
+      "author": "thariqs",
+      "title": "The unreasonable effectiveness of HTML — examples",
+      "desc": "Showcases 20 self-contained HTML files demonstrating that HTML's native interactivity, spatial layout, and rendering make it far more expressive than markdown for AI-generated documents.",
+      "date": "2026-06-27",
+      "tags": ["html", "webdev", "ai-tools", "frontend"]
+    },
+    {
+      "url": "https://www.mindstudio.ai/blog/multi-agent-reliability-compounding-problem-77-percent",
+      "author": "MindStudio",
+      "title": "Multi-Agent Reliability Math: Why Chaining 5 Agents Drops Success Rate to 77%",
+      "desc": "Shows mathematically how chaining five 95%-reliable AI agents produces only 77% system success rate, and outlines mitigations including retry logic and parallel processing.",
+      "date": "2026-06-28",
+      "tags": ["ai", "machine-learning", "software-engineering", "automation"]
+    },
+    {
+      "url": "https://www.mindstudio.ai/blog/reliability-compounding-problem-ai-agent-stacks",
+      "author": "MindStudio",
+      "title": "What Is the Reliability Compounding Problem in AI Agent Stacks?",
+      "desc": "Explains how sequential AI agent components multiply failure rates, advocating for shorter critical paths and smart retries to maintain system reliability.",
+      "date": "2026-06-29",
+      "tags": ["ai", "machine-learning", "software-engineering", "automation"]
     }
 ]

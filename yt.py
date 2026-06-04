@@ -17,6 +17,10 @@ PLAYLISTS = [
     {
         "name": "mu",
         "url": "https://youtube.com/playlist?list=PLPAwgJxRv7VTXSUvZspuHt7GF3NaqV0oI"
+    },
+    {
+        "name": "mu2",
+        "url": "https://youtube.com/playlist?list=PLPAwgJxRv7VQ5z9UmyIsTzE3XATbMyKvT"
     }
 ]
 
@@ -208,6 +212,10 @@ def generate_feeds(music_output, youtube_output):
         v for v in source
         if "mu" in v.get("source_playlists", [])
     ]
+    mu2_pool = [
+        v for v in source
+        if "mu2" in v.get("source_playlists", [])
+    ]
     youtube_pool = [
         v for v in source
         if "yt" in v.get("source_playlists", [])
@@ -287,6 +295,25 @@ def generate_feeds(music_output, youtube_output):
         it for it in youtube_final
         if it.get("date") != today_str
     ]
+
+    # mu2: deterministic inclusion — every mu2 video must be in the feed.
+    #   brand-new video (not yet in music.json) -> pinned to today's date.
+    #   already-known video -> shuffles with the mu pool like any music entry.
+    existing_urls = {it.get("url") for it in music_existing}
+    feed_urls = {it.get("url") for it in music_final}
+    for v in mu2_pool:
+        url = f"https://youtu.be/{v['id']}"
+        if url in feed_urls:
+            continue
+        if url in existing_urls:
+            music_historical.append(
+                transform_video(v, today_str, last_featured_at=today_str)
+            )
+        else:
+            music_final.append(
+                transform_video(v, today_str, last_featured_at=today_str)
+            )
+        feed_urls.add(url)
 
     rng.shuffle(music_historical)
     rng.shuffle(youtube_historical)
@@ -370,6 +397,10 @@ def generate_feeds(music_output, youtube_output):
         else:
             youtube_final.append(item)
 
+    # music carries no tags
+    for item in music_final:
+        item.pop("tags", None)
+
     # sort newest first
     music_final.sort(
         key=lambda x: x.get("date", ""),
@@ -388,7 +419,7 @@ def generate_feeds(music_output, youtube_output):
 
     print(
         f"Feeds updated: "
-        f"+{len(featured_music)}M (+{len(featured_youtube)}V) | "
+        f"+{len(featured_music)}M +{len(mu2_pool)}mu2 (+{len(featured_youtube)}V) | "
         f"{len(music_final)} music total, {len(youtube_final)} youtube total"
     )
 

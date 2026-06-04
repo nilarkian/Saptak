@@ -322,5 +322,26 @@
       "caption": "Search engine for public-domain visuals from museums + libraries",
       "date": "2026-05-02",
       "tags": ["design", "inspiration", "database"]
+    },
+    {
+      "url": "https://virgili0.github.io/Virgilio/",
+      "source": "Virgilio",
+      "caption": "Open-source data science mentoring guide structured across beginner, intermediate, and advanced learning tracks to help anyone navigate machine learning without getting overwhelmed.",
+      "date": "2026-06-19",
+      "tags": ["machine-learning", "learning", "data", "research"]
+    },
+    {
+      "url": "https://brik.space/Gallery/",
+      "source": "Brik Gallery",
+      "caption": "Curated gallery of AI-generated and interactive design tools and generative web creations, useful as a swipefile for designers and creative developers.",
+      "date": "2026-06-20",
+      "tags": ["ai-tools", "creative-tools", "inspiration", "interactive"]
+    },
+    {
+      "url": "https://osintcabal.org/pdfs/GOOGLEDORKDATABASE.txt",
+      "source": "Google Dork Database",
+      "caption": "Comprehensive collection of pre-formatted Google search queries for locating individuals and data across 100+ platforms using OSINT methodology.",
+      "date": "2026-06-21",
+      "tags": ["security", "research", "reference"]
     }
 ]

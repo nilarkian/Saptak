@@ -1136,5 +1136,12 @@
       "desc": "The email swipe file. Searchable by type, brand, and industry.",
       "date": "2025-08-08",
       "tags": ["email", "marketing"]
+    },
+    {
+      "url": "https://www.loot-drop.io/",
+      "name": "Loot Drop",
+      "desc": "Database of 1,600+ actionable business concepts derived from 1,200+ failed startups, with failure case studies, industry analysis, and rebuild plans.",
+      "date": "2026-08-07",
+      "tags": ["startup-failures", "case-studies", "startup-insights", "founders"]
     }
 ]
