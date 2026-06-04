@@ -5,7 +5,6 @@ topic: Resources
 date: 2026-05-12
 tags:
   - claude
-  - claude-code
   - AI
   - llm
 is_note: true
