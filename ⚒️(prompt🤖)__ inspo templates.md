@@ -1,1 +1,0 @@
-C:/Users/indig/Documents/OBS2/projects/P1-(⚡blitz)__  get a job/P1A-saptak.github.io/⚒️(prompt🤖)__ inspo templates.md
