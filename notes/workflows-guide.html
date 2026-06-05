@@ -1,10 +1,12 @@
 ---
 layout: blank
 permalink: /notes/workflows/
-title: "Mastering /workflows in Claude Code"
+title: "Mastering Workflows — Writing the Script"
 date: 2026-06-03
 tags: [claude, tools, developer-tools]
 is_note: true
+series: Dynamic Workflows
+sub: "Part 1 · Authoring"
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -508,6 +510,8 @@ is_note: true
   <nav id="side-nav">
     <a href="{{ '/notes/' | relative_url }}" class="back-link">← Notes</a>
     <div class="nav-logo">/ workflows</div>
+    <div class="nav-section">Part 2 — Operating</div>
+    <a href="{{ '/notes/running-workflows/' | relative_url }}" style="display:block;font-size:12px;color:var(--amber);text-decoration:none;padding:6px 20px 14px;border-bottom:1px solid var(--border);margin-bottom:4px;border-left:2px solid var(--amber);background:rgba(200,134,10,.04);">↔ Running Workflows</a>
     <div class="nav-section">Overview</div>
     <a href="#what" id="nav-what">1 · What is a Workflow</a>
     <a href="#anatomy" id="nav-anatomy">2 · Anatomy of a Script</a>
@@ -535,8 +539,11 @@ is_note: true
       <div class="eyebrow">Claude Code · Internal Reference</div>
       <h1>Mastering /workflows</h1>
       <p class="hero-sub">
-        A precise, beyond-the-basics guide to the <code>Workflow</code> tool — deterministic multi-agent orchestration,
-        the live monitor, every API function, all quality patterns, and every sharp edge.
+        The authoring reference for the <code>Workflow</code> tool — deterministic multi-agent orchestration,
+        every API function (<code>agent()</code>, <code>pipeline()</code>, <code>parallel()</code>, schemas),
+        all quality patterns, and every sharp edge. For triggering, watching, saving, and cost-controlling
+        workflows from the CLI, see
+        <a href="{{ '/notes/running-workflows/' | relative_url }}" style="color:var(--amber);text-decoration:none">Part 2 · Running Workflows</a>.
       </p>
       <div class="hero-chips">
         <span class="chip acc">plain JavaScript</span>

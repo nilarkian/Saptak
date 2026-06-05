@@ -1,0 +1,951 @@
+---
+layout: blank
+permalink: /notes/running-workflows/
+title: "Running Workflows in Claude Code"
+date: 2026-06-05
+tags: [claude, tools, developer-tools]
+is_note: true
+series: Dynamic Workflows
+sub: "Part 2 · Operating"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running Workflows — Claude Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+       DARK THEME — Saptak canonical dark
+       ═══════════════════════════════════════════ */
+    :root {
+      --paper:     #1a1f1c;
+      --paper-alt: #1f2521;
+      --paper-dark:#232926;
+      --ink:       #f0ece2;
+      --ink-soft:  #c8c3b3;
+      --muted:     #8a8c7a;
+      --border:    #2f3630;
+      --amber:     #c8860a;
+      --amber-lt:  #fef3dc;
+      --amber-mid: #fde8a8;
+      --red:       #b83c2a;
+      --red-lt:    #fdf0ee;
+      --green:     #2a6639;
+      --green-lt:  #eaf4ed;
+      --blue:      #6a8caf;
+      --blue-lt:   #e8eef8;
+      --chalk:     #e8e3d8;
+      --board:     #141a16;
+      --success:   #3fb950;
+      --warning:   #d29922;
+      --danger:    #f85149;
+      --purple:    #d2a8ff;
+      --orange:    #ffa657;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .shell {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    /* ── LEFT NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--paper-alt);
+      border-right: 1px solid var(--border);
+      padding: 28px 0 60px;
+      align-self: start;
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .nav-section {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 14px 20px 6px;
+    }
+    nav a {
+      display: block;
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 5px 20px;
+      border-left: 2px solid transparent;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    nav a:hover { color: var(--ink); background: var(--paper-dark); }
+    nav a.active { color: var(--amber); border-left-color: var(--amber); background: rgba(200,134,10,.08); }
+
+    /* ── COMPANION LINK ── */
+    .companion-link {
+      display: block;
+      font-size: 12px;
+      color: var(--amber);
+      text-decoration: none;
+      padding: 6px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+      transition: color .15s;
+      border-left: 2px solid var(--amber) !important;
+      background: rgba(200,134,10,.04);
+    }
+    .companion-link:hover { color: var(--ink); background: rgba(200,134,10,.10); }
+
+    /* ── MAIN ── */
+    main {
+      padding: 48px 64px 120px 56px;
+      max-width: 900px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 52px;
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--ink-soft);
+      max-width: 620px;
+    }
+    .hero-chips { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+    .chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--ink-soft);
+      background: var(--paper-dark);
+    }
+    .chip.acc { border-color: var(--amber); color: var(--amber); background: rgba(200,134,10,.08); }
+    .chip.suc { border-color: #2ea043; color: var(--success); background: rgba(63,185,80,.08); }
+    .chip.war { border-color: #9e6a03; color: var(--warning); background: rgba(210,153,34,.08); }
+
+    /* ── SECTIONS ── */
+    section { margin-bottom: 64px; scroll-margin-top: 28px; }
+    h2 {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sec-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--paper-dark);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 7px;
+    }
+    .sec-rule { height: 1px; background: var(--border); margin-bottom: 24px; }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 28px 0 10px;
+    }
+    h3:first-child { margin-top: 0; }
+
+    p { color: var(--ink-soft); margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol { padding-left: 20px; color: var(--ink-soft); }
+    li { margin-bottom: 6px; }
+    li strong { color: var(--ink); }
+    strong { color: var(--ink); }
+
+    /* ── CODE BLOCKS ── */
+    pre {
+      background: var(--paper-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      margin: 14px 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+    code {
+      font-family: 'DM Mono', monospace;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+    p code, li code, td code {
+      background: var(--paper-dark);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      color: var(--ink);
+    }
+    .cm  { color: #8b949e; font-style: italic; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13.5px;
+    }
+    th {
+      background: var(--paper-dark);
+      color: var(--ink-soft);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    th:first-child { border-radius: 8px 0 0 0; border-left: 1px solid var(--border); border-top: 1px solid var(--border); }
+    th:last-child  { border-radius: 0 8px 0 0; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+    th:not(:first-child):not(:last-child) { border-top: 1px solid var(--border); }
+    td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink-soft); }
+    td:first-child { border-left: 1px solid var(--border); }
+    td:last-child  { border-right: 1px solid var(--border); }
+    tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+    tr:last-child td:last-child  { border-radius: 0 0 8px 0; }
+    td strong { color: var(--ink); }
+    tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* ── FOUR-PRIMITIVES TABLE ── */
+    td.col-wf { color: var(--success); }
+    th.col-wf { color: var(--success); background: rgba(63,185,80,.06); }
+    td.row-head { background: var(--paper-dark) !important; color: var(--ink-soft); font-size: 12px; white-space: nowrap; }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 18px 0;
+      border: 1.5px solid;
+      font-size: 13.5px;
+    }
+    .callout .callout-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .callout p { margin-bottom: 0; font-size: 13.5px; }
+    .callout ul { font-size: 13.5px; }
+    .callout li { margin-bottom: 4px; }
+    .info  { background: rgba(200,134,10,.08);  border-color: var(--amber);   }
+    .info  .callout-title { color: var(--amber); }
+    .tip   { background: rgba(63,185,80,.08);   border-color: var(--success);  }
+    .tip   .callout-title { color: var(--success); }
+    .warn  { background: rgba(210,153,34,.08);  border-color: var(--warning);  }
+    .warn  .callout-title { color: var(--warning); }
+    .danger-box { background: rgba(248,81,73,.08); border-color: var(--danger); }
+    .danger-box .callout-title { color: var(--danger); }
+
+    /* ── STEPS ── */
+    .steps { margin: 18px 0; }
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: var(--board);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--amber);
+    }
+    .step-body { flex: 1; padding-top: 3px; }
+    .step-body strong { color: var(--ink); }
+    .step-body p { font-size: 13.5px; margin-bottom: 4px; }
+
+    /* ── LIMIT PILLS ── */
+    .limits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .limit-card {
+      background: var(--paper-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      text-align: center;
+    }
+    .limit-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+    .limit-label {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0 20px 20px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--amber); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; }
+      nav { position: static; height: auto; }
+      main { padding: 32px 24px 80px; }
+      .limits { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── LEFT NAV ── -->
+  <nav id="side-nav">
+    <a href="{{ '/notes/' | relative_url }}" class="back-link">← Notes</a>
+    <div class="nav-logo">/ running-workflows</div>
+
+    <div class="nav-section">Part 1 — Authoring</div>
+    <a href="{{ '/notes/workflows/' | relative_url }}" class="companion-link">↔ Writing the Script</a>
+
+    <div class="nav-section">Overview</div>
+    <a href="#what" id="nav-what">1 · What &amp; Availability</a>
+    <a href="#primitives" id="nav-primitives">2 · The Four Primitives</a>
+
+    <div class="nav-section">Triggering</div>
+    <a href="#trigger" id="nav-trigger">3 · Trigger a Workflow</a>
+    <a href="#approve" id="nav-approve">4 · Approve the Run</a>
+    <a href="#permissions" id="nav-permissions">5 · Subagent Permissions</a>
+
+    <div class="nav-section">Monitor</div>
+    <a href="#monitor" id="nav-monitor">6 · /workflows Monitor</a>
+    <a href="#deepresearch" id="nav-deepresearch">7 · /deep-research</a>
+
+    <div class="nav-section">Managing</div>
+    <a href="#save" id="nav-save">8 · Save for Reuse</a>
+    <a href="#runs" id="nav-runs">9 · How Runs Work</a>
+
+    <div class="nav-section">Cost &amp; Control</div>
+    <a href="#cost" id="nav-cost">10 · Cost</a>
+    <a href="#off" id="nav-off">11 · Turn Off</a>
+  </nav>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="eyebrow">Claude Code · Operator Reference</div>
+      <h1>Running Workflows</h1>
+      <p class="hero-sub">
+        How to trigger, watch, approve, save, and control dynamic workflows from the Claude Code CLI —
+        the operator layer. For writing workflow scripts (<code>agent()</code>, <code>pipeline()</code>,
+        quality patterns), see
+        <a href="{{ '/notes/workflows/' | relative_url }}" style="color:var(--amber);text-decoration:none">Part 1 · Writing the Script</a>.
+      </p>
+      <div class="hero-chips">
+        <span class="chip war">research preview</span>
+        <span class="chip acc">v2.1.154+</span>
+        <span class="chip">CLI · Desktop · IDE</span>
+        <span class="chip">all paid plans</span>
+      </div>
+    </header>
+
+    <!-- ─────────────── SECTION 1 ─────────────── -->
+    <section id="what">
+      <h2><span class="sec-num">01</span> What Dynamic Workflows Are</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        A dynamic workflow is a JavaScript script that orchestrates <strong>subagents at scale</strong>.
+        Claude writes the script for the task you describe; a runtime executes it in the background
+        while your session stays responsive. Agents address the problem from independent angles, other
+        agents try to refute what they found, and the run iterates until answers converge — producing
+        results a single pass cannot.
+      </p>
+
+      <div class="callout info">
+        <div class="callout-title">What workflows are for</div>
+        <p>Problems too big for one pass: a bug hunt across an entire service, a migration touching
+        hundreds of files, a plan worth stress-testing from every angle before you commit. Progress
+        is saved as the run goes — an interrupted job picks up where it left off instead of starting over.</p>
+      </div>
+
+      <h3>Availability</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Surface</th><th>Status</th></tr>
+          <tr>
+            <td><strong>Max, Team plans</strong></td>
+            <td>On by default</td>
+          </tr>
+          <tr>
+            <td><strong>Enterprise plan</strong></td>
+            <td>Off by default at launch. Admin enables in Claude Code admin settings.</td>
+          </tr>
+          <tr>
+            <td><strong>Pro plan</strong></td>
+            <td>Toggle <strong>Dynamic workflows</strong> on in <code>/config</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Anthropic API</strong></td>
+            <td>On by default</td>
+          </tr>
+          <tr>
+            <td><strong>Amazon Bedrock, Google Cloud Vertex AI, Microsoft Foundry</strong></td>
+            <td>On by default</td>
+          </tr>
+          <tr>
+            <td><strong>Minimum version</strong></td>
+            <td>Claude Code v2.1.154 or later</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-title">Token cost warning</div>
+        <p>A workflow spawns many agents. A single run can use meaningfully more tokens than working
+        through the same task in conversation. Start on a scoped task — one directory, not the whole
+        repo — to gauge usage before committing to a large run.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 2 ─────────────── -->
+    <section id="primitives">
+      <h2><span class="sec-num">02</span> The Four Primitives — When to Use a Workflow</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        Subagents, skills, agent teams, and workflows can all run multi-step tasks. The difference is
+        <strong>who holds the plan</strong>. A workflow moves the plan into code — the script holds the
+        loop, the branching, and intermediate results itself, so Claude's context holds only the final answer.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th></th>
+            <th>Subagents</th>
+            <th>Skills</th>
+            <th>Agent teams</th>
+            <th class="col-wf">Workflows</th>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>What it is</strong></td>
+            <td>A worker Claude spawns</td>
+            <td>Instructions Claude follows</td>
+            <td>A lead agent supervising peer sessions</td>
+            <td class="col-wf">A script the runtime executes</td>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>Who decides what runs next</strong></td>
+            <td>Claude, turn by turn</td>
+            <td>Claude, following the prompt</td>
+            <td>The lead agent, turn by turn</td>
+            <td class="col-wf">The script</td>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>Where intermediate results live</strong></td>
+            <td>Claude's context window</td>
+            <td>Claude's context window</td>
+            <td>A shared task list</td>
+            <td class="col-wf">Script variables</td>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>What's repeatable</strong></td>
+            <td>The worker definition</td>
+            <td>The instructions</td>
+            <td>The team definition</td>
+            <td class="col-wf">The orchestration itself</td>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>Scale</strong></td>
+            <td>A few delegated tasks per turn</td>
+            <td>Same as subagents</td>
+            <td>A handful of long-running peers</td>
+            <td class="col-wf">Dozens to hundreds of agents per run</td>
+          </tr>
+          <tr>
+            <td class="row-head"><strong>Interruption</strong></td>
+            <td>Restarts the turn</td>
+            <td>Restarts the turn</td>
+            <td>Teammates keep running</td>
+            <td class="col-wf">Resumable in the same session</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-title">Also: codified quality patterns</div>
+        <p>Moving the plan into code lets a workflow apply a <em>repeatable quality pattern</em> — not just
+        run more agents. Independent agents adversarially reviewing each other's findings, or drafting a plan
+        from several angles and weighing them, produce more trustworthy results than any single pass. For the
+        scripting patterns themselves, see
+        <a href="{{ '/notes/workflows/' | relative_url }}" style="color:var(--success);text-decoration:none">Part 1 · Writing the Script</a>.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 3 ─────────────── -->
+    <section id="trigger">
+      <h2><span class="sec-num">03</span> Triggering a Workflow</h2>
+      <div class="sec-rule"></div>
+
+      <h3>Per-task: the ultracode keyword</h3>
+      <p>
+        Include <code>ultracode</code> in your prompt, or ask in plain language
+        ("use a workflow", "run a workflow"). Claude Code highlights the keyword and Claude writes
+        a workflow script for the task instead of working turn by turn.
+      </p>
+      <pre><code>ultracode: audit every API endpoint under src/routes/ for missing auth checks
+
+<span class="cm"># Or in plain language — both work:</span>
+Use a workflow to audit every API endpoint under src/routes/ for missing auth checks</code></pre>
+
+      <div class="callout info">
+        <div class="callout-title">Dismissing the trigger</div>
+        <p>
+          If you typed <code>ultracode</code> without meaning to trigger a workflow:
+          press <strong>Option+W</strong> (macOS) or <strong>Alt+W</strong> (Windows / Linux) to dismiss
+          for this prompt, or press <strong>Backspace</strong> while the cursor is right after the
+          highlighted keyword. To disable the trigger entirely, turn off
+          <strong>Ultracode keyword trigger</strong> in <code>/config</code>.
+        </p>
+        <p style="margin-top:8px;font-size:13px;color:var(--muted)">
+          Before v2.1.160 the trigger keyword was <code>workflow</code> (not <code>ultracode</code>).
+          Natural-language requests ("use a workflow") work in both versions.
+        </p>
+      </div>
+
+      <h3>Session-wide: /effort ultracode</h3>
+      <p>
+        <code>/effort ultracode</code> combines <code>xhigh</code> reasoning effort with automatic
+        workflow orchestration for the session. With it on, Claude plans a workflow for each
+        substantive task — you don't ask per task.
+      </p>
+      <pre><code>/effort ultracode</code></pre>
+      <ul>
+        <li>One request can become several workflows in sequence — understand → change → verify.</li>
+        <li>Every task uses more tokens and takes longer than at lower effort levels.</li>
+        <li>Lasts for the current session only; resets when you start a new one.</li>
+        <li>Drop back to <code>/effort high</code> for routine work.</li>
+        <li>Available only on models that support <code>xhigh</code> effort; others omit it from the <code>/effort</code> menu.</li>
+      </ul>
+
+      <h3>Running a named workflow directly</h3>
+      <p>
+        Bundled workflows and any workflow you've saved run as <code>/&lt;name&gt;</code> commands
+        and appear in <code>/</code> autocomplete. Run them directly — no trigger keyword needed.
+      </p>
+    </section>
+
+    <!-- ─────────────── SECTION 4 ─────────────── -->
+    <section id="approve">
+      <h2><span class="sec-num">04</span> Approving the Run</h2>
+      <div class="sec-rule"></div>
+
+      <h3>The per-run prompt (CLI)</h3>
+      <p>The first time a workflow triggers (per-mode rules below), Claude Code shows the planned phases and asks before anything runs:</p>
+      <ul>
+        <li><strong>Yes, run it</strong> — start the run.</li>
+        <li><strong>Yes, and don't ask again for &lt;name&gt; in &lt;path&gt;</strong> — start, and skip this prompt for this workflow in this project from now on.</li>
+        <li><strong>View raw script</strong> — read the full JS before deciding. <code>Ctrl+G</code> also opens it in your editor.</li>
+        <li><strong>No</strong> — cancel.</li>
+      </ul>
+      <p><code>Tab</code> lets you adjust the prompt before the run starts.</p>
+
+      <h3>When you're prompted — by permission mode</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Permission mode</th><th>When prompted</th></tr>
+          <tr>
+            <td><strong>Default, accept edits</strong></td>
+            <td>Every run, unless you've selected <em>Yes, and don't ask again</em> for that workflow in this project.</td>
+          </tr>
+          <tr>
+            <td><strong>Auto</strong></td>
+            <td>First launch only. Any "Yes" records consent in your user settings; later launches start without prompting. Skipped entirely when ultracode is on.</td>
+          </tr>
+          <tr>
+            <td><strong>Bypass permissions, <code>claude -p</code>, Agent SDK</strong></td>
+            <td>Never. The run starts immediately.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-title">Desktop app</div>
+        <p>An approval card shows the workflow name, the phase list, and a token-usage caution —
+        with <strong>Once</strong>, <strong>Always</strong>, and <strong>Deny</strong> actions.
+        The progress view appears in the Background tasks side pane.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 5 ─────────────── -->
+    <section id="permissions">
+      <h2><span class="sec-num">05</span> Subagent Permissions During a Run</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        Your permission mode controls only the launch prompt above. Once a run is in progress,
+        spawned agents follow their own rules — independent of your session's mode.
+      </p>
+      <ul>
+        <li>Subagents always run in <strong>acceptEdits</strong> mode and inherit your <strong>tool allowlist</strong>, regardless of your session's permission mode.</li>
+        <li><strong>File edits are auto-approved</strong> — subagents can read and write files without prompting you.</li>
+        <li>Shell commands, web fetches, and MCP tools <em>not</em> in your allowlist can still prompt you mid-run.</li>
+        <li>In <code>claude -p</code> and the Agent SDK there is no one to prompt — tool calls follow your configured permission rules without interactive confirmation.</li>
+      </ul>
+
+      <div class="callout warn">
+        <div class="callout-title">Pre-allow before a long run</div>
+        <p>A mid-run permission prompt pauses the workflow and waits for you. On a long job this is disruptive.
+        Before starting, add the shell commands, web fetches, or MCP tools the agents will need to your allowlist.
+        Run <code>/fewer-permission-prompts</code> to auto-generate an allowlist from recent transcript history.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 6 ─────────────── -->
+    <section id="monitor">
+      <h2><span class="sec-num">06</span> The /workflows Live Monitor</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        Workflows run in the background — your session stays responsive. Run <code>/workflows</code>
+        at any time to list running and completed workflows, then select one to open its progress view.
+      </p>
+      <pre><code>/workflows</code></pre>
+
+      <p>The progress view shows each phase with agent counts, token totals, and elapsed time.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Key</th><th>Action</th></tr>
+          <tr><td><code>↑</code> / <code>↓</code></td><td>Select a phase or agent</td></tr>
+          <tr><td><code>Enter</code> or <code>→</code></td><td>Drill into the selected phase, then into an agent to read its prompt, recent tool calls, and result</td></tr>
+          <tr><td><code>Esc</code></td><td>Back out one level</td></tr>
+          <tr><td><code>j</code> / <code>k</code></td><td>Scroll within the agent detail when it overflows</td></tr>
+          <tr><td><code>p</code></td><td>Pause or resume the run</td></tr>
+          <tr><td><code>x</code></td><td>Stop the selected agent, or stop the whole workflow when focus is on the run</td></tr>
+          <tr><td><code>r</code></td><td>Restart the selected running agent</td></tr>
+          <tr><td><code>s</code></td><td>Save the run's script as a reusable command (see §08)</td></tr>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-title">Progress also inline</div>
+        <p>A collapsible progress line appears in the task panel below the input box while a run is active.
+        Expand it without opening the full <code>/workflows</code> view.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 7 ─────────────── -->
+    <section id="deepresearch">
+      <h2><span class="sec-num">07</span> Bundled: /deep-research</h2>
+      <div class="sec-rule"></div>
+
+      <p>Claude Code ships one bundled workflow out of the box:</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Command</th><th>What it does</th></tr>
+          <tr>
+            <td><code>/deep-research &lt;question&gt;</code></td>
+            <td>Fans out web searches across several angles, fetches and cross-checks the sources it finds, votes on each claim, and returns a cited report — with claims that didn't survive cross-checking filtered out. Requires the <strong>WebSearch</strong> tool to be available.</td>
+          </tr>
+        </table>
+      </div>
+
+      <p>Workflows you save yourself (§08) appear in <code>/</code> autocomplete alongside bundled ones — same invocation pattern.</p>
+
+      <div class="callout info">
+        <div class="callout-title">Quickest way to see a workflow in action</div>
+        <p>Run <code>/deep-research</code> on a question. Agents work through phases in the background,
+        your session stays free, and you get one report at the end instead of a turn-by-turn transcript.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 8 ─────────────── -->
+    <section id="save">
+      <h2><span class="sec-num">08</span> Saving for Reuse</h2>
+      <div class="sec-rule"></div>
+
+      <h3>How to save a run as a command</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Open <code>/workflows</code></strong>
+            <p>Select the completed run you want to keep.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Press <code>s</code></strong>
+            <p>The save dialog opens. <code>Tab</code> toggles between two save locations.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Choose a location and press <code>Enter</code></strong>
+            <p>The workflow now runs as <code>/&lt;name&gt;</code> in future sessions.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Save locations</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Location</th><th>Scope</th><th>Path</th></tr>
+          <tr>
+            <td><strong>Project</strong></td>
+            <td>Shared with everyone who clones the repo</td>
+            <td><code>.claude/workflows/</code></td>
+          </tr>
+          <tr>
+            <td><strong>Personal</strong></td>
+            <td>Available in every project, visible only to you</td>
+            <td><code>~/.claude/workflows/</code></td>
+          </tr>
+        </table>
+      </div>
+      <p>If a project workflow and a personal workflow share a name, the <strong>project one runs</strong>.</p>
+
+      <h3>Passing input at invocation time</h3>
+      <p>
+        A saved workflow can accept input through the <code>args</code> parameter — the script reads it
+        as a global named <code>args</code>. Invoke it in natural language and Claude passes structured
+        data; the script can call array and object methods on <code>args</code> directly without parsing.
+      </p>
+      <pre><code><span class="cm"># Claude infers the args from your natural-language request:</span>
+Run /triage-issues on issues 1024, 1025, and 1030</code></pre>
+      <p>If <code>args</code> is omitted at invocation time, the global is <code>undefined</code> inside the script.</p>
+
+      <div class="callout warn">
+        <div class="callout-title">Pass args as structured data, not JSON strings</div>
+        <p>When invoking programmatically: pass <code>args: ["a.ts", "b.ts"]</code> (an actual array),
+        not <code>args: '["a.ts", ...]'</code> (a JSON-encoded string). A stringified list breaks
+        <code>args.filter()</code> and <code>args.map()</code> inside the script.</p>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 9 ─────────────── -->
+    <section id="runs">
+      <h2><span class="sec-num">09</span> How Runs Work &amp; Managing Runs</h2>
+      <div class="sec-rule"></div>
+
+      <h3>Execution model</h3>
+      <p>
+        The runtime executes the script in an <strong>isolated environment</strong>, separate from your
+        conversation. Intermediate results stay in script variables — not in Claude's context window.
+        Claude's context holds only the final answer.
+      </p>
+      <ul>
+        <li>Every run auto-writes its script to a file under <code>~/.claude/projects/</code>. Claude receives the path when the run starts — ask for it to inspect, diff, or edit the script.</li>
+        <li>The runtime tracks each agent's result as the run progresses. This is what makes runs resumable.</li>
+      </ul>
+
+      <h3>Resuming a paused or stopped run</h3>
+      <p>
+        Open <code>/workflows</code>, select the run, and press <code>p</code> to resume. Or ask Claude
+        to relaunch with the same script. Agents that already completed return their cached results
+        instantly; the rest run live.
+      </p>
+
+      <div class="callout danger-box">
+        <div class="callout-title">Same-session only</div>
+        <p>Resume works within the same Claude Code session. If you exit Claude Code while a workflow
+        is running, the next session starts the workflow fresh — cached results from the prior session
+        are not available.</p>
+      </div>
+
+      <h3>Hard limits</h3>
+      <div class="limits">
+        <div class="limit-card">
+          <div class="limit-val">min(16, cpu−2)</div>
+          <div class="limit-label">Max concurrent agents</div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-val">1,000</div>
+          <div class="limit-label">Max agents per run</div>
+        </div>
+        <div class="limit-card">
+          <div class="limit-val">same-session</div>
+          <div class="limit-label">Resume window</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Constraint</th><th>Why</th></tr>
+          <tr>
+            <td><strong>No mid-run user input</strong></td>
+            <td>Only agent permission prompts can pause a run. For sign-off between stages, run each stage as its own workflow.</td>
+          </tr>
+          <tr>
+            <td><strong>No direct filesystem or shell access from the workflow script</strong></td>
+            <td>Agents read, write, and run commands. The script coordinates the agents — it doesn't access files or shell directly.</td>
+          </tr>
+          <tr>
+            <td><strong>≤16 concurrent agents (fewer on limited CPU)</strong></td>
+            <td>Bounds local resource use. Excess <code>agent()</code> calls queue and run as slots free — all items complete, just not all simultaneously.</td>
+          </tr>
+          <tr>
+            <td><strong>1,000 agents total per run</strong></td>
+            <td>Hard backstop against runaway loops. Well above the ceiling of any real workflow.</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─────────────── SECTION 10 ─────────────── -->
+    <section id="cost">
+      <h2><span class="sec-num">10</span> Cost</h2>
+      <div class="sec-rule"></div>
+
+      <p>
+        Workflows spawn many agents — a single run can use meaningfully more tokens than working through
+        the same task in conversation. Runs count toward your plan's usage and rate limits like any other session.
+      </p>
+
+      <h3>Before a large run</h3>
+      <ul>
+        <li><strong>Scope it first.</strong> Run the workflow on a small slice — one directory instead of the whole repo, or a narrow question before a broad one. Gauge the spend before committing.</li>
+        <li><strong>Check your model.</strong> Run <code>/model</code> before a large run if you usually switch to a smaller model for routine work. Every agent uses your session's model unless the script routes a stage to a different one.</li>
+        <li><strong>Ask for cheaper stages.</strong> When describing the task, ask Claude to use a smaller model for stages that don't need the strongest one.</li>
+      </ul>
+
+      <h3>During a run</h3>
+      <ul>
+        <li>The <code>/workflows</code> view shows each agent's token usage as the run progresses.</li>
+        <li>Stop at any time (<code>x</code> key) without losing completed work — agents that finished return cached results on resume.</li>
+        <li>The runtime's 1,000-agent cap bounds worst-case cost from a runaway script.</li>
+      </ul>
+    </section>
+
+    <!-- ─────────────── SECTION 11 ─────────────── -->
+    <section id="off">
+      <h2><span class="sec-num">11</span> Turning Workflows Off</h2>
+      <div class="sec-rule"></div>
+
+      <h3>For yourself</h3>
+      <ul>
+        <li>Toggle <strong>Dynamic workflows</strong> off in <code>/config</code>. Persists across sessions.</li>
+        <li>Set <code>"disableWorkflows": true</code> in <code>~/.claude/settings.json</code>. Persists across sessions.</li>
+        <li>Set <code>CLAUDE_CODE_DISABLE_WORKFLOWS=1</code> as an environment variable. Read at startup — applies wherever you set it.</li>
+      </ul>
+
+      <h3>For your organisation</h3>
+      <ul>
+        <li>Set <code>"disableWorkflows": true</code> in <a href="https://code.claude.com/docs/en/server-managed-settings" style="color:var(--amber);text-decoration:none">managed settings</a>.</li>
+        <li>Or use the toggle on the <a href="https://claude.ai/admin-settings/claude-code" style="color:var(--amber);text-decoration:none">Claude Code admin settings page</a>.</li>
+      </ul>
+
+      <h3>What disabling does</h3>
+      <ul>
+        <li>Bundled workflow commands (including <code>/deep-research</code>) become unavailable.</li>
+        <li>The <code>ultracode</code> keyword no longer triggers a run.</li>
+        <li><code>ultracode</code> is removed from the <code>/effort</code> menu.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // ── Active nav highlight on scroll ──
+  const sections = document.querySelectorAll('section[id]')
+  const navLinks  = document.querySelectorAll('nav a[id]')
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id
+        navLinks.forEach(a => a.classList.remove('active'))
+        const active = document.getElementById('nav-' + id)
+        if (active) active.classList.add('active')
+      }
+    })
+  }, { rootMargin: '-20% 0px -70% 0px' })
+
+  sections.forEach(s => observer.observe(s))
+</script>
+
+</body>
+</html>
