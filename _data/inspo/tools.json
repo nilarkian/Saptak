@@ -4,14 +4,24 @@
     "source": "DEToolbox",
     "caption": "Collection of startup execution tools, canvases, and strategic resources for entrepreneurs and product builders.",
     "date": "2026-06-17",
-    "tags": ["startup-tools", "entrepreneurship", "strategy", "productivity"]
+    "tags": [
+      "startup-tools",
+      "entrepreneurship",
+      "strategy",
+      "productivity"
+    ]
   },
   {
     "url": "https://steveblank.com/tools-and-blogs-for-entrepreneurs/#startup-tools",
     "source": "Steve Blank Startup Tools",
     "caption": "Curated founder toolkit covering customer development, lean startup methods, experimentation, and startup education.",
     "date": "2026-06-18",
-    "tags": ["lean-startup", "startup-tools", "validation", "entrepreneurship"]
+    "tags": [
+      "lean-startup",
+      "startup-tools",
+      "validation",
+      "entrepreneurship"
+    ]
   },
   {
     "url": "https://www.canva.com/design/DAGVaYGfkqQ/qSd-BCSJFZNGrbhC84t9cw/view#8",
@@ -19,7 +29,13 @@
     "title": "31 Business Models",
     "desc": "Visual reference guide explaining common startup and company business model structures across industries.",
     "date": "2026-06-16",
-    "tags": ["business-models", "startup", "strategy", "reference", "frameworks"]
+    "tags": [
+      "business-models",
+      "startup",
+      "strategy",
+      "reference",
+      "frameworks"
+    ]
   },
   {
     "url": "https://www.strategyzer.com/library/10-essential-links-for-testing-your-value-proposition-business-models",
@@ -27,321 +43,543 @@
     "title": "10 Essential Links For Testing Your Value Proposition & Business Models",
     "desc": "Collection of startup validation resources for stress-testing customer demand, pricing, and business assumptions.",
     "date": "2026-06-15",
-    "tags": ["startup", "validation", "value-proposition", "business-models", "strategy"]
+    "tags": [
+      "startup",
+      "validation",
+      "value-proposition",
+      "business-models",
+      "strategy"
+    ]
   },
   {
     "url": "https://nimtools.com/youtube-playlist-generator",
     "source": "YouTube Playlist Generator",
     "caption": "AI-assisted tool for generating themed YouTube playlists from prompts, moods, topics, or creator niches without manually searching videos.",
-    "date": "2026-05-10",
-    "tags": ["youtube", "ai-tools", "playlist", "media"]
+    "date": "2026-04-25",
+    "tags": [
+      "youtube",
+      "ai-tools",
+      "playlist",
+      "media"
+    ]
   },
   {
     "url": "https://cursify.vercel.app/",
     "source": "Cursify",
     "caption": "Converts normal cursor movement into smooth cinematic trails and effects for aesthetic screen recordings and demos.",
-    "date": "2026-05-11",
-    "tags": ["cursor", "productivity", "screen-recording", "design"]
+    "date": "2026-04-26",
+    "tags": [
+      "cursor",
+      "productivity",
+      "screen-recording",
+      "design"
+    ]
   },
   {
     "url": "https://8xengineer.com/",
     "source": "8x Engineer",
     "caption": "Competitive platform where developers build real-world software projects, solve engineering challenges, and earn rewards.",
-    "date": "2026-05-12",
-    "tags": ["coding", "engineering", "challenges", "learning"]
+    "date": "2026-04-27",
+    "tags": [
+      "coding",
+      "engineering",
+      "challenges",
+      "learning"
+    ]
   },
   {
     "url": "https://labs.google.com/u/0/pomelli/campaigns",
     "source": "Google Labs Pomelli",
     "caption": "Experimental Google Labs workspace for generating and managing AI-powered creative campaigns and marketing concepts.",
-    "date": "2026-05-13",
-    "tags": ["google", "ai", "marketing", "experiments"]
+    "date": "2026-04-28",
+    "tags": [
+      "google",
+      "ai",
+      "marketing",
+      "experiments"
+    ]
   },
   {
     "url": "https://bellilou.neocities.org/",
     "source": "Bellilou's Neocity",
     "caption": "Handcrafted personal web space built in the nostalgic DIY style of the early internet using custom HTML aesthetics and widgets.",
-    "date": "2026-05-14",
-    "tags": ["retro-web", "personal-site", "html", "creative"]
+    "date": "2026-04-29",
+    "tags": [
+      "retro-web",
+      "personal-site",
+      "html",
+      "creative"
+    ]
   },
   {
     "url": "https://neocities.org/browse",
     "source": "Neocities Browse",
     "caption": "Directory of independently built personal websites celebrating old-school web creativity, experimentation, and self-hosted internet culture.",
-    "date": "2026-05-15",
-    "tags": ["indie-web", "personal-sites", "retro-web", "community"]
+    "date": "2026-04-30",
+    "tags": [
+      "indie-web",
+      "personal-sites",
+      "retro-web",
+      "community"
+    ]
   },
   {
     "url": "https://www.pixelcrash.xyz/",
     "source": "PixelCrash",
     "caption": "Collection of experimental web visuals, interactive graphics, and glitch-inspired browser art experiences.",
-    "date": "2026-05-16",
-    "tags": ["digital-art", "interactive", "visuals", "creative-coding"]
+    "date": "2026-05-01",
+    "tags": [
+      "digital-art",
+      "interactive",
+      "visuals",
+      "creative-coding"
+    ]
   },
   {
     "url": "https://spacetypegenerator.com/",
     "source": "SPACE TYPE GENERATOR",
     "caption": "Browser-based kinetic typography tool for creating animated text compositions and motion graphics directly on the web.",
-    "date": "2026-05-17",
-    "tags": ["typography", "motion-design", "creative-tools", "text"]
+    "date": "2026-05-02",
+    "tags": [
+      "typography",
+      "motion-design",
+      "creative-tools",
+      "text"
+    ]
   },
   {
     "url": "https://www.magicpattern.design/tools/css-backgrounds",
     "source": "MagicPattern CSS Backgrounds",
     "caption": "Generates customizable SVG and CSS background patterns for websites, apps, and UI design projects.",
-    "date": "2026-05-18",
-    "tags": ["css", "backgrounds", "design-tools", "patterns"]
+    "date": "2026-05-03",
+    "tags": [
+      "css",
+      "backgrounds",
+      "design-tools",
+      "patterns"
+    ]
   },
   {
     "url": "https://codepen.io/bitmap/pen/AzowBq",
     "source": "CSS Textures",
     "caption": "Demonstrates how layered gradients and CSS effects can recreate tactile textures without using image assets.",
-    "date": "2026-05-19",
-    "tags": ["css", "textures", "frontend", "design"]
+    "date": "2026-05-04",
+    "tags": [
+      "css",
+      "textures",
+      "frontend",
+      "design"
+    ]
   },
   {
     "url": "https://prismic.io/blog/css-background-effects",
     "source": "40 CSS Background Effects to Enhance Your Website",
     "caption": "Curated collection of modern CSS background animation and visual effect techniques with practical implementation examples.",
-    "date": "2026-05-20",
-    "tags": ["css", "frontend", "animations", "web-design"]
+    "date": "2026-05-05",
+    "tags": [
+      "css",
+      "frontend",
+      "animations",
+      "web-design"
+    ]
   },
   {
     "url": "https://www.transparenttextures.com/",
     "source": "Transparent Textures",
     "caption": "Free library of seamless transparent texture overlays for adding subtle grain and tactile depth to web interfaces.",
-    "date": "2026-05-21",
-    "tags": ["textures", "design", "ui", "backgrounds"]
+    "date": "2026-05-06",
+    "tags": [
+      "textures",
+      "design",
+      "ui",
+      "backgrounds"
+    ]
   },
   {
     "url": "https://css-pattern.com/",
     "source": "CSS Pattern",
     "caption": "Pattern generator that creates fully editable CSS-only geometric backgrounds without requiring images or SVG files.",
-    "date": "2026-05-22",
-    "tags": ["css", "patterns", "frontend", "generator"]
+    "date": "2026-05-07",
+    "tags": [
+      "css",
+      "patterns",
+      "frontend",
+      "generator"
+    ]
   },
   {
     "url": "https://commons.wikimedia.org/w/index.php?search=textures&title=Special%3AMediaSearch&type=image",
     "source": "Wikimedia Commons Texture Search",
     "caption": "Massive searchable archive of freely usable texture images, scans, surfaces, and public-domain visual assets.",
-    "date": "2026-05-23",
-    "tags": ["textures", "open-assets", "images", "creative-resources"]
+    "date": "2026-05-08",
+    "tags": [
+      "textures",
+      "open-assets",
+      "images",
+      "creative-resources"
+    ]
   },
   {
     "url": "https://texturelabs.org/",
     "source": "Texturelabs",
     "caption": "High-quality free texture library with tutorials, overlays, brushes, and downloadable assets for digital artists and designers.",
-    "date": "2026-05-24",
-    "tags": ["textures", "photoshop", "design", "resources"]
+    "date": "2026-05-09",
+    "tags": [
+      "textures",
+      "photoshop",
+      "design",
+      "resources"
+    ]
   },
   {
     "url": "https://www.loc.gov/free-to-use/",
     "source": "Library of Congress Free to Use and Reuse",
     "caption": "Curated collection of copyright-friendly historical images, illustrations, posters, and archival media from the Library of Congress.",
-    "date": "2026-05-25",
-    "tags": ["archives", "public-domain", "history", "media"]
+    "date": "2026-05-10",
+    "tags": [
+      "archives",
+      "public-domain",
+      "history",
+      "media"
+    ]
   },
   {
     "url": "https://mixpost.app/",
     "source": "Mixpost",
     "caption": "Open-source self-hosted social media scheduling platform supporting multi-account publishing, analytics, and automation workflows.",
-    "date": "2026-05-26",
-    "tags": ["open-source", "social-media", "self-hosted", "automation"]
+    "date": "2026-05-11",
+    "tags": [
+      "open-source",
+      "social-media",
+      "self-hosted",
+      "automation"
+    ]
   },
   {
     "url": "https://onetimesecret.com/en/",
     "source": "One-Time Secret",
     "caption": "Securely share passwords and sensitive text through self-destructing encrypted links that can only be viewed once.",
-    "date": "2026-05-27",
-    "tags": ["security", "privacy", "encryption", "sharing"]
+    "date": "2026-05-12",
+    "tags": [
+      "security",
+      "privacy",
+      "encryption",
+      "sharing"
+    ]
   },
   {
     "url": "https://paymenter.org/",
     "source": "Paymenter",
     "caption": "Open-source billing and client management platform built for hosting providers, VPS services, and infrastructure businesses.",
-    "date": "2026-05-28",
-    "tags": ["open-source", "billing", "hosting", "saas"]
+    "date": "2026-05-13",
+    "tags": [
+      "open-source",
+      "billing",
+      "hosting",
+      "saas"
+    ]
   },
   {
     "url": "https://openarchiver.com/",
     "source": "Open Archiver",
     "caption": "Open-source email archiving and eDiscovery system designed for long-term email storage, compliance, and searchable retrieval.",
-    "date": "2026-05-29",
-    "tags": ["open-source", "email", "archiving", "compliance"]
+    "date": "2026-05-14",
+    "tags": [
+      "open-source",
+      "email",
+      "archiving",
+      "compliance"
+    ]
   },
   {
     "url": "https://sure.am/",
     "source": "Sure",
     "caption": "Privacy-focused personal finance application for tracking spending, budgeting, and financial habits with a clean modern interface.",
-    "date": "2026-05-30",
-    "tags": ["finance", "budgeting", "personal-finance", "productivity"]
+    "date": "2026-05-15",
+    "tags": [
+      "finance",
+      "budgeting",
+      "personal-finance",
+      "productivity"
+    ]
   },
   {
     "url": "https://cursify.vercel.app/",
     "source": "Cursify",
     "caption": "Open-source React + Next.js cursor animation library with customizable motion effects built using TypeScript, Tailwind CSS, and Framer Motion.",
-    "date": "2026-05-08",
-    "tags": ["design", "react", "animation", "ui", "frontend"]
+    "date": "2026-05-16",
+    "tags": [
+      "design",
+      "react",
+      "animation",
+      "ui",
+      "frontend"
+    ]
   },
   {
     "url": "https://8xengineer.com/",
     "source": "8x Engineer",
     "caption": "Platform where developers build real-world apps, compete in engineering challenges, and earn money or recognition through practical projects.",
-    "date": "2026-05-08",
-    "tags": ["coding", "career", "hackathons", "learning", "money"]
+    "date": "2026-05-17",
+    "tags": [
+      "coding",
+      "career",
+      "hackathons",
+      "learning",
+      "money"
+    ]
   },
   {
     "url": "https://labs.google.com/u/0/pomelli/campaigns",
     "source": "Pomelli",
     "caption": "Google Labs AI marketing tool that analyzes a brand's website and generates on-brand social campaigns, visuals, and marketing assets automatically.",
-    "date": "2026-05-08",
-    "tags": ["ai", "marketing", "design", "google", "content"]
-  },	
+    "date": "2026-05-18",
+    "tags": [
+      "ai",
+      "marketing",
+      "design",
+      "google",
+      "content"
+    ]
+  },
   {
     "url": "https://gitmastery.me",
     "source": "GitMastery",
     "caption": "An interactive Git learning platform that teaches Git commands and concepts through fun, game-like challenges in a safe sandbox environment.",
-    "date": "2026-05-06",
-    "tags": ["coding", "git", "learning", "interactive"]
+    "date": "2026-05-19",
+    "tags": [
+      "coding",
+      "git",
+      "learning",
+      "interactive"
+    ]
   },
   {
     "url": "https://learngitbranching.js.org/",
     "source": "Learn Git Branching",
     "caption": "An interactive Git visualization tool and tutorial for mastering Git concepts like branching, merging, and rebasing through browser-based simulations.",
-    "date": "2026-05-05",
-    "tags": ["coding", "git", "learning", "interactive"]
+    "date": "2026-05-20",
+    "tags": [
+      "coding",
+      "git",
+      "learning",
+      "interactive"
+    ]
   },
-      {
-      "url": "https://effector.dev",
-      "source": "Effector",
-      "caption": "A reactive state manager for Javascript focused on performance, modularity, and type safety.",
-      "date": "2025-05-03",
-      "tags": ["coding", "javascript", "tools"]
-    },
-    {
-      "url": "https://swishy.ai",
-      "source": "Swishy.ai",
-      "caption": "An AI-powered platform for creating high-end motion graphics and smooth transitions.",
-      "date": "2025-05-03",
-      "tags": ["ai", "design", "video"]
-    },
-    {
+  {
+    "url": "https://effector.dev",
+    "source": "Effector",
+    "caption": "A reactive state manager for Javascript focused on performance, modularity, and type safety.",
+    "date": "2026-05-21",
+    "tags": [
+      "coding",
+      "javascript",
+      "tools"
+    ]
+  },
+  {
+    "url": "https://swishy.ai",
+    "source": "Swishy.ai",
+    "caption": "An AI-powered platform for creating high-end motion graphics and smooth transitions.",
+    "date": "2026-05-22",
+    "tags": [
+      "ai",
+      "design",
+      "video"
+    ]
+  },
+  {
     "url": "https://venngage.com/ai-tools/icon-generator",
     "source": "Venngage Icon Generator",
     "caption": "A free online tool to create and customize high-quality icons for infographics and presentations.",
-    "date": "2025-05-03",
-    "tags": ["design", "tools", "icons"]
-    },
-    {
+    "date": "2026-05-23",
+    "tags": [
+      "design",
+      "tools",
+      "icons"
+    ]
+  },
+  {
     "url": "https://deathtostock.com",
     "source": "Death to Stock",
     "caption": "A subscription service providing unique, high-quality photo and video assets beyond traditional stock aesthetics.",
-    "date": "2025-05-03",
-    "tags": ["design", "photography", "assets"]
-    },
-    {
-      "url": "https://uiverse.io",
-      "source": "Uiverse.io",
-      "caption": "A community-built library of open-source UI elements made with HTML and CSS.",
-      "date": "2025-05-03",
-      "tags": ["design", "ui", "development"]
-    },
-    {
-      "url": "https://reactbits.dev",
-      "source": "React Bits",
-      "caption": "An open-source collection of animated and interactive React components for modern web apps.",
-      "date": "2025-05-03",
-      "tags": ["design", "react", "animation"]
-    },
-    {
-      "url": "https://texturefabrik.com",
-      "source": "Texturefabrik",
-      "caption": "Premium and free high-quality textures, backgrounds, and digital art assets for creative professionals.",
-      "date": "2025-05-03",
-      "tags": ["design", "assets", "textures"]
-    },
-    {
-      "url": "https://gitmastery.me/",
-      "source": "GitMastery",
-      "caption": "An interactive Git learning platform with a simulated terminal and gamified challenges to master commands hands-on.",
-      "date": "2025-05-03",
-      "tags": ["learning", "git", "coding", "games"]
-    },
-    {
-      "url": "https://learngitbranching.js.org/",
-      "source": "Learn Git Branching",
-      "caption": "A visual Git repository sandbox and tutorial for mastering complex branching, merging, and rebasing through visualization.",
-      "date": "2025-05-03",
-      "tags": ["learning", "git", "coding", "data-viz"]
-    },
-    {
-      "url": "https://designreviewed.com",
-      "source": "Design Reviewed",
-      "caption": "A curated repository documenting graphic design, visual history, and industrial objects.",
-      "date": "2025-05-03",
-      "tags": ["design", "history", "swipefile"]
-    },
-    {
-      "url": "https://brandingstyleguides.com",
-      "source": "Branding Style Guides",
-      "caption": "A comprehensive archive of official brand identity manuals and corporate design standards.",
-      "date": "2025-05-03",
-      "tags": ["design", "branding", "reference", "swipefile"]
-    },
-    {
-      "url": "https://stickers.gallery",
-      "source": "Stickers.gallery",
-      "caption": "A curated inspiration gallery featuring unique physical and digital sticker designs.",
-      "date": "2025-05-03",
-      "tags": ["design", "inspiration", "stickers", "swipefile"]
-    },
-    {
-      "url": "https://mybharat.gov.in",
-      "source": "MyBharat",
-      "caption": "A digital platform empowering Indian youth through volunteering, skill development, and engagement.",
-      "date": "2025-05-03",
-      "tags": ["india", "social", "learning", "job"]
-    },
-    {
-      "url": "https://www.tooooools.app/",
-      "source": "Tooooools",
-      "caption": "Hyper-dense directory of creative + dev tools",
-      "date": "2026-05-02",
-      "tags": ["design", "tools", "productivity"]
-    },
-    {
-      "url": "https://benditomockup.com/",
-      "source": "Bendito Mockup",
-      "caption": "Art-driven premium mockups that feel like photography, not templates",
-      "date": "2026-05-02",
-      "tags": ["design", "mockups", "branding"]
-    },
-    {
-      "url": "https://www.cosmos.so/public-work",
-      "source": "Cosmos (Public Work)",
-      "caption": "Search engine for public-domain visuals from museums + libraries",
-      "date": "2026-05-02",
-      "tags": ["design", "inspiration", "database"]
-    },
-    {
-      "url": "https://virgili0.github.io/Virgilio/",
-      "source": "Virgilio",
-      "caption": "Open-source data science mentoring guide structured across beginner, intermediate, and advanced learning tracks to help anyone navigate machine learning without getting overwhelmed.",
-      "date": "2026-06-19",
-      "tags": ["machine-learning", "learning", "data", "research"]
-    },
-    {
-      "url": "https://brik.space/Gallery/",
-      "source": "Brik Gallery",
-      "caption": "Curated gallery of AI-generated and interactive design tools and generative web creations, useful as a swipefile for designers and creative developers.",
-      "date": "2026-06-20",
-      "tags": ["ai-tools", "creative-tools", "inspiration", "interactive"]
-    },
-    {
-      "url": "https://osintcabal.org/pdfs/GOOGLEDORKDATABASE.txt",
-      "source": "Google Dork Database",
-      "caption": "Comprehensive collection of pre-formatted Google search queries for locating individuals and data across 100+ platforms using OSINT methodology.",
-      "date": "2026-06-21",
-      "tags": ["security", "research", "reference"]
-    }
+    "date": "2026-05-24",
+    "tags": [
+      "design",
+      "photography",
+      "assets"
+    ]
+  },
+  {
+    "url": "https://uiverse.io",
+    "source": "Uiverse.io",
+    "caption": "A community-built library of open-source UI elements made with HTML and CSS.",
+    "date": "2026-05-25",
+    "tags": [
+      "design",
+      "ui",
+      "development"
+    ]
+  },
+  {
+    "url": "https://reactbits.dev",
+    "source": "React Bits",
+    "caption": "An open-source collection of animated and interactive React components for modern web apps.",
+    "date": "2026-05-26",
+    "tags": [
+      "design",
+      "react",
+      "animation"
+    ]
+  },
+  {
+    "url": "https://texturefabrik.com",
+    "source": "Texturefabrik",
+    "caption": "Premium and free high-quality textures, backgrounds, and digital art assets for creative professionals.",
+    "date": "2026-05-27",
+    "tags": [
+      "design",
+      "assets",
+      "textures"
+    ]
+  },
+  {
+    "url": "https://gitmastery.me/",
+    "source": "GitMastery",
+    "caption": "An interactive Git learning platform with a simulated terminal and gamified challenges to master commands hands-on.",
+    "date": "2026-05-28",
+    "tags": [
+      "learning",
+      "git",
+      "coding",
+      "games"
+    ]
+  },
+  {
+    "url": "https://learngitbranching.js.org/",
+    "source": "Learn Git Branching",
+    "caption": "A visual Git repository sandbox and tutorial for mastering complex branching, merging, and rebasing through visualization.",
+    "date": "2026-05-29",
+    "tags": [
+      "learning",
+      "git",
+      "coding",
+      "data-viz"
+    ]
+  },
+  {
+    "url": "https://designreviewed.com",
+    "source": "Design Reviewed",
+    "caption": "A curated repository documenting graphic design, visual history, and industrial objects.",
+    "date": "2026-05-30",
+    "tags": [
+      "design",
+      "history",
+      "swipefile"
+    ]
+  },
+  {
+    "url": "https://brandingstyleguides.com",
+    "source": "Branding Style Guides",
+    "caption": "A comprehensive archive of official brand identity manuals and corporate design standards.",
+    "date": "2026-05-31",
+    "tags": [
+      "design",
+      "branding",
+      "reference",
+      "swipefile"
+    ]
+  },
+  {
+    "url": "https://stickers.gallery",
+    "source": "Stickers.gallery",
+    "caption": "A curated inspiration gallery featuring unique physical and digital sticker designs.",
+    "date": "2026-06-01",
+    "tags": [
+      "design",
+      "inspiration",
+      "stickers",
+      "swipefile"
+    ]
+  },
+  {
+    "url": "https://mybharat.gov.in",
+    "source": "MyBharat",
+    "caption": "A digital platform empowering Indian youth through volunteering, skill development, and engagement.",
+    "date": "2026-06-02",
+    "tags": [
+      "india",
+      "social",
+      "learning",
+      "job"
+    ]
+  },
+  {
+    "url": "https://www.tooooools.app/",
+    "source": "Tooooools",
+    "caption": "Hyper-dense directory of creative + dev tools",
+    "date": "2026-06-03",
+    "tags": [
+      "design",
+      "tools",
+      "productivity"
+    ]
+  },
+  {
+    "url": "https://benditomockup.com/",
+    "source": "Bendito Mockup",
+    "caption": "Art-driven premium mockups that feel like photography, not templates",
+    "date": "2026-06-04",
+    "tags": [
+      "design",
+      "mockups",
+      "branding"
+    ]
+  },
+  {
+    "url": "https://www.cosmos.so/public-work",
+    "source": "Cosmos (Public Work)",
+    "caption": "Search engine for public-domain visuals from museums + libraries",
+    "date": "2026-06-05",
+    "tags": [
+      "design",
+      "inspiration",
+      "database"
+    ]
+  },
+  {
+    "url": "https://virgili0.github.io/Virgilio/",
+    "source": "Virgilio",
+    "caption": "Open-source data science mentoring guide structured across beginner, intermediate, and advanced learning tracks to help anyone navigate machine learning without getting overwhelmed.",
+    "date": "2026-06-19",
+    "tags": [
+      "machine-learning",
+      "learning",
+      "data",
+      "research"
+    ]
+  },
+  {
+    "url": "https://brik.space/Gallery/",
+    "source": "Brik Gallery",
+    "caption": "Curated gallery of AI-generated and interactive design tools and generative web creations, useful as a swipefile for designers and creative developers.",
+    "date": "2026-06-20",
+    "tags": [
+      "ai-tools",
+      "creative-tools",
+      "inspiration",
+      "interactive"
+    ]
+  },
+  {
+    "url": "https://osintcabal.org/pdfs/GOOGLEDORKDATABASE.txt",
+    "source": "Google Dork Database",
+    "caption": "Comprehensive collection of pre-formatted Google search queries for locating individuals and data across 100+ platforms using OSINT methodology.",
+    "date": "2026-06-21",
+    "tags": [
+      "security",
+      "research",
+      "reference"
+    ]
+  }
 ]

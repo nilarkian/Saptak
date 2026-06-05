@@ -1,1147 +1,1550 @@
 [
-  
   {
     "url": "https://searchcode.com",
     "name": "Searchcode",
     "desc": "Search source code snippets across public repositories.",
     "date": "2026-07-04",
-    "tags": ["code", "search", "developers"]
+    "tags": [
+      "code",
+      "search",
+      "developers"
+    ]
   },
   {
     "url": "https://boardreader.com",
     "name": "BoardReader",
     "desc": "Search forum discussions and community conversations across the web.",
     "date": "2026-07-05",
-    "tags": ["forums", "search", "communities"]
+    "tags": [
+      "forums",
+      "search",
+      "communities"
+    ]
   },
   {
     "url": "https://refseek.com",
     "name": "RefSeek",
     "desc": "Academic search engine for students, researchers and scholarly resources.",
     "date": "2026-07-06",
-    "tags": ["academic", "research", "search"]
+    "tags": [
+      "academic",
+      "research",
+      "search"
+    ]
   },
   {
     "url": "https://pdfdrive.com",
     "name": "PDF Drive",
     "desc": "Search and access millions of PDF books and documents.",
     "date": "2026-07-07",
-    "tags": ["books", "pdf", "library"]
+    "tags": [
+      "books",
+      "pdf",
+      "library"
+    ]
   },
   {
     "url": "https://base-search.net",
     "name": "BASE",
     "desc": "Search academic papers from open-access repositories worldwide.",
     "date": "2026-07-08",
-    "tags": ["research", "papers", "open-access"]
+    "tags": [
+      "research",
+      "papers",
+      "open-access"
+    ]
   },
   {
     "url": "https://icons8.com",
     "name": "Icons8",
     "desc": "Search icons, illustrations, photos and design assets.",
     "date": "2026-07-09",
-    "tags": ["design", "icons", "assets"]
+    "tags": [
+      "design",
+      "icons",
+      "assets"
+    ]
   },
   {
     "url": "https://web.archive.org",
     "name": "Wayback Machine",
     "desc": "Browse archived versions of websites from different points in time.",
     "date": "2026-07-10",
-    "tags": ["archive", "history", "web"]
+    "tags": [
+      "archive",
+      "history",
+      "web"
+    ]
   },
   {
     "url": "https://unsplash.com",
     "name": "Unsplash",
     "desc": "High-quality royalty-free stock photography search platform.",
     "date": "2026-07-11",
-    "tags": ["photos", "stock-images", "design"]
+    "tags": [
+      "photos",
+      "stock-images",
+      "design"
+    ]
   },
   {
     "url": "https://projecteuclid.org",
     "name": "Project Euclid",
     "desc": "Mathematics and statistics research paper database.",
     "date": "2026-07-12",
-    "tags": ["math", "statistics", "research"]
+    "tags": [
+      "math",
+      "statistics",
+      "research"
+    ]
   },
   {
     "url": "https://dblp.org",
     "name": "DBLP",
     "desc": "Computer science bibliography and publication search engine.",
     "date": "2026-07-13",
-    "tags": ["computer-science", "research", "publications"]
+    "tags": [
+      "computer-science",
+      "research",
+      "publications"
+    ]
   },
   {
     "url": "https://eric.ed.gov",
     "name": "ERIC",
     "desc": "Education research database with reports, papers and studies.",
     "date": "2026-07-14",
-    "tags": ["education", "research", "papers"]
+    "tags": [
+      "education",
+      "research",
+      "papers"
+    ]
   },
   {
     "url": "https://metager.org",
     "name": "MetaGer",
     "desc": "Privacy-focused metasearch engine with anonymous queries.",
     "date": "2026-07-15",
-    "tags": ["privacy", "search", "metasearch"]
+    "tags": [
+      "privacy",
+      "search",
+      "metasearch"
+    ]
   },
   {
     "url": "https://pubchem.ncbi.nlm.nih.gov",
     "name": "PubChem",
     "desc": "Search chemical compounds, molecules and substance data.",
     "date": "2026-07-16",
-    "tags": ["chemistry", "science", "database"]
+    "tags": [
+      "chemistry",
+      "science",
+      "database"
+    ]
   },
   {
     "url": "https://clinicaltrials.gov",
     "name": "ClinicalTrials.gov",
     "desc": "Global database of clinical research studies and trials.",
     "date": "2026-07-17",
-    "tags": ["medical", "clinical-trials", "research"]
+    "tags": [
+      "medical",
+      "clinical-trials",
+      "research"
+    ]
   },
   {
     "url": "https://gutenberg.org",
     "name": "Project Gutenberg",
     "desc": "Free ebook and public domain literature archive.",
     "date": "2026-07-18",
-    "tags": ["ebooks", "literature", "books"]
+    "tags": [
+      "ebooks",
+      "literature",
+      "books"
+    ]
   },
   {
     "url": "https://ccmixter.org",
     "name": "ccMixter",
     "desc": "Search royalty-free music and remix tracks for creative projects.",
     "date": "2026-07-19",
-    "tags": ["music", "audio", "creative"]
+    "tags": [
+      "music",
+      "audio",
+      "creative"
+    ]
   },
   {
     "url": "https://radio-browser.info",
     "name": "Radio Browser",
     "desc": "Search online radio stations from around the world.",
     "date": "2026-07-20",
-    "tags": ["radio", "audio", "streaming"]
+    "tags": [
+      "radio",
+      "audio",
+      "streaming"
+    ]
   },
   {
     "url": "https://archive.org",
     "name": "Internet Archive",
     "desc": "Massive archive of websites, books, videos and digital media.",
     "date": "2026-07-21",
-    "tags": ["archive", "media", "history"]
+    "tags": [
+      "archive",
+      "media",
+      "history"
+    ]
   },
   {
     "url": "https://packagist.org",
     "name": "Packagist",
     "desc": "Search PHP packages and open-source libraries.",
     "date": "2026-07-22",
-    "tags": ["php", "packages", "developers"]
+    "tags": [
+      "php",
+      "packages",
+      "developers"
+    ]
   },
   {
     "url": "https://npmjs.com",
     "name": "npm",
     "desc": "JavaScript package registry for libraries and developer tools.",
     "date": "2026-07-23",
-    "tags": ["javascript", "packages", "developers"]
+    "tags": [
+      "javascript",
+      "packages",
+      "developers"
+    ]
   },
   {
     "url": "https://crates.io",
     "name": "Crates.io",
     "desc": "Rust programming language package and dependency registry.",
     "date": "2026-07-24",
-    "tags": ["rust", "packages", "developers"]
+    "tags": [
+      "rust",
+      "packages",
+      "developers"
+    ]
   },
   {
     "url": "https://searx.space",
     "name": "SearX Space",
     "desc": "Directory of privacy-friendly metasearch engine instances.",
     "date": "2026-07-25",
-    "tags": ["privacy", "search", "opensource"]
+    "tags": [
+      "privacy",
+      "search",
+      "opensource"
+    ]
   },
   {
     "url": "https://wolframalpha.com",
     "name": "Wolfram Alpha",
     "desc": "Computational knowledge engine for factual and mathematical queries.",
     "date": "2026-07-26",
-    "tags": ["computation", "math", "knowledge"]
+    "tags": [
+      "computation",
+      "math",
+      "knowledge"
+    ]
   },
   {
     "url": "https://dogpile.com",
     "name": "Dogpile",
     "desc": "Aggregates results from multiple search engines.",
     "date": "2026-07-27",
-    "tags": ["search", "metasearch", "web"]
+    "tags": [
+      "search",
+      "metasearch",
+      "web"
+    ]
   },
   {
     "url": "https://tinypng.com",
     "name": "TinyPNG",
     "desc": "Compress PNG and JPEG images for faster loading.",
     "date": "2026-07-28",
-    "tags": ["images", "compression", "optimization"]
+    "tags": [
+      "images",
+      "compression",
+      "optimization"
+    ]
   },
   {
     "url": "https://millionshort.com",
     "name": "Million Short",
     "desc": "Alternative search engine that removes top popular sites from results.",
     "date": "2026-07-29",
-    "tags": ["search", "discovery", "alternative"]
+    "tags": [
+      "search",
+      "discovery",
+      "alternative"
+    ]
   },
   {
     "url": "https://freesound.org",
     "name": "Freesound",
     "desc": "Search sound effects and audio samples by similarity.",
     "date": "2026-07-30",
-    "tags": ["audio", "sound-effects", "creative"]
+    "tags": [
+      "audio",
+      "sound-effects",
+      "creative"
+    ]
   },
   {
     "url": "https://ascii2d.net",
     "name": "Ascii2D",
     "desc": "Reverse image search engine focused on anime artwork.",
     "date": "2026-07-31",
-    "tags": ["reverse-image-search", "anime", "art"]
+    "tags": [
+      "reverse-image-search",
+      "anime",
+      "art"
+    ]
   },
   {
     "url": "https://browserling.com",
     "name": "Browserling",
     "desc": "Test and preview websites across multiple browsers online.",
     "date": "2026-08-01",
-    "tags": ["browsers", "testing", "web-development"]
+    "tags": [
+      "browsers",
+      "testing",
+      "web-development"
+    ]
   },
   {
     "url": "https://keywordtool.io",
     "name": "Keyword Tool",
     "desc": "Generate keyword ideas from Google, YouTube and other platforms.",
     "date": "2026-08-02",
-    "tags": ["seo", "keywords", "marketing"]
+    "tags": [
+      "seo",
+      "keywords",
+      "marketing"
+    ]
   },
   {
     "url": "https://slideplayer.com",
     "name": "SlidePlayer",
     "desc": "Search presentation slides from uploaded documents and decks.",
     "date": "2026-08-03",
-    "tags": ["slides", "presentations", "documents"]
+    "tags": [
+      "slides",
+      "presentations",
+      "documents"
+    ]
   },
   {
     "url": "https://issuu.com",
     "name": "Issuu",
     "desc": "Search digital magazines, catalogs and online publications.",
     "date": "2026-08-04",
-    "tags": ["magazines", "publishing", "documents"]
+    "tags": [
+      "magazines",
+      "publishing",
+      "documents"
+    ]
   },
   {
     "url": "https://pypi.org",
     "name": "PyPI",
     "desc": "Python package index for libraries and developer tools.",
     "date": "2026-08-05",
-    "tags": ["python", "packages", "developers"]
+    "tags": [
+      "python",
+      "packages",
+      "developers"
+    ]
   },
   {
     "url": "https://docplayer.net",
     "name": "DocPlayer",
     "desc": "Search manuals, guides and uploaded document archives.",
     "date": "2026-08-06",
-    "tags": ["documents", "manuals", "guides"]
+    "tags": [
+      "documents",
+      "manuals",
+      "guides"
+    ]
   },
-
   {
     "url": "https://earth.nullschool.net",
     "name": "Earth Nullschool",
     "desc": "Animated real-time global wind, weather and ocean current visualization.",
     "date": "2026-06-06",
-    "tags": ["weather", "ocean", "wind"]
+    "tags": [
+      "weather",
+      "ocean",
+      "wind"
+    ]
   },
   {
     "url": "https://www.marinetraffic.com",
     "name": "MarineTraffic",
     "desc": "Track ships, ports and maritime movement worldwide in real time.",
     "date": "2026-06-07",
-    "tags": ["shipping", "tracking", "maritime"]
+    "tags": [
+      "shipping",
+      "tracking",
+      "maritime"
+    ]
   },
   {
     "url": "https://mempool.space",
     "name": "Mempool Space",
     "desc": "Monitor pending Bitcoin transactions, blocks and network activity.",
     "date": "2026-06-08",
-    "tags": ["bitcoin", "crypto", "blockchain"]
+    "tags": [
+      "bitcoin",
+      "crypto",
+      "blockchain"
+    ]
   },
   {
     "url": "https://www.flightradar24.com",
     "name": "Flightradar24",
     "desc": "Live map of commercial and private aircraft around the world.",
     "date": "2026-06-09",
-    "tags": ["aviation", "tracking", "flights"]
+    "tags": [
+      "aviation",
+      "tracking",
+      "flights"
+    ]
   },
   {
     "url": "https://cybermap.kaspersky.com",
     "name": "Kaspersky Cybermap",
     "desc": "Visualizes live cyberattack activity and threat detections globally.",
     "date": "2026-06-10",
-    "tags": ["cybersecurity", "attacks", "threat-intelligence"]
+    "tags": [
+      "cybersecurity",
+      "attacks",
+      "threat-intelligence"
+    ]
   },
   {
     "url": "https://netc.com",
     "name": "NETC Radiation Map",
     "desc": "Displays live nuclear radiation monitoring data from global sensors.",
     "date": "2026-06-11",
-    "tags": ["radiation", "nuclear", "monitoring"]
+    "tags": [
+      "radiation",
+      "nuclear",
+      "monitoring"
+    ]
   },
   {
     "url": "https://iqair.com/earth",
     "name": "IQAir Earth",
     "desc": "Interactive global air quality and pollution tracking map.",
     "date": "2026-06-12",
-    "tags": ["air-quality", "pollution", "environment"]
+    "tags": [
+      "air-quality",
+      "pollution",
+      "environment"
+    ]
   },
   {
     "url": "https://globalfishingwatch.org",
     "name": "Global Fishing Watch",
     "desc": "Tracks commercial fishing vessel activity using satellite data.",
     "date": "2026-06-13",
-    "tags": ["fishing", "satellite", "oceans"]
+    "tags": [
+      "fishing",
+      "satellite",
+      "oceans"
+    ]
   },
   {
     "url": "https://globalquake.net",
     "name": "GlobalQuake",
     "desc": "Real-time earthquake detection and seismic monitoring platform.",
     "date": "2026-06-14",
-    "tags": ["earthquakes", "seismic", "geology"]
+    "tags": [
+      "earthquakes",
+      "seismic",
+      "geology"
+    ]
   },
   {
     "url": "https://www.globalforestwatch.org",
     "name": "Global Forest Watch",
     "desc": "Satellite-powered forest loss and deforestation monitoring system.",
     "date": "2026-06-15",
-    "tags": ["forests", "deforestation", "satellite"]
+    "tags": [
+      "forests",
+      "deforestation",
+      "satellite"
+    ]
   },
   {
     "url": "https://climatetrace.org",
     "name": "Climate TRACE",
     "desc": "Tracks greenhouse gas emissions using AI and satellite analysis.",
     "date": "2026-06-16",
-    "tags": ["climate", "emissions", "carbon"]
+    "tags": [
+      "climate",
+      "emissions",
+      "carbon"
+    ]
   },
   {
     "url": "https://earthquaketrack.com",
     "name": "Earthquake Track",
     "desc": "Shows recent earthquakes worldwide as they happen.",
     "date": "2026-06-17",
-    "tags": ["earthquakes", "alerts", "disasters"]
+    "tags": [
+      "earthquakes",
+      "alerts",
+      "disasters"
+    ]
   },
   {
     "url": "https://opensky-network.org",
     "name": "OpenSky Network",
     "desc": "Open aviation data platform with live global air traffic tracking.",
     "date": "2026-06-18",
-    "tags": ["aviation", "open-data", "tracking"]
+    "tags": [
+      "aviation",
+      "open-data",
+      "tracking"
+    ]
   },
   {
     "url": "https://geomag.bgs.ac.uk",
     "name": "BGS Geomagnetism",
     "desc": "Live readings and monitoring of Earth’s magnetic field.",
     "date": "2026-06-19",
-    "tags": ["geomagnetism", "space-weather", "science"]
+    "tags": [
+      "geomagnetism",
+      "space-weather",
+      "science"
+    ]
   },
   {
     "url": "https://observe.earth",
     "name": "Observe Earth",
     "desc": "Tracks global conflicts, outbreaks, disasters and economic disruptions.",
     "date": "2026-06-20",
-    "tags": ["geopolitics", "disasters", "monitoring"]
+    "tags": [
+      "geopolitics",
+      "disasters",
+      "monitoring"
+    ]
   },
   {
     "url": "https://worldview.earthdata.nasa.gov",
     "name": "NASA Worldview",
     "desc": "Interactive NASA satellite imagery and Earth observation platform.",
     "date": "2026-06-21",
-    "tags": ["nasa", "satellite", "earth-observation"]
+    "tags": [
+      "nasa",
+      "satellite",
+      "earth-observation"
+    ]
   },
   {
     "url": "https://acleddata.com",
     "name": "ACLED",
     "desc": "Conflict, protest and political violence event tracking database.",
     "date": "2026-06-22",
-    "tags": ["conflict", "politics", "data"]
+    "tags": [
+      "conflict",
+      "politics",
+      "data"
+    ]
   },
   {
     "url": "https://outbreaks.globalincidentmap.com",
     "name": "Global Incident Map Outbreaks",
     "desc": "Maps disease outbreaks and epidemic incidents globally.",
     "date": "2026-06-23",
-    "tags": ["disease", "health", "outbreaks"]
+    "tags": [
+      "disease",
+      "health",
+      "outbreaks"
+    ]
   },
   {
     "url": "https://the-world-now.com",
     "name": "The World Now",
     "desc": "Live globe showing disasters, wars and major global incidents.",
     "date": "2026-06-24",
-    "tags": ["global-events", "conflicts", "disasters"]
+    "tags": [
+      "global-events",
+      "conflicts",
+      "disasters"
+    ]
   },
   {
     "url": "https://isstracker.live",
     "name": "ISS Tracker",
     "desc": "Track the International Space Station in real time.",
     "date": "2026-06-25",
-    "tags": ["space", "iss", "tracking"]
+    "tags": [
+      "space",
+      "iss",
+      "tracking"
+    ]
   },
   {
     "url": "https://deaddrops.com",
     "name": "Dead Drops",
     "desc": "Map of hidden offline USB data-sharing dead drops worldwide.",
     "date": "2026-06-26",
-    "tags": ["usb", "offline", "cyberculture"]
+    "tags": [
+      "usb",
+      "offline",
+      "cyberculture"
+    ]
   },
   {
     "url": "https://co2.earth",
     "name": "CO2 Earth",
     "desc": "Tracks atmospheric carbon dioxide concentration levels.",
     "date": "2026-06-27",
-    "tags": ["climate", "carbon", "environment"]
+    "tags": [
+      "climate",
+      "carbon",
+      "environment"
+    ]
   },
   {
     "url": "https://oceancolor.gsfc.nasa.gov",
     "name": "NASA Ocean Color",
     "desc": "Ocean chlorophyll, temperature and marine ecosystem satellite data.",
     "date": "2026-06-28",
-    "tags": ["ocean", "satellite", "marine-science"]
+    "tags": [
+      "ocean",
+      "satellite",
+      "marine-science"
+    ]
   },
   {
     "url": "https://globe.adsbexchange.com",
     "name": "ADS-B Exchange Globe",
     "desc": "Unfiltered live aircraft tracking including military flights.",
     "date": "2026-06-29",
-    "tags": ["aviation", "military", "tracking"]
+    "tags": [
+      "aviation",
+      "military",
+      "tracking"
+    ]
   },
   {
     "url": "https://tide-forecast.com",
     "name": "Tide Forecast",
     "desc": "Real-time tide forecasts and coastal water level information.",
     "date": "2026-06-30",
-    "tags": ["tides", "ocean", "coastlines"]
+    "tags": [
+      "tides",
+      "ocean",
+      "coastlines"
+    ]
   },
   {
     "url": "https://stats.wikimedia.org",
     "name": "Wikimedia Statistics",
     "desc": "Live statistics and edit activity across Wikimedia projects.",
     "date": "2026-07-01",
-    "tags": ["wikipedia", "analytics", "live-data"]
+    "tags": [
+      "wikipedia",
+      "analytics",
+      "live-data"
+    ]
   },
   {
     "url": "https://www.swpc.noaa.gov",
     "name": "NOAA Space Weather Prediction Center",
     "desc": "Solar flare alerts, geomagnetic storms and space weather forecasts.",
     "date": "2026-07-02",
-    "tags": ["space-weather", "solar", "alerts"]
+    "tags": [
+      "space-weather",
+      "solar",
+      "alerts"
+    ]
   },
   {
     "url": "https://internetlivestats.com",
     "name": "Internet Live Stats",
     "desc": "Tracks live internet usage, traffic and digital activity metrics.",
     "date": "2026-07-03",
-    "tags": ["internet", "analytics", "live-data"]
-  },
-  
-
-  {
-    "url": "https://earth.nullschool.net",
-    "name": "Earth Nullschool",
-    "desc": "Animated real-time global wind, weather and ocean current visualization.",
-    "date": "2026-06-06",
-    "tags": ["weather", "ocean", "wind"]
+    "tags": [
+      "internet",
+      "analytics",
+      "live-data"
+    ]
   },
   {
-    "url": "https://www.marinetraffic.com",
-    "name": "MarineTraffic",
-    "desc": "Track ships, ports and maritime movement worldwide in real time.",
-    "date": "2026-06-07",
-    "tags": ["shipping", "tracking", "maritime"]
-  },
-  {
-    "url": "https://mempool.space",
-    "name": "Mempool Space",
-    "desc": "Monitor pending Bitcoin transactions, blocks and network activity.",
-    "date": "2026-06-08",
-    "tags": ["bitcoin", "crypto", "blockchain"]
-  },
-  {
-    "url": "https://www.flightradar24.com",
-    "name": "Flightradar24",
-    "desc": "Live map of commercial and private aircraft around the world.",
-    "date": "2026-06-09",
-    "tags": ["aviation", "tracking", "flights"]
-  },
-  {
-    "url": "https://cybermap.kaspersky.com",
-    "name": "Kaspersky Cybermap",
-    "desc": "Visualizes live cyberattack activity and threat detections globally.",
-    "date": "2026-06-10",
-    "tags": ["cybersecurity", "attacks", "threat-intelligence"]
-  },
-  {
-    "url": "https://netc.com",
-    "name": "NETC Radiation Map",
-    "desc": "Displays live nuclear radiation monitoring data from global sensors.",
+    "url": "https://www.indiehackers.com/",
+    "name": "Indie Hackers",
+    "desc": "Community platform where indie founders share revenue metrics, experiments, product launches, and startup journeys.",
     "date": "2026-06-11",
-    "tags": ["radiation", "nuclear", "monitoring"]
+    "tags": [
+      "startup",
+      "founders",
+      "community",
+      "bootstrapping",
+      "indie"
+    ]
   },
   {
-    "url": "https://iqair.com/earth",
-    "name": "IQAir Earth",
-    "desc": "Interactive global air quality and pollution tracking map.",
-    "date": "2026-06-12",
-    "tags": ["air-quality", "pollution", "environment"]
+    "url": "https://www.submarinecablemap.com/",
+    "name": "Submarine Cable Map",
+    "desc": "Interactive global map visualizing undersea internet cables, landing points, and worldwide digital infrastructure connecting continents.",
+    "date": "2026-03-27",
+    "tags": [
+      "internet",
+      "infrastructure",
+      "maps",
+      "telecommunications",
+      "geography"
+    ]
   },
   {
-    "url": "https://globalfishingwatch.org",
-    "name": "Global Fishing Watch",
-    "desc": "Tracks commercial fishing vessel activity using satellite data.",
-    "date": "2026-06-13",
-    "tags": ["fishing", "satellite", "oceans"]
+    "url": "https://www.imissmylibrary.com/",
+    "name": "i miss my library",
+    "desc": "Ambient productivity site recreating the quiet atmosphere of libraries with realistic background sounds for studying and focused work.",
+    "date": "2026-03-28",
+    "tags": [
+      "ambient",
+      "productivity",
+      "study",
+      "audio",
+      "focus"
+    ]
   },
   {
-    "url": "https://globalquake.net",
-    "name": "GlobalQuake",
-    "desc": "Real-time earthquake detection and seismic monitoring platform.",
-    "date": "2026-06-14",
-    "tags": ["earthquakes", "seismic", "geology"]
+    "url": "https://imissmycafe.com/",
+    "name": "I Miss My Cafe",
+    "desc": "Relaxing browser experience simulating coffee shop ambience with customizable café sounds, rain, chatter, and background noise.",
+    "date": "2026-03-29",
+    "tags": [
+      "ambient",
+      "coffee-shop",
+      "focus",
+      "audio",
+      "productivity"
+    ]
   },
   {
-    "url": "https://www.globalforestwatch.org",
-    "name": "Global Forest Watch",
-    "desc": "Satellite-powered forest loss and deforestation monitoring system.",
-    "date": "2026-06-15",
-    "tags": ["forests", "deforestation", "satellite"]
+    "url": "https://www.postcrossing.com/",
+    "name": "Postcrossing",
+    "desc": "Global postcard exchange community where strangers send and receive real postcards from around the world.",
+    "date": "2026-03-30",
+    "tags": [
+      "community",
+      "postcards",
+      "travel",
+      "social",
+      "mail-art"
+    ]
   },
   {
-    "url": "https://climatetrace.org",
-    "name": "Climate TRACE",
-    "desc": "Tracks greenhouse gas emissions using AI and satellite analysis.",
-    "date": "2026-06-16",
-    "tags": ["climate", "emissions", "carbon"]
+    "url": "https://www.window-swap.com/",
+    "name": "WindowSwap",
+    "desc": "Virtual window-view platform letting users experience relaxing real-world scenery and ambient sounds from homes worldwide.",
+    "date": "2026-03-31",
+    "tags": [
+      "virtual-travel",
+      "ambient",
+      "relaxation",
+      "video",
+      "exploration"
+    ]
   },
   {
-    "url": "https://earthquaketrack.com",
-    "name": "Earthquake Track",
-    "desc": "Shows recent earthquakes worldwide as they happen.",
-    "date": "2026-06-17",
-    "tags": ["earthquakes", "alerts", "disasters"]
+    "url": "https://mysketchbooth.com/",
+    "name": "MySketchBooth",
+    "desc": "Free online vintage-style photo booth that transforms selfies into retro sketches, film strips, and nostalgic portrait effects.",
+    "date": "2026-04-01",
+    "tags": [
+      "photo-editor",
+      "retro",
+      "photobooth",
+      "creative-tools",
+      "images"
+    ]
   },
   {
-    "url": "https://opensky-network.org",
-    "name": "OpenSky Network",
-    "desc": "Open aviation data platform with live global air traffic tracking.",
-    "date": "2026-06-18",
-    "tags": ["aviation", "open-data", "tracking"]
+    "url": "https://neal.fun/",
+    "name": "Neal.fun",
+    "desc": "Collection of highly polished interactive experiments, simulations, and educational web toys exploring science, culture, money, and absurd internet ideas.",
+    "date": "2026-04-02",
+    "tags": [
+      "interactive",
+      "education",
+      "experiments",
+      "web-toys",
+      "creative-coding"
+    ]
   },
   {
-    "url": "https://geomag.bgs.ac.uk",
-    "name": "BGS Geomagnetism",
-    "desc": "Live readings and monitoring of Earth’s magnetic field.",
-    "date": "2026-06-19",
-    "tags": ["geomagnetism", "space-weather", "science"]
+    "url": "https://neal.fun/absurd-trolley-problems/",
+    "name": "Absurd Trolley Problems",
+    "desc": "Darkly funny interactive moral-choice game that escalates the classic trolley problem into bizarre and increasingly impossible scenarios.",
+    "date": "2026-04-03",
+    "tags": [
+      "game",
+      "ethics",
+      "interactive",
+      "humor",
+      "simulation"
+    ]
   },
   {
-    "url": "https://observe.earth",
-    "name": "Observe Earth",
-    "desc": "Tracks global conflicts, outbreaks, disasters and economic disruptions.",
-    "date": "2026-06-20",
-    "tags": ["geopolitics", "disasters", "monitoring"]
+    "url": "https://app.radiooooo.com/",
+    "name": "Radiooooo",
+    "desc": "Time-travel radio platform that lets users discover music from different countries and decades through an interactive world map.",
+    "date": "2026-04-04",
+    "tags": [
+      "music",
+      "radio",
+      "history",
+      "discovery",
+      "world-culture"
+    ]
   },
   {
-    "url": "https://worldview.earthdata.nasa.gov",
-    "name": "NASA Worldview",
-    "desc": "Interactive NASA satellite imagery and Earth observation platform.",
-    "date": "2026-06-21",
-    "tags": ["nasa", "satellite", "earth-observation"]
+    "url": "https://acmail.idreesinc.com/",
+    "name": "Animal Crossing Letter Generator",
+    "desc": "Fan-made tool for creating printable Animal Crossing-style letters with authentic game-inspired layouts and typography.",
+    "date": "2026-04-05",
+    "tags": [
+      "animal-crossing",
+      "generator",
+      "gaming",
+      "fan-tools",
+      "creative"
+    ]
   },
   {
-    "url": "https://acleddata.com",
-    "name": "ACLED",
-    "desc": "Conflict, protest and political violence event tracking database.",
-    "date": "2026-06-22",
-    "tags": ["conflict", "politics", "data"]
+    "url": "https://www.theartscavenger.com/",
+    "name": "The Art Scavenger",
+    "desc": "Archive of free printable collage sheets, vintage ephemera, textures, and paper craft resources for artists and journal makers.",
+    "date": "2026-04-06",
+    "tags": [
+      "art",
+      "collage",
+      "printables",
+      "crafts",
+      "vintage"
+    ]
   },
   {
-    "url": "https://outbreaks.globalincidentmap.com",
-    "name": "Global Incident Map Outbreaks",
-    "desc": "Maps disease outbreaks and epidemic incidents globally.",
-    "date": "2026-06-23",
-    "tags": ["disease", "health", "outbreaks"]
+    "url": "https://erowidroulette.wttdotm.com/",
+    "name": "Erowid Roulette",
+    "desc": "Randomized portal into unusual and often surreal experience reports sourced from Erowid’s psychoactive substance archive.",
+    "date": "2026-04-07",
+    "tags": [
+      "internet-culture",
+      "random",
+      "archive",
+      "stories",
+      "experimental"
+    ]
   },
   {
-    "url": "https://the-world-now.com",
-    "name": "The World Now",
-    "desc": "Live globe showing disasters, wars and major global incidents.",
-    "date": "2026-06-24",
-    "tags": ["global-events", "conflicts", "disasters"]
+    "url": "https://www.erowid.org/psychoactives/",
+    "name": "Erowid Psychoactive Vaults",
+    "desc": "Massive educational archive documenting psychoactive substances, user reports, chemistry, culture, risks, and historical references.",
+    "date": "2026-04-08",
+    "tags": [
+      "archive",
+      "education",
+      "substances",
+      "culture",
+      "research"
+    ]
   },
   {
-    "url": "https://isstracker.live",
-    "name": "ISS Tracker",
-    "desc": "Track the International Space Station in real time.",
-    "date": "2026-06-25",
-    "tags": ["space", "iss", "tracking"]
+    "url": "https://www.mercatus.org/categories/india-political-economy-program",
+    "name": "Mercatus Center — India Political Economy Program",
+    "desc": "Research initiative publishing analysis on Indian economic policy, governance, markets, institutions, and public policy reform.",
+    "date": "2026-04-09",
+    "tags": [
+      "economics",
+      "india",
+      "policy",
+      "research",
+      "governance"
+    ]
   },
   {
-    "url": "https://deaddrops.com",
-    "name": "Dead Drops",
-    "desc": "Map of hidden offline USB data-sharing dead drops worldwide.",
-    "date": "2026-06-26",
-    "tags": ["usb", "offline", "cyberculture"]
+    "url": "https://www.atlasobscura.com/",
+    "name": "Atlas Obscura",
+    "desc": "Travel discovery platform cataloging unusual places, hidden history, strange museums, forgotten architecture, and global curiosities.",
+    "date": "2026-04-10",
+    "tags": [
+      "travel",
+      "history",
+      "curiosities",
+      "exploration",
+      "culture"
+    ]
   },
   {
-    "url": "https://co2.earth",
-    "name": "CO2 Earth",
-    "desc": "Tracks atmospheric carbon dioxide concentration levels.",
-    "date": "2026-06-27",
-    "tags": ["climate", "carbon", "environment"]
+    "url": "https://windows93.net/",
+    "name": "WINDOWS93",
+    "desc": "Chaotic browser-based parody operating system packed with retro apps, memes, fake desktop tools, games, and early-internet nostalgia experiments.",
+    "date": "2026-04-11",
+    "tags": [
+      "retro-web",
+      "web-os",
+      "nostalgia",
+      "interactive",
+      "experimental"
+    ]
   },
   {
-    "url": "https://oceancolor.gsfc.nasa.gov",
-    "name": "NASA Ocean Color",
-    "desc": "Ocean chlorophyll, temperature and marine ecosystem satellite data.",
-    "date": "2026-06-28",
-    "tags": ["ocean", "satellite", "marine-science"]
+    "url": "https://youraislopbores.me/",
+    "name": "your ai slop bores me",
+    "desc": "Viral multiplayer social experiment where humans pretend to be AI chatbots and answer prompts in real time as a playful protest against AI-generated content.",
+    "date": "2026-04-12",
+    "tags": [
+      "anti-ai",
+      "social-experiment",
+      "multiplayer",
+      "internet-culture",
+      "interactive"
+    ]
   },
   {
-    "url": "https://globe.adsbexchange.com",
-    "name": "ADS-B Exchange Globe",
-    "desc": "Unfiltered live aircraft tracking including military flights.",
-    "date": "2026-06-29",
-    "tags": ["aviation", "military", "tracking"]
+    "url": "https://www.linerider.com/",
+    "name": "Line Rider",
+    "desc": "Classic physics sandbox game where players draw sled tracks and create kinetic animations, stunts, and music-synced motion art.",
+    "date": "2026-04-13",
+    "tags": [
+      "physics",
+      "sandbox",
+      "drawing",
+      "game",
+      "animation"
+    ]
   },
   {
-    "url": "https://tide-forecast.com",
-    "name": "Tide Forecast",
-    "desc": "Real-time tide forecasts and coastal water level information.",
-    "date": "2026-06-30",
-    "tags": ["tides", "ocean", "coastlines"]
+    "url": "https://www.oldmapsonline.org/en",
+    "name": "OldMapsOnline",
+    "desc": "Historical map search engine that lets users explore digitized old maps from libraries and archives across different time periods and regions.",
+    "date": "2026-04-14",
+    "tags": [
+      "history",
+      "maps",
+      "archives",
+      "geography",
+      "research"
+    ]
   },
   {
-    "url": "https://stats.wikimedia.org",
-    "name": "Wikimedia Statistics",
-    "desc": "Live statistics and edit activity across Wikimedia projects.",
-    "date": "2026-07-01",
-    "tags": ["wikipedia", "analytics", "live-data"]
+    "url": "https://www.runningreality.org/",
+    "name": "Running Reality",
+    "desc": "Interactive world history simulation that models civilizations, wars, trade, politics, and technological development across time.",
+    "date": "2026-04-15",
+    "tags": [
+      "history",
+      "simulation",
+      "civilizations",
+      "education",
+      "interactive"
+    ]
   },
   {
-    "url": "https://www.swpc.noaa.gov",
-    "name": "NOAA Space Weather Prediction Center",
-    "desc": "Solar flare alerts, geomagnetic storms and space weather forecasts.",
-    "date": "2026-07-02",
-    "tags": ["space-weather", "solar", "alerts"]
+    "url": "https://www.zooniverse.org/",
+    "name": "Zooniverse",
+    "desc": "Citizen science platform where volunteers help researchers classify galaxies, transcribe archives, identify wildlife, and analyze scientific data.",
+    "date": "2026-04-16",
+    "tags": [
+      "citizen-science",
+      "research",
+      "science",
+      "crowdsourcing",
+      "education"
+    ]
   },
   {
-    "url": "https://internetlivestats.com",
-    "name": "Internet Live Stats",
-    "desc": "Tracks live internet usage, traffic and digital activity metrics.",
-    "date": "2026-07-03",
-    "tags": ["internet", "analytics", "live-data"]
+    "url": "https://explorabl.es/",
+    "name": "Explorable Explanations",
+    "desc": "Curated collection of interactive essays and simulations that teach complex concepts through hands-on visual experimentation.",
+    "date": "2026-04-17",
+    "tags": [
+      "education",
+      "interactive",
+      "learning",
+      "simulation",
+      "visualization"
+    ]
   },
-    {
-  "url": "https://www.indiehackers.com/",
-  "name": "Indie Hackers",
-  "desc": "Community platform where indie founders share revenue metrics, experiments, product launches, and startup journeys.",
-  "date": "2026-06-11",
-  "tags": ["startup", "founders", "community", "bootstrapping", "indie"]
+  {
+    "url": "https://www.phantom.land/projects/letters-from-the-future",
+    "name": "Letters from the Future",
+    "desc": "Speculative interactive storytelling project presenting fictional future letters that explore climate, technology, politics, and society.",
+    "date": "2026-04-18",
+    "tags": [
+      "speculative-fiction",
+      "interactive",
+      "storytelling",
+      "future",
+      "design"
+    ]
   },
-    {
-      "url": "https://www.submarinecablemap.com/",
-      "name": "Submarine Cable Map",
-      "desc": "Interactive global map visualizing undersea internet cables, landing points, and worldwide digital infrastructure connecting continents.",
-      "date": "2026-05-22",
-      "tags": ["internet", "infrastructure", "maps", "telecommunications", "geography"]
-    },
-    {
-      "url": "https://www.imissmylibrary.com/",
-      "name": "i miss my library",
-      "desc": "Ambient productivity site recreating the quiet atmosphere of libraries with realistic background sounds for studying and focused work.",
-      "date": "2026-05-23",
-      "tags": ["ambient", "productivity", "study", "audio", "focus"]
-    },
-    {
-      "url": "https://imissmycafe.com/",
-      "name": "I Miss My Cafe",
-      "desc": "Relaxing browser experience simulating coffee shop ambience with customizable café sounds, rain, chatter, and background noise.",
-      "date": "2026-05-24",
-      "tags": ["ambient", "coffee-shop", "focus", "audio", "productivity"]
-    },
-    {
-      "url": "https://www.postcrossing.com/",
-      "name": "Postcrossing",
-      "desc": "Global postcard exchange community where strangers send and receive real postcards from around the world.",
-      "date": "2026-05-25",
-      "tags": ["community", "postcards", "travel", "social", "mail-art"]
-    },
-    {
-      "url": "https://www.window-swap.com/",
-      "name": "WindowSwap",
-      "desc": "Virtual window-view platform letting users experience relaxing real-world scenery and ambient sounds from homes worldwide.",
-      "date": "2026-05-26",
-      "tags": ["virtual-travel", "ambient", "relaxation", "video", "exploration"]
-    },
-    {
-      "url": "https://mysketchbooth.com/",
-      "name": "MySketchBooth",
-      "desc": "Free online vintage-style photo booth that transforms selfies into retro sketches, film strips, and nostalgic portrait effects.",
-      "date": "2026-05-27",
-      "tags": ["photo-editor", "retro", "photobooth", "creative-tools", "images"]
-    },
-    {
-      "url": "https://neal.fun/",
-      "name": "Neal.fun",
-      "desc": "Collection of highly polished interactive experiments, simulations, and educational web toys exploring science, culture, money, and absurd internet ideas.",
-      "date": "2026-05-28",
-      "tags": ["interactive", "education", "experiments", "web-toys", "creative-coding"]
-    },
-    {
-      "url": "https://neal.fun/absurd-trolley-problems/",
-      "name": "Absurd Trolley Problems",
-      "desc": "Darkly funny interactive moral-choice game that escalates the classic trolley problem into bizarre and increasingly impossible scenarios.",
-      "date": "2026-05-29",
-      "tags": ["game", "ethics", "interactive", "humor", "simulation"]
-    },
-    {
-      "url": "https://app.radiooooo.com/",
-      "name": "Radiooooo",
-      "desc": "Time-travel radio platform that lets users discover music from different countries and decades through an interactive world map.",
-      "date": "2026-05-30",
-      "tags": ["music", "radio", "history", "discovery", "world-culture"]
-    },
-    {
-      "url": "https://acmail.idreesinc.com/",
-      "name": "Animal Crossing Letter Generator",
-      "desc": "Fan-made tool for creating printable Animal Crossing-style letters with authentic game-inspired layouts and typography.",
-      "date": "2026-05-31",
-      "tags": ["animal-crossing", "generator", "gaming", "fan-tools", "creative"]
-    },
-    {
-      "url": "https://www.theartscavenger.com/",
-      "name": "The Art Scavenger",
-      "desc": "Archive of free printable collage sheets, vintage ephemera, textures, and paper craft resources for artists and journal makers.",
-      "date": "2026-06-01",
-      "tags": ["art", "collage", "printables", "crafts", "vintage"]
-    },
-    {
-      "url": "https://erowidroulette.wttdotm.com/",
-      "name": "Erowid Roulette",
-      "desc": "Randomized portal into unusual and often surreal experience reports sourced from Erowid’s psychoactive substance archive.",
-      "date": "2026-06-02",
-      "tags": ["internet-culture", "random", "archive", "stories", "experimental"]
-    },
-    {
-      "url": "https://www.erowid.org/psychoactives/",
-      "name": "Erowid Psychoactive Vaults",
-      "desc": "Massive educational archive documenting psychoactive substances, user reports, chemistry, culture, risks, and historical references.",
-      "date": "2026-06-03",
-      "tags": ["archive", "education", "substances", "culture", "research"]
-    },
-    {
-      "url": "https://www.mercatus.org/categories/india-political-economy-program",
-      "name": "Mercatus Center — India Political Economy Program",
-      "desc": "Research initiative publishing analysis on Indian economic policy, governance, markets, institutions, and public policy reform.",
-      "date": "2026-06-04",
-      "tags": ["economics", "india", "policy", "research", "governance"]
-    },
-    {
-      "url": "https://www.atlasobscura.com/",
-      "name": "Atlas Obscura",
-      "desc": "Travel discovery platform cataloging unusual places, hidden history, strange museums, forgotten architecture, and global curiosities.",
-      "date": "2026-06-05",
-      "tags": ["travel", "history", "curiosities", "exploration", "culture"]
-    },
-    {
-      "url": "https://windows93.net/",
-      "name": "WINDOWS93",
-      "desc": "Chaotic browser-based parody operating system packed with retro apps, memes, fake desktop tools, games, and early-internet nostalgia experiments.",
-      "date": "2026-05-11",
-      "tags": ["retro-web", "web-os", "nostalgia", "interactive", "experimental"]
-    },
-    {
-      "url": "https://youraislopbores.me/",
-      "name": "your ai slop bores me",
-      "desc": "Viral multiplayer social experiment where humans pretend to be AI chatbots and answer prompts in real time as a playful protest against AI-generated content.",
-      "date": "2026-05-11",
-      "tags": ["anti-ai", "social-experiment", "multiplayer", "internet-culture", "interactive"]
-    },
-    {
-      "url": "https://www.linerider.com/",
-      "name": "Line Rider",
-      "desc": "Classic physics sandbox game where players draw sled tracks and create kinetic animations, stunts, and music-synced motion art.",
-      "date": "2026-05-13",
-      "tags": ["physics", "sandbox", "drawing", "game", "animation"]
-    },
-    {
-      "url": "https://www.oldmapsonline.org/en",
-      "name": "OldMapsOnline",
-      "desc": "Historical map search engine that lets users explore digitized old maps from libraries and archives across different time periods and regions.",
-      "date": "2026-05-14",
-      "tags": ["history", "maps", "archives", "geography", "research"]
-    },
-    {
-      "url": "https://www.runningreality.org/",
-      "name": "Running Reality",
-      "desc": "Interactive world history simulation that models civilizations, wars, trade, politics, and technological development across time.",
-      "date": "2026-05-15",
-      "tags": ["history", "simulation", "civilizations", "education", "interactive"]
-    },
-    {
-      "url": "https://www.zooniverse.org/",
-      "name": "Zooniverse",
-      "desc": "Citizen science platform where volunteers help researchers classify galaxies, transcribe archives, identify wildlife, and analyze scientific data.",
-      "date": "2026-05-16",
-      "tags": ["citizen-science", "research", "science", "crowdsourcing", "education"]
-    },
-    {
-      "url": "https://explorabl.es/",
-      "name": "Explorable Explanations",
-      "desc": "Curated collection of interactive essays and simulations that teach complex concepts through hands-on visual experimentation.",
-      "date": "2026-05-17",
-      "tags": ["education", "interactive", "learning", "simulation", "visualization"]
-    },
-    {
-      "url": "https://www.phantom.land/projects/letters-from-the-future",
-      "name": "Letters from the Future",
-      "desc": "Speculative interactive storytelling project presenting fictional future letters that explore climate, technology, politics, and society.",
-      "date": "2026-05-18",
-      "tags": ["speculative-fiction", "interactive", "storytelling", "future", "design"]
-    },
-    {
-      "url": "https://visdeurbel.nl/en/",
-      "name": "The Fish Doorbell",
-      "desc": "Live-streamed Dutch canal project where viewers press a virtual doorbell to help migrating fish pass through a river lock.",
-      "date": "2026-05-19",
-      "tags": ["livestream", "nature", "crowdsourcing", "wildlife", "interactive"]
-    },
-    {
-      "url": "https://inakshikar.com/makeyourselfacoldcoffee",
-      "name": "make yourself a cold coffee",
-      "desc": "Playful interactive web experience that guides users through making cold coffee using animated storytelling and tactile interactions.",
-      "date": "2026-05-20",
-      "tags": ["interactive", "food", "web-experience", "design", "playful"]
-    },
-    {
-      "url": "https://gradient.horse/",
-      "name": "gradient.horse",
-      "desc": "Massive searchable collection of CSS gradients for designers and developers exploring color palettes, backgrounds, and visual inspiration.",
-      "date": "2026-05-21",
-      "tags": ["gradients", "design", "css", "colors", "developer-tools"]
-    },
-    {
-      "url": "https://same.energy/",
-      "name": "Same Energy",
-      "desc": "AI-powered visual search engine that finds aesthetically similar images based on mood, style, composition, and texture instead of keywords.",
-      "date": "2026-05-09",
-      "tags": ["visual-search", "ai", "design", "inspiration", "image-discovery"]
-    },
-    {
-      "url": "https://www.tree.fm/",
-      "name": "tree.fm",
-      "desc": "Ambient nature platform that streams real forest soundscapes from around the world for relaxation, focus, meditation, and virtual nature immersion.",
-      "date": "2026-05-11",
-      "tags": ["nature", "ambient", "soundscape", "relaxation", "audio"]
-    },
-    {
-      "url": "https://citywalks.live/",
-      "name": "City Walks Live",
-      "desc": "Virtual travel platform featuring immersive walking tours through cities worldwide using long-form street exploration videos and live-style travel experiences.",
-      "date": "2026-05-08",
-      "tags": ["virtual-travel", "walking-tours", "cities", "travel", "immersive"]
-    },
-    {
-      "url": "https://fieldsofthe.world",
-      "name": "Fields of The World",
-      "desc": "Open-source global agricultural field boundary mapping platform using satellite imagery and machine learning for crop monitoring, land-use analysis, and geospatial research.",
-      "date": "2026-05-04",
-      "tags": ["geospatial", "machine-learning", "satellite-imagery", "agriculture", "mapping"]
-    },
-    {
-      "url": "https://www.3dtuning.com/en-US/",
-      "name": "3DTuning",
-      "desc": "Interactive 3D car customization simulator where users can modify vehicles with body kits, wheels, paint, suspension, and tuning parts in real time.",
-      "date": "2026-05-05",
-      "tags": ["cars", "3d", "customization", "simulation", "automotive"]
-    },
-    {
-      "url": "https://demo.f4map.com/",
-      "name": "F4map Demo",
-      "desc": "Interactive WebGL-powered 3D map viewer built on OpenStreetMap data with realistic buildings, terrain, shadows, and city exploration.",
-      "date": "2026-05-06",
-      "tags": ["maps", "3d", "webgl", "openstreetmap", "geospatial"]
-    },
-    {
-      "url": "https://messenger.abeto.co/",
-      "name": "Messenger",
-      "desc": "Relaxing browser-based multiplayer delivery game where players explore a tiny stylized planet delivering messages in a beautifully crafted WebGL world.",
-      "date": "2026-05-07",
-      "tags": ["browser-game", "webgl", "multiplayer", "indie-game", "interactive"]
-    },
-      {
-      "url": "https://metazooa.com/",
-      "name": "Metazooa",
-      "desc": "A daily animal guessing game that uses biological taxonomy to narrow down a mystery species.",
-      "date": "2025-05-03",
-      "tags": ["games", "biology", "taxonomy", "cure-boredom"]
-    },
-    {
-      "url": "https://tradle.net",
-      "name": "Tradle",
-      "desc": "A daily geography puzzle where players identify a country based on a treemap of its global export data.",
-      "date": "2025-05-03",
-      "tags": ["games", "geography", "economics", "data-viz", "cure-boredom"]
-    },
-    {
-      "url": "https://geocities.restorativland.org",
-      "name": "Geocities Gallery",
-      "desc": "A visual archive preserving the unique digital vernacular and design of the 1990s Geocities era.",
-      "date": "2025-05-03",
-      "tags": ["internet-history", "nostalgia", "archive", "cure-boredom"]
-    },
-    {
-      "url": "https://mobilephonemuseum.com",
-      "name": "Mobile Phones Museum",
-      "desc": "A visual encyclopedia of mobile hardware history, featuring over 2,000 distinct devices.",
-      "date": "2026-05-05",
-      "tags": ["tech-history", "hardware", "archive"]
-    },
-    {
-      "url": "https://intertapes.net",
-      "name": "Intertapes",
-      "desc": "A digital preservation project featuring scanned media and audio from found VHS and cassettes.",
-      "date": "2025-05-03",
-          "tags": ["nostalgia", "media", "archive", "music"]
-    },
-    {
-      "url": "http://thetoymaker.com",
-      "name": "TheToyMaker",
-      "desc": "A collection of printable paper toys and vintage-inspired crafts for creative play.",
-      "date": "2025-05-03",
-      "tags": ["nostalgia", "crafts", "diy", "pepakura"]
-    },
-    {
-      "url": "https://everynoise.com",
-      "name": "Every Noise at Once",
-      "desc": "An algorithmically-generated, interactive scatter-plot of thousands of music genres.",
-      "date": "2025-05-03",
-      "tags": ["music", "data-viz", "discovery", "cure-boredom"]
-    },
-    {
-      "url": "https://drivenlisten.com/city/?city=CCU",
-      "name": "Drive & Listen",
-      "desc": "An immersive experience combining 4K dashcam footage of world cities with local radio stations.",
-      "date": "2026-05-04",
-      "tags": ["music", "travel", "ambient",  "cure-boredom"]
-    },
-    {
-      "url": "https://myretrotvs.com",
-      "name": "MyRetroTV",
-      "desc": "A series of nostalgic simulators providing an authentic TV-viewing experience from past decades.",
-      "date": "2025-05-03",
-      "tags": ["nostalgia", "video", "archive", "cure-boredom"]
-    },
-    {
-      "url": "https://worldle.teuteuf.fr",
-      "name": "Worldle",
-      "desc": "A daily geography game where players guess a country or territory based on its silhouette.",
-      "date": "2025-05-03",
-      "tags": ["games", "geography", "learning", "cure-boredom"]
-    },
-    {
-      "url": "https://puzzleprime.com/puzzles",
-      "name": "Puzzle Prime",
-      "desc": "A hub for brain teasers, detective puzzles, and educational logic games for all ages.",
-      "date": "2025-05-03",
-      "tags": ["games", "puzzles", "learning", "cure-boredom"]
-    },
-    {
-      "url": "https://origami.me",
-      "name": "Origami.me",
-      "desc": "A dedicated resource for origami enthusiasts featuring diagrams, tutorials, and paper reviews.",
-      "date": "2025-05-03",
-      "tags": ["crafts", "diy", "learning", "cure-boredom"]
-    },
-    {
-      "url": "https://monitorworld.app",
-      "name": "World Monitor",
-      "desc": "A real-time intelligence dashboard tracking global conflicts and geopolitical risks.",
-      "date": "2025-05-03",
-      "tags": ["data-viz", "geopolitics", "news", "cure-boredom"]
-    },
-    {
-      "url": "https://valdevia.art",
-      "name": "Valdevia",
-      "desc": "Dude makes creepy art",
-      "date": "2025-05-03",
-      "tags": ["art", "design", "inspiration", "cure-boredom"]
-    },
-    {
-      "url": "https://opengridworks.com/power-plants",
-      "name": "OpenGridWorks",
-      "desc": "An interactive global map of power infrastructure including operating plants, fiber cables, and transmission lines.",
-      "date": "2026-05-03",
-      "tags": ["data-viz", "energy", "infrastructure", "cure-boredom"]
-    },
-    {
-      "url": "https://www.runningreality.org/?highlight=147",
-      "name": "Running Reality - Early Kolkata",
-      "desc": "A historical world model providing a high-fidelity geospatial timeline of Kolkata's early urban development.",
-      "date": "2026-05-04",
-      "tags": ["history", "cartography", "kolkata", "cure-boredom"]
-    },
-    {
-      "url": "https://thevalleyofcode.com/",
-      "name": "The Valley of Code",
-      "desc": "Structured web dev curriculum, free and no fluff.",
-      "date": "2025-03-10",
-      "tags": ["learning", "webdev"]
-    },
-    {
-      "url": "https://pz.harvard.edu/thinking-routines",
-      "name": "PZ Thinking Routines",
-      "desc": "Harvard's toolbox for structured thinking. Surprisingly practical.",
-      "date": "2025-03-12",
-      "tags": ["learning", "tools-for-thought"]
-    },
-    {
-      "url": "https://untools.co/",
-      "name": "Untools",
-      "desc": "Mental models and thinking frameworks, one clean page each.",
-      "date": "2025-03-15",
-      "tags": ["learning", "tools-for-thought"]
-    },
-    {
-      "url": "https://www.mindtools.com/",
-      "name": "MindTools",
-      "desc": "Dense but useful. Good reference when you need to get better at explaining things.",
-      "date": "2025-03-18",
-      "tags": ["learning", "tools-for-thought"]
-    },
-    {
-      "url": "https://alternativeto.net/",
-      "name": "AlternativeTo",
-      "desc": "Crowdsourced software alternatives. Beats Googling 'X but free.'",
-      "date": "2025-04-02",
-      "tags": ["tools"]
-    },
-    {
-      "url": "https://tinywow.com/",
-      "name": "TinyWow",
-      "desc": "Free AI + file tools. PDF, image, writing — no sign-up.",
-      "date": "2024-04-05",
-      "tags": ["tools", "ai"]
-    },
-    {
-      "url": "https://www.mymap.ai/map?mid=bartapHAaDbAk",
-      "name": "MyMap.ai",
-      "desc": "Ideas that changed the world, mapped visually.",
-      "date": "2024-04-08",
-      "tags": ["tools", "ai", "tools-for-thought"]
-    },
-    {
-      "url": "https://yourlogicalfallacyis.com/",
-      "name": "Your Logical Fallacy Is",
-      "desc": "Every fallacy, named and explained. Bookmark it for arguments.",
-      "date": "2025-04-12",
-      "tags": ["tools", "tools-for-thought"]
-    },
-    {
-      "url": "https://yourbias.is/",
-      "name": "Your Bias Is",
-      "desc": "24 cognitive biases with clean one-liners. Sister site to the above.",
-      "date": "2025-04-14",
-      "tags": ["tools", "tools-for-thought"]
-    },
-    {
-      "url": "https://datagovernance.com/quotes/information-quotes/",
-      "name": "Information Quotes — DGI",
-      "desc": "Data Governance Institute's quote bank. Good for framing ideas.",
-      "date": "2025-05-02",
-      "tags": ["quotes", "writing"]
-    },
-    {
-      "url": "https://www.bookey.app/quote-book/the-information",
-      "name": "The Information — Bookey",
-      "desc": "30 quotes from Gleick's The Information. Worth reading cold.",
-      "date": "2025-05-05",
-      "tags": ["quotes", "writing"]
-    },
-    {
-      "url": "https://careerfoundry.com/en/blog/data-analytics/inspirational-data-quotes/",
-      "name": "Data Quotes — CareerFoundry",
-      "desc": "23 quotes on data. Some are actually good.",
-      "date": "2025-05-08",
-      "tags": ["quotes", "writing"]
-    },
-    {
-      "url": "https://neilpatel.com/wp-content/uploads/2020/05/ultimate-headline-formula-list.pdf",
-      "name": "Headline Formula List — Neil Patel",
-      "desc": "PDF. Every headline pattern worth knowing, in one place.",
-      "date": "2025-05-12",
-      "tags": ["writing", "copywriting"]
-    },
-    {
-      "url": "https://marketingexamples.com/",
-      "name": "Marketing Examples",
-      "desc": "Harry Dry's breakdowns. Short, specific, actually useful.",
-      "date": "2025-06-04",
-      "tags": ["ads", "marketing"]
-    },
-    {
-      "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=IN&is_targeted_country=false&media_type=all&q=kolkata&search_type=keyword_unordered",
-      "name": "Meta Ad Library",
-      "desc": "What's running in Kolkata right now. Good reality check on local copy.",
-      "date": "2025-06-08",
-      "tags": ["ads", "marketing"]
-    },
-    {
-      "url": "https://www.adsoftheworld.com/campaigns?search=kolkata",
-      "name": "Ads of the World",
-      "desc": "Award-level campaigns, searchable. Kolkata filter bookmarked.",
-      "date": "2025-06-12",
-      "tags": ["ads", "marketing"]
-    },
-    {
-      "url": "https://adespresso.com/ads-examples/",
-      "name": "AdEspresso Examples",
-      "desc": "Facebook ad examples, curated and categorised.",
-      "date": "2025-06-16",
-      "tags": ["ads", "marketing"]
-    },
-    {
-      "url": "https://instapage.com/blog/landing-page-examples",
-      "name": "Instapage Examples",
-      "desc": "110 landing pages with annotations. Good for structure ideas.",
-      "date": "2025-07-02",
-      "tags": ["landing-pages", "design"]
-    },
-    {
-      "url": "https://www.growtharchive.xyz/",
-      "name": "Growth Archive",
-      "desc": "B2B growth marketing examples. What's working in the wild.",
-      "date": "2025-07-06",
-      "tags": ["landing-pages", "marketing"]
-    },
-    {
-      "url": "https://www.landingfolio.com/",
-      "name": "Landingfolio",
-      "desc": "Landing page design inspiration. Best visual reference in this list.",
-      "date": "2025-07-10",
-      "tags": ["landing-pages", "design"]
-    },
-    {
-      "url": "https://www.getresponse.com/blog/7-welcome-emails-that-set-the-standard",
-      "name": "Welcome Email Examples",
-      "desc": "15 welcome emails worth studying. GetResponse's breakdown is solid.",
-      "date": "2025-08-04",
-      "tags": ["email", "marketing"]
-    },
-    {
-      "url": "https://reallygoodemails.com/",
-      "name": "Really Good Emails",
-      "desc": "The email swipe file. Searchable by type, brand, and industry.",
-      "date": "2025-08-08",
-      "tags": ["email", "marketing"]
-    },
-    {
-      "url": "https://www.loot-drop.io/",
-      "name": "Loot Drop",
-      "desc": "Database of 1,600+ actionable business concepts derived from 1,200+ failed startups, with failure case studies, industry analysis, and rebuild plans.",
-      "date": "2026-08-07",
-      "tags": ["startup-failures", "case-studies", "startup-insights", "founders"]
-    }
+  {
+    "url": "https://visdeurbel.nl/en/",
+    "name": "The Fish Doorbell",
+    "desc": "Live-streamed Dutch canal project where viewers press a virtual doorbell to help migrating fish pass through a river lock.",
+    "date": "2026-04-19",
+    "tags": [
+      "livestream",
+      "nature",
+      "crowdsourcing",
+      "wildlife",
+      "interactive"
+    ]
+  },
+  {
+    "url": "https://inakshikar.com/makeyourselfacoldcoffee",
+    "name": "make yourself a cold coffee",
+    "desc": "Playful interactive web experience that guides users through making cold coffee using animated storytelling and tactile interactions.",
+    "date": "2026-04-20",
+    "tags": [
+      "interactive",
+      "food",
+      "web-experience",
+      "design",
+      "playful"
+    ]
+  },
+  {
+    "url": "https://gradient.horse/",
+    "name": "gradient.horse",
+    "desc": "Massive searchable collection of CSS gradients for designers and developers exploring color palettes, backgrounds, and visual inspiration.",
+    "date": "2026-04-21",
+    "tags": [
+      "gradients",
+      "design",
+      "css",
+      "colors",
+      "developer-tools"
+    ]
+  },
+  {
+    "url": "https://same.energy/",
+    "name": "Same Energy",
+    "desc": "AI-powered visual search engine that finds aesthetically similar images based on mood, style, composition, and texture instead of keywords.",
+    "date": "2026-04-22",
+    "tags": [
+      "visual-search",
+      "ai",
+      "design",
+      "inspiration",
+      "image-discovery"
+    ]
+  },
+  {
+    "url": "https://www.tree.fm/",
+    "name": "tree.fm",
+    "desc": "Ambient nature platform that streams real forest soundscapes from around the world for relaxation, focus, meditation, and virtual nature immersion.",
+    "date": "2026-04-23",
+    "tags": [
+      "nature",
+      "ambient",
+      "soundscape",
+      "relaxation",
+      "audio"
+    ]
+  },
+  {
+    "url": "https://citywalks.live/",
+    "name": "City Walks Live",
+    "desc": "Virtual travel platform featuring immersive walking tours through cities worldwide using long-form street exploration videos and live-style travel experiences.",
+    "date": "2026-04-24",
+    "tags": [
+      "virtual-travel",
+      "walking-tours",
+      "cities",
+      "travel",
+      "immersive"
+    ]
+  },
+  {
+    "url": "https://fieldsofthe.world",
+    "name": "Fields of The World",
+    "desc": "Open-source global agricultural field boundary mapping platform using satellite imagery and machine learning for crop monitoring, land-use analysis, and geospatial research.",
+    "date": "2026-04-25",
+    "tags": [
+      "geospatial",
+      "machine-learning",
+      "satellite-imagery",
+      "agriculture",
+      "mapping"
+    ]
+  },
+  {
+    "url": "https://www.3dtuning.com/en-US/",
+    "name": "3DTuning",
+    "desc": "Interactive 3D car customization simulator where users can modify vehicles with body kits, wheels, paint, suspension, and tuning parts in real time.",
+    "date": "2026-04-26",
+    "tags": [
+      "cars",
+      "3d",
+      "customization",
+      "simulation",
+      "automotive"
+    ]
+  },
+  {
+    "url": "https://demo.f4map.com/",
+    "name": "F4map Demo",
+    "desc": "Interactive WebGL-powered 3D map viewer built on OpenStreetMap data with realistic buildings, terrain, shadows, and city exploration.",
+    "date": "2026-04-27",
+    "tags": [
+      "maps",
+      "3d",
+      "webgl",
+      "openstreetmap",
+      "geospatial"
+    ]
+  },
+  {
+    "url": "https://messenger.abeto.co/",
+    "name": "Messenger",
+    "desc": "Relaxing browser-based multiplayer delivery game where players explore a tiny stylized planet delivering messages in a beautifully crafted WebGL world.",
+    "date": "2026-04-28",
+    "tags": [
+      "browser-game",
+      "webgl",
+      "multiplayer",
+      "indie-game",
+      "interactive"
+    ]
+  },
+  {
+    "url": "https://metazooa.com/",
+    "name": "Metazooa",
+    "desc": "A daily animal guessing game that uses biological taxonomy to narrow down a mystery species.",
+    "date": "2026-04-29",
+    "tags": [
+      "games",
+      "biology",
+      "taxonomy",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://tradle.net",
+    "name": "Tradle",
+    "desc": "A daily geography puzzle where players identify a country based on a treemap of its global export data.",
+    "date": "2026-04-30",
+    "tags": [
+      "games",
+      "geography",
+      "economics",
+      "data-viz",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://geocities.restorativland.org",
+    "name": "Geocities Gallery",
+    "desc": "A visual archive preserving the unique digital vernacular and design of the 1990s Geocities era.",
+    "date": "2026-05-01",
+    "tags": [
+      "internet-history",
+      "nostalgia",
+      "archive",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://mobilephonemuseum.com",
+    "name": "Mobile Phones Museum",
+    "desc": "A visual encyclopedia of mobile hardware history, featuring over 2,000 distinct devices.",
+    "date": "2026-05-02",
+    "tags": [
+      "tech-history",
+      "hardware",
+      "archive"
+    ]
+  },
+  {
+    "url": "https://intertapes.net",
+    "name": "Intertapes",
+    "desc": "A digital preservation project featuring scanned media and audio from found VHS and cassettes.",
+    "date": "2026-05-03",
+    "tags": [
+      "nostalgia",
+      "media",
+      "archive",
+      "music"
+    ]
+  },
+  {
+    "url": "http://thetoymaker.com",
+    "name": "TheToyMaker",
+    "desc": "A collection of printable paper toys and vintage-inspired crafts for creative play.",
+    "date": "2026-05-04",
+    "tags": [
+      "nostalgia",
+      "crafts",
+      "diy",
+      "pepakura"
+    ]
+  },
+  {
+    "url": "https://everynoise.com",
+    "name": "Every Noise at Once",
+    "desc": "An algorithmically-generated, interactive scatter-plot of thousands of music genres.",
+    "date": "2026-05-05",
+    "tags": [
+      "music",
+      "data-viz",
+      "discovery",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://drivenlisten.com/city/?city=CCU",
+    "name": "Drive & Listen",
+    "desc": "An immersive experience combining 4K dashcam footage of world cities with local radio stations.",
+    "date": "2026-05-06",
+    "tags": [
+      "music",
+      "travel",
+      "ambient",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://myretrotvs.com",
+    "name": "MyRetroTV",
+    "desc": "A series of nostalgic simulators providing an authentic TV-viewing experience from past decades.",
+    "date": "2026-05-07",
+    "tags": [
+      "nostalgia",
+      "video",
+      "archive",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://worldle.teuteuf.fr",
+    "name": "Worldle",
+    "desc": "A daily geography game where players guess a country or territory based on its silhouette.",
+    "date": "2026-05-08",
+    "tags": [
+      "games",
+      "geography",
+      "learning",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://puzzleprime.com/puzzles",
+    "name": "Puzzle Prime",
+    "desc": "A hub for brain teasers, detective puzzles, and educational logic games for all ages.",
+    "date": "2026-05-09",
+    "tags": [
+      "games",
+      "puzzles",
+      "learning",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://origami.me",
+    "name": "Origami.me",
+    "desc": "A dedicated resource for origami enthusiasts featuring diagrams, tutorials, and paper reviews.",
+    "date": "2026-05-10",
+    "tags": [
+      "crafts",
+      "diy",
+      "learning",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://monitorworld.app",
+    "name": "World Monitor",
+    "desc": "A real-time intelligence dashboard tracking global conflicts and geopolitical risks.",
+    "date": "2026-05-11",
+    "tags": [
+      "data-viz",
+      "geopolitics",
+      "news",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://valdevia.art",
+    "name": "Valdevia",
+    "desc": "Dude makes creepy art",
+    "date": "2026-05-12",
+    "tags": [
+      "art",
+      "design",
+      "inspiration",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://opengridworks.com/power-plants",
+    "name": "OpenGridWorks",
+    "desc": "An interactive global map of power infrastructure including operating plants, fiber cables, and transmission lines.",
+    "date": "2026-05-13",
+    "tags": [
+      "data-viz",
+      "energy",
+      "infrastructure",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://www.runningreality.org/?highlight=147",
+    "name": "Running Reality - Early Kolkata",
+    "desc": "A historical world model providing a high-fidelity geospatial timeline of Kolkata's early urban development.",
+    "date": "2026-05-14",
+    "tags": [
+      "history",
+      "cartography",
+      "kolkata",
+      "cure-boredom"
+    ]
+  },
+  {
+    "url": "https://thevalleyofcode.com/",
+    "name": "The Valley of Code",
+    "desc": "Structured web dev curriculum, free and no fluff.",
+    "date": "2026-05-15",
+    "tags": [
+      "learning",
+      "webdev"
+    ]
+  },
+  {
+    "url": "https://pz.harvard.edu/thinking-routines",
+    "name": "PZ Thinking Routines",
+    "desc": "Harvard's toolbox for structured thinking. Surprisingly practical.",
+    "date": "2026-05-16",
+    "tags": [
+      "learning",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://untools.co/",
+    "name": "Untools",
+    "desc": "Mental models and thinking frameworks, one clean page each.",
+    "date": "2026-05-17",
+    "tags": [
+      "learning",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://www.mindtools.com/",
+    "name": "MindTools",
+    "desc": "Dense but useful. Good reference when you need to get better at explaining things.",
+    "date": "2026-05-18",
+    "tags": [
+      "learning",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://alternativeto.net/",
+    "name": "AlternativeTo",
+    "desc": "Crowdsourced software alternatives. Beats Googling 'X but free.'",
+    "date": "2026-05-19",
+    "tags": [
+      "tools"
+    ]
+  },
+  {
+    "url": "https://tinywow.com/",
+    "name": "TinyWow",
+    "desc": "Free AI + file tools. PDF, image, writing — no sign-up.",
+    "date": "2026-05-20",
+    "tags": [
+      "tools",
+      "ai"
+    ]
+  },
+  {
+    "url": "https://www.mymap.ai/map?mid=bartapHAaDbAk",
+    "name": "MyMap.ai",
+    "desc": "Ideas that changed the world, mapped visually.",
+    "date": "2026-05-21",
+    "tags": [
+      "tools",
+      "ai",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://yourlogicalfallacyis.com/",
+    "name": "Your Logical Fallacy Is",
+    "desc": "Every fallacy, named and explained. Bookmark it for arguments.",
+    "date": "2026-05-22",
+    "tags": [
+      "tools",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://yourbias.is/",
+    "name": "Your Bias Is",
+    "desc": "24 cognitive biases with clean one-liners. Sister site to the above.",
+    "date": "2026-05-23",
+    "tags": [
+      "tools",
+      "tools-for-thought"
+    ]
+  },
+  {
+    "url": "https://datagovernance.com/quotes/information-quotes/",
+    "name": "Information Quotes — DGI",
+    "desc": "Data Governance Institute's quote bank. Good for framing ideas.",
+    "date": "2026-05-24",
+    "tags": [
+      "quotes",
+      "writing"
+    ]
+  },
+  {
+    "url": "https://www.bookey.app/quote-book/the-information",
+    "name": "The Information — Bookey",
+    "desc": "30 quotes from Gleick's The Information. Worth reading cold.",
+    "date": "2026-05-25",
+    "tags": [
+      "quotes",
+      "writing"
+    ]
+  },
+  {
+    "url": "https://careerfoundry.com/en/blog/data-analytics/inspirational-data-quotes/",
+    "name": "Data Quotes — CareerFoundry",
+    "desc": "23 quotes on data. Some are actually good.",
+    "date": "2026-05-26",
+    "tags": [
+      "quotes",
+      "writing"
+    ]
+  },
+  {
+    "url": "https://neilpatel.com/wp-content/uploads/2020/05/ultimate-headline-formula-list.pdf",
+    "name": "Headline Formula List — Neil Patel",
+    "desc": "PDF. Every headline pattern worth knowing, in one place.",
+    "date": "2026-05-27",
+    "tags": [
+      "writing",
+      "copywriting"
+    ]
+  },
+  {
+    "url": "https://marketingexamples.com/",
+    "name": "Marketing Examples",
+    "desc": "Harry Dry's breakdowns. Short, specific, actually useful.",
+    "date": "2026-05-28",
+    "tags": [
+      "ads",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=IN&is_targeted_country=false&media_type=all&q=kolkata&search_type=keyword_unordered",
+    "name": "Meta Ad Library",
+    "desc": "What's running in Kolkata right now. Good reality check on local copy.",
+    "date": "2026-05-29",
+    "tags": [
+      "ads",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://www.adsoftheworld.com/campaigns?search=kolkata",
+    "name": "Ads of the World",
+    "desc": "Award-level campaigns, searchable. Kolkata filter bookmarked.",
+    "date": "2026-05-30",
+    "tags": [
+      "ads",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://adespresso.com/ads-examples/",
+    "name": "AdEspresso Examples",
+    "desc": "Facebook ad examples, curated and categorised.",
+    "date": "2026-05-31",
+    "tags": [
+      "ads",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://instapage.com/blog/landing-page-examples",
+    "name": "Instapage Examples",
+    "desc": "110 landing pages with annotations. Good for structure ideas.",
+    "date": "2026-06-01",
+    "tags": [
+      "landing-pages",
+      "design"
+    ]
+  },
+  {
+    "url": "https://www.growtharchive.xyz/",
+    "name": "Growth Archive",
+    "desc": "B2B growth marketing examples. What's working in the wild.",
+    "date": "2026-06-02",
+    "tags": [
+      "landing-pages",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://www.landingfolio.com/",
+    "name": "Landingfolio",
+    "desc": "Landing page design inspiration. Best visual reference in this list.",
+    "date": "2026-06-03",
+    "tags": [
+      "landing-pages",
+      "design"
+    ]
+  },
+  {
+    "url": "https://www.getresponse.com/blog/7-welcome-emails-that-set-the-standard",
+    "name": "Welcome Email Examples",
+    "desc": "15 welcome emails worth studying. GetResponse's breakdown is solid.",
+    "date": "2026-06-04",
+    "tags": [
+      "email",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://reallygoodemails.com/",
+    "name": "Really Good Emails",
+    "desc": "The email swipe file. Searchable by type, brand, and industry.",
+    "date": "2026-06-05",
+    "tags": [
+      "email",
+      "marketing"
+    ]
+  },
+  {
+    "url": "https://www.loot-drop.io/",
+    "name": "Loot Drop",
+    "desc": "Database of 1,600+ actionable business concepts derived from 1,200+ failed startups, with failure case studies, industry analysis, and rebuild plans.",
+    "date": "2026-08-07",
+    "tags": [
+      "startup-failures",
+      "case-studies",
+      "startup-insights",
+      "founders"
+    ]
+  }
 ]
