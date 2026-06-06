@@ -56,7 +56,8 @@ export default {
 
     // --- Identify owner: submitter field equals OWNER_PAT (server-side only) ---
     const pat     = env.OWNER_PAT || '';
-    const isOwner = pat.length > 0 && typeof submitter === 'string' && submitter.trim() === pat;
+    const secret  = env.OWNER_SECRET || '';
+    const isOwner = secret.length > 0 && typeof submitter === 'string' && submitter.trim() === secret;
 
     // --- Normalize to array ---
     let palettes;
