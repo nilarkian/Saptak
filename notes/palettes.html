@@ -15,7 +15,7 @@ layout: pinned-layout
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Color Palettes</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper:      #f7f4ee;
@@ -124,14 +124,14 @@ layout: pinned-layout
     padding: 14px 48px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     flex-wrap: wrap;
   }
 
   .search-wrap {
     flex: 1;
     min-width: 200px;
-    max-width: 380px;
+    max-width: 340px;
     position: relative;
   }
 
@@ -162,7 +162,6 @@ layout: pinned-layout
     font-size: 12px;
     color: var(--muted);
     white-space: nowrap;
-    margin-left: auto;
   }
 
   .hint {
@@ -175,128 +174,182 @@ layout: pinned-layout
     white-space: nowrap;
   }
 
-  /* ── GRID ─────────────────────────────────── */
-  .grid-wrap {
-    padding: 36px 48px 64px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-  }
-
-  /* ── CARD ─────────────────────────────────── */
-  .card {
-    background: var(--chalk);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: box-shadow 0.18s, transform 0.18s;
-  }
-  .card:hover {
-    box-shadow: 0 6px 20px rgba(28,26,20,0.1);
-    transform: translateY(-2px);
-  }
-
-  /* swatch strip */
-  .swatches {
+  /* ── VIEW SWITCHER ────────────────────────── */
+  .view-switcher {
     display: flex;
-    height: 72px;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
   }
-
-  .swatch {
-    flex: 1;
+  .vs-btn {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--chalk);
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1;
     cursor: pointer;
-    position: relative;
-    transition: flex 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.12s, border-color 0.12s;
+    font-family: inherit;
   }
-  .swatch:hover { flex: 1.6; }
-
-  .swatch-tip {
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    font-weight: 500;
-    background: rgba(0,0,0,0.45);
-    color: #fff;
-    border-radius: 3px;
-    padding: 2px 5px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.12s;
-  }
-  .swatch:hover .swatch-tip { opacity: 1; }
-
-  /* card body */
-  .card-body {
-    padding: 16px 16px 14px;
-  }
-
-  .card-name {
-    font-size: 15px;
+  .vs-btn:hover { background: var(--paper-alt); border-color: var(--amber); }
+  .vs-label {
+    font-size: 11px;
     font-weight: 600;
     color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-
-  .card-mood {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-
-  /* hex chip row */
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--ink-soft);
-    background: var(--paper-alt);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 3px 7px 3px 5px;
-    cursor: pointer;
-    transition: background 0.12s, border-color 0.12s;
     white-space: nowrap;
+    min-width: 126px;
+    text-align: center;
+    letter-spacing: -0.01em;
   }
-  .chip:hover {
-    background: var(--amber-lt);
-    border-color: var(--amber-mid);
-  }
-
-  .chip-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(0,0,0,0.12);
+  .vs-hint {
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-family: 'DM Mono', monospace;
   }
 
-  /* empty state */
-  .empty {
-    grid-column: 1 / -1;
+  /* ── PALETTE VIEWS ────────────────────────── */
+  #paletteViews { padding: 28px 48px 64px; }
+  #paletteViews[data-view="immersive"] { padding: 28px 0 64px; }
+  #paletteViews[data-view="cinema"] { padding: 24px 48px 64px; }
+  #paletteViews[data-view="panoramic"] { padding: 20px 48px 64px; }
+
+  #paletteViews .empty {
+    width: 100%;
     text-align: center;
     padding: 64px 0;
     color: var(--muted);
     font-size: 14px;
+    grid-column: 1 / -1;
   }
+
+  /* panoramic — full-width rows, colors left 62%, name right */
+  #paletteViews[data-view="panoramic"] #grid { display:flex; flex-direction:column; gap:12px; }
+  #paletteViews[data-view="panoramic"] .pv-card { height:150px; display:flex; border-radius:12px; overflow:hidden; border:1px solid var(--border); box-shadow:0 2px 8px rgba(28,26,20,.06); transition:box-shadow .2s,transform .2s; }
+  #paletteViews[data-view="panoramic"] .pv-card:hover { box-shadow:0 8px 24px rgba(28,26,20,.12); transform:translateY(-2px); }
+  #paletteViews[data-view="panoramic"] .pv-colors { flex:0 0 62%; display:flex; }
+  #paletteViews[data-view="panoramic"] .pv-swatch { flex:1; cursor:pointer; transition:filter .15s; }
+  #paletteViews[data-view="panoramic"] .pv-swatch:hover { filter:brightness(.88); }
+  #paletteViews[data-view="panoramic"] .pv-meta { flex:1; background:var(--chalk); display:flex; flex-direction:column; justify-content:center; padding:0 30px; border-left:1px solid var(--border); }
+  #paletteViews[data-view="panoramic"] .pv-name { font-size:20px; font-weight:700; letter-spacing:-.025em; color:var(--ink); line-height:1.2; }
+  #paletteViews[data-view="panoramic"] .pv-dots { display:flex; gap:6px; margin-top:10px; align-items:center; }
+  #paletteViews[data-view="panoramic"] .pv-dot { width:11px; height:11px; border-radius:50%; border:1px solid rgba(0,0,0,.1); cursor:pointer; transition:transform .15s; flex-shrink:0; }
+  #paletteViews[data-view="panoramic"] .pv-dot:hover { transform:scale(1.4); }
+  #paletteViews[data-view="panoramic"] .pv-count { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); margin-left:4px; }
+
+  /* tall columns — expandable vertical slices, 360px card */
+  #paletteViews[data-view="tall"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:18px; }
+  #paletteViews[data-view="tall"] .pv-card { height:360px; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; border:1px solid var(--border); box-shadow:0 2px 8px rgba(28,26,20,.06); transition:box-shadow .2s,transform .2s; }
+  #paletteViews[data-view="tall"] .pv-card:hover { box-shadow:0 10px 28px rgba(28,26,20,.13); transform:translateY(-3px); }
+  #paletteViews[data-view="tall"] .pv-colors { flex:1; display:flex; min-height:0; }
+  #paletteViews[data-view="tall"] .pv-swatch { flex:1; position:relative; cursor:pointer; transition:flex .3s cubic-bezier(.4,0,.2,1); overflow:hidden; }
+  #paletteViews[data-view="tall"] .pv-swatch:hover { flex:2.4; }
+  #paletteViews[data-view="tall"] .pv-swatch-tip { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); font-family:'DM Mono',monospace; font-size:9px; padding:2px 6px; border-radius:3px; background:rgba(0,0,0,.48); color:#fff; white-space:nowrap; opacity:0; transition:opacity .15s; }
+  #paletteViews[data-view="tall"] .pv-swatch:hover .pv-swatch-tip { opacity:1; }
+  #paletteViews[data-view="tall"] .pv-foot { height:50px; padding:0 15px; background:var(--chalk); border-top:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-shrink:0; }
+  #paletteViews[data-view="tall"] .pv-name { font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #paletteViews[data-view="tall"] .pv-count { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); flex-shrink:0; margin-left:auto; }
+
+  /* poster — 420px tall, 72% color, huge name footer */
+  #paletteViews[data-view="poster"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:18px; }
+  #paletteViews[data-view="poster"] .pv-card { height:420px; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; border:1px solid var(--border); box-shadow:0 4px 14px rgba(28,26,20,.08); transition:box-shadow .25s,transform .25s; }
+  #paletteViews[data-view="poster"] .pv-card:hover { box-shadow:0 14px 40px rgba(28,26,20,.16); transform:translateY(-4px); }
+  #paletteViews[data-view="poster"] .pv-colors { flex:0 0 72%; display:flex; }
+  #paletteViews[data-view="poster"] .pv-swatch { flex:1; cursor:pointer; transition:filter .15s; }
+  #paletteViews[data-view="poster"] .pv-swatch:hover { filter:brightness(.86); }
+  #paletteViews[data-view="poster"] .pv-foot { flex:1; background:var(--chalk); display:flex; flex-direction:column; justify-content:flex-end; padding:12px 16px 14px; border-top:1px solid var(--border); }
+  #paletteViews[data-view="poster"] .pv-name { font-size:22px; font-weight:800; letter-spacing:-.04em; line-height:1.05; color:var(--ink); }
+  #paletteViews[data-view="poster"] .pv-dots { display:flex; gap:5px; margin-top:8px; flex-wrap:wrap; }
+  #paletteViews[data-view="poster"] .pv-dot { width:10px; height:10px; border-radius:50%; cursor:pointer; border:1px solid rgba(0,0,0,.1); transition:transform .15s; flex-shrink:0; }
+  #paletteViews[data-view="poster"] .pv-dot:hover { transform:scale(1.5); }
+
+  /* cinema strip — 108px, dark name label left, expandable slices */
+  #paletteViews[data-view="cinema"] #grid { display:flex; flex-direction:column; gap:10px; }
+  #paletteViews[data-view="cinema"] .pv-card { height:108px; display:flex; border-radius:8px; overflow:hidden; border:1px solid var(--border); box-shadow:0 2px 8px rgba(28,26,20,.06); transition:box-shadow .2s,transform .2s; }
+  #paletteViews[data-view="cinema"] .pv-card:hover { box-shadow:0 6px 20px rgba(28,26,20,.12); transform:translateY(-1px); }
+  #paletteViews[data-view="cinema"] .pv-label { width:148px; flex-shrink:0; background:var(--board); color:#fff; display:flex; flex-direction:column; justify-content:center; padding:0 20px; border-right:2px solid rgba(200,134,10,.25); }
+  #paletteViews[data-view="cinema"] .pv-name { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; line-height:1.4; }
+  #paletteViews[data-view="cinema"] .pv-count { font-family:'DM Mono',monospace; font-size:9px; color:rgba(255,255,255,.4); margin-top:4px; }
+  #paletteViews[data-view="cinema"] .pv-colors { flex:1; display:flex; }
+  #paletteViews[data-view="cinema"] .pv-swatch { flex:1; cursor:pointer; position:relative; overflow:hidden; transition:flex .28s cubic-bezier(.4,0,.2,1); }
+  #paletteViews[data-view="cinema"] .pv-swatch:hover { flex:2; }
+  #paletteViews[data-view="cinema"] .pv-swatch-tip { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); font-family:'DM Mono',monospace; font-size:9px; padding:2px 6px; border-radius:3px; background:rgba(0,0,0,.4); color:#fff; white-space:nowrap; opacity:0; transition:opacity .15s; }
+  #paletteViews[data-view="cinema"] .pv-swatch:hover .pv-swatch-tip { opacity:1; }
+
+  /* mosaic — square cards, colors in CSS grid */
+  #paletteViews[data-view="mosaic"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
+  #paletteViews[data-view="mosaic"] .pv-card { border-radius:14px; overflow:hidden; border:1px solid var(--border); box-shadow:0 2px 8px rgba(28,26,20,.07); transition:box-shadow .2s,transform .2s; display:flex; flex-direction:column; }
+  #paletteViews[data-view="mosaic"] .pv-card:hover { box-shadow:0 10px 28px rgba(28,26,20,.13); transform:translateY(-3px); }
+  #paletteViews[data-view="mosaic"] .pv-mosaic { aspect-ratio:1; display:grid; gap:2px; background:var(--border); }
+  #paletteViews[data-view="mosaic"] .pv-cell { cursor:pointer; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; transition:filter .15s; }
+  #paletteViews[data-view="mosaic"] .pv-cell:hover { filter:brightness(.85); }
+  #paletteViews[data-view="mosaic"] .pv-cell-hex { font-family:'DM Mono',monospace; font-size:8px; font-weight:500; opacity:0; transition:opacity .15s; padding:2px 4px; border-radius:3px; background:rgba(0,0,0,.35); color:#fff; }
+  #paletteViews[data-view="mosaic"] .pv-cell:hover .pv-cell-hex { opacity:1; }
+  #paletteViews[data-view="mosaic"] .pv-foot { height:46px; padding:0 14px; background:var(--chalk); display:flex; align-items:center; border-top:1px solid var(--border); }
+  #paletteViews[data-view="mosaic"] .pv-name { font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* gradient wash — smooth gradient cards */
+  #paletteViews[data-view="gradient"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  #paletteViews[data-view="gradient"] .pv-card { height:210px; border-radius:16px; overflow:hidden; position:relative; cursor:pointer; box-shadow:0 4px 16px rgba(28,26,20,.1); transition:box-shadow .25s,transform .25s; }
+  #paletteViews[data-view="gradient"] .pv-card:hover { box-shadow:0 12px 36px rgba(28,26,20,.2); transform:translateY(-4px) scale(1.01); }
+  #paletteViews[data-view="gradient"] .pv-bg { position:absolute; inset:0; }
+  #paletteViews[data-view="gradient"] .pv-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:18px 20px; background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%); }
+  #paletteViews[data-view="gradient"] .pv-name { font-size:17px; font-weight:700; letter-spacing:-.02em; line-height:1.2; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.4); }
+  #paletteViews[data-view="gradient"] .pv-pills { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; }
+  #paletteViews[data-view="gradient"] .pv-pill { font-family:'DM Mono',monospace; font-size:9px; font-weight:500; padding:2px 7px; border-radius:10px; background:rgba(255,255,255,.2); color:#fff; letter-spacing:.04em; cursor:pointer; transition:background .15s; }
+  #paletteViews[data-view="gradient"] .pv-pill:hover { background:rgba(255,255,255,.38); }
+
+  /* bauhaus — numbered geometric cells */
+  #paletteViews[data-view="bauhaus"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
+  #paletteViews[data-view="bauhaus"] .pv-card { border-radius:14px; overflow:hidden; border:1px solid var(--border); box-shadow:0 2px 10px rgba(28,26,20,.08); transition:box-shadow .2s,transform .2s; display:flex; flex-direction:column; }
+  #paletteViews[data-view="bauhaus"] .pv-card:hover { box-shadow:0 10px 30px rgba(28,26,20,.14); transform:translateY(-3px); }
+  #paletteViews[data-view="bauhaus"] .pv-bgrid { aspect-ratio:1; display:grid; gap:2px; background:var(--border); }
+  #paletteViews[data-view="bauhaus"] .pv-cell { cursor:pointer; position:relative; overflow:hidden; display:flex; align-items:flex-end; justify-content:flex-start; transition:filter .15s; }
+  #paletteViews[data-view="bauhaus"] .pv-cell:hover { filter:brightness(.84); }
+  #paletteViews[data-view="bauhaus"] .pv-cell-inner { padding:5px 6px; display:flex; flex-direction:column; gap:1px; }
+  #paletteViews[data-view="bauhaus"] .pv-cell-num { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; line-height:1; opacity:.7; }
+  #paletteViews[data-view="bauhaus"] .pv-cell-hex { font-family:'DM Mono',monospace; font-size:8px; line-height:1; opacity:0; transition:opacity .15s; }
+  #paletteViews[data-view="bauhaus"] .pv-cell:hover .pv-cell-hex { opacity:.9; }
+  #paletteViews[data-view="bauhaus"] .pv-foot { height:46px; padding:0 14px; background:var(--chalk); display:flex; align-items:center; border-top:1px solid var(--border); }
+  #paletteViews[data-view="bauhaus"] .pv-name { font-size:13px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* paint chip — portrait cards, horizontal bands with hex right-aligned */
+  #paletteViews[data-view="chip"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(148px,1fr)); gap:14px; }
+  #paletteViews[data-view="chip"] .pv-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); box-shadow:0 2px 6px rgba(28,26,20,.05); transition:box-shadow .2s,transform .2s; }
+  #paletteViews[data-view="chip"] .pv-card:hover { box-shadow:0 6px 20px rgba(28,26,20,.11); transform:translateY(-2px); }
+  #paletteViews[data-view="chip"] .pv-chip-label { padding:10px 12px 9px; background:var(--chalk); border-bottom:1px solid var(--border); font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); line-height:1.4; }
+  #paletteViews[data-view="chip"] .pv-band { height:52px; display:flex; align-items:center; justify-content:flex-end; padding:0 11px; cursor:pointer; transition:filter .15s; }
+  #paletteViews[data-view="chip"] .pv-band:hover { filter:brightness(.9); }
+  #paletteViews[data-view="chip"] .pv-band-hex { font-family:'DM Mono',monospace; font-size:9px; font-weight:500; letter-spacing:.04em; }
+
+  /* bubbles — overlapping circles, landscape card (REFINED: no awkward square) */
+  #paletteViews[data-view="bubble"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  #paletteViews[data-view="bubble"] .pv-card { background:var(--chalk); border:1px solid var(--border); border-radius:16px; padding:22px 20px 16px; display:flex; flex-direction:column; align-items:center; box-shadow:0 2px 8px rgba(28,26,20,.06); transition:box-shadow .22s,transform .22s; }
+  #paletteViews[data-view="bubble"] .pv-card:hover { box-shadow:0 10px 28px rgba(28,26,20,.12); transform:translateY(-3px); }
+  #paletteViews[data-view="bubble"] .pv-bubble-row { display:flex; align-items:center; justify-content:center; height:88px; width:100%; margin-bottom:12px; }
+  #paletteViews[data-view="bubble"] .pv-bubble { width:72px; height:72px; border-radius:50%; border:3px solid var(--chalk); box-shadow:0 3px 10px rgba(28,26,20,.18); cursor:pointer; transition:transform .22s cubic-bezier(.4,0,.2,1); position:relative; flex-shrink:0; }
+  #paletteViews[data-view="bubble"] .pv-bubble:not(:first-child) { margin-left:-20px; }
+  #paletteViews[data-view="bubble"] .pv-bubble:hover { transform:scale(1.22) translateY(-10px); z-index:20!important; }
+  #paletteViews[data-view="bubble"] .pv-bubble-tip { position:absolute; bottom:-22px; left:50%; transform:translateX(-50%); font-family:'DM Mono',monospace; font-size:9px; white-space:nowrap; color:var(--muted); opacity:0; transition:opacity .15s; pointer-events:none; }
+  #paletteViews[data-view="bubble"] .pv-bubble:hover .pv-bubble-tip { opacity:1; }
+  #paletteViews[data-view="bubble"] .pv-name { font-size:14px; font-weight:600; color:var(--ink); text-align:center; letter-spacing:-.01em; }
+
+  /* immersive — edge-to-edge color wall, name pill + hex chips on hover */
+  #paletteViews[data-view="immersive"] #grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:0; }
+  #paletteViews[data-view="immersive"] .pv-card { height:260px; display:flex; position:relative; cursor:pointer; overflow:hidden; }
+  #paletteViews[data-view="immersive"] .pv-card::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0); transition:background .2s; }
+  #paletteViews[data-view="immersive"] .pv-card:hover::after { background:rgba(0,0,0,.1); }
+  #paletteViews[data-view="immersive"] .pv-swatch { flex:1; }
+  #paletteViews[data-view="immersive"] .pv-pill { position:absolute; bottom:12px; left:12px; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:20px; padding:5px 13px; font-size:12px; font-weight:600; color:var(--ink); z-index:2; white-space:nowrap; transition:transform .2s,opacity .15s; transform:translateY(4px); opacity:.82; }
+  #paletteViews[data-view="immersive"] .pv-card:hover .pv-pill { transform:translateY(0); opacity:1; }
+  #paletteViews[data-view="immersive"] .pv-hex-chips { position:absolute; top:10px; right:10px; display:flex; flex-direction:column; gap:4px; opacity:0; transition:opacity .2s; z-index:2; }
+  #paletteViews[data-view="immersive"] .pv-card:hover .pv-hex-chips { opacity:1; }
+  #paletteViews[data-view="immersive"] .pv-hex-chip { font-family:'DM Mono',monospace; font-size:9px; font-weight:500; background:rgba(0,0,0,.55); color:#fff; padding:2px 7px; border-radius:10px; letter-spacing:.04em; cursor:pointer; transition:background .12s; }
+  #paletteViews[data-view="immersive"] .pv-hex-chip:hover { background:rgba(0,0,0,.82); }
 
   /* ── TOAST ────────────────────────────────── */
   #toast {
@@ -320,13 +373,235 @@ layout: pinned-layout
     transform: translateX(-50%) translateY(0);
   }
 
+  /* ── ADD FORM ─────────────────────────────── */
+  .add-toggle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--chalk);
+    background: var(--amber);
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .add-toggle:hover { background: #b07208; }
+  .add-toggle.active { background: var(--ink); }
+
+  .add-form {
+    background: var(--paper-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 48px;
+  }
+
+  .add-form-inner { max-width: 560px; }
+
+  .form-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .form-row { margin-bottom: 16px; }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--chalk);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--amber); }
+
+  .hex-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .hex-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hex-preview {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    transition: background 0.12s;
+  }
+
+  .hex-row .form-input {
+    flex: 1;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .hex-row .hex-name {
+    flex: 0 0 110px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .remove-row {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--chalk);
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.12s, color 0.12s;
+  }
+  .remove-row:hover { background: var(--amber-lt); color: var(--ink); }
+  .remove-row:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .add-row-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--amber);
+    background: none;
+    border: 1px dashed var(--amber-mid);
+    border-radius: 5px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .add-row-btn:hover { background: var(--amber-lt); border-color: var(--amber); }
+
+  /* ── LIVE PREVIEW BOX ──────────────────────── */
+  .add-form-layout {
+    display: flex;
+    gap: 32px;
+    align-items: stretch;
+  }
+
+  .live-preview {
+    flex: 1;
+    min-width: 0;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .preview-slice {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s, filter 0.14s;
+    min-height: 0;
+  }
+  .preview-slice:hover { filter: brightness(0.88); }
+
+  .preview-slice-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 90px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.12s;
+  }
+
+  .form-hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .form-actions { margin-top: 20px; }
+
+  .submit-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--chalk);
+    background: var(--board);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .submit-btn:hover { background: var(--amber); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
   /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 860px) {
+    .add-form-layout { flex-direction: column; }
+    .live-preview { min-height: 240px; }
+  }
+
+  @media (max-width: 700px) {
+    .vs-hint { display: none; }
+    .vs-label { min-width: 90px; }
+  }
+
   @media (max-width: 640px) {
     .hero { padding: 52px 24px 40px; }
     .toolbar { padding: 12px 20px; }
-    .grid-wrap { padding: 24px 20px 48px; }
-    .grid { grid-template-columns: 1fr; }
-    .hint { display: none; }
+    #paletteViews { padding: 16px 16px 48px; }
+    #paletteViews[data-view="cinema"] { padding: 14px 16px 48px; }
+    #paletteViews[data-view="panoramic"] { padding: 14px 16px 48px; }
+    #paletteViews[data-view="immersive"] { padding: 14px 0 48px; }
+    /* single-column for grid-based views on small screens */
+    #paletteViews[data-view="tall"] #grid,
+    #paletteViews[data-view="poster"] #grid,
+    #paletteViews[data-view="mosaic"] #grid,
+    #paletteViews[data-view="gradient"] #grid,
+    #paletteViews[data-view="bauhaus"] #grid,
+    #paletteViews[data-view="chip"] #grid,
+    #paletteViews[data-view="bubble"] #grid { grid-template-columns: 1fr; }
+    .add-form { padding: 20px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .add-form { padding: 18px 16px; }
+    .hex-row { flex-wrap: wrap; }
+    /* Push name input to its own row; dot + hex + × stay on row 1 at natural order */
+    .hex-row .hex-name {
+      order: 10;
+      flex: 1 1 calc(100% - 36px); /* 100% minus dot(28px)+gap(8px) so no overflow */
+      margin-left: 36px;           /* indent under the hex input */
+    }
   }
 </style>
 </head>
@@ -339,7 +614,7 @@ layout: pinned-layout
     <h1>Color <em>Palettes</em></h1>
     <p class="hero-sub">
       Visual catalog of seed combos and color palettes. Click any swatch or hex chip to copy.
-      Add new palettes by editing the <code style="font-size:12px;opacity:.7">PALETTES</code> array in this file.
+      Suggest new palettes using the <strong style="color:var(--amber)">+ Suggest palette</strong> form below.
     </p>
   </div>
 </div>
@@ -352,11 +627,44 @@ layout: pinned-layout
     <input type="search" id="search" placeholder="Search by name, mood, or hex…" autocomplete="off">
   </div>
   <span class="palette-count" id="count"></span>
-  <span class="hint">Edit <strong>PALETTES</strong> in this file to add more</span>
+  <div class="view-switcher">
+    <button class="vs-btn" id="vsPrev" aria-label="Previous view">&#8249;</button>
+    <span class="vs-label" id="vsLabel"></span>
+    <button class="vs-btn" id="vsNext" aria-label="Next view">&#8250;</button>
+    <span class="vs-hint">← → keys</span>
+  </div>
+  <button class="add-toggle" id="addToggle">+ Suggest palette</button>
 </div>
 
-<div class="grid-wrap">
-  <div class="grid" id="grid"></div>
+<div id="addForm" class="add-form" hidden>
+  <div class="add-form-layout">
+  <div class="add-form-inner">
+    <p class="form-title">New palette</p>
+    <div class="form-row">
+      <label class="form-label" for="palName">Name</label>
+      <input type="text" id="palName" class="form-input" placeholder="ocean" autocomplete="off">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Colors <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(min 2)</span></label>
+      <div id="hexRows" class="hex-rows"></div>
+      <button type="button" class="add-row-btn" id="addRow">+ Add color</button>
+    </div>
+    <div id="visitorFields" class="form-row">
+      <label class="form-label" for="palSubmitter">Your name <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(optional)</span></label>
+      <input type="text" id="palSubmitter" class="form-input" placeholder="Anonymous" autocomplete="off">
+      <label class="form-label" for="palSocial" style="margin-top:10px">Social / contact <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(optional)</span></label>
+      <input type="text" id="palSocial" class="form-input" placeholder="GitHub, LinkedIn, email…" autocomplete="off">
+    </div>
+    <div class="form-actions">
+      <button type="button" class="submit-btn" id="submitPalette">Suggest palette</button>
+    </div>
+  </div>
+  <div id="livePreview" class="live-preview"></div>
+  </div>
+</div>
+
+<div id="paletteViews" data-view="panoramic">
+  <div id="grid"></div>
 </div>
 
 <div id="toast"></div>
@@ -365,127 +673,523 @@ layout: pinned-layout
 const PALETTES = {{ site.data.palettes | jsonify }};
 
 /* ─────────────────────────────────────────────────
-   RENDERING
+   GALLERY — MULTI-VIEW SYSTEM
    ───────────────────────────────────────────────── */
 
 (function () {
-  const grid = document.getElementById('grid');
-  const countEl = document.getElementById('count');
-  const searchEl = document.getElementById('search');
-  const toast = document.getElementById('toast');
-  let toastTimer = null;
+  var grid     = document.getElementById('grid');
+  var countEl  = document.getElementById('count');
+  var searchEl = document.getElementById('search');
+  var pvEl     = document.getElementById('paletteViews');
+  var vsLabel  = document.getElementById('vsLabel');
+  var vsPrev   = document.getElementById('vsPrev');
+  var vsNext   = document.getElementById('vsNext');
+  var toast    = document.getElementById('toast');
+  var toastTimer = null;
 
+  /* ── shared utils ── */
   function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 1600);
   }
 
   function copyHex(hex) {
     navigator.clipboard.writeText(hex).then(
-      () => showToast('Copied ' + hex + ' ✓'),
-      () => showToast(hex)   // fallback: show hex if clipboard blocked
+      function() { showToast('Copied ' + hex + ' ✓'); },
+      function() { showToast(hex); }
     );
   }
 
-  function buildCard(palette) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.search = (palette.name + ' ' + palette.mood + ' ' + palette.hexes.join(' ')).toLowerCase();
+  function lum(hex) {
+    var r = parseInt(hex.slice(1,3),16)/255;
+    var g = parseInt(hex.slice(3,5),16)/255;
+    var b = parseInt(hex.slice(5,7),16)/255;
+    var lin = function(c) { return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); };
+    return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b) > 0.179
+      ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.85)';
+  }
 
-    /* swatch strip */
-    const swatchRow = document.createElement('div');
-    swatchRow.className = 'swatches';
+  /* ── view builders ── */
 
-    palette.hexes.forEach(hex => {
-      const sw = document.createElement('div');
-      sw.className = 'swatch';
-      sw.style.background = hex;
-      sw.title = hex;
-
-      const tip = document.createElement('span');
-      tip.className = 'swatch-tip';
-      tip.textContent = hex;
-      sw.appendChild(tip);
-
-      sw.addEventListener('click', () => copyHex(hex));
-      swatchRow.appendChild(sw);
+  function buildPanoramic(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var colors = document.createElement('div'); colors.className = 'pv-colors';
+    p.hexes.forEach(function(h) {
+      var sw = document.createElement('div'); sw.className = 'pv-swatch'; sw.style.background = h; sw.title = h;
+      sw.addEventListener('click', function() { copyHex(h); }); colors.appendChild(sw);
     });
-
-    /* card body */
-    const body = document.createElement('div');
-    body.className = 'card-body';
-
-    const name = document.createElement('div');
-    name.className = 'card-name';
-    name.textContent = palette.name;
-
-    const mood = document.createElement('div');
-    mood.className = 'card-mood';
-    mood.textContent = palette.mood;
-
-    const chips = document.createElement('div');
-    chips.className = 'chips';
-
-    palette.hexes.forEach(hex => {
-      const chip = document.createElement('button');
-      chip.type = 'button';
-      chip.className = 'chip';
-
-      const dot = document.createElement('span');
-      dot.className = 'chip-dot';
-      dot.style.background = hex;
-
-      const label = document.createElement('span');
-      label.textContent = hex;
-
-      chip.appendChild(dot);
-      chip.appendChild(label);
-      chip.addEventListener('click', () => copyHex(hex));
-      chips.appendChild(chip);
+    var meta = document.createElement('div'); meta.className = 'pv-meta';
+    var nm = document.createElement('div'); nm.className = 'pv-name'; nm.textContent = p.name;
+    var dots = document.createElement('div'); dots.className = 'pv-dots';
+    p.hexes.forEach(function(h) {
+      var d = document.createElement('span'); d.className = 'pv-dot'; d.style.background = h; d.title = h;
+      d.addEventListener('click', function() { copyHex(h); }); dots.appendChild(d);
     });
+    var ct = document.createElement('span'); ct.className = 'pv-count'; ct.textContent = p.hexes.length;
+    dots.appendChild(ct); meta.appendChild(nm); meta.appendChild(dots);
+    card.appendChild(colors); card.appendChild(meta); return card;
+  }
 
-    body.appendChild(name);
-    body.appendChild(mood);
-    body.appendChild(chips);
+  function buildTall(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var colors = document.createElement('div'); colors.className = 'pv-colors';
+    p.hexes.forEach(function(h) {
+      var sw = document.createElement('div'); sw.className = 'pv-swatch'; sw.style.background = h;
+      var tip = document.createElement('span'); tip.className = 'pv-swatch-tip'; tip.textContent = h;
+      sw.appendChild(tip); sw.addEventListener('click', function() { copyHex(h); }); colors.appendChild(sw);
+    });
+    var foot = document.createElement('div'); foot.className = 'pv-foot';
+    var nm = document.createElement('span'); nm.className = 'pv-name'; nm.textContent = p.name;
+    var ct = document.createElement('span'); ct.className = 'pv-count'; ct.textContent = p.hexes.length + ' colors';
+    foot.appendChild(nm); foot.appendChild(ct);
+    card.appendChild(colors); card.appendChild(foot); return card;
+  }
 
-    card.appendChild(swatchRow);
-    card.appendChild(body);
+  function buildPoster(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var colors = document.createElement('div'); colors.className = 'pv-colors';
+    p.hexes.forEach(function(h) {
+      var sw = document.createElement('div'); sw.className = 'pv-swatch'; sw.style.background = h; sw.title = h;
+      sw.addEventListener('click', function() { copyHex(h); }); colors.appendChild(sw);
+    });
+    var foot = document.createElement('div'); foot.className = 'pv-foot';
+    var nm = document.createElement('div'); nm.className = 'pv-name'; nm.textContent = p.name;
+    var dots = document.createElement('div'); dots.className = 'pv-dots';
+    p.hexes.forEach(function(h) {
+      var d = document.createElement('span'); d.className = 'pv-dot'; d.style.background = h; d.title = h;
+      d.addEventListener('click', function() { copyHex(h); }); dots.appendChild(d);
+    });
+    foot.appendChild(nm); foot.appendChild(dots);
+    card.appendChild(colors); card.appendChild(foot); return card;
+  }
+
+  function buildCinema(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var lbl = document.createElement('div'); lbl.className = 'pv-label';
+    var nm = document.createElement('div'); nm.className = 'pv-name'; nm.textContent = p.name;
+    var ct = document.createElement('div'); ct.className = 'pv-count'; ct.textContent = p.hexes.length + ' colors';
+    lbl.appendChild(nm); lbl.appendChild(ct);
+    var colors = document.createElement('div'); colors.className = 'pv-colors';
+    p.hexes.forEach(function(h) {
+      var sw = document.createElement('div'); sw.className = 'pv-swatch'; sw.style.background = h;
+      var tip = document.createElement('span'); tip.className = 'pv-swatch-tip'; tip.textContent = h.toUpperCase();
+      sw.appendChild(tip); sw.addEventListener('click', function() { copyHex(h); }); colors.appendChild(sw);
+    });
+    card.appendChild(lbl); card.appendChild(colors); return card;
+  }
+
+  function buildMosaic(p) {
+    var cols = p.hexes.length <= 3 ? p.hexes.length : p.hexes.length === 4 ? 2 : 3;
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var mos = document.createElement('div'); mos.className = 'pv-mosaic';
+    mos.style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    p.hexes.forEach(function(h) {
+      var cell = document.createElement('div'); cell.className = 'pv-cell'; cell.style.background = h;
+      var hexEl = document.createElement('span'); hexEl.className = 'pv-cell-hex'; hexEl.textContent = h.toUpperCase();
+      cell.appendChild(hexEl); cell.addEventListener('click', function() { copyHex(h); }); mos.appendChild(cell);
+    });
+    var foot = document.createElement('div'); foot.className = 'pv-foot';
+    var nm = document.createElement('span'); nm.className = 'pv-name'; nm.textContent = p.name;
+    foot.appendChild(nm); card.appendChild(mos); card.appendChild(foot); return card;
+  }
+
+  function buildGradient(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var bg = document.createElement('div'); bg.className = 'pv-bg';
+    bg.style.background = 'linear-gradient(135deg,' + p.hexes.join(',') + ')';
+    var overlay = document.createElement('div'); overlay.className = 'pv-overlay';
+    var nm = document.createElement('div'); nm.className = 'pv-name'; nm.textContent = p.name;
+    var pills = document.createElement('div'); pills.className = 'pv-pills';
+    p.hexes.forEach(function(h) {
+      var pill = document.createElement('span'); pill.className = 'pv-pill'; pill.textContent = h.toUpperCase();
+      pill.addEventListener('click', function(e) { e.stopPropagation(); copyHex(h); }); pills.appendChild(pill);
+    });
+    overlay.appendChild(nm); overlay.appendChild(pills);
+    card.appendChild(bg); card.appendChild(overlay);
+    card.addEventListener('click', function() { copyHex(p.hexes[0]); });
     return card;
   }
 
-  function render(filter) {
-    const q = (filter || '').toLowerCase().trim();
-    grid.innerHTML = '';
-    let visible = 0;
-
-    PALETTES.forEach(palette => {
-      const card = buildCard(palette);
-      if (q && !card.dataset.search.includes(q)) {
-        card.style.display = 'none';
-      } else {
-        visible++;
-      }
-      grid.appendChild(card);
+  function buildBauhaus(p) {
+    var n = p.hexes.length;
+    var cols = n <= 3 ? n : n === 4 ? 2 : 3;
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var bg = document.createElement('div'); bg.className = 'pv-bgrid';
+    bg.style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    p.hexes.forEach(function(h, i) {
+      var cell = document.createElement('div'); cell.className = 'pv-cell'; cell.style.background = h;
+      var inner = document.createElement('div'); inner.className = 'pv-cell-inner';
+      var num = document.createElement('span'); num.className = 'pv-cell-num';
+      num.textContent = String(i+1).padStart(2,'0'); num.style.color = lum(h);
+      var hexEl = document.createElement('span'); hexEl.className = 'pv-cell-hex';
+      hexEl.textContent = h.toUpperCase(); hexEl.style.color = lum(h);
+      inner.appendChild(num); inner.appendChild(hexEl); cell.appendChild(inner);
+      cell.addEventListener('click', function() { copyHex(h); }); bg.appendChild(cell);
     });
-
-    /* empty state */
-    if (visible === 0 && q) {
-      const empty = document.createElement('div');
-      empty.className = 'empty';
-      empty.textContent = 'No palettes match "' + filter + '"';
-      grid.appendChild(empty);
-    }
-
-    countEl.textContent = q
-      ? visible + ' of ' + PALETTES.length + ' palettes'
-      : PALETTES.length + (PALETTES.length === 1 ? ' palette' : ' palettes');
+    var foot = document.createElement('div'); foot.className = 'pv-foot';
+    var nm = document.createElement('span'); nm.className = 'pv-name'; nm.textContent = p.name;
+    foot.appendChild(nm); card.appendChild(bg); card.appendChild(foot); return card;
   }
 
-  searchEl.addEventListener('input', () => render(searchEl.value));
+  function buildChip(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var lbl = document.createElement('div'); lbl.className = 'pv-chip-label'; lbl.textContent = p.name;
+    card.appendChild(lbl);
+    p.hexes.forEach(function(h) {
+      var band = document.createElement('div'); band.className = 'pv-band'; band.style.background = h;
+      var hexEl = document.createElement('span'); hexEl.className = 'pv-band-hex';
+      hexEl.textContent = h.toUpperCase(); hexEl.style.color = lum(h);
+      band.appendChild(hexEl); band.addEventListener('click', function() { copyHex(h); }); card.appendChild(band);
+    });
+    return card;
+  }
 
-  render('');
+  function buildBubble(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    var row = document.createElement('div'); row.className = 'pv-bubble-row';
+    p.hexes.forEach(function(h, i) {
+      var b = document.createElement('div'); b.className = 'pv-bubble';
+      b.style.background = h; b.style.zIndex = i;
+      var tip = document.createElement('span'); tip.className = 'pv-bubble-tip'; tip.textContent = h.toUpperCase();
+      b.appendChild(tip); b.addEventListener('click', function() { copyHex(h); }); row.appendChild(b);
+    });
+    var nm = document.createElement('div'); nm.className = 'pv-name'; nm.textContent = p.name;
+    card.appendChild(row); card.appendChild(nm); return card;
+  }
+
+  function buildImmersive(p) {
+    var card = document.createElement('div'); card.className = 'pv-card';
+    p.hexes.forEach(function(h) {
+      var sw = document.createElement('div'); sw.className = 'pv-swatch'; sw.style.background = h;
+      sw.addEventListener('click', function() { copyHex(h); }); card.appendChild(sw);
+    });
+    var pill = document.createElement('div'); pill.className = 'pv-pill'; pill.textContent = p.name;
+    var chips = document.createElement('div'); chips.className = 'pv-hex-chips';
+    p.hexes.forEach(function(h) {
+      var chip = document.createElement('span'); chip.className = 'pv-hex-chip'; chip.textContent = h.toUpperCase();
+      chip.addEventListener('click', function(e) { e.stopPropagation(); copyHex(h); }); chips.appendChild(chip);
+    });
+    card.appendChild(pill); card.appendChild(chips); return card;
+  }
+
+  /* ── view registry ── */
+  var VIEWS = [
+    { key: 'panoramic', name: 'Panoramic',    render: buildPanoramic },
+    { key: 'tall',      name: 'Tall Columns', render: buildTall      },
+    { key: 'poster',    name: 'Poster',       render: buildPoster    },
+    { key: 'cinema',    name: 'Cinema Strip', render: buildCinema    },
+    { key: 'mosaic',    name: 'Mosaic',       render: buildMosaic    },
+    { key: 'gradient',  name: 'Gradient',     render: buildGradient  },
+    { key: 'bauhaus',   name: 'Bauhaus',      render: buildBauhaus   },
+    { key: 'chip',      name: 'Paint Chip',   render: buildChip      },
+    { key: 'bubble',    name: 'Bubbles',      render: buildBubble    },
+    { key: 'immersive', name: 'Immersive',    render: buildImmersive },
+  ];
+
+  var activeViewIdx = 0;
+
+  /* alias used by the form submit flow to add a new card to the live grid */
+  function buildCard(p) { return VIEWS[activeViewIdx].render(p); }
+
+  function renderGallery() {
+    var q = (searchEl.value || '').toLowerCase().trim();
+    var view = VIEWS[activeViewIdx];
+    pvEl.dataset.view = view.key;
+    grid.innerHTML = '';
+    var vis = 0;
+    PALETTES.forEach(function(p) {
+      var key = (p.name + ' ' + (p.mood || '') + ' ' + p.hexes.join(' ')).toLowerCase();
+      if (q && !key.includes(q)) return;
+      vis++;
+      grid.appendChild(view.render(p));
+    });
+    if (vis === 0 && q) {
+      var e = document.createElement('div');
+      e.className = 'empty';
+      e.textContent = 'No palettes match "' + q + '"';
+      grid.appendChild(e);
+    }
+    countEl.textContent = q
+      ? vis + ' of ' + PALETTES.length + ' palettes'
+      : PALETTES.length + (PALETTES.length === 1 ? ' palette' : ' palettes');
+    vsLabel.textContent = view.name + '  ' + (activeViewIdx + 1) + ' / ' + VIEWS.length;
+  }
+
+  function setView(i) {
+    activeViewIdx = ((i % VIEWS.length) + VIEWS.length) % VIEWS.length;
+    localStorage.setItem('palette-view', VIEWS[activeViewIdx].key);
+    renderGallery();
+  }
+
+  /* keyboard nav — guard: don't fire when user is typing */
+  document.addEventListener('keydown', function(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (document.activeElement && document.activeElement.isContentEditable) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); setView(activeViewIdx + 1); }
+    else if (e.key === 'ArrowLeft')  { e.preventDefault(); setView(activeViewIdx - 1); }
+  });
+
+  vsPrev.addEventListener('click', function() { setView(activeViewIdx - 1); });
+  vsNext.addEventListener('click', function() { setView(activeViewIdx + 1); });
+  searchEl.addEventListener('input', function() { renderGallery(); });
+
+  /* init — restore last view from localStorage, default to panoramic */
+  (function() {
+    var stored = localStorage.getItem('palette-view');
+    var idx = 0;
+    if (stored) {
+      for (var i = 0; i < VIEWS.length; i++) {
+        if (VIEWS[i].key === stored) { idx = i; break; }
+      }
+    }
+    activeViewIdx = idx;
+    renderGallery();
+  })();
+
+  /* ─────────────────────────────────────────────────
+     ADD PALETTE FORM
+     ───────────────────────────────────────────────── */
+
+  var WORKER_URL = 'https://REPLACE_AFTER_DEPLOY.workers.dev';
+
+  var addToggle      = document.getElementById('addToggle');
+  var addForm        = document.getElementById('addForm');
+  var hexRowsEl      = document.getElementById('hexRows');
+  var addRowBtn      = document.getElementById('addRow');
+  var submitBtn      = document.getElementById('submitPalette');
+  var palNameEl      = document.getElementById('palName');
+  var palSubmitterEl = document.getElementById('palSubmitter');
+  var palSocialEl    = document.getElementById('palSocial');
+
+  // Toggle form visibility
+  addToggle.addEventListener('click', function () {
+    var open = !addForm.hidden;
+    addForm.hidden = open;
+    addToggle.classList.toggle('active', !open);
+    if (!open) requestAnimationFrame(renderLivePreview);
+  });
+
+  // Normalize and validate a hex string
+  function normalizeHex(raw) {
+    var h = raw.trim().toLowerCase();
+    if (h && h.charAt(0) !== '#') h = '#' + h;
+    return h;
+  }
+  function isValidHex(h) {
+    return /^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(h);
+  }
+
+  function updateRemoveButtons() {
+    var rows = hexRowsEl.querySelectorAll('.hex-row');
+    rows.forEach(function (r) {
+      r.querySelector('.remove-row').disabled = rows.length <= 2;
+    });
+  }
+
+  function fitLabel(slice, lbl) {
+    var w = slice.clientWidth;
+    var h = slice.clientHeight;
+    if (!w || !h) return;
+    var maxW = w - 32;
+    var maxH = h - 20;
+    var lo = 12, hi = 90;
+    lbl.style.fontSize = hi + 'px';
+    while (hi - lo > 1) {
+      var mid = Math.round((lo + hi) / 2);
+      lbl.style.fontSize = mid + 'px';
+      if (lbl.scrollWidth <= maxW && lbl.scrollHeight <= maxH) { lo = mid; }
+      else { hi = mid; }
+    }
+    lbl.style.fontSize = lo + 'px';
+  }
+
+  function hexLuminance(hex) {
+    var r = parseInt(hex.slice(1,3),16)/255;
+    var g = parseInt(hex.slice(3,5),16)/255;
+    var b = parseInt(hex.slice(5,7),16)/255;
+    function lin(c) { return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+    var L = 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+    return L > 0.179 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.85)';
+  }
+
+  function renderLivePreview() {
+    var container = document.getElementById('livePreview');
+    if (!container) return;
+    var rows = Array.from(hexRowsEl.querySelectorAll('.hex-row'));
+    // Sync slice count (add missing, remove excess)
+    while (container.children.length > rows.length) {
+      container.removeChild(container.lastChild);
+    }
+    while (container.children.length < rows.length) {
+      var s = document.createElement('div');
+      s.className = 'preview-slice';
+      var lbl = document.createElement('span');
+      lbl.className = 'preview-slice-label';
+      s.appendChild(lbl);
+      container.appendChild(s);
+    }
+    // Update each slice in-place (preserves CSS background transition)
+    var slices = Array.from(container.children);
+    rows.forEach(function(row, i) {
+      var hexInp  = row.querySelector('.hex-input');
+      var nameInp = row.querySelector('.hex-name');
+      var h     = normalizeHex(hexInp.value);
+      var valid = isValidHex(h);
+      var name  = nameInp ? nameInp.value.trim() : '';
+      var slice = slices[i];
+      slice.style.background = valid ? h : '#e8e6de';
+      slice.style.cursor = valid ? 'pointer' : 'default';
+      slice.onclick = valid ? (function(hex) { return function() { copyHex(hex); }; })(h) : null;
+      var lbl = slice.querySelector('.preview-slice-label');
+      if (name) {
+        lbl.textContent = name;
+        lbl.style.color = valid ? hexLuminance(h) : 'rgba(0,0,0,0.35)';
+      } else if (valid) {
+        lbl.textContent = h.toUpperCase();
+        lbl.style.color = hexLuminance(h);
+      } else {
+        lbl.textContent = '#______';
+        lbl.style.color = 'rgba(0,0,0,0.18)';
+      }
+      fitLabel(slice, lbl);
+    });
+  }
+
+  // Build one hex-input row
+  function makeHexRow() {
+    var row = document.createElement('div');
+    row.className = 'hex-row';
+
+    var preview = document.createElement('span');
+    preview.className = 'hex-preview';
+    preview.style.background = '#f0f0f0';
+
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'hex-input form-input';
+    input.placeholder = '#1a2b3c';
+    input.maxLength = 7;
+
+    input.addEventListener('input', function () {
+      var h = normalizeHex(input.value);
+      preview.style.background = isValidHex(h) ? h : '#f0f0f0';
+      renderLivePreview();
+    });
+
+    var nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'form-input hex-name';
+    nameInput.placeholder = 'name…';
+    nameInput.maxLength = 32;
+    nameInput.addEventListener('input', renderLivePreview);
+
+    var rem = document.createElement('button');
+    rem.type = 'button';
+    rem.className = 'remove-row';
+    rem.setAttribute('aria-label', 'Remove');
+    rem.textContent = '×';
+    rem.addEventListener('click', function () {
+      row.remove();
+      updateRemoveButtons();
+      renderLivePreview();
+    });
+
+    row.appendChild(preview);
+    row.appendChild(input);
+    row.appendChild(nameInput);
+    row.appendChild(rem);
+    return row;
+  }
+
+  // Seed 2 initial rows
+  hexRowsEl.appendChild(makeHexRow());
+  hexRowsEl.appendChild(makeHexRow());
+  updateRemoveButtons();
+  renderLivePreview();
+
+  addRowBtn.addEventListener('click', function () {
+    hexRowsEl.appendChild(makeHexRow());
+    updateRemoveButtons();
+    renderLivePreview();
+    hexRowsEl.lastElementChild.querySelector('.hex-input').focus();
+  });
+
+  // Submit — Worker identifies owner vs visitor via name prefix (entirely server-side)
+  submitBtn.addEventListener('click', async function () {
+    var name = palNameEl.value.trim();
+    if (!name) { showToast('Enter a palette name'); palNameEl.focus(); return; }
+
+    var rawHexes = Array.from(hexRowsEl.querySelectorAll('.hex-input')).map(function (i) { return normalizeHex(i.value); });
+    var hexes   = rawHexes.filter(function (h) { return h.length > 0; });
+    var invalid = hexes.filter(function (h) { return !isValidHex(h); });
+
+    if (hexes.length < 2) { showToast('Add at least 2 hex values'); return; }
+    if (invalid.length)   { showToast('Invalid hex: ' + invalid.join(', ')); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      await submitToWorker(name, hexes);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Suggest palette';
+    }
+  });
+
+  async function submitToWorker(name, hexes) {
+    if (!WORKER_URL || WORKER_URL.indexOf('REPLACE_AFTER_DEPLOY') !== -1) {
+      showToast('Submissions not yet configured');
+      return;
+    }
+    var submitter = palSubmitterEl.value.trim();
+    var social    = palSocialEl.value.trim();
+    try {
+      var res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, hexes: hexes, submitter: submitter, social: social })
+      });
+      if (res.ok) {
+        var data = {};
+        try { data = await res.json(); } catch (e) {}
+        if (data.mode === 'owner') {
+          showToast('Published ✓ — builds in ~1 min');
+          var card = buildCard({ name: data.name || name, mood: '', hexes: hexes });
+          card.style.outline = '2px solid var(--amber)';
+          card.style.outlineOffset = '-1px';
+          grid.insertBefore(card, grid.firstChild);
+        } else {
+          showToast('Suggested ✓');
+        }
+        resetForm();
+      } else {
+        var err = {};
+        try { err = await res.json(); } catch (e) {}
+        showToast(err.error || 'Submission failed (' + res.status + ')');
+      }
+    } catch (e) {
+      showToast('Network error');
+    }
+  }
+
+  function resetForm() {
+    addForm.hidden = true;
+    addToggle.classList.remove('active');
+    palNameEl.value = '';
+    palSubmitterEl.value = '';
+    palSocialEl.value = '';
+    hexRowsEl.innerHTML = '';
+    hexRowsEl.appendChild(makeHexRow());
+    hexRowsEl.appendChild(makeHexRow());
+    updateRemoveButtons();
+    renderLivePreview();
+  }
+
 }());
 </script>
 

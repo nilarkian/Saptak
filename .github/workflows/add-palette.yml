@@ -11,8 +11,9 @@ on:
         required: true
         type: string
       mood:
-        description: 'Short mood/vibe description'
-        required: true
+        description: 'Short mood/vibe description (optional)'
+        required: false
+        default: ''
         type: string
       hexes:
         description: 'Hex values, comma-separated (e.g. #001f3f,#7fdbff,#0074d9)'
