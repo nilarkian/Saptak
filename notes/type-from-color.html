@@ -1,0 +1,673 @@
+---
+layout: blank
+permalink: /notes/type-from-color/
+title: "Type from Color"
+date: 2026-06-06
+tags: [design, typography, colors]
+is_note: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Type from Color — Saptak</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:      #f7f4ee;
+    --paper-alt:  #edeae0;
+    --paper-dark: #e4e0d4;
+    --ink:        #1c1a14;
+    --ink-soft:   #3d3a2e;
+    --muted:      #7a7460;
+    --border:     #ccc9b8;
+    --amber:      #c8860a;
+    --amber-lt:   #fef3dc;
+    --amber-mid:  #fde8a8;
+    --chalk:      #ffffff;
+    --board:      #1a1f1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+
+  /* ── HERO ── */
+  .hero { background: var(--board); color: var(--chalk); padding: 64px 48px 52px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 3px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.006) 40px, rgba(255,255,255,0.006) 41px); pointer-events: none; }
+  .back-btn { position: absolute; top: 20px; left: 32px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.55); transition: color 0.15s; }
+  .back-btn:hover { color: var(--chalk); }
+  .hero-inner { max-width: 900px; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+  .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 14px; }
+  .hero h1 em { font-style: italic; color: var(--amber); }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,0.55); max-width: 520px; line-height: 1.65; }
+
+  /* ── INPUT SECTION ── */
+  .input-section { background: var(--paper-alt); border-bottom: 1px solid var(--border); padding: 32px 48px; }
+  .input-inner { max-width: 720px; }
+  .input-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .hex-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+  .hex-row { display: flex; align-items: center; gap: 8px; }
+  .hex-swatch { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border); background: var(--paper-dark); flex-shrink: 0; transition: background 0.1s; }
+  .hex-input { flex: 1; max-width: 160px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--chalk); color: var(--ink); font-family: 'DM Mono', monospace; font-size: 13px; outline: none; transition: border-color 0.15s; }
+  .hex-input:focus { border-color: var(--amber); }
+  .hex-input::placeholder { color: var(--muted); }
+  .remove-hex { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 5px; background: var(--chalk); color: var(--muted); font-size: 16px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s; }
+  .remove-hex:hover { background: var(--amber-lt); color: var(--ink); }
+  .remove-hex:disabled { opacity: 0.3; cursor: not-allowed; }
+  .add-color-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: var(--amber); background: none; border: 1px dashed var(--amber-mid); border-radius: 5px; padding: 5px 12px; cursor: pointer; transition: background 0.12s, border-color 0.12s; display: inline-block; margin-bottom: 16px; }
+  .add-color-btn:hover { background: var(--amber-lt); border-color: var(--amber); }
+  .quick-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { font-family: 'DM Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--chalk); color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: border-color 0.12s, background 0.12s; }
+  .chip:hover { border-color: var(--amber); background: var(--amber-lt); }
+  .chip-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .chip-lbl { font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--muted); }
+
+  /* ── RESULTS ── */
+  .results { padding: 28px 48px 64px; }
+  .results.hidden { display: none; }
+  .panel { background: var(--chalk); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .panel-head { padding: 13px 20px; border-bottom: 1px solid var(--border); background: var(--paper-alt); display: flex; align-items: center; gap: 10px; }
+  .panel-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); font-weight: 500; }
+  .panel-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .panel-body { padding: 20px; }
+
+  /* panel 1 — color analysis */
+  .ca-wrap { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+  .ca-swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ca-swatch { width: 76px; height: 76px; border-radius: 10px; border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; transition: transform 0.14s; }
+  .ca-swatch:hover { transform: scale(1.06); }
+  .ca-swatch.dominant { border: 2px solid var(--amber); }
+  .ca-info { flex: 1; min-width: 160px; }
+  .ca-hex { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer; margin-bottom: 3px; }
+  .ca-hex:hover { color: var(--amber); }
+  .ca-hsl { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .ca-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .ca-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 10px; border: 1px solid var(--border); background: var(--paper-alt); color: var(--ink-soft); }
+  .ca-metrics { flex: 1; min-width: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+  .ca-m-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .ca-m-bar { height: 4px; background: var(--paper-dark); border-radius: 2px; margin-bottom: 3px; }
+  .ca-m-fill { height: 100%; border-radius: 2px; background: var(--amber); }
+  .ca-m-val { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+
+  /* panel 2 — signals */
+  .sig-list { display: flex; flex-direction: column; gap: 7px; }
+  .sig-row { display: flex; align-items: center; gap: 12px; }
+  .sig-name { font-size: 12px; font-weight: 600; color: var(--ink); min-width: 88px; }
+  .sig-bar { flex: 1; height: 5px; background: var(--paper-dark); border-radius: 3px; overflow: hidden; }
+  .sig-fill { height: 100%; border-radius: 3px; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
+  .sig-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); min-width: 26px; text-align: right; }
+
+  /* panel 3 — archetypes */
+  .arch-list { display: flex; flex-direction: column; gap: 8px; }
+  .arch-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--paper); }
+  .arch-row.arch-primary { background: var(--board); border-color: var(--board); }
+  .arch-rank { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; min-width: 18px; color: var(--muted); }
+  .arch-row.arch-primary .arch-rank { color: var(--amber); }
+  .arch-info { flex: 1; }
+  .arch-name { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  .arch-row.arch-primary .arch-name { color: var(--chalk); }
+  .arch-desc { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .arch-row.arch-primary .arch-desc { color: rgba(255,255,255,0.45); }
+  .arch-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 80px; }
+  .arch-bar { width: 70px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; }
+  .arch-row.arch-primary .arch-bar { background: rgba(255,255,255,0.15); }
+  .arch-bar-fill { height: 100%; border-radius: 2px; background: var(--amber); transition: width 0.5s; }
+  .arch-score { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .arch-row.arch-primary .arch-score { color: rgba(255,255,255,0.5); }
+  .arch-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 8px; }
+  .badge-primary  { background: var(--amber); color: #fff; }
+  .badge-hybrid   { background: rgba(200,134,10,0.15); color: var(--amber); }
+  .badge-ambiguous{ background: rgba(122,116,96,0.15); color: var(--muted); }
+  .ambig-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 10px; }
+
+  /* panel 4 — typography + specimens */
+  .typo-attrs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .typo-attr { background: var(--paper-alt); border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px; }
+  .typo-attr-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .typo-attr-val { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .specimens { display: flex; flex-direction: column; gap: 12px; }
+  .specimen { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .specimen-head { padding: 8px 14px; background: var(--paper-alt); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .specimen-family { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .specimen-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+  .specimen-body { padding: 20px 22px; }
+  .specimen-display { font-size: 34px; line-height: 1.15; color: var(--ink); margin-bottom: 8px; }
+  .specimen-text { font-size: 15px; line-height: 1.65; color: var(--ink-soft); }
+
+  /* panel 5 — reasoning chain */
+  .chain { display: flex; flex-direction: column; }
+  .chain-step { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; position: relative; }
+  .chain-step:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 38px; bottom: 0; width: 1px; background: var(--border); }
+  .chain-icon { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; font-family: 'DM Mono', monospace; position: relative; z-index: 1; }
+  .chain-content { flex: 1; padding-top: 4px; }
+  .chain-layer { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .chain-value { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .chain-why { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+  /* toast */
+  #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--board); color: var(--chalk); font-size: 12px; font-weight: 500; padding: 8px 18px; border-radius: 20px; opacity: 0; pointer-events: none; transition: opacity 0.18s, transform 0.18s; z-index: 1000; white-space: nowrap; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* responsive */
+  @media (max-width: 700px) {
+    .hero { padding: 52px 24px 40px; }
+    .input-section { padding: 24px 20px; }
+    .results { padding: 20px 16px 48px; }
+    .ca-metrics { grid-template-columns: 1fr; }
+    .hex-input { max-width: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <a href="{{ '/notes' | relative_url }}" class="back-btn">← Notes</a>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Design Intelligence</p>
+    <h1>Type from <em>Color</em></h1>
+    <p class="hero-sub">Enter a HEX (or palette) and receive deterministic typography
+    recommendations — every output traceable to measurable color properties,
+    every decision explained. Same HEX → same result, always.</p>
+  </div>
+</div>
+
+<div class="input-section">
+  <div class="input-inner">
+    <p class="input-label">Color input</p>
+    <div class="hex-rows" id="hexRows"></div>
+    <button type="button" class="add-color-btn" id="addColorBtn">+ Add color</button>
+    <div class="quick-chips" id="quickChips"></div>
+  </div>
+</div>
+
+<div class="results hidden" id="results">
+  <div class="panel">
+    <div class="panel-head"><span class="panel-num">01</span><span class="panel-title">Color Analysis</span></div>
+    <div class="panel-body" id="p1"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span class="panel-num">02</span><span class="panel-title">Semantic Signal Scores</span></div>
+    <div class="panel-body" id="p2"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span class="panel-num">03</span><span class="panel-title">Archetype Ranking</span></div>
+    <div class="panel-body" id="p3"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span class="panel-num">04</span><span class="panel-title">Typography Recommendations</span></div>
+    <div class="panel-body" id="p4"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><span class="panel-num">05</span><span class="panel-title">Reasoning Chain</span></div>
+    <div class="panel-body" id="p5"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════ */
+function normalizeHex(raw) {
+  var h = (raw || '').trim().toLowerCase();
+  if (h && h.charAt(0) !== '#') h = '#' + h;
+  if (/^#[0-9a-f]{3}$/.test(h)) h = '#' + h[1]+h[1]+h[2]+h[2]+h[3]+h[3];
+  return h;
+}
+function isValidHex(h) { return /^#[0-9a-f]{6}$/.test(h); }
+function hueBump(H, center, width) {
+  var dd = Math.abs(((H - center + 540) % 360) - 180);
+  return Math.exp(-(dd * dd) / (2 * width * width));
+}
+function gate(v, lo, hi) { return Math.max(0, Math.min(1, (v - lo) / (hi - lo))); }
+function clamp100(x) { return Math.max(0, Math.min(100, x)); }
+function r2(n) { return Math.round(n); }
+
+/* ════════════════════════════════════════════════
+   ENGINE — LAYER 0: color metrics
+   ════════════════════════════════════════════════ */
+function colorMetrics(hex) {
+  var r = parseInt(hex.slice(1,3),16)/255,
+      g = parseInt(hex.slice(3,5),16)/255,
+      b = parseInt(hex.slice(5,7),16)/255;
+  var max = Math.max(r,g,b), min = Math.min(r,g,b), d = max-min;
+  var L = (max+min)/2;
+  var S = d === 0 ? 0 : d / (1 - Math.abs(2*L - 1));
+  var H = 0;
+  if (d !== 0) {
+    if (max === r)      H = 60 * (((g-b)/d) % 6);
+    else if (max === g) H = 60 * ((b-r)/d + 2);
+    else                H = 60 * ((r-g)/d + 4);
+  }
+  if (H < 0) H += 360;
+  var sat = S*100, light = L*100, chroma = d*100;
+  var warmth = 50 + 50*Math.cos((H-40)*Math.PI/180)*(sat/100);
+  var lin = function(c){ return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); };
+  var Y = 0.2126*lin(r)+0.7152*lin(g)+0.0722*lin(b);
+  return { hue:H, sat:sat, light:light, chroma:chroma,
+           warmth:warmth, mutedness:100-sat, Y:Y,
+           contrastCapacity:100*Math.abs(Y-0.179)/0.821 };
+}
+
+/* ════════════════════════════════════════════════
+   ENGINE — LAYER 1: semantic signals
+   ════════════════════════════════════════════════ */
+function semanticSignals(m) {
+  var h = m.hue, l = m.light;
+  var midDark = 1 - gate(l, 30, 75);
+  var burg = hueBump(h,345,30)*(1-gate(l,15,45));
+  var gold = hueBump(h,48,20)*gate(m.sat,35,80)*gate(l,38,72);
+  var purp = hueBump(h,280,30);
+  return {
+    Trust:      clamp100(100*hueBump(h,215,28)*gate(m.sat,25,70)*(0.5+0.5*midDark)),
+    Authority:  clamp100(100*(0.6*hueBump(h,220,40)+0.4)*(1-gate(l,15,55))),
+    Luxury:     clamp100(100*(0.90*burg+1.15*gold+0.50*purp)),
+    Energy:     clamp100(100*hueBump(h,18,26)*gate(m.sat,50,100)*(0.4+0.6*gate(l,35,70))),
+    Nature:     clamp100(100*hueBump(h,115,40)*gate(m.sat,15,70)),
+    Innovation: clamp100(100*hueBump(h,200,40)*gate(m.sat,45,100)*gate(l,35,75)),
+    Tradition:  clamp100(100*(0.5*(1-m.sat/100)*midDark+0.5*hueBump(h,30,60)*(1-gate(m.sat,30,80))*midDark+0.3*hueBump(h,345,40)*midDark)),
+    Play:       clamp100(100*gate(m.sat,50,100)*gate(l,45,80)*(0.6+0.4*hueBump(h,40,80))),
+    Creativity: clamp100(100*gate(m.chroma,30,90)*(0.5+0.5*(hueBump(h,300,55)+hueBump(h,12,22))))
+  };
+}
+
+/* ════════════════════════════════════════════════
+   ENGINE — LAYER 2: archetypes + ranking
+   ════════════════════════════════════════════════ */
+var ARCH_W = {
+  Authority:  {Trust:.5,  Authority:1.0, Tradition:.4},
+  Scholar:    {Trust:.6,  Authority:.4,  Tradition:.6},
+  Innovator:  {Innovation:1.0, Trust:.3, Creativity:.4},
+  Craftsman:  {Nature:.7, Tradition:.7,  Luxury:.1},
+  Explorer:   {Energy:.8, Nature:.5,     Creativity:.2},
+  Luxury:     {Luxury:1.1, Authority:.2, Tradition:.2},
+  Challenger: {Energy:1.0, Creativity:.45, Play:.2},
+  Playmaker:  {Play:1.0,  Creativity:.4, Energy:.2}
+};
+
+function archetypeScores(S, m) {
+  var A = {};
+  for (var a in ARCH_W) {
+    var s = 0; for (var k in ARCH_W[a]) s += ARCH_W[a][k]*S[k];
+    A[a] = s;
+  }
+  A.Minimalist = 100*(1-gate(m.chroma,5,40))*(0.4+0.6*(1-Math.abs(m.light-55)/55));
+  return A;
+}
+function rankArch(A) {
+  return Object.keys(A).map(function(k){ return {name:k,raw:A[k]}; })
+                       .sort(function(a,b){ return b.raw-a.raw; });
+}
+
+/* ════════════════════════════════════════════════
+   STATIC DATA — layers 3 + 4
+   ════════════════════════════════════════════════ */
+var ARCH_TYPO = {
+  Authority:  {form:'Serif',  cls:'Transitional',    contrast:'Medium',   weight:'Semibold', width:'Normal',       xheight:'Medium', ornament:'None'},
+  Scholar:    {form:'Serif',  cls:'Old-style',        contrast:'Medium',   weight:'Regular',  width:'Normal',       xheight:'Medium', ornament:'Subtle'},
+  Innovator:  {form:'Sans',   cls:'Geometric',        contrast:'Low',      weight:'Medium',   width:'Normal',       xheight:'High',   ornament:'None'},
+  Craftsman:  {form:'Serif',  cls:'Humanist',         contrast:'Low–Med',  weight:'Medium',   width:'Wide',         xheight:'Medium', ornament:'Earthy'},
+  Explorer:   {form:'Sans',   cls:'Humanist',         contrast:'Low',      weight:'Medium',   width:'Normal–wide',  xheight:'High',   ornament:'None'},
+  Luxury:     {form:'Serif',  cls:'Didone',           contrast:'High',     weight:'Light',    width:'Normal',       xheight:'Low',    ornament:'Fine terminals'},
+  Minimalist: {form:'Sans',   cls:'Neo-grotesque',    contrast:'Low',      weight:'Light',    width:'Normal',       xheight:'Medium', ornament:'None'},
+  Challenger: {form:'Sans',   cls:'Geometric',        contrast:'Low',      weight:'Bold',     width:'Condensed',    xheight:'Medium', ornament:'None'},
+  Playmaker:  {form:'Sans',   cls:'Rounded humanist', contrast:'Low',      weight:'Bold',     width:'Wide',         xheight:'High',   ornament:'Rounded terminals'}
+};
+var ARCH_FONTS = {
+  Authority:  {primary:'Libre Baskerville', secondary:'Source Serif 4',    fallback:'EB Garamond'},
+  Scholar:    {primary:'EB Garamond',       secondary:'Spectral',           fallback:'Source Serif 4'},
+  Innovator:  {primary:'Sora',              secondary:'Space Grotesk',      fallback:'Montserrat'},
+  Craftsman:  {primary:'Fraunces',          secondary:'Bitter',             fallback:'Zilla Slab'},
+  Explorer:   {primary:'Source Sans 3',     secondary:'Work Sans',          fallback:'Mukta'},
+  Luxury:     {primary:'Playfair Display',  secondary:'Cormorant Garamond', fallback:'Libre Baskerville'},
+  Minimalist: {primary:'Inter',             secondary:'Manrope',            fallback:'Archivo'},
+  Challenger: {primary:'Space Grotesk',     secondary:'Montserrat',         fallback:'Oswald'},
+  Playmaker:  {primary:'Fredoka',           secondary:'Baloo 2',            fallback:'Quicksand'}
+};
+var ARCH_DESC = {
+  Authority:  'Trusted, institutional, commanding presence.',
+  Scholar:    'Intellectual, thoughtful, deeply considered.',
+  Innovator:  'Forward-thinking, clean, technically confident.',
+  Craftsman:  'Earthy, artisanal, grounded in material quality.',
+  Explorer:   'Energetic, open, curious and outward-looking.',
+  Luxury:     'Refined, exclusive, high-contrast elegance.',
+  Minimalist: 'Neutral, restrained, letting content breathe.',
+  Challenger: 'Bold, assertive, disruptive and direct.',
+  Playmaker:  'Warm, friendly, inviting and expressive.'
+};
+var ARCH_SENTENCES = {
+  Authority:  'Authority shapes perception before a word is read.',
+  Scholar:    'Thinking slowly is the beginning of understanding.',
+  Innovator:  'Systems thinking reveals what intuition misses.',
+  Craftsman:  'Material honesty is the highest form of design.',
+  Explorer:   'Every edge of the map is an invitation.',
+  Luxury:     'Restraint is the most extravagant gesture.',
+  Minimalist: 'Clarity is a form of generosity.',
+  Challenger: 'Disruption begins with refusing the obvious.',
+  Playmaker:  'The best experiences feel effortlessly alive.'
+};
+var SIG_COLORS = {
+  Trust:'#3b82f6', Authority:'#1e40af', Luxury:'#92400e',
+  Energy:'#ea580c', Nature:'#16a34a', Innovation:'#0891b2',
+  Tradition:'#78350f', Play:'#d97706', Creativity:'#7c3aed'
+};
+var SIG_ORDER = ['Trust','Authority','Luxury','Energy','Nature','Innovation','Tradition','Play','Creativity'];
+
+/* ════════════════════════════════════════════════
+   ANALYZE
+   ════════════════════════════════════════════════ */
+function analyze(hexes) {
+  var valid = hexes.map(normalizeHex).filter(isValidHex);
+  if (!valid.length) return null;
+  var ms = valid.map(colorMetrics);
+  var domIdx = 0;
+  if (valid.length > 1) {
+    var bw = -1;
+    for (var i = 0; i < ms.length; i++) {
+      var w = Math.max(0.05, ms[i].sat/100)*(1-i*0.10);
+      if (w > bw) { bw = w; domIdx = i; }
+    }
+  }
+  var dom = ms[domIdx], S = semanticSignals(dom);
+  var A = archetypeScores(S, dom), ranked = rankArch(A);
+  var top = ranked[0].raw, run = ranked[1].raw;
+  var margin = top > 0 ? (top-run)/top : 0;
+  var conf   = Math.round(100*(0.5*Math.min(1,top/100)+0.5*margin));
+  var display = [ranked[0]], isHybrid = false, isAmbiguous = false;
+  if (conf < 40) { isAmbiguous = true; display = [ranked[0],ranked[1]]; }
+  else if (margin < 0.20 && top >= 35 && run >= 35) { isHybrid = true; display = [ranked[0],ranked[1]]; }
+  if (valid.length > 1 && !isHybrid) {
+    for (var j = 0; j < ms.length; j++) {
+      if (j === domIdx) continue;
+      var sS = semanticSignals(ms[j]), sA = archetypeScores(sS,ms[j]), sR = rankArch(sA);
+      if (sR[0].name !== ranked[0].name && sR[0].raw >= 35) {
+        isHybrid = true; display = [ranked[0], sR[0]]; break;
+      }
+    }
+  }
+  var pArch = display[0].name;
+  return { hexes:valid, domIdx:domIdx, domHex:valid[domIdx], domM:dom,
+           signals:S, ranked:ranked, conf:conf, margin:margin,
+           display:display, isHybrid:isHybrid, isAmbiguous:isAmbiguous,
+           pArch:pArch, typo:ARCH_TYPO[pArch], fonts:ARCH_FONTS[pArch] };
+}
+
+/* ════════════════════════════════════════════════
+   FONT LOADING
+   ════════════════════════════════════════════════ */
+var _loaded = {};
+function loadFont(fam) {
+  if (_loaded[fam]) return; _loaded[fam] = true;
+  var l = document.createElement('link'); l.rel = 'stylesheet';
+  l.href = 'https://fonts.googleapis.com/css2?family=' + fam.replace(/ /g,'+') + ':wght@300;400;700&display=swap';
+  document.head.appendChild(l);
+}
+
+/* ════════════════════════════════════════════════
+   TOAST + COPY
+   ════════════════════════════════════════════════ */
+var _toast = document.getElementById('toast'), _tt;
+function showToast(msg) {
+  _toast.textContent = msg; _toast.classList.add('show');
+  clearTimeout(_tt); _tt = setTimeout(function(){ _toast.classList.remove('show'); }, 1600);
+}
+function copyHex(hex) {
+  navigator.clipboard.writeText(hex).then(
+    function(){ showToast('Copied '+hex+' ✓'); },
+    function(){ showToast(hex); }
+  );
+}
+window.copyHex = copyHex;
+
+/* ════════════════════════════════════════════════
+   RENDER — panel helpers
+   ════════════════════════════════════════════════ */
+function hslStr(m) {
+  return 'HSL('+r2(m.hue)+'°, '+r2(m.sat)+'%, '+r2(m.light)+'%)';
+}
+function colorTags(m) {
+  var t = [];
+  t.push(m.warmth>60?'Warm':m.warmth<40?'Cool':'Neutral');
+  t.push(m.sat>50?'Vivid':m.sat>20?'Moderate':'Muted');
+  t.push(m.light>65?'Light':m.light<35?'Dark':'Mid-tone');
+  if (m.contrastCapacity>60) t.push('High contrast');
+  return t;
+}
+function topSignal(S) {
+  var best='',bv=0; for(var k in S){if(S[k]>bv){bv=S[k];best=k;}} return {name:best,val:bv};
+}
+
+function renderP1(res, el) {
+  var m = res.domM, tags = colorTags(m);
+  var swatchHtml = res.hexes.map(function(h,i){
+    var cls = 'ca-swatch'+(i===res.domIdx?' dominant':'');
+    return '<div class="'+cls+'" style="background:'+h+'" onclick="copyHex(\''+h+'\')" title="'+h+(i===res.domIdx?' (dominant)':'')+'"></div>';
+  }).join('');
+  var tagHtml = tags.map(function(t){ return '<span class="ca-tag">'+t+'</span>'; }).join('');
+  var mRows = [
+    {lbl:'Warmth',    v:r2(m.warmth)},
+    {lbl:'Saturation',v:r2(m.sat)},
+    {lbl:'Lightness', v:r2(m.light)},
+    {lbl:'Chroma',    v:r2(m.chroma)},
+    {lbl:'Contrast',  v:r2(m.contrastCapacity)}
+  ];
+  var metricsHtml = mRows.map(function(row){
+    return '<div><div class="ca-m-label">'+row.lbl+'</div>'+
+      '<div class="ca-m-bar"><div class="ca-m-fill" style="width:'+row.v+'%"></div></div>'+
+      '<div class="ca-m-val">'+row.v+'</div></div>';
+  }).join('');
+  el.innerHTML = '<div class="ca-wrap">'+
+    '<div><div class="ca-swatches">'+swatchHtml+'</div></div>'+
+    '<div class="ca-info">'+
+      '<div class="ca-hex" onclick="copyHex(\''+res.domHex+'\')">'+res.domHex.toUpperCase()+'</div>'+
+      '<div class="ca-hsl">'+hslStr(m)+'</div>'+
+      '<div class="ca-tags">'+tagHtml+'</div>'+
+    '</div>'+
+    '<div class="ca-metrics">'+metricsHtml+'</div>'+
+  '</div>';
+}
+
+function renderP2(res, el) {
+  var rows = SIG_ORDER.map(function(k){
+    var v = r2(res.signals[k]);
+    return '<div class="sig-row">'+
+      '<span class="sig-name">'+k+'</span>'+
+      '<div class="sig-bar"><div class="sig-fill" style="width:'+v+'%;background:'+(SIG_COLORS[k]||'var(--amber)')+'"></div></div>'+
+      '<span class="sig-val">'+v+'</span>'+
+    '</div>';
+  }).join('');
+  el.innerHTML = '<div class="sig-list">'+rows+'</div>';
+}
+
+function renderP3(res, el) {
+  var rows = res.ranked.slice(0,6).map(function(arch,i){
+    var isPrim = i===0;
+    var confPct = Math.min(100, r2(arch.raw));
+    var badgeHtml = '';
+    if (i===0 && res.isHybrid) badgeHtml = '<span class="arch-badge badge-hybrid">Hybrid A</span>';
+    else if (i===1 && res.isHybrid) badgeHtml = '<span class="arch-badge badge-hybrid">Hybrid B</span>';
+    else if (i===0 && res.isAmbiguous) badgeHtml = '<span class="arch-badge badge-ambiguous">Ambiguous</span>';
+    else if (i===0) badgeHtml = '<span class="arch-badge badge-primary">Primary</span>';
+    return '<div class="arch-row'+(isPrim?' arch-primary':'')+'">'+
+      '<span class="arch-rank">'+(i+1)+'</span>'+
+      '<div class="arch-info">'+
+        '<div class="arch-name">'+arch.name+'</div>'+
+        '<div class="arch-desc">'+ARCH_DESC[arch.name]+'</div>'+
+      '</div>'+
+      '<div class="arch-right">'+
+        badgeHtml+
+        '<div class="arch-bar"><div class="arch-bar-fill" style="width:'+confPct+'%"></div></div>'+
+        '<span class="arch-score">'+confPct+'</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  el.innerHTML = '<div class="arch-list">'+rows+'</div>';
+  if (res.isAmbiguous) {
+    var n = document.createElement('p'); n.className='ambig-note';
+    n.textContent='Low confidence: signals are weak or conflicting. Adjust saturation or lightness for a stronger result.';
+    el.appendChild(n);
+  }
+}
+
+function renderP4(res, el) {
+  var t = res.typo, f = res.fonts;
+  var attrData = [
+    {lbl:'Form',     v:t.form},
+    {lbl:'Class',    v:t.cls},
+    {lbl:'Contrast', v:t.contrast},
+    {lbl:'Weight',   v:t.weight},
+    {lbl:'Width',    v:t.width},
+    {lbl:'x-height', v:t.xheight},
+    {lbl:'Ornament', v:t.ornament}
+  ];
+  var attrsHtml = attrData.map(function(a){
+    return '<div class="typo-attr"><div class="typo-attr-lbl">'+a.lbl+'</div><div class="typo-attr-val">'+a.v+'</div></div>';
+  }).join('');
+  var roles = ['primary','secondary','fallback'];
+  var sentence = ARCH_SENTENCES[res.pArch] || 'The quick brown fox jumps over the lazy dog.';
+  var specsHtml = roles.map(function(role){
+    var fam = f[role]; loadFont(fam);
+    return '<div class="specimen">'+
+      '<div class="specimen-head"><span class="specimen-family">'+fam+'</span><span class="specimen-role">'+role+'</span></div>'+
+      '<div class="specimen-body">'+
+        '<div class="specimen-display" style="font-family:\''+fam+'\',serif,sans-serif">'+res.pArch+'</div>'+
+        '<div class="specimen-text"  style="font-family:\''+fam+'\',serif,sans-serif">'+sentence+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  el.innerHTML = '<div class="typo-attrs">'+attrsHtml+'</div><div class="specimens">'+specsHtml+'</div>';
+}
+
+function renderP5(res, el) {
+  var m = res.domM, ts = topSignal(res.signals);
+  var bg0 = res.domHex, fg0 = m.Y > 0.179 ? '#1c1a14' : '#ffffff';
+  var steps = [
+    { num:'01', bg:bg0,             fg:fg0,
+      layer:'Input Color', value:res.domHex.toUpperCase(),
+      why:'H:'+r2(m.hue)+'° · S:'+r2(m.sat)+'% · L:'+r2(m.light)+'% — '+colorTags(m).join(', ') },
+    { num:'02', bg:SIG_COLORS[ts.name]||'#888', fg:'#fff',
+      layer:'Top Semantic Signal', value:ts.name+' ('+r2(ts.val)+')',
+      why:'Gaussian hue-bump × saturation gate × lightness gate — fully deterministic.' },
+    { num:'03', bg:'var(--board)',  fg:'var(--amber)',
+      layer:'Archetype'+(res.isHybrid?' (Hybrid)':''), value:res.display.map(function(a){return a.name;}).join(' + '),
+      why:'Weighted linear combination of 9 signals. Confidence: '+res.conf+'%.' },
+    { num:'04', bg:'var(--paper-alt)', fg:'var(--ink)',
+      layer:'Typography Class', value:res.typo.form+' / '+res.typo.cls,
+      why:res.typo.weight+' weight · '+res.typo.contrast+' contrast · '+res.typo.width+' width · x-height: '+res.typo.xheight },
+    { num:'05', bg:'var(--amber)',  fg:'#fff',
+      layer:'Primary Font', value:res.fonts.primary,
+      why:'Secondary: '+res.fonts.secondary+' · Fallback: '+res.fonts.fallback+' · All on Google Fonts.' }
+  ];
+  var html = '<div class="chain">';
+  steps.forEach(function(s){
+    html += '<div class="chain-step">'+
+      '<div class="chain-icon" style="background:'+s.bg+';color:'+s.fg+'">'+s.num+'</div>'+
+      '<div class="chain-content">'+
+        '<div class="chain-layer">'+s.layer+'</div>'+
+        '<div class="chain-value">'+s.value+'</div>'+
+        '<div class="chain-why">'+s.why+'</div>'+
+      '</div>'+
+    '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderAll(res) {
+  renderP1(res, document.getElementById('p1'));
+  renderP2(res, document.getElementById('p2'));
+  renderP3(res, document.getElementById('p3'));
+  renderP4(res, document.getElementById('p4'));
+  renderP5(res, document.getElementById('p5'));
+  document.getElementById('results').classList.remove('hidden');
+}
+
+/* ════════════════════════════════════════════════
+   INPUT — hex rows
+   ════════════════════════════════════════════════ */
+var hexRowsEl  = document.getElementById('hexRows');
+var addColorEl = document.getElementById('addColorBtn');
+var _aTmr;
+
+function getHexValues() {
+  return Array.from(hexRowsEl.querySelectorAll('.hex-input')).map(function(i){ return i.value; });
+}
+function scheduleAnalyze() {
+  clearTimeout(_aTmr);
+  _aTmr = setTimeout(function(){
+    var res = analyze(getHexValues());
+    if (res) renderAll(res);
+  }, 220);
+}
+function updateRemoveButtons() {
+  var rows = hexRowsEl.querySelectorAll('.hex-row');
+  rows.forEach(function(r){ r.querySelector('.remove-hex').disabled = rows.length <= 1; });
+}
+function makeHexRow(initVal) {
+  var row = document.createElement('div'); row.className = 'hex-row';
+  var sw  = document.createElement('div'); sw.className = 'hex-swatch';
+  var inp = document.createElement('input');
+  inp.type='text'; inp.className='hex-input'; inp.placeholder='#1a2b3c'; inp.maxLength=7;
+  if (initVal) {
+    inp.value = initVal;
+    var h = normalizeHex(initVal);
+    if (isValidHex(h)) sw.style.background = h;
+  }
+  inp.addEventListener('input', function(){
+    var h = normalizeHex(inp.value);
+    sw.style.background = isValidHex(h) ? h : 'var(--paper-dark)';
+    scheduleAnalyze();
+  });
+  var rem = document.createElement('button');
+  rem.type='button'; rem.className='remove-hex'; rem.textContent='×';
+  rem.setAttribute('aria-label','Remove color');
+  rem.addEventListener('click', function(){ row.remove(); updateRemoveButtons(); scheduleAnalyze(); });
+  row.appendChild(sw); row.appendChild(inp); row.appendChild(rem);
+  return row;
+}
+
+addColorEl.addEventListener('click', function(){
+  var r = makeHexRow();
+  hexRowsEl.appendChild(r); updateRemoveButtons();
+  r.querySelector('.hex-input').focus();
+});
+
+/* ════════════════════════════════════════════════
+   QUICK TEST CHIPS
+   ════════════════════════════════════════════════ */
+var QUICK = [
+  {lbl:'Authority',  h:['#003366']},
+  {lbl:'Challenger', h:['#FF6B00']},
+  {lbl:'Craftsman',  h:['#556B2F']},
+  {lbl:'Luxury',     h:['#800020']},
+  {lbl:'Minimalist', h:['#808080']},
+  {lbl:'Hybrid',     h:['#003366','#D4AF37','#F5F5F5']}
+];
+var chipsEl = document.getElementById('quickChips');
+QUICK.forEach(function(q){
+  var chip = document.createElement('div'); chip.className = 'chip';
+  var dot  = document.createElement('span'); dot.className = 'chip-dot'; dot.style.background = q.h[0];
+  var txt  = document.createTextNode(q.h[0].toUpperCase());
+  var lbl  = document.createElement('span'); lbl.className = 'chip-lbl'; lbl.textContent = q.lbl;
+  chip.appendChild(dot); chip.appendChild(txt); chip.appendChild(lbl);
+  chip.addEventListener('click', function(){
+    hexRowsEl.innerHTML = '';
+    q.h.forEach(function(h){ hexRowsEl.appendChild(makeHexRow(h)); });
+    updateRemoveButtons(); scheduleAnalyze();
+  });
+  chipsEl.appendChild(chip);
+});
+
+/* ════════════════════════════════════════════════
+   INIT — pre-load with Authority test case
+   ════════════════════════════════════════════════ */
+hexRowsEl.appendChild(makeHexRow('#003366'));
+updateRemoveButtons();
+scheduleAnalyze();
+</script>
+
+</body>
+</html>
