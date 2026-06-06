@@ -1,7 +1,7 @@
 ---
 layout: blank
 permalink: /notes/palettes/
-title: "Color Palettes"
+title: "Color Palettes i like"
 date: 2026-06-05
 tags: [design, colors]
 is_note: true
@@ -396,7 +396,7 @@ is_pinned: true
     padding: 28px 48px;
   }
 
-  .add-form-inner { max-width: 560px; }
+  .add-form-inner { max-width: 800px; }
 
   .form-title {
     font-size: 15px;
@@ -563,10 +563,73 @@ is_pinned: true
   .submit-btn:hover { background: var(--amber); }
   .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+  /* ── PALETTE BLOCKS ───────────────────────── */
+  .palette-block {
+    background: var(--chalk);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 18px 14px;
+    margin-bottom: 12px;
+  }
+  .palette-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .block-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .remove-block {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 9px;
+    cursor: pointer;
+    transition: background .12s, color .12s;
+  }
+  .remove-block:hover { background: var(--amber-lt); color: var(--ink); }
+  .remove-block:disabled { opacity: .3; cursor: not-allowed; }
+  .palette-block-layout { display: flex; gap: 18px; align-items: stretch; }
+  .palette-block-inner { flex: 1; min-width: 0; }
+  .block-preview {
+    flex: 0 0 150px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    overflow: hidden;
+  }
+  .add-block-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--amber);
+    background: none;
+    border: 1px dashed var(--amber-mid);
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 16px;
+    transition: background .12s, border-color .12s;
+  }
+  .add-block-btn:hover { background: var(--amber-lt); border-color: var(--amber); }
+  .visitor-fields { margin-bottom: 0; }
+
   /* ── RESPONSIVE ───────────────────────────── */
   @media (max-width: 860px) {
-    .add-form-layout { flex-direction: column; }
-    .live-preview { min-height: 240px; }
+    .palette-block-layout { flex-direction: column; }
+    .block-preview { flex: none; min-height: 120px; }
   }
 
   @media (max-width: 700px) {
@@ -636,19 +699,11 @@ is_pinned: true
 </div>
 
 <div id="addForm" class="add-form" hidden>
-  <div class="add-form-layout">
   <div class="add-form-inner">
-    <p class="form-title">New palette</p>
-    <div class="form-row">
-      <label class="form-label" for="palName">Name</label>
-      <input type="text" id="palName" class="form-input" placeholder="ocean" autocomplete="off">
-    </div>
-    <div class="form-row">
-      <label class="form-label">Colors <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(min 2)</span></label>
-      <div id="hexRows" class="hex-rows"></div>
-      <button type="button" class="add-row-btn" id="addRow">+ Add color</button>
-    </div>
-    <div id="visitorFields" class="form-row">
+    <p class="form-title">New palettes</p>
+    <div id="paletteBlocks"></div>
+    <button type="button" class="add-block-btn" id="addBlock">+ Add another palette</button>
+    <div class="visitor-fields form-row">
       <label class="form-label" for="palSubmitter">Your name <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(optional)</span></label>
       <input type="text" id="palSubmitter" class="form-input" placeholder="Anonymous" autocomplete="off">
       <label class="form-label" for="palSocial" style="margin-top:10px">Social / contact <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(optional)</span></label>
@@ -657,8 +712,6 @@ is_pinned: true
     <div class="form-actions">
       <button type="button" class="submit-btn" id="submitPalette">Suggest palette</button>
     </div>
-  </div>
-  <div id="livePreview" class="live-preview"></div>
   </div>
 </div>
 
@@ -950,200 +1003,181 @@ const PALETTES = {{ site.data.palettes | jsonify }};
   })();
 
   /* ─────────────────────────────────────────────────
-     ADD PALETTE FORM
+     ADD PALETTE FORM — multi-palette
      ───────────────────────────────────────────────── */
 
   var WORKER_URL = 'https://REPLACE_AFTER_DEPLOY.workers.dev';
 
-  var addToggle      = document.getElementById('addToggle');
-  var addForm        = document.getElementById('addForm');
-  var hexRowsEl      = document.getElementById('hexRows');
-  var addRowBtn      = document.getElementById('addRow');
-  var submitBtn      = document.getElementById('submitPalette');
-  var palNameEl      = document.getElementById('palName');
-  var palSubmitterEl = document.getElementById('palSubmitter');
-  var palSocialEl    = document.getElementById('palSocial');
+  var addToggle       = document.getElementById('addToggle');
+  var addForm         = document.getElementById('addForm');
+  var paletteBlocksEl = document.getElementById('paletteBlocks');
+  var addBlockBtn     = document.getElementById('addBlock');
+  var submitBtn       = document.getElementById('submitPalette');
+  var palSubmitterEl  = document.getElementById('palSubmitter');
+  var palSocialEl     = document.getElementById('palSocial');
 
-  // Toggle form visibility
   addToggle.addEventListener('click', function () {
     var open = !addForm.hidden;
     addForm.hidden = open;
     addToggle.classList.toggle('active', !open);
-    if (!open) requestAnimationFrame(renderLivePreview);
   });
 
-  // Normalize and validate a hex string
   function normalizeHex(raw) {
     var h = raw.trim().toLowerCase();
     if (h && h.charAt(0) !== '#') h = '#' + h;
     return h;
   }
-  function isValidHex(h) {
-    return /^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(h);
-  }
-
-  function updateRemoveButtons() {
-    var rows = hexRowsEl.querySelectorAll('.hex-row');
-    rows.forEach(function (r) {
-      r.querySelector('.remove-row').disabled = rows.length <= 2;
-    });
-  }
+  function isValidHex(h) { return /^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(h); }
 
   function fitLabel(slice, lbl) {
-    var w = slice.clientWidth;
-    var h = slice.clientHeight;
+    var w = slice.clientWidth, h = slice.clientHeight;
     if (!w || !h) return;
-    var maxW = w - 32;
-    var maxH = h - 20;
-    var lo = 12, hi = 90;
+    var maxW = w - 16, maxH = h - 8;
+    var lo = 9, hi = 72;
     lbl.style.fontSize = hi + 'px';
     while (hi - lo > 1) {
       var mid = Math.round((lo + hi) / 2);
       lbl.style.fontSize = mid + 'px';
-      if (lbl.scrollWidth <= maxW && lbl.scrollHeight <= maxH) { lo = mid; }
-      else { hi = mid; }
+      if (lbl.scrollWidth <= maxW && lbl.scrollHeight <= maxH) lo = mid; else hi = mid;
     }
     lbl.style.fontSize = lo + 'px';
   }
 
   function hexLuminance(hex) {
-    var r = parseInt(hex.slice(1,3),16)/255;
-    var g = parseInt(hex.slice(3,5),16)/255;
-    var b = parseInt(hex.slice(5,7),16)/255;
-    function lin(c) { return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
-    var L = 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
-    return L > 0.179 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.85)';
+    var r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+    function lin(c) { return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); }
+    return 0.2126*lin(r)+0.7152*lin(g)+0.0722*lin(b) > 0.179 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.85)';
   }
 
-  function renderLivePreview() {
-    var container = document.getElementById('livePreview');
+  function renderBlockPreview(blockEl) {
+    var container = blockEl.querySelector('.block-preview');
     if (!container) return;
-    var rows = Array.from(hexRowsEl.querySelectorAll('.hex-row'));
-    // Sync slice count (add missing, remove excess)
-    while (container.children.length > rows.length) {
-      container.removeChild(container.lastChild);
-    }
+    var rows = Array.from(blockEl.querySelectorAll('.hex-row'));
+    while (container.children.length > rows.length) container.removeChild(container.lastChild);
     while (container.children.length < rows.length) {
-      var s = document.createElement('div');
-      s.className = 'preview-slice';
-      var lbl = document.createElement('span');
-      lbl.className = 'preview-slice-label';
-      s.appendChild(lbl);
-      container.appendChild(s);
+      var s = document.createElement('div'); s.className = 'preview-slice';
+      var lbl = document.createElement('span'); lbl.className = 'preview-slice-label';
+      s.appendChild(lbl); container.appendChild(s);
     }
-    // Update each slice in-place (preserves CSS background transition)
-    var slices = Array.from(container.children);
-    rows.forEach(function(row, i) {
-      var hexInp  = row.querySelector('.hex-input');
-      var nameInp = row.querySelector('.hex-name');
-      var h     = normalizeHex(hexInp.value);
+    Array.from(container.children).forEach(function(slice, i) {
+      var row = rows[i];
+      var h = normalizeHex(row.querySelector('.hex-input').value);
       var valid = isValidHex(h);
-      var name  = nameInp ? nameInp.value.trim() : '';
-      var slice = slices[i];
+      var name = row.querySelector('.hex-name').value.trim();
       slice.style.background = valid ? h : '#e8e6de';
-      slice.style.cursor = valid ? 'pointer' : 'default';
-      slice.onclick = valid ? (function(hex) { return function() { copyHex(hex); }; })(h) : null;
+      slice.onclick = valid ? (function(hx) { return function() { copyHex(hx); }; })(h) : null;
       var lbl = slice.querySelector('.preview-slice-label');
-      if (name) {
-        lbl.textContent = name;
-        lbl.style.color = valid ? hexLuminance(h) : 'rgba(0,0,0,0.35)';
-      } else if (valid) {
-        lbl.textContent = h.toUpperCase();
-        lbl.style.color = hexLuminance(h);
-      } else {
-        lbl.textContent = '#______';
-        lbl.style.color = 'rgba(0,0,0,0.18)';
-      }
+      if (name)        { lbl.textContent = name;        lbl.style.color = valid ? hexLuminance(h) : 'rgba(0,0,0,0.35)'; }
+      else if (valid)  { lbl.textContent = h.toUpperCase(); lbl.style.color = hexLuminance(h); }
+      else             { lbl.textContent = '#______';   lbl.style.color = 'rgba(0,0,0,0.18)'; }
       fitLabel(slice, lbl);
     });
   }
 
-  // Build one hex-input row
-  function makeHexRow() {
-    var row = document.createElement('div');
-    row.className = 'hex-row';
+  function updateHexRemoveBtns(blockEl) {
+    var rows = blockEl.querySelectorAll('.hex-row');
+    rows.forEach(function(r) { r.querySelector('.remove-row').disabled = rows.length <= 2; });
+  }
 
-    var preview = document.createElement('span');
-    preview.className = 'hex-preview';
-    preview.style.background = '#f0f0f0';
+  function updateBlockRemoveBtns() {
+    var blocks = paletteBlocksEl.querySelectorAll('.palette-block');
+    blocks.forEach(function(b) { b.querySelector('.remove-block').disabled = blocks.length <= 1; });
+    var n = blocks.length;
+    submitBtn.textContent = n === 1 ? 'Suggest palette' : 'Suggest ' + n + ' palettes';
+  }
 
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.className = 'hex-input form-input';
-    input.placeholder = '#1a2b3c';
-    input.maxLength = 7;
-
-    input.addEventListener('input', function () {
+  function makeHexRow(blockEl) {
+    var row = document.createElement('div'); row.className = 'hex-row';
+    var preview = document.createElement('span'); preview.className = 'hex-preview'; preview.style.background = '#f0f0f0';
+    var input = document.createElement('input'); input.type = 'text'; input.className = 'hex-input form-input'; input.placeholder = '#1a2b3c'; input.maxLength = 7;
+    input.addEventListener('input', function() {
       var h = normalizeHex(input.value);
       preview.style.background = isValidHex(h) ? h : '#f0f0f0';
-      renderLivePreview();
+      renderBlockPreview(blockEl);
     });
-
-    var nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.className = 'form-input hex-name';
-    nameInput.placeholder = 'name…';
-    nameInput.maxLength = 32;
-    nameInput.addEventListener('input', renderLivePreview);
-
-    var rem = document.createElement('button');
-    rem.type = 'button';
-    rem.className = 'remove-row';
-    rem.setAttribute('aria-label', 'Remove');
-    rem.textContent = '×';
-    rem.addEventListener('click', function () {
-      row.remove();
-      updateRemoveButtons();
-      renderLivePreview();
-    });
-
-    row.appendChild(preview);
-    row.appendChild(input);
-    row.appendChild(nameInput);
-    row.appendChild(rem);
+    var nameInput = document.createElement('input'); nameInput.type = 'text'; nameInput.className = 'form-input hex-name'; nameInput.placeholder = 'name…'; nameInput.maxLength = 32;
+    nameInput.addEventListener('input', function() { renderBlockPreview(blockEl); });
+    var rem = document.createElement('button'); rem.type = 'button'; rem.className = 'remove-row'; rem.setAttribute('aria-label','Remove'); rem.textContent = '×';
+    rem.addEventListener('click', function() { row.remove(); updateHexRemoveBtns(blockEl); renderBlockPreview(blockEl); });
+    row.appendChild(preview); row.appendChild(input); row.appendChild(nameInput); row.appendChild(rem);
     return row;
   }
 
-  // Seed 2 initial rows
-  hexRowsEl.appendChild(makeHexRow());
-  hexRowsEl.appendChild(makeHexRow());
-  updateRemoveButtons();
-  renderLivePreview();
+  function makePaletteBlock() {
+    var blockEl = document.createElement('div'); blockEl.className = 'palette-block';
 
-  addRowBtn.addEventListener('click', function () {
-    hexRowsEl.appendChild(makeHexRow());
-    updateRemoveButtons();
-    renderLivePreview();
-    hexRowsEl.lastElementChild.querySelector('.hex-input').focus();
+    var header = document.createElement('div'); header.className = 'palette-block-header';
+    var blockLabel = document.createElement('span'); blockLabel.className = 'block-label'; blockLabel.textContent = 'Palette';
+    var removeBlockBtn = document.createElement('button'); removeBlockBtn.type = 'button'; removeBlockBtn.className = 'remove-block'; removeBlockBtn.textContent = 'Remove';
+    removeBlockBtn.addEventListener('click', function() { blockEl.remove(); updateBlockRemoveBtns(); });
+    header.appendChild(blockLabel); header.appendChild(removeBlockBtn);
+
+    var layout = document.createElement('div'); layout.className = 'palette-block-layout';
+    var inner = document.createElement('div'); inner.className = 'palette-block-inner';
+
+    var nameRow = document.createElement('div'); nameRow.className = 'form-row';
+    var nameLbl = document.createElement('label'); nameLbl.className = 'form-label'; nameLbl.textContent = 'Name';
+    var nameInput = document.createElement('input'); nameInput.type = 'text'; nameInput.className = 'form-input palette-name'; nameInput.placeholder = 'ocean'; nameInput.autocomplete = 'off';
+    nameRow.appendChild(nameLbl); nameRow.appendChild(nameInput);
+
+    var colorsRow = document.createElement('div'); colorsRow.className = 'form-row';
+    var colorsLbl = document.createElement('label'); colorsLbl.className = 'form-label';
+    colorsLbl.innerHTML = 'Colors <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px">(min 2)</span>';
+    var hexRowsEl = document.createElement('div'); hexRowsEl.className = 'hex-rows';
+    hexRowsEl.appendChild(makeHexRow(blockEl));
+    hexRowsEl.appendChild(makeHexRow(blockEl));
+    var addRowBtn = document.createElement('button'); addRowBtn.type = 'button'; addRowBtn.className = 'add-row-btn'; addRowBtn.textContent = '+ Add color';
+    addRowBtn.addEventListener('click', function() {
+      hexRowsEl.appendChild(makeHexRow(blockEl));
+      updateHexRemoveBtns(blockEl);
+      renderBlockPreview(blockEl);
+      hexRowsEl.lastElementChild.querySelector('.hex-input').focus();
+    });
+    colorsRow.appendChild(colorsLbl); colorsRow.appendChild(hexRowsEl); colorsRow.appendChild(addRowBtn);
+    inner.appendChild(nameRow); inner.appendChild(colorsRow);
+
+    var previewEl = document.createElement('div'); previewEl.className = 'live-preview block-preview';
+    layout.appendChild(inner); layout.appendChild(previewEl);
+    blockEl.appendChild(header); blockEl.appendChild(layout);
+
+    updateHexRemoveBtns(blockEl);
+    requestAnimationFrame(function() { renderBlockPreview(blockEl); });
+    return blockEl;
+  }
+
+  paletteBlocksEl.appendChild(makePaletteBlock());
+
+  addBlockBtn.addEventListener('click', function() {
+    paletteBlocksEl.appendChild(makePaletteBlock());
+    updateBlockRemoveBtns();
+    paletteBlocksEl.lastElementChild.querySelector('.palette-name').focus();
   });
 
-  // Submit — Worker identifies owner vs visitor via name prefix (entirely server-side)
-  submitBtn.addEventListener('click', async function () {
-    var name = palNameEl.value.trim();
-    if (!name) { showToast('Enter a palette name'); palNameEl.focus(); return; }
-
-    var rawHexes = Array.from(hexRowsEl.querySelectorAll('.hex-input')).map(function (i) { return normalizeHex(i.value); });
-    var hexes   = rawHexes.filter(function (h) { return h.length > 0; });
-    var invalid = hexes.filter(function (h) { return !isValidHex(h); });
-
-    if (hexes.length < 2) { showToast('Add at least 2 hex values'); return; }
-    if (invalid.length)   { showToast('Invalid hex: ' + invalid.join(', ')); return; }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting…';
-
-    try {
-      await submitToWorker(name, hexes);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Suggest palette';
-    }
+  submitBtn.addEventListener('click', async function() {
+    var blocks = Array.from(paletteBlocksEl.querySelectorAll('.palette-block'));
+    var palettes = [], errors = [];
+    blocks.forEach(function(blockEl, i) {
+      var name = blockEl.querySelector('.palette-name').value.trim();
+      var hexes = Array.from(blockEl.querySelectorAll('.hex-input'))
+        .map(function(inp) { return normalizeHex(inp.value); })
+        .filter(function(h) { return h.length > 0; });
+      var invalid = hexes.filter(function(h) { return !isValidHex(h); });
+      var label = 'Palette ' + (i + 1) + (name ? ' (' + name + ')' : '');
+      if (!name)            errors.push(label + ': enter a name');
+      else if (hexes.length < 2) errors.push(label + ': add at least 2 hex values');
+      else if (invalid.length)   errors.push(label + ': invalid hex ' + invalid.join(', '));
+      else palettes.push({ name: name, hexes: hexes });
+    });
+    if (errors.length) { showToast(errors[0]); return; }
+    var origLabel = submitBtn.textContent;
+    submitBtn.disabled = true; submitBtn.textContent = 'Submitting…';
+    try { await submitToWorker(palettes); }
+    finally { submitBtn.disabled = false; submitBtn.textContent = origLabel; }
   });
 
-  async function submitToWorker(name, hexes) {
+  async function submitToWorker(palettes) {
     if (!WORKER_URL || WORKER_URL.indexOf('REPLACE_AFTER_DEPLOY') !== -1) {
-      showToast('Submissions not yet configured');
-      return;
+      showToast('Submissions not yet configured'); return;
     }
     var submitter = palSubmitterEl.value.trim();
     var social    = palSocialEl.value.trim();
@@ -1151,42 +1185,41 @@ const PALETTES = {{ site.data.palettes | jsonify }};
       var res = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, hexes: hexes, submitter: submitter, social: social })
+        body: JSON.stringify({ palettes: palettes, submitter: submitter, social: social })
       });
       if (res.ok) {
         var data = {};
         try { data = await res.json(); } catch (e) {}
         if (data.mode === 'owner') {
-          showToast('Published ✓ — builds in ~1 min');
-          var card = buildCard({ name: data.name || name, mood: '', hexes: hexes });
-          card.style.outline = '2px solid var(--amber)';
-          card.style.outlineOffset = '-1px';
-          grid.insertBefore(card, grid.firstChild);
+          var names = data.names || palettes.map(function(p) { return p.name; });
+          showToast('Published ' + names.join(', ') + ' ✓ — builds in ~1 min');
+          palettes.forEach(function(p) {
+            var card = buildCard({ name: p.name, mood: '', hexes: p.hexes });
+            card.style.outline = '2px solid var(--amber)';
+            card.style.outlineOffset = '-1px';
+            grid.insertBefore(card, grid.firstChild);
+          });
         } else {
-          showToast('Suggested ✓');
+          var n = palettes.length;
+          showToast('Suggested ✓' + (n > 1 ? ' (' + n + ' palettes)' : ''));
         }
         resetForm();
       } else {
-        var err = {};
-        try { err = await res.json(); } catch (e) {}
-        showToast(err.error || 'Submission failed (' + res.status + ')');
+        var errData = {};
+        try { errData = await res.json(); } catch (e) {}
+        showToast(errData.error || 'Submission failed (' + res.status + ')');
       }
-    } catch (e) {
-      showToast('Network error');
-    }
+    } catch (e) { showToast('Network error'); }
   }
 
   function resetForm() {
     addForm.hidden = true;
     addToggle.classList.remove('active');
-    palNameEl.value = '';
     palSubmitterEl.value = '';
     palSocialEl.value = '';
-    hexRowsEl.innerHTML = '';
-    hexRowsEl.appendChild(makeHexRow());
-    hexRowsEl.appendChild(makeHexRow());
-    updateRemoveButtons();
-    renderLivePreview();
+    paletteBlocksEl.innerHTML = '';
+    paletteBlocksEl.appendChild(makePaletteBlock());
+    submitBtn.textContent = 'Suggest palette';
   }
 
 }());
