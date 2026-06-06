@@ -108,12 +108,15 @@ export default {
     let sha, current;
     try {
       const res  = await ghFetch(fileUrl, 'GET', null, pat);
-      if (!res.ok) throw new Error(res.status);
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        return err('Could not read inbox: GitHub ' + res.status + ' ' + body.slice(0, 200), 500);
+      }
       const data = await res.json();
       sha     = data.sha;
       current = atob(data.content.replace(/\n/g, ''));
-    } catch {
-      return err('Could not read inbox', 500);
+    } catch (e) {
+      return err('Could not read inbox: ' + (e && e.message ? e.message : String(e)), 500);
     }
 
     const dataRows = current.split('\n').filter(
@@ -169,6 +172,7 @@ function ghFetch(url, method, body, token) {
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
       'Content-Type': 'application/json',
+      'User-Agent': 'palette-submit-worker/1.0',
     },
     body: body ? JSON.stringify(body) : undefined,
   });
