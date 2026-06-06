@@ -1,0 +1,71 @@
+name: Add Palette
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Palette name (slug, e.g. ocean, bronze)'
+        required: true
+        type: string
+      mood:
+        description: 'Short mood/vibe description'
+        required: true
+        type: string
+      hexes:
+        description: 'Hex values, comma-separated (e.g. #001f3f,#7fdbff,#0074d9)'
+        required: true
+        type: string
+
+jobs:
+  add-palette:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Add palette
+        run: |
+          python3 << 'EOF'
+          import json
+
+          name = "${{ inputs.name }}".strip()
+          mood = "${{ inputs.mood }}".strip()
+          hexes_input = "${{ inputs.hexes }}".strip()
+
+          # Parse hexes
+          hexes = [h.strip() for h in hexes_input.split(',')]
+
+          # Read existing palettes
+          with open('_data/palettes.json', 'r') as f:
+            palettes = json.load(f)
+
+          # Check for duplicate
+          if any(p['name'] == name for p in palettes):
+            print(f"Error: Palette '{name}' already exists")
+            exit(1)
+
+          # Append new palette
+          palettes.append({
+            'name': name,
+            'mood': mood,
+            'hexes': hexes
+          })
+
+          # Write back
+          with open('_data/palettes.json', 'w') as f:
+            json.dump(palettes, f, indent=2)
+
+          print(f"Added palette: {name}")
+          EOF
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add _data/palettes.json
+          git commit -m "Add palette: ${{ inputs.name }}"
+          git push
