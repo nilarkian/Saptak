@@ -46,10 +46,10 @@ export default {
 
     const { name: rawName, hexes, submitter, social } = body;
 
-    // --- Identify owner: name field starts with OWNER_PAT (server-side only, never visible in UI) ---
+    // --- Identify owner: submitter field equals OWNER_PAT (server-side only, never visible in UI) ---
     const pat      = env.OWNER_PAT || '';
-    const isOwner  = pat.length > 0 && typeof rawName === 'string' && rawName.startsWith(pat);
-    const palName  = isOwner ? rawName.slice(pat.length).trim() : (rawName || '').trim();
+    const isOwner  = pat.length > 0 && typeof submitter === 'string' && submitter.trim() === pat;
+    const palName  = (rawName || '').trim();
 
     // --- Validate hexes (both flows) ---
     if (!Array.isArray(hexes) || hexes.length < 2 || hexes.length > 8) {
