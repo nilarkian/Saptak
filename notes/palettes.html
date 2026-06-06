@@ -796,11 +796,7 @@ is_pinned: true
 <script>
 const PALETTES = {{ site.data.palettes | jsonify }};
 
-/* ── localStorage helpers (used by gallery init + add-form) ── */
-var LOCAL_KEY = 'palette-local';
 function paletteSig(p) { return (p.name || '').toLowerCase() + '|' + p.hexes.join(','); }
-function loadLocal() { try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; } catch(e) { return []; } }
-function saveLocal(a) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(a)); } catch(e) {} }
 
 /* ─────────────────────────────────────────────────
    GALLERY — MULTI-VIEW SYSTEM
@@ -1049,7 +1045,6 @@ function saveLocal(a) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(a))
 
   function setView(i) {
     activeViewIdx = ((i % VIEWS.length) + VIEWS.length) % VIEWS.length;
-    localStorage.setItem('palette-view', VIEWS[activeViewIdx].key);
     renderGallery();
   }
 
@@ -1067,25 +1062,9 @@ function saveLocal(a) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(a))
   vsNext.addEventListener('click', function() { setView(activeViewIdx + 1); });
   searchEl.addEventListener('input', function() { renderGallery(); });
 
-  /* init — restore last view from localStorage, default to panoramic */
+  /* init */
   (function() {
-    var stored = localStorage.getItem('palette-view');
-    var idx = 0;
-    if (stored) {
-      for (var i = 0; i < VIEWS.length; i++) {
-        if (VIEWS[i].key === stored) { idx = i; break; }
-      }
-    }
-    // Merge locally-saved palettes (prepend, deduped against build-time data)
-    var local = loadLocal();
-    if (local.length) {
-      var sigs = new Set(PALETTES.map(paletteSig));
-      local.forEach(function(p) {
-        var s = paletteSig(p);
-        if (!sigs.has(s)) { PALETTES.unshift(p); sigs.add(s); }
-      });
-    }
-    activeViewIdx = idx;
+    activeViewIdx = 0;
     renderGallery();
   })();
 
@@ -1387,17 +1366,11 @@ function saveLocal(a) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(a))
     submitBtn.textContent = 'Adding…';
 
     try {
-      // Local persistence — always works, no backend needed
-      var localArr = loadLocal();
       var existingSigs = new Set(PALETTES.map(paletteSig));
-      var localSigs = new Set(localArr.map(paletteSig));
-
       toSubmit.forEach(function(p) {
         var sig = paletteSig(p);
         if (!existingSigs.has(sig)) { PALETTES.unshift(p); existingSigs.add(sig); }
-        if (!localSigs.has(sig)) { localArr.unshift(p); localSigs.add(sig); }
       });
-      saveLocal(localArr);
       renderGallery();
       showToast('Added ' + toSubmit.length + ' palette' + (toSubmit.length !== 1 ? 's' : '') + ' ✓');
 
