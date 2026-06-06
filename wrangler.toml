@@ -1,3 +1,11 @@
 name = "palette-submit"
 main = "workers/palette-submit.js"
 compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "palette-submissions"
+database_id = "b1a3fd93-4978-4852-92f3-e9f4e74414df"
+
+[triggers]
+crons = ["30 20 * * *"]

@@ -1,36 +1,32 @@
 /**
  * Cloudflare Worker — palette-submit
  *
- * DEPLOY (one-time, ~15 min):
- *   1.  npm install -g wrangler
- *   2.  wrangler login
- *   3.  Create wrangler.toml in repo root:
+ * SUBMIT FLOW (on every "Suggest" click):
+ *   Validate → INSERT rows into D1 (atomic, no GitHub call, no race condition).
+ *   Returns immediately with { ok: true, queued: N }.
  *
- *         name = "palette-submit"
- *         main = "workers/palette-submit.js"
- *         compatibility_date = "2024-01-01"
+ * DRAIN FLOW (cron: 30 20 * * * = 02:00 IST daily):
+ *   SELECT all pending rows → write to GitHub in two batched commits:
+ *     - Owner rows  → _data/palettes.json
+ *     - Visitor rows → _submissions/palette-inbox.md
+ *   DELETE processed rows. If a GitHub write fails, rows stay for next night.
  *
- *   4.  wrangler secret put OWNER_PAT
- *         → paste your fine-grained PAT for nilarkian/Saptak
- *           Permissions needed: Contents: read & write, Actions: read & write
- *   5.  wrangler deploy
- *         → copy the Worker URL shown
- *   6.  Replace WORKER_URL in notes/palettes.html with that URL
- *   7.  git add workers/ wrangler.toml notes/palettes.html && git commit
+ * SETUP (one-time):
+ *   1. wrangler d1 create palette-submissions
+ *   2. Add [[d1_databases]] binding to wrangler.toml (already done)
+ *   3. wrangler d1 execute palette-submissions --remote --command "CREATE TABLE ..."
+ *   4. wrangler secret put OWNER_PAT   (PAT: Contents + Actions read/write)
+ *   5. wrangler secret put OWNER_SECRET (short memorable word)
+ *   6. wrangler deploy
  *
  * OWNER AUTH:
- *   Put your PAT in the "Your name" field of the form.
- *   The palette name field stays clean — just the palette name.
- *
- * MULTI-PALETTE:
- *   Body: { palettes: [{name, hexes}], submitter, social }
- *   Owner: dispatches one add-palette.yml run per palette (parallel).
- *   Visitor: appends one inbox row per palette in a single file write.
+ *   Put your OWNER_SECRET value in the "Your name" field.
+ *   Palette queued as owner → committed to _data/palettes.json at 2am IST.
  */
 
 const REPO           = 'nilarkian/Saptak';
 const INBOX_PATH     = '_submissions/palette-inbox.md';
-const WORKFLOW       = 'add-palette.yml';
+const PALETTES_PATH  = '_data/palettes.json';
 const REF            = 'main';
 const ALLOWED_ORIGIN = 'https://nilarkian.github.io';
 
@@ -40,10 +36,11 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-const HEX = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
+const HEX     = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
 const NAME_RE = /^[a-zA-Z0-9 \-_]{1,50}$/;
 
 export default {
+  // ── SUBMIT HANDLER ─────────────────────────────────────────────────────────
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
     if (request.method !== 'POST')    return err('Method not allowed', 405);
@@ -54,12 +51,10 @@ export default {
 
     const { submitter, social } = body;
 
-    // --- Identify owner: submitter field equals OWNER_PAT (server-side only) ---
-    const pat     = env.OWNER_PAT || '';
     const secret  = env.OWNER_SECRET || '';
     const isOwner = secret.length > 0 && typeof submitter === 'string' && submitter.trim() === secret;
 
-    // --- Normalize to array ---
+    // Normalize to array
     let palettes;
     if (Array.isArray(body.palettes) && body.palettes.length > 0) {
       palettes = body.palettes;
@@ -71,7 +66,7 @@ export default {
 
     if (palettes.length > 20) return err('Max 20 palettes per submission', 400);
 
-    // --- Validate each palette ---
+    // Validate each palette
     for (let i = 0; i < palettes.length; i++) {
       const { name, hexes } = palettes[i];
       if (!name || !NAME_RE.test(name)) {
@@ -85,67 +80,109 @@ export default {
       }
     }
 
-    // --- Owner flow: dispatch one workflow run per palette (parallel) ---
-    if (isOwner) {
-      const results = await Promise.all(palettes.map(p =>
-        ghFetch(
-          `https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`,
-          'POST',
-          { ref: REF, inputs: { name: p.name, mood: '', hexes: p.hexes.join(',') } },
-          pat
-        )
-      ));
-      const failed = results.find(r => r.status !== 204);
-      if (failed) return err('Dispatch failed (' + failed.status + ')', 500);
-      return ok({ mode: 'owner', names: palettes.map(p => p.name) });
-    }
-
-    // --- Visitor flow: read inbox once, append N rows, write once ---
     const cleanSubmitter = sanitizeText(submitter, 50) || 'anonymous';
-    const cleanSocial    = sanitizeSocial(social)      || '—';
-    const date           = new Date().toISOString().split('T')[0];
-    const fileUrl        = `https://api.github.com/repos/${REPO}/contents/${INBOX_PATH}`;
+    const cleanSocial    = sanitizeSocial(social)      || '';
+    const createdAt      = new Date().toISOString();
 
-    let sha, current;
-    try {
-      const res  = await ghFetch(fileUrl, 'GET', null, pat);
-      if (!res.ok) {
-        const body = await res.text().catch(() => '');
-        return err('Could not read inbox: GitHub ' + res.status + ' ' + body.slice(0, 200), 500);
-      }
-      const data = await res.json();
-      sha     = data.sha;
-      current = atob(data.content.replace(/\n/g, ''));
-    } catch (e) {
-      return err('Could not read inbox: ' + (e && e.message ? e.message : String(e)), 500);
-    }
-
-    const dataRows = current.split('\n').filter(
-      l => l.startsWith('|') && !/^\|[-| ]+\|$/.test(l.trim()) && !l.includes(' Name ')
+    // Batch INSERT — each row independent, atomic, no race condition
+    const stmts = palettes.map(p =>
+      env.DB.prepare(
+        'INSERT INTO submissions (name, hexes, submitter, social, is_owner, created_at) VALUES (?, ?, ?, ?, ?, ?)'
+      ).bind(p.name, p.hexes.join(','), cleanSubmitter, cleanSocial, isOwner ? 1 : 0, createdAt)
     );
-    let rowNum = dataRows.length + 1;
-    let newRows = '';
-    for (const p of palettes) {
-      const hexDisplay = p.hexes.map(h => `\`${h}\``).join(' ');
-      newRows += `| ${rowNum++} | ${p.name} | ${hexDisplay} | ${cleanSubmitter} | ${cleanSocial} | ${date} |\n`;
-    }
-    const updated = current.trimEnd() + '\n' + newRows;
 
     try {
-      const commitMsg = palettes.length === 1
-        ? `palette suggestion: ${palettes[0].name}`
-        : `palette suggestions: ${palettes.map(p => p.name).join(', ')}`;
-      const res = await ghFetch(fileUrl, 'PUT', {
-        message: commitMsg,
-        content: btoa(unescape(encodeURIComponent(updated))),
-        sha,
-      }, pat);
-      if (!res.ok) return err('Failed to record suggestion', 500);
-    } catch {
-      return err('Failed to record suggestion', 500);
+      await env.DB.batch(stmts);
+    } catch (e) {
+      return err('Failed to queue submission: ' + (e && e.message ? e.message : String(e)), 500);
     }
 
-    return ok({ mode: 'visitor', count: palettes.length });
+    return ok({ queued: palettes.length });
+  },
+
+  // ── DRAIN HANDLER (cron 30 20 * * * = 02:00 IST) ──────────────────────────
+  async scheduled(_event, env, _ctx) {
+    const pat = env.OWNER_PAT || '';
+
+    // Fetch all pending rows
+    const { results } = await env.DB.prepare('SELECT * FROM submissions ORDER BY id').all();
+    if (!results || results.length === 0) return;
+
+    const maxId = results[results.length - 1].id;
+
+    const ownerRows   = results.filter(r => r.is_owner === 1);
+    const visitorRows = results.filter(r => r.is_owner === 0);
+
+    // ── Owner rows → _data/palettes.json ──────────────────────────────────────
+    if (ownerRows.length > 0) {
+      const fileUrl = `https://api.github.com/repos/${REPO}/contents/${PALETTES_PATH}`;
+      try {
+        const res = await ghFetch(fileUrl, 'GET', null, pat);
+        if (!res.ok) throw new Error('GET palettes.json: GitHub ' + res.status);
+        const data     = await res.json();
+        const sha      = data.sha;
+        const existing = JSON.parse(atob(data.content.replace(/\n/g, '')));
+        const names    = new Set(existing.map(p => p.name));
+
+        let added = 0;
+        for (const row of ownerRows) {
+          if (names.has(row.name)) continue;
+          existing.unshift({ name: row.name, mood: '', hexes: row.hexes.split(',') });
+          names.add(row.name);
+          added++;
+        }
+
+        if (added > 0) {
+          const putRes = await ghFetch(fileUrl, 'PUT', {
+            message: `Add palette${added > 1 ? 's' : ''}: ${ownerRows.map(r => r.name).join(', ')}`,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2)))),
+            sha,
+          }, pat);
+          if (!putRes.ok) throw new Error('PUT palettes.json: GitHub ' + putRes.status);
+        }
+
+        await env.DB.prepare('DELETE FROM submissions WHERE is_owner=1 AND id<=?').bind(maxId).run();
+      } catch (e) {
+        // Leave rows in D1 — will retry next night
+        console.error('Owner drain failed:', e && e.message ? e.message : String(e));
+      }
+    }
+
+    // ── Visitor rows → _submissions/palette-inbox.md ──────────────────────────
+    if (visitorRows.length > 0) {
+      const fileUrl = `https://api.github.com/repos/${REPO}/contents/${INBOX_PATH}`;
+      try {
+        const res = await ghFetch(fileUrl, 'GET', null, pat);
+        if (!res.ok) throw new Error('GET inbox: GitHub ' + res.status);
+        const data    = await res.json();
+        const sha     = data.sha;
+        const current = atob(data.content.replace(/\n/g, ''));
+
+        const dataRows = current.split('\n').filter(
+          l => l.startsWith('|') && !/^\|[-| ]+\|$/.test(l.trim()) && !l.includes(' Name ')
+        );
+        let rowNum  = dataRows.length + 1;
+        let newRows = '';
+        for (const row of visitorRows) {
+          const hexDisplay = row.hexes.split(',').map(h => `\`${h}\``).join(' ');
+          const social     = row.social || '—';
+          const date       = row.created_at.split('T')[0];
+          newRows += `| ${rowNum++} | ${row.name} | ${hexDisplay} | ${row.submitter} | ${social} | ${date} |\n`;
+        }
+        const updated = current.trimEnd() + '\n' + newRows;
+
+        const putRes = await ghFetch(fileUrl, 'PUT', {
+          message: `palette suggestion${visitorRows.length > 1 ? 's' : ''}: ${visitorRows.map(r => r.name).join(', ')}`,
+          content: btoa(unescape(encodeURIComponent(updated))),
+          sha,
+        }, pat);
+        if (!putRes.ok) throw new Error('PUT inbox: GitHub ' + putRes.status);
+
+        await env.DB.prepare('DELETE FROM submissions WHERE is_owner=0 AND id<=?').bind(maxId).run();
+      } catch (e) {
+        console.error('Visitor drain failed:', e && e.message ? e.message : String(e));
+      }
+    }
   },
 };
 
@@ -187,7 +224,7 @@ function sanitizeText(s, maxLen) {
 function sanitizeSocial(s) {
   if (!s || typeof s !== 'string') return '';
   s = s.trim();
-  if (/^https?:\/\/.+/.test(s))                        return s.slice(0, 200);
-  if (/^[\w.+\-]+@[\w\-]+\.[a-zA-Z]{2,}$/.test(s))   return s.slice(0, 200);
+  if (/^https?:\/\/.+/.test(s))                       return s.slice(0, 200);
+  if (/^[\w.+\-]+@[\w\-]+\.[a-zA-Z]{2,}$/.test(s))  return s.slice(0, 200);
   return '';
 }

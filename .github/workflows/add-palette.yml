@@ -49,8 +49,8 @@ jobs:
             print(f"Error: Palette '{name}' already exists")
             exit(1)
 
-          # Append new palette
-          palettes.append({
+          # Prepend new palette (newest-first)
+          palettes.insert(0, {
             'name': name,
             'mood': mood,
             'hexes': hexes
