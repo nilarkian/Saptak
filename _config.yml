@@ -16,6 +16,8 @@ include:
   - notes
 
 
+kramdown:
+  input: GFM
 collections:
   writing:
     output: true

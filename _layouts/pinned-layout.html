@@ -169,6 +169,28 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1200px; }
 .meta-dot{color:var(--brass);}
 
 /* ── MARKDOWN BODY ── */
+
+
+
+.note-body .highlight{
+  background: linear-gradient(
+    transparent 35%,
+    #f6d365 35%,
+    #f6d365 85%,
+    transparent 85%
+  );
+  padding: 0 .08em;
+    box-shadow: inset 0 -1.1em #f6d365;
+
+}
+
+
+
+
+
+
+
+
 .note-body{
   font-size:19px;
   line-height:1.78;
@@ -665,6 +687,14 @@ body.dark .skip-link{background:#171717;color:#ddd8d2;}
 </main>
 
 <script>
+
+document.querySelector('.note-body').innerHTML =
+document.querySelector('.note-body').innerHTML.replace(
+  /==(.+?)==/g,
+  '<span class="highlight">$1</span>'
+);
+
+
 // ── THEME TOGGLE ──
 (function(){
   var stored = localStorage.getItem('pinned-theme');

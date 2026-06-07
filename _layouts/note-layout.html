@@ -18,6 +18,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.
 
 <style>
 
+.note-body .highlight{
+  background: linear-gradient(
+    transparent 35%,
+    #f6d365 35%,
+    #f6d365 85%,
+    transparent 85%
+  );
+  padding: 0 .08em;
+    box-shadow: inset 0 -1.1em #f6d365;
+
+}
+
 .note-body a {
   color: #c8440a;
   text-decoration: underline;
@@ -654,6 +666,12 @@ body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
 </main>
 
 <script>
+
+document.querySelector('.note-body').innerHTML =
+document.querySelector('.note-body').innerHTML.replace(
+  /==(.+?)==/g,
+  '<span class="highlight">$1</span>'
+);
 // ── THEME TOGGLE ──
 (function(){
   const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
