@@ -151,17 +151,23 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1200px; }
   border:1px solid var(--border-brass);
   background:rgba(160,120,80,.035);
   border-radius:6px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
   transition:border-color .2s, background .2s;
 }
-
-.updated-date{
+.updated-label{
   font-family:'Syne',Arial,sans-serif;
-  font-size:19px;
-  font-weight:700;
-  letter-spacing:.04em;
-  color:var(--brass-muted);
+  font-size:9px; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--brass);
 }
-
+.updated-date{
+  font-family:'EB Garamond',Georgia,serif;
+  font-size:21px;
+  color:var(--brass-faded);
+  line-height:1.3;
+  font-variant-numeric:tabular-nums;
+}
 
 /* ── SERIES PILL ── */
 .series-pill{
@@ -604,7 +610,7 @@ body.dark .note-body h6{color:#eeebe6;}
 body.dark .breadcrumb,
 body.dark .meta{color:#908070;}
 body.dark .updated-stamp{border-color:rgba(160,120,80,.2);background:rgba(160,120,80,.05);}
-/* body.dark .updated-label{color:var(--brass-light);} */
+body.dark .updated-label{color:var(--brass-light);}
 body.dark .updated-date{color:#a09080;}
 body.dark .series-pill{color:#908070;border-color:rgba(160,120,80,.25);}
 body.dark .series-pill:hover{color:#eeebe6;border-color:var(--brass);background:rgba(160,120,80,.1);}
@@ -695,9 +701,8 @@ body.dark .skip-link{background:#171717;color:#ddd8d2;}
 
   {% if page.date %}{% assign u_day = page.date | date: "%e" | strip | plus: 0 %}{% assign u_mod100 = u_day | modulo: 100 %}{% assign u_mod10 = u_day | modulo: 10 %}{% if u_mod100 >= 11 and u_mod100 <= 13 %}{% assign u_suf = "th" %}{% elsif u_mod10 == 1 %}{% assign u_suf = "st" %}{% elsif u_mod10 == 2 %}{% assign u_suf = "nd" %}{% elsif u_mod10 == 3 %}{% assign u_suf = "rd" %}{% else %}{% assign u_suf = "th" %}{% endif %}
   <div class="updated-stamp">
-  <span class="updated-date">
-    Last updated: 🌞{{ u_day }}{{ u_suf }} {{ page.date | date: "%b %Y" }}
-  </span>
+    <span class="updated-label">Last updated</span>
+    <span class="updated-date">{{ u_day }}{{ u_suf }} {{ page.date | date: "%b %Y" }}</span>
   </div>
   {% endif %}
 

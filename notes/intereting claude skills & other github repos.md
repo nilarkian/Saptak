@@ -2,7 +2,7 @@
 layout: pinned-layout
 title: Interesting Claude Skills & Other GitHub Repos
 topic: Resources
-date: 2026-05-12
+date: 2026-05-16
 tags:
   - claude
   - AI
@@ -14,7 +14,6 @@ project:
   - "[[notes]]"
 ---
 
-> last updated: **🌞16th May 2026:**
 
 
 | No. | skill                                                                                                                                                                  | notes                                                                                                                                                                                                                                                                                                                                    |

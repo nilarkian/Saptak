@@ -20,8 +20,6 @@ project:
 ---
 
 
-> last updated 🌞4th August 2024
-    
 > see [brown's-list-human-universals.pdf](https://joelvelasco.net/teaching/2890/brownlisthumanuniversals.pdf)
 
 

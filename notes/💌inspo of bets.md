@@ -16,8 +16,6 @@ blurb: collection of pivotal business bets where one company correctly identifie
 project:
   - "[[notes]]"
 ---
- 
-> last updated 🌞7th Feb 2024:
 
 1. **Kodak** vs **Canon/Nikon**: Kodak invented the digital camera but chose to stick with film photography, fearing it would cannibalize their film sales. Canon and Nikon fully embraced digital, revolutionizing photography.
 2. **Borders** vs **Amazon**: Borders chose not to invest in e-commerce, instead partnering with Amazon for online sales. Amazon bet on online retail and transformed into a dominant global marketplace, while Borders eventually went bankrupt.

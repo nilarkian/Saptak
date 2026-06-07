@@ -17,7 +17,6 @@ blurb: A collection of businesses that have figured out how to leverage the IKEA
 project:
   - "[[notes]]"
 ---
-#so-what 
 
 ==what the hell is the ikea effect== :  people like to feel they have worked hard for something they are consuming. people like to feel like hunters 
 ### examples

@@ -17,7 +17,6 @@ project:
   - "[[notes]]"
 ---
 
-> last updated **🌞21st May 2026:**
 
 
 | #   | Repo                                                                                                                       | Notes                                                                                                                                                                                 |

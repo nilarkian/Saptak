@@ -15,8 +15,6 @@ title: Swipefile of design portfolios
 blurb: A curated collection of standout design, product, and personal portfolios. Study layouts, storytelling, typography, interactions, case-study structure, and personal branding patterns.
 ---
 
-> last updated **🌞11th March 2026:**
-
 | #   | Portfolio                                                                | Notes                                                                                                |
 | --- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | 1   | [Vigram Sivakumar](https://vigram.framer.website?utm_source=chatgpt.com) | Strong Framer-based portfolio. Clean visual hierarchy, motion, and modern web-design presentation.   |

@@ -9,7 +9,7 @@ area:
 example:
 title: BMC Swipefile
 blurb: List of Business Model Canvas examples, case studies, and walkthroughs for learning business-model patterns through real companies.
-date: 2024-06-20
+date: 2024-07-20
 topic: Resources
 is_note: true
 is_pinned: true
@@ -18,7 +18,6 @@ project:
   - "[[notes]]"
 ---
 
-> last updated 🌞20th July 2024:
 
 
 
