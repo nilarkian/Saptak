@@ -5,9 +5,7 @@ date: 2026-06-07
 title: Space Tourism Is Not One Market. It Is Two.
 ---
 
-# Space Tourism Is Not One Market. It Is Two.
-
-### Suborbital and orbital operate on separate demand curves, serve different buyers, and require different enabling conditions. The mass-market orbital case rests on a single unproven technology bet.
+> Suborbital and orbital operate on separate demand curves, serve different buyers, and require different enabling conditions. The mass-market orbital case rests on a single unproven technology bet.
 
 ---
 

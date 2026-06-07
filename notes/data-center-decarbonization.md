@@ -5,9 +5,7 @@ date: 2026-06-07
 title: The Data Center Is Not Decarbonized. It Is Accounted For.
 ---
 
-# The Data Center Is Not Decarbonized. It Is Accounted For.
-
-### The three architecture decisions that determine real carbon outcomes — and why procurement changes none of them.
+> The three architecture decisions that determine real carbon outcomes — and why procurement changes none of them.
 
 ---
 
