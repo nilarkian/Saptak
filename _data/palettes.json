@@ -2,90 +2,163 @@
   {
     "name": "p12",
     "mood": "",
-    "hexes": [
-      "#f58f20",
-      "#467434",
-      "#363636"
+    "colors": [
+      {
+        "hex": "#f58f20",
+        "name": "tangerine"
+      },
+      {
+        "hex": "#467434",
+        "name": "leaf green"
+      },
+      {
+        "hex": "#363636",
+        "name": "sea grey"
+      }
     ]
   },
   {
     "name": "sepia",
     "mood": "Old-paper tones, deep brown ink, bronze accent",
-    "hexes": [
-      "#f5ede0",
-      "#2c1e0f",
-      "#9b5d27",
-      "#1a1208"
+    "colors": [
+      {
+        "hex": "#f5ede0"
+      },
+      {
+        "hex": "#2c1e0f"
+      },
+      {
+        "hex": "#9b5d27"
+      },
+      {
+        "hex": "#1a1208"
+      }
     ]
   },
   {
     "name": "arctic",
     "mood": "Icy pale surface, deep navy ink, cyan accent",
-    "hexes": [
-      "#edf6fb",
-      "#0d2030",
-      "#1eb8d0",
-      "#061420"
+    "colors": [
+      {
+        "hex": "#edf6fb"
+      },
+      {
+        "hex": "#0d2030"
+      },
+      {
+        "hex": "#1eb8d0"
+      },
+      {
+        "hex": "#061420"
+      }
     ]
   },
   {
     "name": "dusk",
     "mood": "Warm cream surface, deep plum ink, rose accent",
-    "hexes": [
-      "#fdf6ee",
-      "#2d1f3d",
-      "#c0608e",
-      "#1a1028"
+    "colors": [
+      {
+        "hex": "#fdf6ee"
+      },
+      {
+        "hex": "#2d1f3d"
+      },
+      {
+        "hex": "#c0608e"
+      },
+      {
+        "hex": "#1a1028"
+      }
     ]
   },
   {
     "name": "mono",
     "mood": "High-contrast neutral, single bold purple accent",
-    "hexes": [
-      "#f5f5f5",
-      "#111111",
-      "#6b4fbb",
-      "#0d0d0d"
+    "colors": [
+      {
+        "hex": "#f5f5f5"
+      },
+      {
+        "hex": "#111111"
+      },
+      {
+        "hex": "#6b4fbb"
+      },
+      {
+        "hex": "#0d0d0d"
+      }
     ]
   },
   {
     "name": "forest",
     "mood": "Organic green, earthy ink, natural depth",
-    "hexes": [
-      "#f2f5f0",
-      "#1a2418",
-      "#3a7d44",
-      "#141f18"
+    "colors": [
+      {
+        "hex": "#f2f5f0"
+      },
+      {
+        "hex": "#1a2418"
+      },
+      {
+        "hex": "#3a7d44"
+      },
+      {
+        "hex": "#141f18"
+      }
     ]
   },
   {
     "name": "ember",
     "mood": "Dark warm, glowing orange accent, near-black ground",
-    "hexes": [
-      "#1a1614",
-      "#f2e9e0",
-      "#e8743b",
-      "#0f0c0a"
+    "colors": [
+      {
+        "hex": "#1a1614"
+      },
+      {
+        "hex": "#f2e9e0"
+      },
+      {
+        "hex": "#e8743b"
+      },
+      {
+        "hex": "#0f0c0a"
+      }
     ]
   },
   {
     "name": "slate",
     "mood": "Cool technical, calm blue accent, high contrast",
-    "hexes": [
-      "#f0f2f5",
-      "#111827",
-      "#2f6fb0",
-      "#0f1724"
+    "colors": [
+      {
+        "hex": "#f0f2f5"
+      },
+      {
+        "hex": "#111827"
+      },
+      {
+        "hex": "#2f6fb0"
+      },
+      {
+        "hex": "#0f1724"
+      }
     ]
   },
   {
     "name": "paper",
     "mood": "Warm editorial, ink-on-paper, amber accent",
-    "hexes": [
-      "#f7f4ee",
-      "#1c1a14",
-      "#c8860a",
-      "#1a1f1c"
+    "colors": [
+      {
+        "hex": "#f7f4ee"
+      },
+      {
+        "hex": "#1c1a14"
+      },
+      {
+        "hex": "#c8860a"
+      },
+      {
+        "hex": "#1a1f1c"
+      }
     ]
   }
 ]

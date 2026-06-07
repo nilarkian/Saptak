@@ -54,29 +54,42 @@ export default {
     const secret  = env.OWNER_SECRET || '';
     const isOwner = secret.length > 0 && typeof submitter === 'string' && submitter.trim() === secret;
 
-    // Normalize to array
+    // Normalize to array — accept {name, colors:[{hex,name?}]} or legacy {name, hexes:[str]}
     let palettes;
     if (Array.isArray(body.palettes) && body.palettes.length > 0) {
       palettes = body.palettes;
-    } else if (body.name && body.hexes) {
-      palettes = [{ name: body.name, hexes: body.hexes }];
+    } else if (body.colors || body.hexes) {
+      palettes = [{ name: body.name, colors: body.colors, hexes: body.hexes }];
     } else {
       return err('No palettes provided', 400);
     }
 
     if (palettes.length > 20) return err('Max 20 palettes per submission', 400);
 
+    // Normalize each palette's colors field
+    for (let i = 0; i < palettes.length; i++) {
+      const p = palettes[i];
+      p.name = (p.name || '').trim();
+      if (Array.isArray(p.colors)) {
+        // new format: [{hex, name?}]
+      } else if (Array.isArray(p.hexes)) {
+        p.colors = p.hexes.map(h => ({ hex: h }));
+      } else {
+        return err(`Palette ${i + 1}: provide colors array`, 400);
+      }
+    }
+
     // Validate each palette
     for (let i = 0; i < palettes.length; i++) {
-      const { name, hexes } = palettes[i];
-      if (!name || !NAME_RE.test(name)) {
+      const { name, colors } = palettes[i];
+      if (name && !NAME_RE.test(name)) {
         return err(`Palette ${i + 1}: invalid name (letters, numbers, spaces, hyphens; max 50 chars)`, 400);
       }
-      if (!Array.isArray(hexes) || hexes.length < 2 || hexes.length > 8) {
+      if (colors.length < 2 || colors.length > 8) {
         return err(`Palette ${i + 1} (${name}): provide 2–8 hex colors`, 400);
       }
-      for (const h of hexes) {
-        if (!HEX.test(h)) return err(`Palette ${i + 1} (${name}): invalid hex "${h}"`, 400);
+      for (const c of colors) {
+        if (!HEX.test(c.hex)) return err(`Palette ${i + 1} (${name}): invalid hex "${c.hex}"`, 400);
       }
     }
 
@@ -84,11 +97,11 @@ export default {
     const cleanSocial    = sanitizeSocial(social)      || '';
     const createdAt      = new Date().toISOString();
 
-    // Batch INSERT — each row independent, atomic, no race condition
+    // Batch INSERT — store colors as JSON in the hexes column
     const stmts = palettes.map(p =>
       env.DB.prepare(
         'INSERT INTO submissions (name, hexes, submitter, social, is_owner, created_at) VALUES (?, ?, ?, ?, ?, ?)'
-      ).bind(p.name, p.hexes.join(','), cleanSubmitter, cleanSocial, isOwner ? 1 : 0, createdAt)
+      ).bind(p.name, JSON.stringify(p.colors), cleanSubmitter, cleanSocial, isOwner ? 1 : 0, createdAt)
     );
 
     try {
@@ -126,8 +139,9 @@ export default {
 
         let added = 0;
         for (const row of ownerRows) {
-          if (names.has(row.name)) continue;
-          existing.unshift({ name: row.name, mood: '', hexes: row.hexes.split(',') });
+          if (row.name && names.has(row.name)) continue;
+          const colors = parseStoredColors(row.hexes);
+          existing.unshift({ name: row.name, mood: '', colors });
           names.add(row.name);
           added++;
         }
@@ -164,7 +178,8 @@ export default {
         let rowNum  = dataRows.length + 1;
         let newRows = '';
         for (const row of visitorRows) {
-          const hexDisplay = row.hexes.split(',').map(h => `\`${h}\``).join(' ');
+          const colors     = parseStoredColors(row.hexes);
+          const hexDisplay = colors.map(c => `\`${c.hex}${c.name ? ' ' + c.name : ''}\``).join(' ');
           const social     = row.social || '—';
           const date       = row.created_at.split('T')[0];
           newRows += `| ${rowNum++} | ${row.name} | ${hexDisplay} | ${row.submitter} | ${social} | ${date} |\n`;
@@ -219,6 +234,15 @@ function ghFetch(url, method, body, token) {
 function sanitizeText(s, maxLen) {
   if (!s || typeof s !== 'string') return '';
   return s.replace(/[<>&"']/g, '').trim().slice(0, maxLen);
+}
+
+function parseStoredColors(raw) {
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length && typeof parsed[0] === 'object') return parsed;
+  } catch {}
+  // legacy: comma-separated hex strings
+  return raw.split(',').map(h => ({ hex: h }));
 }
 
 function sanitizeSocial(s) {
