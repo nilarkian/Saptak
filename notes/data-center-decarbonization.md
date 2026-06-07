@@ -3,11 +3,10 @@ topic: data-center-decarbonization
 is_note: true
 layout: note-layout
 date: 2026-06-07
-title: Your Data Center Is Not Decarbonized. It Is Accounted For.
-sub: The three architecture decisions that determine real carbon outcomes — and why procurement changes none of them.
+title: The Data Center Is Not Decarbonized. It Is Accounted For.
 ---
 
-# Your Data Center Is Not Decarbonized. It Is Accounted For.
+# The Data Center Is Not Decarbonized. It Is Accounted For.
 
 ### The three architecture decisions that determine real carbon outcomes — and why procurement changes none of them.
 
@@ -198,3 +197,6 @@ What REC Accounting Theater cannot do is close the 24/7 CFE Gap. It cannot chang
 The decisions are being made now. The question is whether your facilities roadmap treats them as architecture problems or procurement problems.
 
 That difference will not appear in this year's sustainability report. It will appear in your per-hour grid carbon draw in 2035.
+
+
+> The three architecture decisions that determine real carbon outcomes — and why procurement changes none of them.

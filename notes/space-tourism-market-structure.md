@@ -4,7 +4,6 @@ is_note: true
 layout: note-layout
 date: 2026-06-07
 title: Space Tourism Is Not One Market. It Is Two.
-sub: Suborbital and orbital operate on separate demand curves, serve different buyers, and require different enabling conditions. The mass-market orbital case rests on a single unproven technology bet.
 ---
 
 # Space Tourism Is Not One Market. It Is Two.
@@ -152,3 +151,5 @@ Two markets. They share launch infrastructure and nothing else relevant to deman
 The Starship Economics Bet may prove out. The architecture supports it. But the window in which all three conditions clear simultaneously is narrow, and feasibility models that treat "architecturally plausible" and "commercially demonstrated" as the same claim are wrong in structure, not just degree.
 
 That structural difference is worth knowing before you model the market size.
+
+> Suborbital and orbital operate on separate demand curves, serve different buyers, and require different enabling conditions. The mass-market orbital case rests on a single unproven technology bet.

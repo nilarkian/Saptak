@@ -3,9 +3,10 @@ topic: AV ethics, autonomous vehicles, engineering specification
 is_note: true
 layout: note-layout
 date: 2026-06-07
-title: AV Ethics Is an Engineering Specification Problem
-sub: The industry spends 90% of its ethics budget on the trolley problem while three systematic failures — Perception Equity Deficit, Level-Confusion Liability Gap, and Interpretability Accountability Gap — accumulate accountability gaps in deployed systems.
+title: The Ethics of a self-driving car Is an Engineering Specification Problem
 ---
+
+> AV: Autonomous Vehicles
 
 AV ethics has a resource allocation problem. Not a philosophy problem.
 
@@ -217,3 +218,6 @@ You are designing AV ethics as a philosophy problem or an engineering specificat
 The difference shows up in crash reports. In detection accuracy gaps by pedestrian demographic. In 20 feet of road drag in October 2023. In the absence of an audit trail that could answer the question no engineer in San Francisco could answer: exactly what did the system decide, and why?
 
 Build the specification. Enforce it.
+
+
+> The industry spends 90% of its ethics budget on the trolley problem while three systematic failures — Perception Equity Deficit, Level-Confusion Liability Gap, and Interpretability Accountability Gap — accumulate accountability gaps in deployed systems.
