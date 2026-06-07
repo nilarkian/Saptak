@@ -48,10 +48,35 @@ Inspect `$ARGUMENTS` (the text after `/watchlist`):
 2. `WebFetch` each result. Extract: what's new, mechanism, implication, primary source URL.
 
 ### Discover mode
-1. Read `watchlist-topics.md`. Extract the search queries from its table (one or two per domain row).
-2. Run 3–5 `WebSearch` calls spread across different domain buckets (not all the same domain).
-3. From all results, pick **one** highest-signal development: the one with the clearest structural shift + a non-obvious second-order implication that has not yet been logged.
-4. `WebFetch` its primary source for facts and the canonical URL.
+
+Spawn one **Explore subagent** to do the research fan-out. This keeps WebSearch/WebFetch result blobs out of the main context window.
+
+Use the Agent tool with `subagent_type: "Explore"` and the following self-contained prompt (fill in the bracketed parts):
+
+```
+You are a research agent. Your job: find the single highest-signal frontier-tech development from the last 7–14 days and return a structured fact bundle. Do NOT write prose or make recommendations — return raw facts only.
+
+Step 1 — Read the file `watchlist-topics.md` in the current working directory. Extract all search queries from the table (column 2).
+
+Step 2 — Run WebSearch for 4–6 queries, spread across DIFFERENT domain rows (not all the same bucket). Prioritize: AI, Semiconductors, Quantum, Biotech, Energy, Transportation, Sensing, Global, India, Tech & Biz — rotate to maximize diversity.
+
+Step 3 — From all search results, identify the top 2 candidates: developments with the clearest structural shift AND a non-obvious second-order implication. Skip routine earnings, product launches, or incremental updates.
+
+Step 4 — WebFetch the primary source URL for each candidate. Extract facts.
+
+Step 5 — Pick the SINGLE best candidate. Return ONLY this structured block:
+
+DEVELOPMENT: [one sentence — what happened]
+WHATS_NEW: [one sentence — what's genuinely different vs. prior state]
+MECHANISM: [one sentence — how/why it works or happened]
+IMPLICATION: [one sentence — second-order effect, where leverage shifts]
+PRIMARY_URL: [canonical URL, no UTM params]
+SECONDARY_URL: [optional second source URL, or "none"]
+DATE: [publication date YYYY-MM-DD, or "unknown"]
+DOMAIN: [domain row name from watchlist-topics.md]
+```
+
+Wait for the subagent to return. Extract its structured block as the candidate for Steps 3–9.
 
 In all modes, extract:
 - The development (what happened)
