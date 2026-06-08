@@ -137,12 +137,15 @@ export default {
         const existing = JSON.parse(atob(data.content.replace(/\n/g, '')));
         const names    = new Set(existing.map(p => p.name));
 
+        let maxP = 0;
+        for (const nm of names) { const m = /^p(\d+)$/.exec(nm || ''); if (m) maxP = Math.max(maxP, +m[1]); }
         let added = 0;
         for (const row of ownerRows) {
-          if (row.name && names.has(row.name)) continue;
+          let nm = row.name || ('p' + (++maxP));
+          if (names.has(nm)) continue;
           const colors = parseStoredColors(row.hexes);
-          existing.unshift({ name: row.name, mood: '', colors });
-          names.add(row.name);
+          existing.unshift({ name: nm, mood: '', colors });
+          names.add(nm);
           added++;
         }
 
@@ -182,7 +185,7 @@ export default {
           const hexDisplay = colors.map(c => `\`${c.hex}${c.name ? ' ' + c.name : ''}\``).join(' ');
           const social     = row.social || '—';
           const date       = row.created_at.split('T')[0];
-          newRows += `| ${rowNum++} | ${row.name} | ${hexDisplay} | ${row.submitter} | ${social} | ${date} |\n`;
+          newRows += `| ${rowNum++} | ${row.name || 'untitled'} | ${hexDisplay} | ${row.submitter} | ${social} | ${date} |\n`;
         }
         const updated = current.trimEnd() + '\n' + newRows;
 
