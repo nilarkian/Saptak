@@ -117,6 +117,8 @@
 <aside class="sidebar" id="toc-sidebar">
   <div class="sidebar-inner">
     <a class="back" href="{{ include.back_url | default: site.baseurl }}">{{ include.back_label | default: "← Home" }}</a>
+    {% if include.index_url %}<a class="back" href="{{ include.index_url }}">{{ include.index_label | default: "Series Index" }}</a>{% endif %}
+    {% if include.prev_url %}<a class="back" href="{{ include.prev_url }}">{{ include.prev_label | default: "← Prev" }}</a>{% endif %}
     <div>
       <div class="toc-label">On this page</div>
     </div>

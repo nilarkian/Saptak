@@ -91,3 +91,6 @@
 
 - name: career
   children: [job-search, internships, linkedin, job-hunt, resume, careers, work]
+
+- name: healthcare
+  children: [rcm, medical-billing, hipaa, prior-auth, coding, claims, medicare, medicaid, insurance, sunknowledge]

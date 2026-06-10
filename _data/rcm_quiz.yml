@@ -1,0 +1,351 @@
+# RCM Quiz Deck — source for the Drill page
+# To add: append a new entry. Rebuild Jekyll → card appears in the drill immediately.
+# id: MUST be stable and unique (used as the localStorage progress key)
+# cat: one of Participants | HIPAA | Payers | ManagedCare | Providers | Coding | Claims | PatientResp
+# type: flip (front/back) | mcq (q/choices/answer — answer must match one of choices exactly)
+
+# ── PARTICIPANTS ──────────────────────────────────────────────────────────────
+- id: q-5-participants
+  cat: Participants
+  type: flip
+  front: "Name the 5 participants in US healthcare."
+  back: "1. Member (patient/policyholder)\n2. Provider (doctors, hospitals)\n3. Payer (insurance company)\n4. Supplier (medical equipment/supplies)\n5. Researcher (conducts health studies)"
+
+- id: q-member-def
+  cat: Participants
+  type: flip
+  front: "Participant #1 — Member. What are they?"
+  back: "The US policyholder — the patient who receives care and holds the insurance."
+
+- id: q-payer-def
+  cat: Participants
+  type: flip
+  front: "Participant #3 — Payer. One-sentence definition."
+  back: "The insurance company — the entity that pays the claim on behalf of the member."
+
+- id: q-supplier-def
+  cat: Participants
+  type: flip
+  front: "Participant #4 — Supplier. What do they supply?"
+  back: "Medical equipment and supplies used to treat or prevent illness (e.g. wheelchairs, oxygen, DME)."
+
+- id: q-researcher-def
+  cat: Participants
+  type: flip
+  front: "Participant #5 — Researcher. Role?"
+  back: "Conducts experiments and studies for human health and wellbeing."
+
+# ── HIPAA ─────────────────────────────────────────────────────────────────────
+- id: q-hipaa-def
+  cat: HIPAA
+  type: flip
+  front: "What is HIPAA and when was it enacted?"
+  back: "Health Insurance Portability and Accountability Act — federal privacy law enacted in 1996 by DHHS. Forces all members' personally identifiable health information to stay confidential and private."
+
+- id: q-hipaa-year
+  cat: HIPAA
+  type: mcq
+  q: "In what year was HIPAA enacted?"
+  choices: ["1996", "1986", "2001", "2004"]
+  answer: "1996"
+
+- id: q-phi-def
+  cat: HIPAA
+  type: flip
+  front: "What is PHI? Give 4 examples."
+  back: "Protected Health Information — the sensitive member details HIPAA exists to protect: Name, DOB, SSN, MRN, Address, Phone, Admission/Discharge dates, Photograph."
+
+- id: q-hipaa-4-entities
+  cat: HIPAA
+  type: flip
+  front: "Name the 4 entities that must follow HIPAA guidelines."
+  back: "1. Health Care Providers\n2. Health Care Plans (insurance companies)\n3. HCCH (Health Care Clearing House)\n4. Business Associates (third parties acting on behalf of the above)"
+
+- id: q-hcch-role
+  cat: HIPAA
+  type: flip
+  front: "What does a Health Care Clearing House (HCCH) do?"
+  back: "Receives non-standardized billing data from providers, standardizes it, and forwards it to payers for processing."
+
+# ── PAYERS ────────────────────────────────────────────────────────────────────
+- id: q-medicare-vs-medicaid-pct
+  cat: Payers
+  type: mcq
+  q: "Medicare covers what percentage of covered charges?"
+  choices: ["80%", "100%", "70%", "90%"]
+  answer: "80%"
+
+- id: q-medicaid-pct
+  cat: Payers
+  type: mcq
+  q: "Medicaid covers what percentage of covered charges?"
+  choices: ["100%", "80%", "75%", "90%"]
+  answer: "100%"
+
+- id: q-medicare-age
+  cat: Payers
+  type: flip
+  front: "Who qualifies for Medicare? (3 criteria)"
+  back: "1. Age 65+\n2. Disabled receiving 24+ months of Social Security\n3. Paid 40 quarters (10 yrs) of US federal tax\n(Also: ESRD patients)"
+
+- id: q-medicaid-who
+  cat: Payers
+  type: flip
+  front: "Who qualifies for Medicaid? Key facts."
+  back: "The poor — anyone below the federal poverty line. Also: disabled, pregnant women, children. No age limit. Jointly funded by state + federal. Payer of LAST resort. Also covers ESRD."
+
+- id: q-medicare-part-a
+  cat: Payers
+  type: mcq
+  q: "Medicare Part A covers what type of care?"
+  choices: ["Hospital/Inpatient (stays ≥24 hrs)", "Outpatient/Medical (<24 hrs)", "Prescription drugs", "Dental, Vision, Hearing"]
+  answer: "Hospital/Inpatient (stays ≥24 hrs)"
+
+- id: q-medicare-part-b
+  cat: Payers
+  type: mcq
+  q: "Medicare Part B covers what? (choose the most complete answer)"
+  choices: ["Outpatient/Medical services + DME", "Hospital stays ≥24 hrs", "Prescription drugs", "Part A + Part B + extras"]
+  answer: "Outpatient/Medical services + DME"
+
+- id: q-medicare-part-c
+  cat: Payers
+  type: flip
+  front: "Medicare Part C — what is it called and what does it cover?"
+  back: "Medicare Advantage Plan. Covers Part A + Part B + extras: transportation, Dental, Hearing, Vision, gym services. Offered by private insurers."
+
+- id: q-medicare-part-d
+  cat: Payers
+  type: flip
+  front: "Medicare Part D — what is it?"
+  back: "Prescription Drug Plan (PDP) — optional add-on covering medicines and vaccines."
+
+- id: q-mapd-def
+  cat: Payers
+  type: flip
+  front: "What does MAPD stand for and what does it combine?"
+  back: "Medicare Advantage Prescription Drug plan — bundles Part C (Medicare Advantage) + Part D (prescriptions) together."
+
+- id: q-dme-def
+  cat: Payers
+  type: flip
+  front: "DME — definition and which Medicare Part covers it?"
+  back: "Durable Medical Equipment — medical equipment rented or purchased for repeated home use (walkers, wheelchairs, hospital beds, prosthetics). Billed under Medicare Part B."
+
+- id: q-govt-programs
+  cat: Payers
+  type: flip
+  front: "Name the 4 government programs (not Medicare/Medicaid)."
+  back: "1. TRICARE (formerly CHAMPUS) — military + dependents\n2. CHAMPVA — war veterans + dependents\n3. No-Fault Liability — accidents regardless of fault\n4. Workers' Compensation — work-related injuries"
+
+# ── MANAGED CARE ──────────────────────────────────────────────────────────────
+- id: q-managed-care-2-rules
+  cat: ManagedCare
+  type: flip
+  front: "What are the 2 rules of Managed Care?"
+  back: "1. Authorization / Referral is ALWAYS required.\n2. Member should ALWAYS visit in-network providers."
+
+- id: q-4-plan-types
+  cat: ManagedCare
+  type: flip
+  front: "Name the 4 managed care plan types and their full forms."
+  back: "HMO — Health Maintenance Organization\nPPO — Preferred Provider Organization\nEPO — Exclusive Provider Organization\nPOS — Point of Service"
+
+- id: q-hmo-referral
+  cat: ManagedCare
+  type: mcq
+  q: "HMO requires a PCP referral to see a specialist?"
+  choices: ["Yes — always required", "No — optional", "Only for out-of-network", "Only for specialists"]
+  answer: "Yes — always required"
+
+- id: q-ppo-oon
+  cat: ManagedCare
+  type: mcq
+  q: "Can a PPO member visit out-of-network providers?"
+  choices: ["Yes — but at higher cost share", "No — in-network only", "Only with referral", "Only for emergencies"]
+  answer: "Yes — but at higher cost share"
+
+- id: q-hmo-vs-ppo-cost
+  cat: ManagedCare
+  type: mcq
+  q: "Which plan type generally has lower member costs?"
+  choices: ["HMO", "PPO", "EPO", "POS"]
+  answer: "HMO"
+
+# ── PROVIDERS ─────────────────────────────────────────────────────────────────
+- id: q-2-provider-types
+  cat: Providers
+  type: flip
+  front: "What are the 2 types of healthcare providers?"
+  back: "1. Individual Providers — PCP, Specialists\n2. Facility Providers — Hospital, SNF, ASC, Home Health, Hospice"
+
+- id: q-snf-def
+  cat: Providers
+  type: flip
+  front: "SNF — what is it and what does it provide?"
+  back: "Skilled Nursing Facility — a recovery center providing post-surgical care plus ADL (Activities of Daily Living): bathing, cooking, occupational therapy."
+
+- id: q-asc-def
+  cat: Providers
+  type: flip
+  front: "ASC — what is it? Give an example."
+  back: "Ambulatory Surgical Center — a same-day surgery center; patient in and out the same day. Example: cataract surgery."
+
+- id: q-capitation-vs-ffs
+  cat: Providers
+  type: flip
+  front: "Capitation vs Fee for Service — key difference?"
+  back: "Capitation: fixed payment per member per month regardless of visits (rewards keeping patients healthy).\nFFS: paid separately per service — more procedures = more revenue (rewards volume)."
+
+- id: q-auth-def
+  cat: Providers
+  type: flip
+  front: "What is an Authorization in RCM?"
+  back: "A designated permission a provider requests from the health care plan to perform a medical service on a member. The first-time authorization is called a Referral."
+
+- id: q-auth-4-methods
+  cat: Providers
+  type: flip
+  front: "4 ways to initiate an Authorization?"
+  back: "1. Call (phone)\n2. Portal (online)\n3. PA Form (Prior Authorization form)\n4. E-Fax (Electronic Fax)"
+
+- id: q-inn-vs-oon
+  cat: Providers
+  type: flip
+  front: "In-Network vs Out-of-Network — what makes a provider one vs the other?"
+  back: "INN (In-Network) = has a contract with the payer → member pays lower cost share.\nOON (Out-of-Network) = no contract → member pays higher cost share."
+
+# ── CODING ────────────────────────────────────────────────────────────────────
+- id: q-cpt-def
+  cat: Coding
+  type: flip
+  front: "CPT — full form, what it codes, format, example."
+  back: "Current Procedural Terminology. Codes medical procedures/services/treatments. Format: 5-digit numeric. Examples: 10040 (acne surgery), 66984 (cataract surgery)."
+
+- id: q-icd-def
+  cat: Coding
+  type: flip
+  front: "ICD — full form, what it codes, format, example."
+  back: "International Classification of Disease. Codes medical conditions/diseases/symptoms. Format: alphanumeric. Examples: R51 (headache), E11.22 (diabetes mellitus)."
+
+- id: q-cpt-format
+  cat: Coding
+  type: mcq
+  q: "CPT code format?"
+  choices: ["5-digit numeric", "Alphanumeric", "2-digit numeric", "5 alphanumeric"]
+  answer: "5-digit numeric"
+
+- id: q-icd-format
+  cat: Coding
+  type: mcq
+  q: "ICD code format?"
+  choices: ["Alphanumeric", "5-digit numeric", "2-digit numeric", "4 numeric"]
+  answer: "Alphanumeric"
+
+- id: q-hcpcs-def
+  cat: Coding
+  type: flip
+  front: "HCPCS — what does it code and its format?"
+  back: "Healthcare Common Procedure Coding System. Codes miscellaneous products and equipment (e.g. DME) not covered by CPT. Format: 5 alphanumeric (e.g. E0265 hospital bed, A0021 ambulance)."
+
+- id: q-pos-code
+  cat: Coding
+  type: flip
+  front: "POS as a claim code — what does it denote and its format?"
+  back: "Place of Service — 2-digit numeric code indicating where the service was rendered. Examples: 24=ASC, 12=Home, 11=Office."
+
+- id: q-new-patient-cpt
+  cat: Coding
+  type: flip
+  front: "CPT E/M code range for new patients (office visit)?"
+  back: "99202–99205 (new patient, first-time office visit)"
+
+- id: q-established-cpt
+  cat: Coding
+  type: flip
+  front: "CPT E/M code range for established patients (follow-up)?"
+  back: "99212–99215 (established patient, follow-up visits; higher code = more time/complexity)"
+
+# ── CLAIMS ────────────────────────────────────────────────────────────────────
+- id: q-tfl-def
+  cat: Claims
+  type: flip
+  front: "TFL — definition. Who sets it?"
+  back: "Timely Filing Limit — the deadline within which a provider must submit a claim to the health plan. Set by the insurance itself. Miss it = automatic denial."
+
+- id: q-tat-def
+  cat: Claims
+  type: flip
+  front: "TAT — definition. What does it apply to?"
+  back: "Turn Around Time — the time the adjudication team takes to decide on a claim. Also applies to Authorization decisions."
+
+- id: q-npi-format
+  cat: Claims
+  type: mcq
+  q: "NPI format and scope?"
+  choices: ["10-digit, unique per individual provider", "9-digit, shared by group", "12-digit, unique per encounter", "7-digit, unique per practice"]
+  answer: "10-digit, unique per individual provider"
+
+- id: q-tin-format
+  cat: Claims
+  type: mcq
+  q: "TIN format and scope?"
+  choices: ["9-digit, shared by multiple providers in a group", "10-digit, unique per individual", "9-digit, unique per individual", "12-digit, unique per practice"]
+  answer: "9-digit, shared by multiple providers in a group"
+
+- id: q-3-denials
+  cat: Claims
+  type: flip
+  front: "Name the 3 classic reasons for claim denial."
+  back: "1. Untimely filing — claim filed after TFL.\n2. No active insurance for the Date of Service (DOS).\n3. Provider never generated an Authorization."
+
+- id: q-cob-def
+  cat: Claims
+  type: flip
+  front: "COB — definition."
+  back: "Coordination of Benefits — the process of determining which payer is primary, secondary, or tertiary when a member has multiple insurance coverages."
+
+- id: q-eob-def
+  cat: Claims
+  type: flip
+  front: "EOB — definition. Who receives it?"
+  back: "Explanation of Benefits — a detailed summary of a processed claim shared by the insurance with both the provider AND the member."
+
+# ── PATIENT RESPONSIBILITY ────────────────────────────────────────────────────
+- id: q-pr1-deductible
+  cat: PatientResp
+  type: flip
+  front: "PR-1 Deductible — definition."
+  back: "A fixed dollar amount the member must pay first within a calendar year before insurance begins to cover costs."
+
+- id: q-pr2-coinsurance
+  cat: PatientResp
+  type: flip
+  front: "PR-2 Co-Insurance — definition. When is the amount known?"
+  back: "The cost share between member and insurer expressed as a percentage. The exact dollar amount is only known AFTER the claim is processed."
+
+- id: q-pr3-copay
+  cat: PatientResp
+  type: flip
+  front: "PR-3 Co-Pay — definition. When is it paid?"
+  back: "A fixed dollar amount the member pays the provider up-front, before or at the time of service."
+
+- id: q-oop-def
+  cat: PatientResp
+  type: flip
+  front: "OOP — definition and formula."
+  back: "Out of Pocket — the total annual ceiling on member spending: OOP = Deductible (PR1) + Co-Insurance (PR2) + Co-Pay (PR3) + non-covered charges. Once reached, insurance covers 100%."
+
+- id: q-patient-resp-pct
+  cat: PatientResp
+  type: mcq
+  q: "Patient responsibility is approximately what percentage of a claim?"
+  choices: ["~20%", "~10%", "~30%", "~50%"]
+  answer: "~20%"
+
+- id: q-medicaid-last-payer
+  cat: PatientResp
+  type: mcq
+  q: "When a member has both Medicare and Medicaid, which pays last?"
+  choices: ["Medicaid", "Medicare", "They split equally", "The member pays last"]
+  answer: "Medicaid"

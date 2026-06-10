@@ -459,6 +459,94 @@ body.dark .table-copy-btn{
   margin-bottom:6px;
 }
 
+/* ── CALLOUTS (Obsidian-style > [!type] Title) ── */
+.note-body blockquote.callout{
+  padding:14px 22px;
+  border-radius:0 10px 10px 0;
+}
+.callout-title{
+  font-family:'Syne',Arial,sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.note-body blockquote.callout-info    {border-left-color:#4e9fd4;background:rgba(78,159,212,.07);}
+.note-body blockquote.callout-tip     {border-left-color:#788C5D;background:rgba(120,140,93,.07);}
+.note-body blockquote.callout-success {border-left-color:#788C5D;background:rgba(120,140,93,.07);}
+.note-body blockquote.callout-warning {border-left-color:#D97757;background:rgba(217,119,87,.07);}
+.note-body blockquote.callout-important{border-left-color:#B04A3F;background:rgba(176,74,63,.07);}
+.note-body blockquote.callout-note    {border-left-color:#87867F;background:rgba(135,134,127,.07);}
+.note-body blockquote.callout-abstract{border-left-color:#4e9fd4;background:rgba(78,159,212,.05);}
+.note-body blockquote.callout-example {border-left-color:#E3DACC;background:rgba(227,218,204,.25);}
+.callout-info .callout-title    {color:#4e9fd4;}
+.callout-tip .callout-title     {color:#788C5D;}
+.callout-success .callout-title {color:#788C5D;}
+.callout-warning .callout-title {color:#D97757;}
+.callout-important .callout-title{color:#B04A3F;}
+.callout-note .callout-title    {color:#87867F;}
+.callout-abstract .callout-title{color:#4e9fd4;}
+.callout-example .callout-title {color:#87867F;}
+body.dark .note-body blockquote.callout-info    {background:rgba(78,159,212,.09);}
+body.dark .note-body blockquote.callout-tip     {background:rgba(120,140,93,.09);}
+body.dark .note-body blockquote.callout-success {background:rgba(120,140,93,.09);}
+body.dark .note-body blockquote.callout-warning {background:rgba(217,119,87,.09);}
+body.dark .note-body blockquote.callout-important{background:rgba(176,74,63,.09);}
+body.dark .note-body blockquote.callout-note    {background:rgba(135,134,127,.09);}
+body.dark .note-body blockquote.callout-abstract{background:rgba(78,159,212,.07);}
+body.dark .note-body blockquote.callout-example {background:rgba(227,218,204,.07);}
+
+/* ── RCM ACRONYM TOOLTIPS ── */
+abbr.rcm-term {
+  border-bottom: 1px dotted #4e9fd4;
+  cursor: help;
+  text-decoration: none;
+  display: inline;
+}
+/* Tooltip rendered as a fixed body-child so it escapes overflow:auto table wrappers */
+.rcm-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  background: #fff;
+  color: #111;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,.13);
+  white-space: normal;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .15s;
+  z-index: 1000;
+}
+.rcm-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+}
+body.dark abbr.rcm-term { border-bottom-color: #6cb8e8; }
+body.dark .rcm-tooltip {
+  background: #252526;
+  color: #d4d4d4;
+  border-color: #3e3e42;
+  box-shadow: 0 4px 20px rgba(0,0,0,.45);
+}
+
+/* ── MERMAID ── */
+.note-body .mermaid{margin:28px 0;}
+.note-body .mermaid svg{max-width:100%;height:auto;display:block;}
+
 /* ── FOOTER ── */
 .note-footer{
   font-family:'Syne',Arial,sans-serif;
@@ -597,7 +685,9 @@ body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
 <a href="#note-body" class="skip-link">Skip to content</a>
 
 {% assign notes_back = site.baseurl | append: "/notes.html" %}
-{% include toc.html body_selector=".note-body" back_url=notes_back back_label="← Notes" %}
+{% if page.series_index %}{% assign _si = page.series_index | relative_url %}{% endif %}
+{% if page.series_prev %}{% assign _sp = page.series_prev | relative_url %}{% endif %}
+{% include toc.html body_selector=".note-body" back_url=notes_back back_label="← Notes" index_url=_si index_label="Series Index" prev_url=_sp prev_label="← Prev" %}
 
 <!-- THEME TOGGLE -->
 <button id="theme-toggle" aria-label="Switch to dark mode">
@@ -673,6 +763,153 @@ document.querySelector('.note-body').innerHTML.replace(
   '<span class="highlight2">$1</span>'
 );
 
+// ── MERMAID DOM TRANSFORM ──
+// Rouge wraps ```mermaid as <pre><code class="language-mermaid">...
+// Convert each to <div class="mermaid" data-src="..."> before mermaid.run()
+document.querySelectorAll('.note-body code[class*="language-mermaid"]').forEach(function(el) {
+  var pre = el.parentNode;
+  var src = el.textContent; // textContent decodes HTML entities
+  var div = document.createElement('div');
+  div.className = 'mermaid';
+  div.dataset.src = src;
+  div.textContent = src;
+  var target = (pre && pre.tagName === 'PRE') ? pre : el;
+  target.parentNode.replaceChild(div, target);
+});
+
+// ── CALLOUT TRANSFORM ──
+// Obsidian `> [!type] Title` -> blockquote.callout.callout-type + .callout-title
+document.querySelectorAll('.note-body blockquote').forEach(function(bq) {
+  var firstP = bq.querySelector('p');
+  if (!firstP) return;
+  var html = firstP.innerHTML;
+  var m = html.match(/^\[!(\w+)\]\s*([^\n<]*)/i);
+  if (!m) return;
+  var type = m[1].toLowerCase();
+  var title = m[2].trim() || (type.charAt(0).toUpperCase() + type.slice(1));
+  // Strip [!type] title line (including optional following <br>)
+  firstP.innerHTML = html.replace(/^\[!\w+\]\s*[^\n<]*(?:<br\s*\/?>)?\s*/i, '').trim();
+  if (!firstP.innerHTML) firstP.remove();
+  bq.classList.add('callout', 'callout-' + type);
+  var titleEl = document.createElement('div');
+  titleEl.className = 'callout-title';
+  titleEl.textContent = title;
+  bq.insertBefore(titleEl, bq.firstChild);
+});
+
+{% if page.topic == "RCM" %}
+// ── RCM GLOSSARY TOOLTIPS ──
+// Runs AFTER callout transform so .callout-title nodes exist to skip.
+(function(){
+  var entries = {{ site.data.rcm_glossary | jsonify }} || [];
+  var glossary = {};
+  entries.forEach(function(e){ glossary[e.term] = e; });
+  // Sort longest-first: "ICD-10" before "ICD", "HCPCS" before "HMO" etc.
+  var terms = Object.keys(glossary).sort(function(a,b){ return b.length - a.length; });
+  if (!terms.length) return;
+  var escaped = terms.map(function(t){ return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); });
+  var re = new RegExp('\\b(' + escaped.join('|') + ')\\b','g');
+  var skipTags = ['CODE','PRE','A','H1','H2','H3','H4','H5','H6','ABBR','SCRIPT','STYLE','BUTTON'];
+  var noteBody = document.getElementById('note-body');
+  if (!noteBody) return;
+
+  function shouldSkip(textNode) {
+    var el = textNode.parentElement;
+    while (el && el !== noteBody) {
+      if (skipTags.indexOf(el.tagName) >= 0) return true;
+      var cl = el.classList;
+      if (cl && (cl.contains('callout-title') || cl.contains('mermaid'))) return true;
+      el = el.parentElement;
+    }
+    return false;
+  }
+
+  // Collect all text nodes first (don't mutate while walking)
+  var walker = document.createTreeWalker(noteBody, NodeFilter.SHOW_TEXT, null, false);
+  var textNodes = [];
+  var n;
+  while ((n = walker.nextNode())) { if (n.nodeValue.trim()) textNodes.push(n); }
+
+  textNodes.forEach(function(tn) {
+    if (shouldSkip(tn)) return;
+    var text = tn.nodeValue;
+    re.lastIndex = 0;
+    if (!re.test(text)) return;
+    re.lastIndex = 0;
+    var frag = document.createDocumentFragment();
+    var last = 0, m;
+    while ((m = re.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var entry = glossary[m[1]];
+      var abbr = document.createElement('abbr');
+      abbr.className = 'rcm-term';
+      abbr.tabIndex = 0;
+      abbr.dataset.tip = (entry.full ? entry.full + ' — ' : '') + entry.def;
+      abbr.textContent = m[1];
+      frag.appendChild(abbr);
+      last = re.lastIndex;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    tn.parentNode.replaceChild(frag, tn);
+  });
+})();
+
+// ── RCM TOOLTIP (fixed, escapes overflow:auto table wrappers) ──
+(function(){
+  var TIP_W = 280;
+  var tip = document.createElement('div');
+  tip.className = 'rcm-tooltip';
+  document.body.appendChild(tip);
+
+  function show(term) {
+    tip.textContent = term.dataset.tip;
+    var r = term.getBoundingClientRect();
+    var h = tip.offsetHeight;
+    // Prefer above; flip below if too close to top edge
+    var top = r.top - h - 8;
+    if (top < 8) top = r.bottom + 8;
+    // Centre on term; clamp within viewport horizontally
+    var left = r.left + r.width / 2 - TIP_W / 2;
+    var maxLeft = window.innerWidth - TIP_W - 8;
+    if (left < 8) left = 8;
+    if (left > maxLeft) left = maxLeft;
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+    tip.classList.add('visible');
+  }
+
+  function hide() { tip.classList.remove('visible'); }
+
+  document.addEventListener('mouseover', function(e) {
+    var t = e.target.closest ? e.target.closest('.rcm-term') : null;
+    if (t) show(t); else hide();
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.rcm-term')) hide();
+  });
+  document.addEventListener('focusin', function(e) {
+    var t = e.target.closest ? e.target.closest('.rcm-term') : null;
+    if (t) show(t);
+  });
+  document.addEventListener('focusout', function(e) {
+    var t = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest('.rcm-term') : null;
+    if (!t) hide();
+  });
+  // Hide when page scrolls (coords go stale)
+  window.addEventListener('scroll', hide, { passive: true, capture: true });
+  window.addEventListener('resize', hide, { passive: true });
+})();
+
+// ── RCM NOTES VISITED TRACKER ──
+(function(){
+  try {
+    var visited = JSON.parse(localStorage.getItem('rcm-notes-visited') || '{}');
+    visited[{{ page.url | jsonify }}] = new Date().toISOString();
+    localStorage.setItem('rcm-notes-visited', JSON.stringify(visited));
+  } catch(e) {}
+})();
+{% endif %}
+
 // ── THEME TOGGLE ──
 (function(){
   const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
@@ -696,6 +933,15 @@ document.querySelector('.note-body').innerHTML.replace(
     const nowDark = !document.body.classList.contains('dark');
     localStorage.setItem('note-theme', nowDark ? 'dark' : 'light');
     apply(nowDark);
+    // Re-render mermaid diagrams for new theme
+    if (typeof mermaid !== 'undefined') {
+      document.querySelectorAll('.note-body .mermaid[data-processed]').forEach(function(d) {
+        d.innerHTML = d.dataset.src;
+        d.removeAttribute('data-processed');
+      });
+      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral' });
+      mermaid.run();
+    }
   });
 })();
 
@@ -888,3 +1134,11 @@ document.querySelectorAll('.note-body img').forEach(img => { img.loading = 'lazy
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
 <script src="https://unpkg.com/html-to-image/dist/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function(){
+  var isDark = document.body.classList.contains('dark');
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral' });
+  mermaid.run();
+})();
+</script>
