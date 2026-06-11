@@ -1,0 +1,320 @@
+---
+permalink: /notes/rcm/faq
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2E44;--navy2:#0F1F30;--blue:#2563EB;--blue-lt:#DBEAFE;--blue-mid:#93C5FD;
+  --green:#166534;--green-lt:#DCFCE7;
+  --gray-dk:#1F2937;--gray-md:#6B7280;--gray-lt:#F3F4F6;--gray-bd:#E5E7EB;
+  --white:#fff;--bg:#F8FAFC;
+  --font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body.dark{
+  --gray-dk:#E5E7EB;--gray-md:#9CA3AF;--gray-lt:#1F2937;
+  --gray-bd:#374151;--white:#1F2937;--bg:#111827;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:14px;line-height:1.6;color:var(--gray-dk);background:var(--bg);min-height:100vh;transition:background .2s,color .2s}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#1A2E44 100%);padding:32px 32px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 70%);border-radius:50%}
+.hero-chip{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+.hero h1{font-size:24px;font-weight:800;color:#fff;margin-bottom:4px}
+.hero-sub{font-size:12px;color:var(--blue-mid);margin-bottom:18px}
+.hero-back{position:absolute;top:16px;left:20px;color:rgba(255,255,255,.5);font-size:12px;text-decoration:none;transition:color .15s}
+.hero-back:hover{color:#fff}
+.hero-actions{position:absolute;top:14px;right:20px;display:flex;gap:8px;align-items:center}
+.theme-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .15s}
+.theme-btn:hover{background:rgba(255,255,255,.2)}
+
+/* ── SEARCH BOX ── */
+.srch-wrap{position:relative;max-width:500px;margin:0 auto;z-index:1}
+.srch-input{width:100%;border:2px solid rgba(255,255,255,.15);border-radius:10px;padding:11px 16px 11px 40px;font-size:14px;font-family:var(--font);color:var(--gray-dk);background:rgba(255,255,255,.95);backdrop-filter:blur(10px);outline:none;transition:border-color .15s,box-shadow .15s}
+.srch-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.2)}
+.srch-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray-md);pointer-events:none}
+.srch-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-md);font-size:14px;display:none;padding:2px}
+.srch-clear.vis{display:block}
+
+/* ── CAT CHIPS ── */
+.cat-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.cat-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:11px;padding:3px 10px;border-radius:99px;cursor:pointer;transition:all .15s;font-family:var(--font)}
+.cat-chip:hover,.cat-chip.on{background:rgba(37,99,235,.45);border-color:rgba(37,99,235,.6);color:#fff}
+
+/* ── MAIN ── */
+.main{max-width:680px;margin:0 auto;padding:28px 20px 80px}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.results-label{font-size:12px;color:var(--gray-md);font-family:var(--mono)}
+.results-label strong{color:var(--gray-dk)}
+body.dark .results-label strong{color:#E5E7EB}
+.btn-expand{background:transparent;border:1.5px solid var(--gray-bd);color:var(--gray-md);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s}
+.btn-expand:hover{border-color:var(--gray-md);color:var(--gray-dk)}
+body.dark .btn-expand:hover{color:#E5E7EB}
+
+/* ── GROUP HEADER ── */
+.group-hdr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-md);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gray-bd)}
+.group-hdr:first-child{margin-top:0}
+
+/* ── FAQ ITEM ── */
+.faq-item{background:var(--white);border:1px solid var(--gray-bd);border-radius:10px;margin-bottom:6px;overflow:hidden;transition:border-color .15s}
+body.dark .faq-item{background:#1F2937;border-color:var(--gray-bd)}
+.faq-item:hover{border-color:var(--blue)}
+.faq-q{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:14px 16px;cursor:pointer;
+}
+.faq-q-text{font-size:13.5px;font-weight:600;color:var(--navy);line-height:1.45;flex:1}
+body.dark .faq-q-text{color:#E5E7EB}
+.faq-arrow{flex-shrink:0;font-size:12px;color:var(--gray-md);transition:transform .2s;margin-top:2px}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{
+  display:none;padding:0 16px 14px;
+  font-size:13px;color:var(--gray-md);line-height:1.7;
+  border-top:1px solid var(--gray-bd);padding-top:12px;
+}
+body.dark .faq-a{color:#9CA3AF}
+.faq-item.open .faq-a{display:block}
+
+mark{background:#FEF9C3;color:#713F12;padding:0 1px;border-radius:2px}
+
+/* ── NO RESULTS ── */
+.nores{text-align:center;padding:48px 24px;color:var(--gray-md)}
+.nores-q{font-family:var(--mono);font-size:13px;background:var(--gray-lt);padding:6px 12px;border-radius:6px;display:inline-block;margin-top:8px}
+@keyframes rcm-pulse{0%{box-shadow:0 0 0 3px rgba(37,99,235,.65)}60%{box-shadow:0 0 0 9px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+.rcm-nav{animation:rcm-pulse .75s ease-out}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <a href="/Saptak/notes/1234" class="hero-back">&#8592; Study Hub</a>
+  <div class="hero-actions">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">&#9790; Dark</button>
+  </div>
+  <div class="hero-chip">RCM &middot; FAQ</div>
+  <h1>RCM FAQ</h1>
+  <p class="hero-sub" id="hero-sub">Loading&hellip;</p>
+  <div class="srch-wrap">
+    <svg class="srch-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="srch-input" id="srch" placeholder='Search questions and answers&hellip;' autocomplete="off">
+    <button class="srch-clear" id="srch-clear" onclick="clearSearch()">&#x2715;</button>
+  </div>
+  <div class="cat-row" id="cat-row"></div>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+var FAQ = {{ site.data.rcm_faq | jsonify }};
+
+/* ── THEME ── */
+var THEME_KEY = 'rcm-faq-theme';
+(function() {
+  if (localStorage.getItem(THEME_KEY) === 'dark') {
+    document.body.classList.add('dark');
+    document.getElementById('theme-btn').textContent = '☀ Light';
+  }
+})();
+function toggleTheme() {
+  var dark = document.body.classList.toggle('dark');
+  localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+  document.getElementById('theme-btn').textContent = dark ? '☀ Light' : '☺ Dark';
+}
+
+/* ── STATE ── */
+var CAT_LABELS = {All:'All', Participants:'Participants', HIPAA:'HIPAA', Payers:'Payers',
+  ManagedCare:'Managed Care', Providers:'Providers', Coding:'Coding', Claims:'Claims', PatientResp:'Patient Resp'};
+
+var st = {q: '', cat: 'All', allOpen: false};
+var expandedSet = {};
+
+/* ── CATS ── */
+var CATS_WITH_ITEMS = (function() {
+  var seen = {}, order = [];
+  FAQ.forEach(function(f) {
+    if (!seen[f.cat]) { seen[f.cat] = true; order.push(f.cat); }
+  });
+  return order;
+})();
+
+/* ── HELPERS ── */
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function hi(text, q) {
+  if (!q) return esc(text);
+  var e = esc(text);
+  var re = new RegExp('(' + q.trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+  return e.replace(re,'<mark>$1</mark>');
+}
+
+/* ── FILTER ── */
+function filtered() {
+  var q = st.q.trim().toLowerCase();
+  var items = FAQ.map(function(f, i) { return Object.assign({_fi: i}, f); });
+  if (st.cat !== 'All') items = items.filter(function(f) { return f.cat === st.cat; });
+  if (!q) return items;
+  return items.filter(function(f) {
+    return f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q);
+  });
+}
+
+/* ── RENDER CATS ── */
+function renderCats() {
+  var h = '<span class="cat-chip ' + (st.cat === 'All' ? 'on' : '') + '" onclick="setCat(\'All\')">All ' + FAQ.length + '</span>';
+  CATS_WITH_ITEMS.forEach(function(c) {
+    var count = FAQ.filter(function(f) { return f.cat === c; }).length;
+    h += '<span class="cat-chip ' + (st.cat === c ? 'on' : '') + '" onclick="setCat(\'' + c + '\')">' + (CAT_LABELS[c] || c) + ' ' + count + '</span>';
+  });
+  document.getElementById('cat-row').innerHTML = h;
+}
+
+/* ── RENDER MAIN ── */
+function render() {
+  var main = document.getElementById('main');
+  var items = filtered();
+  var q = st.q.trim();
+
+  document.getElementById('hero-sub').textContent = FAQ.length + ' questions across ' + CATS_WITH_ITEMS.length + ' topics';
+
+  if (!items.length) {
+    main.innerHTML = '<div class="nores"><p>No results for</p><p class="nores-q">"' + esc(q) + '"</p></div>';
+    return;
+  }
+
+  var openCount = items.filter(function(f, i) { return expandedSet[f.cat + '_' + i]; }).length;
+  var h = '<div class="toolbar">' +
+    '<span class="results-label"><strong>' + items.length + '</strong> question' + (items.length !== 1 ? 's' : '') + (q ? ' for "' + esc(q) + '"' : '') + '</span>' +
+    '<button class="btn-expand" onclick="toggleAll(' + (openCount < items.length ? 'true' : 'false') + ')">' +
+      (openCount < items.length ? '&#8741; Expand all' : '&#8743; Collapse all') +
+    '</button>' +
+  '</div>';
+
+  if (q) {
+    /* flat list when searching */
+    items.forEach(function(f, i) {
+      var key = 'search_' + i;
+      var open = expandedSet[key] || (openCount === items.length);
+      h += faqItemHtml(f, key, open, q, f._fi);
+    });
+  } else {
+    /* grouped by category */
+    var groups = {};
+    items.forEach(function(f) {
+      if (!groups[f.cat]) groups[f.cat] = [];
+      groups[f.cat].push(f);
+    });
+    CATS_WITH_ITEMS.forEach(function(cat) {
+      var grp = groups[cat];
+      if (!grp || !grp.length) return;
+      h += '<div class="group-hdr">' + esc(CAT_LABELS[cat] || cat) + ' &middot; ' + grp.length + '</div>';
+      grp.forEach(function(f, i) {
+        var key = cat + '_' + i;
+        var open = expandedSet[key];
+        h += faqItemHtml(f, key, open, '', f._fi);
+      });
+    });
+  }
+
+  main.innerHTML = h;
+}
+
+function faqItemHtml(f, key, open, q, fi) {
+  return '<div class="faq-item ' + (open ? 'open' : '') + '" id="faq-item-' + fi + '">' +
+    '<div class="faq-q" onclick="toggleItem(\'' + esc(key) + '\',' + fi + ')">' +
+      '<div class="faq-q-text">' + hi(f.q, q) + '</div>' +
+      '<span class="faq-arrow">&#9660;</span>' +
+    '</div>' +
+    '<div class="faq-a">' + hi(f.a, q) + '</div>' +
+  '</div>';
+}
+
+/* ── INTERACTIONS ── */
+function toggleItem(key, fi) {
+  expandedSet[key] = !expandedSet[key];
+  var el = document.getElementById('faq-item-' + fi);
+  if (el) {
+    el.classList.toggle('open', !!expandedSet[key]);
+    el.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    history.replaceState(null, '', '#faq-item-' + fi);
+    el.classList.add('rcm-nav');
+    setTimeout(function() { el.classList.remove('rcm-nav'); }, 750);
+  }
+}
+
+function toggleAll(open) {
+  var items = filtered();
+  var q = st.q.trim();
+  if (q) {
+    items.forEach(function(f, i) { expandedSet['search_' + i] = open; });
+  } else {
+    var groups = {};
+    items.forEach(function(f) { if (!groups[f.cat]) groups[f.cat] = []; groups[f.cat].push(f); });
+    CATS_WITH_ITEMS.forEach(function(cat) {
+      var grp = groups[cat]; if (!grp) return;
+      grp.forEach(function(f, i) { expandedSet[cat + '_' + i] = open; });
+    });
+  }
+  render();
+}
+
+function setCat(cat) {
+  st.cat = cat;
+  expandedSet = {};
+  renderCats();
+  render();
+}
+
+function clearSearch() {
+  document.getElementById('srch').value = '';
+  st.q = '';
+  document.getElementById('srch-clear').classList.remove('vis');
+  expandedSet = {};
+  render();
+}
+
+document.getElementById('srch').addEventListener('input', function() {
+  st.q = this.value;
+  expandedSet = {};
+  document.getElementById('srch-clear').classList.toggle('vis', !!this.value);
+  render();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') clearSearch();
+});
+
+/* ── INIT ── */
+renderCats();
+render();
+
+/* ── HASH NAV ── */
+(function() {
+  var hash = location.hash;
+  if (hash && hash.startsWith('#faq-item-')) {
+    var fi = parseInt(hash.slice(10), 10);
+    if (!isNaN(fi)) {
+      var el = document.getElementById('faq-item-' + fi);
+      if (el) {
+        el.classList.add('open');
+        el.scrollIntoView({block: 'nearest'});
+        el.classList.add('rcm-nav');
+        setTimeout(function() { el.classList.remove('rcm-nav'); }, 750);
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+# RCM Fill-in-the-Blanks — source for /notes/rcm/blanks
+# Schema:
+#   id:     stable unique string (localStorage key)
+#   cat:    Participants | HIPAA | Payers | ManagedCare | Providers | Coding | Claims | PatientResp
+#   text:   sentence with ____ replacing the key term
+#   answer: correct answer (checked case-insensitively, trimmed, punctuation-stripped)
+#   accept: list of alternative answers also accepted (synonyms, abbreviations, etc.)
+# To add: append an entry. Rebuild Jekyll → appears in the drill immediately.
+
+# ── PARTICIPANTS ──────────────────────────────────────────────────────────────
+
+- id: bl-5-participants
+  cat: Participants
+  text: "The five participants in US healthcare are: Member, Provider, Payer, ____, and Researcher."
+  answer: "Supplier"
+  accept: []
+
+- id: bl-member-def
+  cat: Participants
+  text: "The ____ is the US policyholder — the patient who receives care and holds the insurance."
+  answer: "Member"
+  accept: ["patient"]
+
+- id: bl-payer-def
+  cat: Participants
+  text: "The ____ is the insurance company — the entity that pays claims on behalf of the member."
+  answer: "Payer"
+  accept: ["insurance company", "insurer"]
+
+- id: bl-provider-def
+  cat: Participants
+  text: "A ____ is any individual or organization that delivers healthcare services, such as a doctor or hospital."
+  answer: "Provider"
+  accept: []
+
+# ── HIPAA ─────────────────────────────────────────────────────────────────────
+
+- id: bl-hipaa-year
+  cat: HIPAA
+  text: "HIPAA was enacted in ____ by the Department of Health and Human Services."
+  answer: "1996"
+  accept: []
+
+- id: bl-phi
+  cat: HIPAA
+  text: "HIPAA protects ____ — individually identifiable patient information such as name, DOB, SSN, and MRN."
+  answer: "PHI"
+  accept: ["protected health information"]
+
+- id: bl-hipaa-entities
+  cat: HIPAA
+  text: "The four entities bound by HIPAA are: Health Care Providers, Health Care Plans, Business Associates, and the ____."
+  answer: "HCCH"
+  accept: ["health care clearing house", "clearing house", "clearinghouse"]
+
+- id: bl-hcch-role
+  cat: HIPAA
+  text: "The HCCH standardizes non-standardized billing data and forwards it to ____ for adjudication."
+  answer: "payers"
+  accept: ["payer", "insurance companies", "insurers"]
+
+# ── PAYERS ────────────────────────────────────────────────────────────────────
+
+- id: bl-medicare-pct
+  cat: Payers
+  text: "Medicare covers ____% of covered charges; the patient pays the remaining ~20%."
+  answer: "80"
+  accept: ["eighty"]
+
+- id: bl-medicare-age
+  cat: Payers
+  text: "To qualify for Medicare based on age, a person must be ____ years old or older."
+  answer: "65"
+  accept: ["sixty-five"]
+
+- id: bl-medicaid-pct
+  cat: Payers
+  text: "Unlike Medicare, Medicaid covers ____% of covered charges for qualifying members."
+  answer: "100"
+  accept: ["one hundred"]
+
+- id: bl-medicaid-last
+  cat: Payers
+  text: "Medicaid is the payer of ____ resort — it pays only after all other coverages are exhausted."
+  answer: "last"
+  accept: []
+
+- id: bl-part-a
+  cat: Payers
+  text: "Medicare Part A covers ____ care — inpatient hospital stays of 24 hours or more."
+  answer: "hospital"
+  accept: ["inpatient"]
+
+- id: bl-part-d
+  cat: Payers
+  text: "Medicare Part ____ is the Prescription Drug Plan, covering medicines and vaccines."
+  answer: "D"
+  accept: ["part d"]
+
+- id: bl-mapd
+  cat: Payers
+  text: "____ is a bundled plan combining Medicare Advantage (Part C) and a Prescription Drug Plan (Part D)."
+  answer: "MAPD"
+  accept: ["medicare advantage prescription drug plan"]
+
+- id: bl-esrd
+  cat: Payers
+  text: "Medicare also covers patients with ____ — permanent kidney failure requiring dialysis or a transplant — regardless of age."
+  answer: "ESRD"
+  accept: ["end stage renal disease", "end-stage renal disease"]
+
+# ── MANAGED CARE ──────────────────────────────────────────────────────────────
+
+- id: bl-hmo-referral
+  cat: ManagedCare
+  text: "In an HMO, a member must get a ____ from their PCP before seeing a specialist."
+  answer: "referral"
+  accept: []
+
+- id: bl-ppo-oon
+  cat: ManagedCare
+  text: "Unlike an HMO, a ____ allows members to see out-of-network providers at a higher cost with no referral required."
+  answer: "PPO"
+  accept: ["preferred provider organization"]
+
+- id: bl-epo-rule
+  cat: ManagedCare
+  text: "An EPO requires members to use ____ providers only, but does NOT require a PCP referral."
+  answer: "in-network"
+  accept: ["network", "inn", "in network"]
+
+- id: bl-pos-type
+  cat: ManagedCare
+  text: "A ____ plan is a hybrid that requires a PCP referral for in-network specialists but also allows out-of-network care at a higher cost."
+  answer: "POS"
+  accept: ["point of service"]
+
+- id: bl-managed-care-rules
+  cat: ManagedCare
+  text: "The two universal rules of managed care are: (1) authorization/referral ALWAYS required, and (2) the member ALWAYS visits ____ providers."
+  answer: "in-network"
+  accept: ["in network", "network", "inn"]
+
+# ── PROVIDERS ─────────────────────────────────────────────────────────────────
+
+- id: bl-capitation
+  cat: Providers
+  text: "Under ____, a provider receives a fixed monthly payment per member regardless of how many times that member is seen."
+  answer: "capitation"
+  accept: []
+
+- id: bl-ffs
+  cat: Providers
+  text: "Under ____, providers are paid separately for each service rendered — more procedures means more revenue."
+  answer: "fee for service"
+  accept: ["ffs", "fee-for-service"]
+
+- id: bl-auth-def
+  cat: Providers
+  text: "A(n) ____ is designated permission from the health plan to perform a specific service on a member."
+  answer: "authorization"
+  accept: ["auth", "prior authorization", "prior auth"]
+
+- id: bl-snf
+  cat: Providers
+  text: "A ____ provides post-surgical recovery care and helps patients with Activities of Daily Living such as bathing and cooking."
+  answer: "SNF"
+  accept: ["skilled nursing facility"]
+
+- id: bl-pcp-role
+  cat: Providers
+  text: "The ____ is the member's first point of contact and gatekeeper, responsible for issuing referrals to specialists."
+  answer: "PCP"
+  accept: ["primary care physician", "primary care provider"]
+
+# ── CODING ────────────────────────────────────────────────────────────────────
+
+- id: bl-cpt-digits
+  cat: Coding
+  text: "CPT codes are ____ -digit numeric codes that describe procedures, services, or treatments on a claim."
+  answer: "5"
+  accept: ["five"]
+
+- id: bl-icd-type
+  cat: Coding
+  text: "ICD-10 codes are ____ codes (letter + numbers, e.g. E11.22) representing medical conditions."
+  answer: "alphanumeric"
+  accept: []
+
+- id: bl-pos-office
+  cat: Coding
+  text: "Place of Service code ____ indicates the service was rendered in a physician's office."
+  answer: "11"
+  accept: []
+
+- id: bl-hcpcs-type
+  cat: Coding
+  text: "HCPCS codes are ____ -character alphanumeric codes used to bill miscellaneous products and DME not covered by CPT."
+  answer: "5"
+  accept: ["five"]
+
+- id: bl-cpt-vs-icd
+  cat: Coding
+  text: "CPT answers 'what was done' (procedure). ICD answers 'what does the patient ____' (diagnosis)."
+  answer: "have"
+  accept: []
+
+# ── CLAIMS ────────────────────────────────────────────────────────────────────
+
+- id: bl-tfl
+  cat: Claims
+  text: "The ____ is the deadline set by a payer for submitting a claim; missing it results in automatic denial."
+  answer: "TFL"
+  accept: ["timely filing limit"]
+
+- id: bl-cob
+  cat: Claims
+  text: "____ is the process of determining which payer is primary, secondary, or tertiary when a member has multiple coverages."
+  answer: "COB"
+  accept: ["coordination of benefits"]
+
+- id: bl-eob
+  cat: Claims
+  text: "The ____ is a detailed summary of a processed claim sent to both the provider and the member."
+  answer: "EOB"
+  accept: ["explanation of benefits"]
+
+- id: bl-denial-1
+  cat: Claims
+  text: "The three classic claim denial reasons are: (1) filed after TFL, (2) no active insurance on DOS, and (3) no ____ obtained."
+  answer: "authorization"
+  accept: ["auth", "prior authorization", "prior auth"]
+
+- id: bl-npi-digits
+  cat: Claims
+  text: "The NPI is a ____-digit unique number assigned to every individual healthcare provider."
+  answer: "10"
+  accept: ["ten"]
+
+- id: bl-tin-digits
+  cat: Claims
+  text: "The TIN is a ____-digit identifier shared by multiple providers within the same organization."
+  answer: "9"
+  accept: ["nine"]
+
+# ── PATIENT RESPONSIBILITY ────────────────────────────────────────────────────
+
+- id: bl-deductible
+  cat: PatientResp
+  text: "The ____ is the fixed dollar amount a member must pay first each calendar year before insurance begins covering costs."
+  answer: "deductible"
+  accept: ["pr-1"]
+
+- id: bl-oop
+  cat: PatientResp
+  text: "Once a member's ____ maximum is reached, the insurance company covers 100% of further covered costs."
+  answer: "OOP"
+  accept: ["out of pocket", "out-of-pocket"]
+
+- id: bl-copay
+  cat: PatientResp
+  text: "A ____ is a fixed dollar amount paid by the member up-front at the time of service."
+  answer: "copay"
+  accept: ["co-pay", "co-payment", "copayment", "pr-3"]
+
+- id: bl-coinsurance
+  cat: PatientResp
+  text: "Co-insurance is a ____ split between the member and insurer; the exact dollar amount is known only after the claim is processed."
+  answer: "percentage"
+  accept: ["percent", "%", "pr-2"]
+
+- id: bl-pr-order
+  cat: PatientResp
+  text: "The three patient responsibility codes in order are: PR-1 (Deductible), PR-2 (Co-insurance), and PR-3 (____)."
+  answer: "Co-pay"
+  accept: ["copay", "co-payment", "copayment"]

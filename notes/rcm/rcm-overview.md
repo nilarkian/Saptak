@@ -54,7 +54,7 @@ Every concept in RCM lives somewhere on this chain. Master the chain first; then
 | [8/8 All Diagrams]({{ '/notes/rcm/rcm-diagrams' | relative_url }}) | Visual study map | 10 mermaid diagrams covering the entire series |
 
 > [!tip] Study tools
-> **Read:** 1 → 8. **Drill:** [Flashcard + MCQ]({{ '/notes/rcm/drill' | relative_url }}) — mark weak cards, copy prompt. **Reference:** [Master Cheat-Sheet]({{ '/notes/rcm/cheatsheet' | relative_url }}) — blur answers, test row by row. **Track:** [📊 Dashboard]({{ '/notes/rcm/dashboard.html' | relative_url }}) — progress across all notes + weak area map.
+> **Read:** 1 → 8. **Drill:** [Flashcard + MCQ]({{ '/notes/rcm/drill' | relative_url }}) — mark weak cards, copy prompt. **Cheat-Sheet:** [📋 Interactive]({{ '/notes/rcm/cheatsheet.html' | relative_url }}) — blur/reveal, mastery tracking, keyboard nav. **Search:** [🔍 All content]({{ '/notes/rcm/search.html' | relative_url }}) — full-text across 73 facts, 37 terms, 8 notes. **Track:** [📊 Dashboard]({{ '/notes/rcm/dashboard.html' | relative_url }}) — progress across all notes + weak area map. **One-pager:** [📖 All-in-One]({{ '/notes/rcm/all-in-one.html' | relative_url }}) — whole series + all diagrams, single printable page.
 
 ---
 

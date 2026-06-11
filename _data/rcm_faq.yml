@@ -1,0 +1,147 @@
+# RCM FAQ — source for /notes/rcm/faq
+# Conversational why/how questions that go beyond the cheat-sheet.
+# Schema:
+#   cat: Participants | HIPAA | Payers | ManagedCare | Providers | Coding | Claims | PatientResp
+#   q:   the question (conversational — why / how / what's the difference / when)
+#   a:   the answer (2–4 sentences, plain language)
+# To add: append an entry. Rebuild Jekyll → appears immediately.
+
+# ── PARTICIPANTS ──────────────────────────────────────────────────────────────
+
+- cat: Participants
+  q: "Why is it important to know who the 'Member' is vs the 'Provider'?"
+  a: "In every RCM transaction, these two parties drive the claim. The member's insurance ID, date of birth, and eligibility determine coverage. The provider's NPI and TIN determine where payment goes. Mixing them up causes claim rejections from day one."
+
+- cat: Participants
+  q: "What's the difference between a Supplier and a Provider?"
+  a: "A Provider delivers clinical care — doctors, hospitals, therapists. A Supplier provides physical goods: durable medical equipment like wheelchairs, walkers, or oxygen concentrators used to manage illness at home. Suppliers typically bill under HCPCS codes; providers use CPT codes."
+
+- cat: Participants
+  q: "Why is the Researcher included as one of the five participants?"
+  a: "Healthcare isn't just treatment — it depends on evidence. Researchers generate the clinical trials and studies that determine which procedures are covered, what codes get assigned, and how payment policies evolve. They interact with the system via grants, IRB protocols, and data-sharing under HIPAA."
+
+# ── HIPAA ─────────────────────────────────────────────────────────────────────
+
+- cat: HIPAA
+  q: "Why does HIPAA matter to a Customer Support Rep?"
+  a: "You will handle PHI on every call — member names, DOBs, claim details. HIPAA legally requires you to verify the caller's identity before sharing any information, and to share only what is necessary. Violations can result in fines ranging from $100 to $50,000 per incident, and willful violations carry criminal penalties."
+
+- cat: HIPAA
+  q: "What counts as PHI?"
+  a: "Any individually identifiable health information tied to past, present, or future health status, treatment, or payment. This includes: name, DOB, SSN, MRN (Medical Record Number), address, phone number, email, admission and discharge dates, and even photos. If a data point could identify the patient in context, it is PHI."
+
+- cat: HIPAA
+  q: "What does the HCCH (Health Care Clearing House) actually do?"
+  a: "Providers submit billing data in many non-standard formats. The HCCH translates all of it into HIPAA-compliant standardized electronic formats (like EDI 837) and forwards them to payers. Without the HCCH, every provider and every payer would need custom bilateral connections — thousands of integrations instead of one standardized hub."
+
+- cat: HIPAA
+  q: "Which four entities are legally bound by HIPAA?"
+  a: "1. Health Care Providers (anyone who transmits health information electronically). 2. Health Plans (insurance companies, HMOs, government programs). 3. Health Care Clearing Houses (HCCH — process non-standard data). 4. Business Associates (any vendor that handles PHI on behalf of a covered entity — billing firms, IT vendors, transcription services)."
+
+# ── PAYERS ────────────────────────────────────────────────────────────────────
+
+- cat: Payers
+  q: "Why is Medicaid the 'payer of last resort'?"
+  a: "Medicaid is funded for the most vulnerable populations and is designed to cover gaps — it only pays what other insurance did not. If a Medicaid member also has Medicare or an employer plan, those pay first. This prevents double-dipping and ensures Medicaid dollars stretch further for those who have no other coverage at all."
+
+- cat: Payers
+  q: "Can someone have both Medicare and Medicaid at the same time?"
+  a: "Yes — they're called 'dual-eligible' members. Medicare pays first as primary; Medicaid pays second, often covering the 20% Medicare leaves behind. Dual members are typically elderly or disabled individuals who also fall below the federal poverty line. For a Customer Support Rep, dual members are a common case requiring careful COB handling."
+
+- cat: Payers
+  q: "What's the difference between Medicare Part C and original Medicare?"
+  a: "Parts A and B are 'Original Medicare' — government-administered, standard benefits. Part C (Medicare Advantage) is run by private insurance companies approved by CMS. It must cover everything A+B covers but often adds dental, vision, hearing, gym memberships, and transportation. The trade-off: you are restricted to the plan's contracted network."
+
+- cat: Payers
+  q: "Why does Medicare cover ESRD patients regardless of age?"
+  a: "End Stage Renal Disease — permanent kidney failure requiring dialysis or a transplant — is catastrophically expensive. Dialysis alone costs $70,000+ per year. Congress created the ESRD Medicare exception in 1972 so that financial ruin would not prevent access to life-sustaining treatment. It is the only condition-based Medicare qualifier; no other single diagnosis grants Medicare eligibility."
+
+- cat: Payers
+  q: "What's the difference between TRICARE and CHAMPVA?"
+  a: "Both serve the military community, but for different groups. TRICARE (formerly CHAMPUS) covers active duty personnel, veterans, retirees, and their dependents — essentially anyone connected to current or past military service. CHAMPVA specifically covers veterans who are permanently and totally disabled due to service-connected conditions (or deceased from those conditions) and their dependents. CHAMPVA is run by the VA; TRICARE is run by the Department of Defense."
+
+# ── MANAGED CARE ──────────────────────────────────────────────────────────────
+
+- cat: ManagedCare
+  q: "Why do HMOs cost less than PPOs?"
+  a: "HMOs restrict you to a defined network and require PCP referrals, which limits expensive specialist visits and allows the plan to negotiate bulk rates with a smaller provider set. PPOs pay for any provider, so they cannot guarantee volumes to any one network — premiums are higher to offset the unpredictability of where members seek care."
+
+- cat: ManagedCare
+  q: "What's the practical difference between an EPO and an HMO?"
+  a: "Both are in-network only. The key difference: an HMO requires a PCP referral to see a specialist; an EPO does not. An EPO gives you direct-access flexibility within the network. If you need a dermatologist, an EPO member can book directly — an HMO member must have their PCP refer them first."
+
+- cat: ManagedCare
+  q: "What happens if an HMO member goes out-of-network?"
+  a: "Except in a genuine emergency, the HMO will not pay — the member is responsible for 100% of the bill. This is the core HMO trade-off: low premiums and predictable copays, but strict network discipline. Emergency exception: federal law (EMTALA) requires HMOs to cover emergency stabilization regardless of network."
+
+- cat: ManagedCare
+  q: "How is a POS plan different from a PPO if both allow out-of-network care?"
+  a: "A PPO requires no referral for either in-network or out-of-network visits — complete flexibility. A POS requires a PCP referral to see in-network specialists (like an HMO) but also allows out-of-network access at a higher cost (like a PPO). Think of POS as the hybrid: HMO discipline in-network, PPO flexibility as a fallback."
+
+# ── PROVIDERS ─────────────────────────────────────────────────────────────────
+
+- cat: Providers
+  q: "What's the difference between a Referral and a Prior Authorization?"
+  a: "A referral is the first authorization — a PCP introducing a member to a specialist for the first time. Once that specialist relationship is established, any subsequent procedure the specialist wants to perform requires a separate prior authorization. Referral = 'go see this specialist.' Authorization = 'proceed with this specific service on this date.'"
+
+- cat: Providers
+  q: "Why would a provider prefer capitation over fee-for-service?"
+  a: "Capitation provides guaranteed monthly revenue regardless of visit volume — predictable cash flow, no billing delays. It also rewards preventive care: keep your panel healthy, and you profit. The risk: if your panel gets sick frequently, you deliver more care for the same fixed payment. FFS is the inverse — more procedures equals more revenue, but also more billing overhead and zero revenue on non-visit months."
+
+- cat: Providers
+  q: "What is an NPI and why does it matter on a claim?"
+  a: "The National Provider Identifier is a unique 10-digit number assigned to every individual clinician. It is the standard identifier on HIPAA electronic transactions — without a valid NPI on the claim, the payer cannot route payment to the right provider. Group practices also have organizational NPIs distinct from each individual clinician's NPI."
+
+- cat: Providers
+  q: "What are the four ways to initiate an authorization?"
+  a: "1. Phone call — call the payer's authorization line directly. 2. Online portal — submit through the payer's web portal. 3. PA Form (Prior Authorization Form) — fax or mail the completed form. 4. E-Fax — send the form electronically via a HIPAA-compliant fax service. The payer determines which methods they accept; phone and portal are the most common for urgent requests."
+
+# ── CODING ────────────────────────────────────────────────────────────────────
+
+- cat: Coding
+  q: "Why are there multiple code sets (CPT, ICD, HCPCS)? Can't one system cover everything?"
+  a: "Each code set answers a different claim dimension. CPT answers 'what was done' (procedure). ICD answers 'why was it done' (diagnosis). HCPCS answers 'what was supplied' (equipment and drugs not in CPT). A claim for a diabetic patient receiving a wheelchair would combine ICD (E11.x), HCPCS (E0301), and possibly CPT if a provider also performed a service. Together, they give the payer a complete clinical and financial picture."
+
+- cat: Coding
+  q: "What's the purpose of a Modifier on a CPT code?"
+  a: "Modifiers add specificity without creating a new code. Common examples: RT (right side), LT (left side), 50 (bilateral procedure), 59 (distinct procedural service). Without modifiers, a payer might deny two simultaneous procedures as a duplicate when they are actually distinct. Modifiers prevent unnecessary denials and ensure accurate reimbursement."
+
+- cat: Coding
+  q: "What do E/M codes (99202–99215) represent?"
+  a: "Evaluation and Management codes are CPT codes billed for office visits — the most common claim type in primary care. New patient visits use 99202–99205 (higher complexity = higher code). Established patient visits use 99212–99215. The code level is determined by medical decision complexity and/or total time spent. E/M codes are among the most frequently audited by payers."
+
+# ── CLAIMS ────────────────────────────────────────────────────────────────────
+
+- cat: Claims
+  q: "What are the three most common reasons a claim gets denied?"
+  a: "1. Filed after the Timely Filing Limit — the claim arrived too late per the payer's deadline. 2. No active insurance on the Date of Service — coverage had lapsed or not yet started. 3. No authorization obtained before the service — the procedure needed pre-approval that was never secured. All three are administrative denials, not clinical — they are entirely preventable."
+
+- cat: Claims
+  q: "What's the difference between an EOB and an ERA?"
+  a: "Same information, two formats. An EOB (Explanation of Benefits) is a human-readable document showing what was paid, denied, or adjusted — sent to both provider and member. An ERA (Electronic Remittance Advice) is the machine-readable version (EDI 835 format) sent to the provider's billing system for automated payment posting. Think: EOB for people, ERA for computers."
+
+- cat: Claims
+  q: "How does COB (Coordination of Benefits) work in practice?"
+  a: "When a member has two plans, COB rules determine primary (pays first) and secondary (pays the remainder). The primary payer processes the claim first at its contracted rate. The secondary payer then receives the claim with primary payment data and covers some or all of the remaining balance. The member's responsibility is what is left after both payers have processed."
+
+- cat: Claims
+  q: "What is the difference between TFL and TAT?"
+  a: "TFL (Timely Filing Limit) is the provider's deadline — how long they have to submit a claim from the date of service. TAT (Turn Around Time) is the payer's obligation — how long they have to respond after receiving the claim. Missing the TFL costs the provider the claim. TAT delays are the payer's problem; providers can escalate or appeal if TAT is breached."
+
+# ── PATIENT RESPONSIBILITY ────────────────────────────────────────────────────
+
+- cat: PatientResp
+  q: "What's the difference between a copay and co-insurance?"
+  a: "A copay is a fixed, known amount paid up-front at service time — $20 for a PCP visit, $50 for a specialist. It does not change based on total cost. Co-insurance is a percentage split you do not know the exact dollar amount of until after the claim is processed — e.g., you owe 20% of the allowed amount, which could be $40 or $400 depending on the procedure."
+
+- cat: PatientResp
+  q: "Once the deductible is met, is the member done paying?"
+  a: "No. After the deductible, the member typically enters a co-insurance phase — they still owe a percentage of costs (commonly 20%). They stop paying altogether only once they hit the Out-of-Pocket Maximum, which combines deductible + co-insurance + copays. After the OOP max, insurance covers 100% for the rest of the plan year."
+
+- cat: PatientResp
+  q: "Why do some services skip the deductible and just require a copay?"
+  a: "Insurers intentionally waive the deductible for high-value preventive services (annual checkups, immunizations, cancer screenings) to lower the financial barrier to using them. The logic: paying a $20 preventive visit copay now is far cheaper for the plan than covering an undetected disease treated at full cost two years later. The ACA (Affordable Care Act) mandates this for a defined set of preventive services."
+
+- cat: PatientResp
+  q: "What is 'balance billing' and when does it apply?"
+  a: "Balance billing occurs when an out-of-network provider charges the patient the difference between their full billed rate and whatever the payer paid. Example: provider charges $500, payer pays $300 (their OON rate), provider bills the patient $200 — the balance. In-network providers cannot balance-bill because they agreed to accept the payer's contracted rate as payment in full. Balance billing is why OON care is always more expensive and riskier."

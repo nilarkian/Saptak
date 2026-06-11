@@ -1,0 +1,367 @@
+---
+permalink: /notes/rcm/differences
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Differences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2E44;--navy2:#0F1F30;--blue:#2563EB;--blue-lt:#DBEAFE;--blue-mid:#93C5FD;
+  --amber:#92400E;--amber-lt:#FEF3C7;
+  --gray-dk:#1F2937;--gray-md:#6B7280;--gray-lt:#F3F4F6;--gray-bd:#E5E7EB;
+  --white:#fff;--bg:#F8FAFC;
+  --font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body.dark{
+  --gray-dk:#E5E7EB;--gray-md:#9CA3AF;--gray-lt:#1F2937;
+  --gray-bd:#374151;--white:#1F2937;--bg:#111827;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:14px;line-height:1.6;color:var(--gray-dk);background:var(--bg);min-height:100vh;transition:background .2s,color .2s}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#1A2E44 100%);padding:32px 32px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 70%);border-radius:50%}
+.hero-chip{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:10px}
+.hero h1{font-size:24px;font-weight:800;color:#fff;margin-bottom:4px}
+.hero-sub{font-size:12px;color:var(--blue-mid);margin-bottom:18px}
+.hero-back{position:absolute;top:16px;left:20px;color:rgba(255,255,255,.5);font-size:12px;text-decoration:none;transition:color .15s}
+.hero-back:hover{color:#fff}
+.hero-actions{position:absolute;top:14px;right:20px;display:flex;gap:8px;align-items:center}
+.theme-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .15s}
+.theme-btn:hover{background:rgba(255,255,255,.2)}
+
+/* ── SEARCH + FILTER ── */
+.srch-wrap{position:relative;max-width:480px;margin:0 auto;z-index:1}
+.srch-input{width:100%;border:2px solid rgba(255,255,255,.15);border-radius:10px;padding:11px 16px 11px 40px;font-size:14px;font-family:var(--font);color:var(--gray-dk);background:rgba(255,255,255,.95);backdrop-filter:blur(10px);outline:none;transition:border-color .15s,box-shadow .15s}
+.srch-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.2)}
+.srch-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray-md);pointer-events:none}
+.srch-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-md);font-size:14px;display:none;padding:2px}
+.srch-clear.vis{display:block}
+
+.cat-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.cat-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:11px;padding:3px 10px;border-radius:99px;cursor:pointer;transition:all .15s;font-family:var(--font)}
+.cat-chip:hover,.cat-chip.on{background:rgba(37,99,235,.45);border-color:rgba(37,99,235,.6);color:#fff}
+
+/* ── MAIN ── */
+.main{max-width:780px;margin:0 auto;padding:28px 20px 80px}
+
+/* ── TOOLBAR ── */
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.results-label{font-size:12px;color:var(--gray-md);font-family:var(--mono)}
+.results-label strong{color:var(--gray-dk)}
+body.dark .results-label strong{color:#E5E7EB}
+.btn-quiz-all{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.btn-quiz-all.off{background:transparent;color:var(--gray-md);border:1.5px solid var(--gray-bd)}
+.btn-quiz-all.off:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ── DIFF CARDS GRID ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+@media(max-width:700px){.cards-grid{grid-template-columns:1fr}}
+
+/* ── DIFF CARD ── */
+.diff-card{background:var(--white);border:1.5px solid var(--gray-bd);border-radius:12px;overflow:hidden;transition:border-color .15s}
+body.dark .diff-card{background:#1F2937;border-color:var(--gray-bd)}
+.diff-card:hover{border-color:var(--blue-mid)}
+.diff-card.quiz-on{border-color:var(--blue)}
+
+/* card header */
+.dc-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid var(--gray-bd)}
+.dc-cat{font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);font-family:var(--mono)}
+.dc-quiz-btn{font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid var(--gray-bd);background:transparent;color:var(--gray-md);cursor:pointer;font-family:var(--font);transition:all .15s}
+.dc-quiz-btn:hover,.diff-card.quiz-on .dc-quiz-btn{background:var(--blue);border-color:var(--blue);color:#fff}
+.dc-title{font-size:15px;font-weight:800;color:var(--navy);padding:10px 16px 0}
+body.dark .dc-title{color:#E5E7EB}
+.dc-labels{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:6px 16px 0}
+.dc-lbl{font-size:11px;font-weight:700;color:var(--blue);font-family:var(--mono)}
+.dc-lbl:last-child{text-align:right;color:var(--gray-md)}
+
+/* table */
+.diff-table{width:100%;border-collapse:collapse;margin:8px 0 0}
+.diff-table td{padding:8px 16px;font-size:12px;border-top:1px solid var(--gray-bd);vertical-align:top;line-height:1.5}
+.diff-table td:first-child{color:var(--gray-md);font-family:var(--mono);font-size:11px;width:32%;border-right:1px solid var(--gray-bd)}
+.diff-table td.diff-a{color:var(--gray-dk);width:34%}
+body.dark .diff-table td.diff-a{color:#E5E7EB}
+.diff-table td.diff-b{color:var(--gray-dk);width:34%}
+body.dark .diff-table td.diff-b{color:#E5E7EB}
+
+/* blur state */
+.diff-b.blurred{filter:blur(5px);cursor:pointer;user-select:none;transition:filter .15s}
+.diff-b.blurred:hover{filter:blur(2px)}
+.diff-b.revealed{filter:none !important;cursor:default}
+
+/* tip footer */
+.dc-tip{padding:10px 16px 14px;font-size:12px;color:var(--gray-md);line-height:1.5;border-top:1px solid var(--gray-bd);background:var(--gray-lt)}
+body.dark .dc-tip{background:rgba(255,255,255,.03);color:var(--gray-md)}
+.dc-tip-ico{margin-right:4px}
+
+/* no results */
+.nores{text-align:center;padding:48px 24px;color:var(--gray-md)}
+
+mark{background:#FEF9C3;color:#713F12;padding:0 1px;border-radius:2px}
+@keyframes rcm-pulse{0%{box-shadow:0 0 0 3px rgba(37,99,235,.65)}60%{box-shadow:0 0 0 9px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+.rcm-nav{animation:rcm-pulse .75s ease-out}
+.diff-card{cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <a href="/Saptak/notes/1234" class="hero-back">&#8592; Study Hub</a>
+  <div class="hero-actions">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">&#9790; Dark</button>
+  </div>
+  <div class="hero-chip">RCM &middot; Differences</div>
+  <h1>Side-by-Side Differences</h1>
+  <p class="hero-sub" id="hero-sub">Loading&hellip;</p>
+  <div class="srch-wrap">
+    <svg class="srch-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="srch-input" id="srch" placeholder='Search: "HMO", "capitation", "deductible"&hellip;' autocomplete="off">
+    <button class="srch-clear" id="srch-clear" onclick="clearSearch()">&#x2715;</button>
+  </div>
+  <div class="cat-row" id="cat-row"></div>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+var DIFFS = {{ site.data.rcm_differences | jsonify }};
+
+/* ── THEME ── */
+var THEME_KEY = 'rcm-diffs-theme';
+(function() {
+  if (localStorage.getItem(THEME_KEY) === 'dark') {
+    document.body.classList.add('dark');
+    document.getElementById('theme-btn').textContent = '☀ Light';
+  }
+})();
+function toggleTheme() {
+  var dark = document.body.classList.toggle('dark');
+  localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+  document.getElementById('theme-btn').textContent = dark ? '☀ Light' : '☺ Dark';
+}
+
+/* ── STATE ── */
+var CAT_LABELS = {All:'All', Participants:'Participants', HIPAA:'HIPAA', Payers:'Payers',
+  ManagedCare:'Managed Care', Providers:'Providers', Coding:'Coding', Claims:'Claims', PatientResp:'Patient Resp'};
+
+var st = {q: '', cat: 'All', globalQuiz: false};
+/* Per-card quiz state and per-cell revealed state */
+var cardQuiz = {};    /* id -> bool */
+var cellRevealed = {}; /* id+'_'+rowIdx -> bool */
+
+/* ── HELPERS ── */
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function hi(text, q) {
+  if (!q) return esc(text);
+  var e = esc(text);
+  var re = new RegExp('(' + q.trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+  return e.replace(re,'<mark>$1</mark>');
+}
+
+/* ── FILTER ── */
+var CATS_ORDER = (function() {
+  var seen = {}, order = [];
+  DIFFS.forEach(function(d) { if (!seen[d.cat]) { seen[d.cat] = true; order.push(d.cat); } });
+  return order;
+})();
+
+function filtered() {
+  var q = st.q.trim().toLowerCase();
+  var items = DIFFS;
+  if (st.cat !== 'All') items = items.filter(function(d) { return d.cat === st.cat; });
+  if (!q) return items;
+  return items.filter(function(d) {
+    var text = (d.title + ' ' + d.a_label + ' ' + d.b_label + ' ' + d.tip + ' ' +
+      d.rows.map(function(r) { return r.dim + ' ' + r.a + ' ' + r.b; }).join(' ')).toLowerCase();
+    return text.includes(q);
+  });
+}
+
+/* ── RENDER CATS ── */
+function renderCats() {
+  var h = '<span class="cat-chip ' + (st.cat === 'All' ? 'on' : '') + '" onclick="setCat(\'All\')">All ' + DIFFS.length + '</span>';
+  CATS_ORDER.forEach(function(c) {
+    var count = DIFFS.filter(function(d) { return d.cat === c; }).length;
+    h += '<span class="cat-chip ' + (st.cat === c ? 'on' : '') + '" onclick="setCat(\'' + c + '\')">' + (CAT_LABELS[c] || c) + ' ' + count + '</span>';
+  });
+  document.getElementById('cat-row').innerHTML = h;
+}
+
+/* ── RENDER MAIN ── */
+function render() {
+  var main = document.getElementById('main');
+  var items = filtered();
+  var q = st.q.trim();
+
+  document.getElementById('hero-sub').textContent = DIFFS.length + ' confusable pairs — click Quiz to test recall';
+
+  if (!items.length) {
+    main.innerHTML = '<div class="nores"><p>No comparisons match &ldquo;' + esc(q) + '&rdquo;.</p></div>';
+    return;
+  }
+
+  /* Count how many in quiz mode */
+  var quizCount = items.filter(function(d) { return cardQuiz[d.id]; }).length;
+  var h = '<div class="toolbar">' +
+    '<span class="results-label"><strong>' + items.length + '</strong> comparison' + (items.length !== 1 ? 's' : '') +
+      (q ? ' for &ldquo;' + esc(q) + '&rdquo;' : '') + '</span>' +
+    '<button class="btn-quiz-all ' + (quizCount > 0 ? 'on' : 'off') + '" onclick="toggleAllQuiz(' + (quizCount < items.length ? 'true' : 'false') + ')">' +
+      (quizCount < items.length ? '&#127919; Quiz all' : '&#128065; Show all') +
+    '</button>' +
+  '</div>';
+
+  h += '<div class="cards-grid">';
+  items.forEach(function(d) {
+    h += renderCard(d, q);
+  });
+  h += '</div>';
+
+  main.innerHTML = h;
+}
+
+function renderCard(d, q) {
+  var quiz = !!cardQuiz[d.id];
+  var h = '<div class="diff-card ' + (quiz ? 'quiz-on' : '') + '" id="dc-' + esc(d.id) + '" onclick="cardClick(event,\'' + esc(d.id) + '\')">';
+
+  /* head */
+  h += '<div class="dc-head">' +
+    '<span class="dc-cat">' + esc(CAT_LABELS[d.cat] || d.cat) + '</span>' +
+    '<button class="dc-quiz-btn" onclick="event.stopPropagation();toggleCardQuiz(\'' + esc(d.id) + '\')">' +
+      (quiz ? '&#128065; Show B' : '&#127919; Quiz B') +
+    '</button>' +
+  '</div>';
+
+  /* title + labels */
+  h += '<div class="dc-title">' + hi(d.title, q) + '</div>';
+  h += '<div class="dc-labels"><span class="dc-lbl">' + hi(d.a_label, q) + '</span><span class="dc-lbl">' + hi(d.b_label, q) + '</span></div>';
+
+  /* table */
+  h += '<table class="diff-table">';
+  d.rows.forEach(function(row, ri) {
+    var cellKey = d.id + '_' + ri;
+    var revealed = !!cellRevealed[cellKey];
+    var bClass = 'diff-b' + (quiz && !revealed ? ' blurred' : ' revealed');
+    var clickAttr = (quiz && !revealed) ? ' onclick="event.stopPropagation();revealCell(\'' + esc(cellKey) + '\')"' : '';
+    h += '<tr>' +
+      '<td>' + hi(row.dim, q) + '</td>' +
+      '<td class="diff-a">' + hi(row.a, q) + '</td>' +
+      '<td class="' + bClass + '"' + clickAttr + ' title="' + (quiz && !revealed ? 'Click to reveal' : '') + '">' + hi(row.b, q) + '</td>' +
+    '</tr>';
+  });
+  h += '</table>';
+
+  /* tip */
+  if (d.tip) {
+    h += '<div class="dc-tip"><span class="dc-tip-ico">&#128161;</span>' + hi(d.tip, q) + '</div>';
+  }
+
+  h += '</div>';
+  return h;
+}
+
+/* ── INTERACTIONS ── */
+function cardClick(e, id) {
+  var el = document.getElementById('dc-' + id);
+  if (!el) return;
+  el.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+  history.replaceState(null, '', '#dc-' + id);
+  el.classList.add('rcm-nav');
+  setTimeout(function() { el.classList.remove('rcm-nav'); }, 750);
+}
+
+function toggleCardQuiz(id) {
+  cardQuiz[id] = !cardQuiz[id];
+  /* clear revealed cells for this card when turning quiz ON */
+  if (cardQuiz[id]) {
+    Object.keys(cellRevealed).forEach(function(k) {
+      if (k.indexOf(id + '_') === 0) delete cellRevealed[k];
+    });
+  }
+  render();
+}
+
+function toggleAllQuiz(on) {
+  filtered().forEach(function(d) {
+    cardQuiz[d.id] = on;
+    if (on) {
+      Object.keys(cellRevealed).forEach(function(k) {
+        if (k.indexOf(d.id + '_') === 0) delete cellRevealed[k];
+      });
+    }
+  });
+  render();
+}
+
+function revealCell(cellKey) {
+  cellRevealed[cellKey] = true;
+  /* DOM patch — faster than full re-render */
+  var items = filtered();
+  var q = st.q.trim();
+  var parts = cellKey.split('_');
+  var ri = parseInt(parts[parts.length - 1], 10);
+  var id = parts.slice(0, -1).join('_');
+  var d = DIFFS.filter(function(x) { return x.id === id; })[0];
+  if (!d) return render();
+  /* Find cell and update */
+  var card = document.getElementById('dc-' + id);
+  if (!card) return render();
+  var cells = card.querySelectorAll('td.diff-b');
+  if (cells[ri]) {
+    cells[ri].className = 'diff-b revealed';
+    cells[ri].removeAttribute('onclick');
+    cells[ri].removeAttribute('title');
+  }
+}
+
+function setCat(cat) {
+  st.cat = cat;
+  renderCats();
+  render();
+}
+
+function clearSearch() {
+  document.getElementById('srch').value = '';
+  st.q = '';
+  document.getElementById('srch-clear').classList.remove('vis');
+  render();
+}
+
+document.getElementById('srch').addEventListener('input', function() {
+  st.q = this.value;
+  document.getElementById('srch-clear').classList.toggle('vis', !!this.value);
+  render();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') clearSearch();
+});
+
+/* ── INIT ── */
+renderCats();
+render();
+
+/* ── HASH NAV ── */
+(function() {
+  var hash = location.hash;
+  if (hash && hash.startsWith('#dc-')) {
+    var id = hash.slice(4);
+    var el = document.getElementById('dc-' + id);
+    if (el) {
+      el.scrollIntoView({block: 'nearest'});
+      el.classList.add('rcm-nav');
+      setTimeout(function() { el.classList.remove('rcm-nav'); }, 750);
+    }
+  }
+})();
+</script>
+</body>
+</html>

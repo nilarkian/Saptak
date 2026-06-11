@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US Healthcare &amp; Medical Billing — RCM Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --navy: #1A2E44;
+  --navy2: #0F1F30;
+  --blue: #2563EB;
+  --blue-lt: #DBEAFE;
+  --blue-mid: #93C5FD;
+  --green: #166534;
+  --green-lt: #DCFCE7;
+  --amber: #92400E;
+  --amber-lt: #FEF3C7;
+  --red: #991B1B;
+  --red-lt: #FEE2E2;
+  --purple: #5B21B6;
+  --purple-lt: #EDE9FE;
+  --teal: #0F766E;
+  --teal-lt: #CCFBF1;
+  --gray-dk: #1F2937;
+  --gray-md: #6B7280;
+  --gray-lt: #F3F4F6;
+  --gray-bd: #E5E7EB;
+  --white: #ffffff;
+  --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-dk);
+  background: #F8FAFC;
+}
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D1B2A 60%, #1A2E44 100%);
+  color: white;
+  padding: 64px 64px 56px;
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -40px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.cover-chip {
+  display: inline-block;
+  background: var(--blue);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.cover h1 {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: white;
+  border: none;
+  padding: 0;
+}
+.cover h1::after { display: none; }
+.cover-subtitle {
+  font-size: 16px;
+  color: var(--blue-mid);
+  margin-bottom: 28px;
+}
+.cover-meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 16px;
+}
+.cover-toc {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cover-toc a {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.2s;
+}
+.cover-toc a:hover {
+  background: rgba(37,99,235,0.4);
+  color: white;
+}
+
+/* ── LAYOUT ── */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+/* ── HEADINGS ── */
+h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 48px 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--blue);
+  scroll-margin-top: 20px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 36px 0 10px;
+  scroll-margin-top: 20px;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 24px 0 8px;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-dk);
+  margin: 16px 0 6px;
+}
+
+p { margin-bottom: 12px; }
+hr { border: none; border-top: 1px solid var(--gray-bd); margin: 32px 0; }
+
+/* ── TABLES ── */
+.table-wrap {
+  overflow-x: auto;
+  margin: 16px 0 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: white;
+}
+thead th {
+  background: var(--navy);
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 14px;
+  text-align: left;
+  letter-spacing: 0.3px;
+}
+thead th:first-child { border-radius: 8px 0 0 0; }
+thead th:last-child  { border-radius: 0 8px 0 0; }
+tbody tr:nth-child(odd)  { background: var(--white); }
+tbody tr:nth-child(even) { background: var(--gray-lt); }
+tbody tr:hover           { background: var(--blue-lt); }
+tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gray-bd);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+/* ── CODE ── */
+code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: #F1F5F9;
+  color: #1D4ED8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+mark {
+  background: #FEF9C3;
+  color: #713F12;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-left: 4px solid;
+  position: relative;
+}
+.callout-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.callout-body { font-size: 14px; line-height: 1.65; }
+.callout-body p { margin-bottom: 6px; }
+.callout-body p:last-child { margin-bottom: 0; }
+.callout-body ul { padding-left: 20px; margin: 4px 0; }
+.callout-body li { margin-bottom: 4px; }
+
+.callout-abstract { background: var(--blue-lt);   border-color: var(--blue);   }
+.callout-abstract .callout-title { color: var(--blue); }
+.callout-info     { background: var(--blue-lt);   border-color: var(--blue);   }
+.callout-info     .callout-title { color: var(--blue); }
+.callout-tip      { background: var(--teal-lt);   border-color: var(--teal);   }
+.callout-tip      .callout-title { color: var(--teal); }
+.callout-important{ background: var(--red-lt);    border-color: var(--red);    }
+.callout-important .callout-title { color: var(--red); }
+.callout-warning  { background: var(--amber-lt);  border-color: var(--amber);  }
+.callout-warning  .callout-title { color: var(--amber); }
+.callout-note     { background: var(--purple-lt); border-color: var(--purple); }
+.callout-note     .callout-title { color: var(--purple); }
+.callout-success  { background: var(--green-lt);  border-color: var(--green);  }
+.callout-success  .callout-title { color: var(--green); }
+.callout-blank    { background: var(--gray-lt);   border-color: var(--gray-md); }
+
+/* ── MERMAID WRAPPER ── */
+.mermaid-wrap {
+  margin: 20px 0;
+  background: white;
+  border: 1px solid var(--gray-bd);
+  border-radius: 10px;
+  padding: 24px;
+  overflow-x: auto;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── GOV PROGRAMS 2×2 GRID ── */
+.gov-programs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.gov-card {
+  background: white;
+  border: 1px solid var(--gray-bd);
+  border-radius: 8px;
+  padding: 16px 18px;
+  border-top: 3px solid var(--blue);
+}
+.gov-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px 0;
+}
+.gov-card p {
+  font-size: 13.5px;
+  color: var(--gray-dk);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── MATH BLOCK ── */
+.math-block {
+  background: var(--purple-lt);
+  border: 1px solid #C4B5FD;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--purple);
+  margin: 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.math-label {
+  font-weight: 800;
+  font-size: 16px;
+}
+.pr-tag {
+  background: white;
+  border: 1px solid #C4B5FD;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12.5px;
+  color: var(--purple);
+}
+.pr-tag.pr-extra {
+  color: var(--red);
+  border-color: #FCA5A5;
+  background: var(--red-lt);
+}
+.math-inline { font-style: italic; color: var(--purple); font-size: 13px; margin: 4px 0; }
+
+/* ── LISTS ── */
+ul, ol { padding-left: 24px; margin: 8px 0 16px; }
+li { margin-bottom: 5px; }
+
+/* ── BLOCKQUOTE ── */
+blockquote {
+  border-left: 3px solid var(--blue);
+  padding: 8px 16px;
+  margin: 12px 0;
+  color: var(--gray-md);
+  font-style: italic;
+  background: var(--blue-lt);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ── DIAGRAM INDEX ── */
+.diagram-index {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin: 20px 0 36px;
+}
+.di-item a {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--gray-bd);
+  background: white;
+  color: var(--gray-dk);
+  transition: all 0.15s;
+}
+.di-item a:hover { background: var(--blue-lt); border-color: var(--blue); color: var(--blue); }
+.di-star a { border-left: 3px solid var(--blue); background: var(--blue-lt); color: var(--navy); }
+.di-power a { border-left: 3px solid var(--purple); background: var(--purple-lt); color: var(--purple); }
+
+
+@media print {
+  body { font-size: 13px; background: white; }
+  .cover { min-height: 200px; padding: 40px; }
+  .cover h1 { font-size: 30px; }
+  h1 { font-size: 20px; margin: 32px 0 8px; }
+  h2 { font-size: 16px; }
+  .mermaid-wrap { box-shadow: none; border: 1px solid #ccc; }
+  .gov-programs-grid { grid-template-columns: 1fr 1fr; }
+  page-break-inside: avoid;
+}
+
+/* ── STICKY PROGRESS ── */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--blue);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s;
+}
+</style>
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<div class="cover">
+  <div class="cover-chip">Study Notes · 2026</div>
+  <h1>Healthcare &<br>Medical Billing</h1>
+  <div class="cover-subtitle">NOTES</div>
+  <div class="cover-toc">
+    <a href="#the-5-participants">5 Participants</a>
+    <a href="#hipaa--phi">HIPAA &amp; PHI</a>
+    <a href="#health-care-plans">Healthcare Plans</a>
+    <a href="#components-of-medicare">Medicare Parts</a>
+    <a href="#medicare-advantage--managed-care-plans">HMO / PPO</a>
+    <a href="#health-care-providers-2-types">Providers</a>
+    <a href="#medical-coding">Medical Coding</a>
+    <a href="#billing--claims-concepts">Claims &amp; Billing</a>
+    <a href="#patient-responsibility-pr">Patient Responsibility</a>
+    <a href="#quick-recall-cheat-sheet">Cheat Sheet</a>
+  </div>
+  <div class="cover-meta">Created: 2026-06-05 &nbsp;·&nbsp; Tags: healthcare/us · medical-billing · rcm · study-notes</div>
+</div>
+
+<div class="content">
+<div class="callout callout-abstract"><div class="callout-title">📋 What this covers</div><div class="callout-body"><p>Money moves through US healthcare along one chain: <strong>a member gets sick → a provider treats them → a payer foots the bill → coders translate the visit into numbers → billers fight to get paid.</strong> These notes walk that chain end-to-end — who the players are, what protects the patient (<strong>HIPAA</strong>), how plans are structured (<strong>Medicare/Medicaid</strong>), and how a claim actually gets coded, billed, and split between insurer and patient.</p></div></div>
+<hr>
+<h3 id="phi--protected-health-information">PHI — Protected Health Information</h3>
+<p>it is the sensitive details of the members which must be kept confidential in order to secure member privacy</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+
+PHI[Protected Health Information]
+
+PHI --> Name[Name]
+PHI --> DOB[DOB]
+PHI --> contact[Ph.no/contact-details]
+PHI --> Doa[date of admission]
+PHI --> Dos[date of discharge]
+PHI --> Dod[date of death]
+PHI --> SSN[SSN]
+PHI --> MRN[MRN]
+PHI --> ADDR[Address/zip/area codes]
+PHI --> PHOTO[Photograph]
+PHI --> DATES[Admission/Discharge Dates]
+</div></div>
+<div class="callout callout-important"><div class="callout-title">⚠️ PHI = the data HIPAA exists to protect</div><div class="callout-body"><p>Member information that <strong>must stay confidential</strong> to secure the member's privacy.</p></div></div>
+<h2 id="the-5-participants">👥 The 5 Participants</h2>
+<p>Healthcare isn't a two-party deal — <strong>five distinct actors touch every dollar.</strong> Remember them before anything else, because every later concept hangs off one of these roles.</p>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>Participant</th><th>Who they are</th></tr></thead><tbody><tr><td>1</td><td><strong>Member</strong></td><td>The US policy holder — the patient.</td></tr><tr><td>2</td><td><strong>Provider</strong></td><td>Individuals/organizations delivering care (doctors, hospitals).</td></tr><tr><td>3</td><td><strong>Payer</strong></td><td>The insurance company. <em>Payer = the entity that pays the claim.</em></td></tr><tr><td>4</td><td><strong>Supplier</strong></td><td>Supplies medical equipment/supplies used to treat or prevent illness.supplies for any illness</td></tr><tr><td>5</td><td><strong>Researcher</strong></td><td>Conducts experiments and studies for human health. for human wellbeing</td></tr></tbody></table></div>
+<div class="callout callout-tip"><div class="callout-title">💡 Mental model</div><div class="callout-body"><p>Member → Provider → <strong>Payer</strong> is the spine. Suppliers and Researchers sit on the edges. Master the spine first.</p></div></div>
+<hr>
+<h2 id="hipaa--phi">🔒 HIPAA & PHI</h2>
+<p>A patient's medical life is private by <strong>law</strong>, not by courtesy. That law is HIPAA, and the data it guards is PHI.</p>
+<h3 id="hipaa">HIPAA</h3>
+<div class="callout callout-info"><div class="callout-title">ℹ️ HIPAA — Health Insurance Portability and Accountability Act</div><div class="callout-body"><p>A <strong>federal privacy law</strong> that forces all members' personally identifiable health information to stay <strong>confidential and private</strong>.</p>
+<ul><li>📅 Enacted <strong>1996</strong></li><li>🏛️ By <strong>DHHS</strong> (Department of Health and Human Services)</li><li>It is a privacy law/rule for an act which ensures that all the members health  information are kept confidential with utmost security and privacy</li></ul></div></div>
+<p><strong>Four entities must follow HIPAA guidelines:</strong></p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+    H[HIPAA Guidelines] --> A[Health Care Providers]
+    H --> B[Health Care Plans<br/>= Insurance Companies]
+    H --> C[HCCH<br/>Health Care Clearing House]
+    H --> D[Business Associates]</div></div>
+<div class="table-wrap"><table><thead><tr><th>Entity</th><th>One-line role</th></tr></thead><tbody><tr><td><strong>Health Care Providers</strong></td><td>Individuals/orgs giving medical services (doctors, hospitals) — keep member details confidential.</td></tr><tr><td><strong>Health Care Plans</strong></td><td>The insurance policies covering members' medical expenses — another name for the <strong>insurance company</strong>.</td></tr><tr><td><strong>HCCH</strong> (Health Care Clearing House)</td><td>Orgs that process the data used for <strong>billing</strong>. orgs that <mark>standardize</mark> the <mark>non-standardized data</mark> which are used for billing</td></tr><tr><td><strong>Business Associates</strong></td><td>Third parties working <em>on behalf of</em> plans, providers, and HCCH.</td></tr></tbody></table></div>
+<hr>
+<h2 id="health-care-plans">💳 Health Care Plans</h2>
+<p>Plans split two ways: <strong>government-run</strong> and <strong>government programs</strong> for specific populations. Get the Medicare-vs-Medicaid split right and half the domain falls into place.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+    P[Health Care Plans] --> G[Government Plans]
+    P --> GP[Government Programs]
+    G --> MCR["MEDICARE — 80% covered<br/>(the 'Rich' / 65+)"]
+    G --> MCD["MEDICAID — 100% covered<br/>(the 'Poor')"]
+    GP --> T[TRICARE / CHAMPUS]
+    GP --> C[CHAMPVA]
+    GP --> N[No-Fault Liability]
+    GP --> W[Workers Compensation]</div></div>
+<h3 id="medicare-vs-medicaid">Medicare vs Medicaid</h3>
+<p>The fastest way to keep them straight: <strong>Medicare = age/disability (federal), Medicaid = poverty (state + federal).</strong></p>
+<div class="table-wrap"><table><thead><tr><th></th><th>🟦 <strong>MEDICARE</strong></th><th>🟩 <strong>MEDICAID</strong></th></tr></thead><tbody><tr><td><strong>Run by</strong></td><td>Federal government</td><td><strong>Joint</strong> state + federal (funded by state, monitored by federal). supervised by the state-gov and monitored by the fed-gov</td></tr><tr><td><strong>Covers</strong></td><td><strong>80%</strong> (rest = patient responsibility)</td><td><strong>100%</strong></td></tr><tr><td><strong>Mnemonic</strong></td><td>"Rich" / older</td><td>"Poor"</td></tr><tr><td><strong>Age criteria</strong></td><td>Must be <strong>65+</strong>, <em>or</em> disabled receiving <strong>24 months</strong> of Social Security checks, <em>or</em> paid <strong>40 quarters</strong> of federal tax (= 10 yrs US residency),</td><td><strong>No age limit</strong></td></tr><tr><td><strong>Who qualifies</strong></td><td>See above, ESRD</td><td>Poor, disabled, pregnant women, children, anyone <strong>below the federal poverty line</strong></td></tr></tbody></table></div>
+<div class="callout callout-note"><div class="callout-title">📌 Two extra Medicaid facts buried in the notes</div><div class="callout-body"><ul><li>It's the <strong>last payer to pay</strong> when a member has multiple coverages (the "payer of last resort").</li><li>Also covers <strong>ESRD</strong> patients — End Stage Renal Disease.</li></ul></div></div>
+<h3 id="government-programs">Government Programs</h3>
+<p>Beyond Medicare/Medicaid, four programs cover special groups:</p>
+<div class="gov-programs-grid"><div class="gov-card"><h4>TRICARE</h4><p>Formerly <strong>CHAMPUS</strong> (Civilian Health And Medical Program of the Uniformed Services). Health insurance for <strong>military personnel</strong> — active, deceased, disabled, retirees, <strong>and their dependents (heirs).</strong> </p></div><div class="gov-card"><h4>CHAMPVA</h4><p>Civilian Health And Medical Program of the <strong>Department of Veterans Affairs</strong>. A health-benefit program covering care costs for <strong>war veterans</strong> — active, deceased, disabled, retiress, or partially disabled during war — <strong>and their dependents.</strong> </p></div><div class="gov-card"><h4>No-Fault Liability (Third-Party Insurance)</h4><p>Pays for care resulting from injury to a person <strong>or</strong> damage to property in an accident — <strong>regardless of who caused it.</strong> <mark>(add on, optional)</mark> </p></div><div class="gov-card"><h4>Workers' Compensation</h4><p>Covers injuries employees sustain <strong>on work premises (or elsewhere during active work hours).</strong></p></div></div>
+<hr>
+<h2 id="components-of-medicare">🩺 Components of Medicare</h2>
+<p>Medicare isn't one thing — it's <strong>four parts (A/B/C/D)</strong>, and the trick is mapping each to what it actually pays for.</p>
+<div class="table-wrap"><table><thead><tr><th>Part</th><th>Nickname</th><th>Covers</th><th>Ex.</th></tr></thead><tbody><tr><td><strong>Part A</strong></td><td>Original / Traditional Medicare</td><td><strong>Hospital / Inpatient</strong> services (stays of <strong>24 hrs or more</strong>), prem free >=65</td><td>🔪 <em>Major surgery</em></td></tr><tr><td><strong>Part B</strong></td><td>Original / Traditional Medicare</td><td><strong>Medical / Outpatient</strong> services (<strong>< 24 hrs</strong>), includes <strong>DME</strong>, optional, add-on</td><td>🩹 <em>Minor surgery</em></td></tr><tr><td><strong>Part C</strong></td><td><strong>Medicare Advantage Plan</strong></td><td>Part A <strong>+</strong> Part B <strong>+</strong> extras: transportation, Dental, Hearing, Vision, gym services</td><td>🏢 <em>Private plan</em></td></tr><tr><td><strong>Part D</strong></td><td>PDP (Prescription Drug Plan) — <strong>optional</strong></td><td>Medicines, vaccines,optional- add-on</td><td>💊 <em>Drugs</em></td></tr></tbody></table></div>
+<div class="callout callout-success"><div class="callout-title">✅ MAPD = Part C + Part D</div><div class="callout-body"><p><strong>Medicare Advantage Prescription Drug</strong> plan — bundles Part C and Part D together.</p></div></div>
+<h3 id="dme--durable-medical-equipment">🛠️ DME — Durable Medical Equipment</h3>
+<div class="callout callout-info"><div class="callout-title">ℹ️ DME</div><div class="callout-body"><p>Medical equipment that can be <strong>rented or purchased</strong> for repeated home use. Examples: <strong>walkers, wheelchairs, hospital beds, prosthetic/orthotic supplies.</strong> <em>(Billed under Part B.)</em></p></div></div>
+<h3 id="major-medicare-payers-carry-the-mcr-tag">Major Medicare payers (carry the "MCR" tag)</h3>
+<p>Humana · Cigna · United Health Care (UHC) · BCBS · Aetna</p>
+<hr>
+<h2 id="medicare-advantage--managed-care-plans">🏗️ Medicare Advantage & Managed Care Plans</h2>
+<p>Once a member picks Part C, they enter <strong>managed care</strong> — and managed care lives by two rules and four plan types.</p>
+<div class="callout callout-warning"><div class="callout-title">⚡ The 2 rules of Managed Care</div><div class="callout-body"><ul><li>An <strong>Authorization / Referral is always required.</strong></li><li>The member should <strong>always visit in-network providers.</strong></li></ul></div></div>
+<h3 id="the-4-plan-types">The 4 plan types</h3>
+<div class="table-wrap"><table><thead><tr><th>Type</th><th>Full form</th></tr></thead><tbody><tr><td><strong>HMO</strong></td><td>Health Maintenance Organization</td></tr><tr><td><strong>PPO</strong></td><td>Preferred Provider Organization</td></tr><tr><td><strong>EPO</strong></td><td>Exclusive Provider Organization</td></tr><tr><td><strong>POS</strong></td><td>Point of Service</td></tr></tbody></table></div>
+<h3 id="hmo-vs-ppo--the-comparison-that-gets-tested">HMO vs PPO — the comparison that gets tested</h3>
+<div class="table-wrap"><table><thead><tr><th></th><th><strong>PCP / Referral needed?</strong></th><th><strong>Can visit OON providers?</strong></th><th><strong>Cost share</strong></th></tr></thead><tbody><tr><td>🔵 <strong>HMO</strong></td><td>✅ YES</td><td>❌ NO (in-network <strong>only</strong>)</td><td><strong>Lower</strong></td></tr><tr><td>🟠 <strong>PPO</strong></td><td>❌ NO</td><td>✅ YES (<strong>flexible</strong>)</td><td><strong>Higher</strong> for OON, lower for INN</td></tr></tbody></table></div>
+<div class="callout callout-tip"><div class="callout-title">💡 One-liner</div><div class="callout-body"><p><strong>HMO = cheap but locked in. PPO = flexible but you pay for the freedom.</strong> HMO is less expensive; PPO is more expensive.</p></div></div>
+<hr>
+<h2 id="health-care-providers-2-types">🧑‍⚕️ Health Care Providers (2 types)</h2>
+<p>Providers split into <strong>people</strong> and <strong>places.</strong> Both bill, but they bill differently.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+    HP[Health Care Providers] --> IP[Individual Providers]
+    HP --> FP[Facility Providers]
+    IP --> PCP[PCP — Primary Care Physician]
+    IP --> SP[Specialist]
+    FP --> H[Hospital]
+    FP --> SNF[SNF]
+    FP --> ASC[ASC]
+    FP --> HH[Home Health]
+    FP --> HOS[Hospice]</div></div>
+<h3 id="individual-providers">Individual Providers</h3>
+<div class="callout callout-important"><div class="callout-title">⚠️ PCP = Primary Care Physician</div><div class="callout-body"><p>The <strong>primary gatekeeper</strong> / first point of contact. A member goes to the PCP first; the PCP refers out to specialists.</p></div></div>
+<h3 id="facility-providers">Facility Providers</h3>
+<div class="table-wrap"><table><thead><tr><th>Facility</th><th>What it is</th></tr></thead><tbody><tr><td><strong>Hospital</strong></td><td>—</td></tr><tr><td><strong>SNF</strong> — Skilled Nursing Facility</td><td>A <strong>recovery center</strong> providing post-surgical care <strong>plus ADL</strong> (Activities of Daily Living): bathing, cooking, occupational therapy.</td></tr><tr><td><strong>ASC</strong> — Ambulatory Surgical Center</td><td>A <strong>same-day</strong> ("day-in, day-out") surgery center — short procedure unit. <em>e.g. cataract surgery.</em></td></tr><tr><td><strong>Home Health</strong></td><td>Agencies delivering medical services to patients/families <strong>at home</strong> per written plans.</td></tr><tr><td><strong>Hospice</strong></td><td>Lets <strong>terminally ill</strong> people spend their final stages at home or home-like settings.</td></tr></tbody></table></div>
+<hr>
+<h2 id="networks--contracts">🔗 Networks & Contracts</h2>
+<p>Contracts sit <strong>between Payers and Providers</strong> — and the network status decides what the member pays.</p>
+<div class="table-wrap"><table><thead><tr><th></th><th><strong>In-Network (INN)</strong></th><th><strong>Out-of-Network (OON)</strong></th></tr></thead><tbody><tr><td>Provider type</td><td><strong>Participating</strong> providers</td><td><strong>Non-Participating</strong> providers</td></tr><tr><td>Member cost</td><td>Lower</td><td>Higher</td></tr></tbody></table></div>
+<div class="callout callout-note"><div class="callout-title">📌 The bank analogy (trainer's mnemonic)</div><div class="callout-body"><p>Participating (INN) ≈ INDUS, ICICI · Non-participating (OON) ≈ SBI. <em>Whatever makes it stick.</em></p></div></div>
+<hr>
+<h2 id="authorization--referral">📝 Authorization & Referral</h2>
+<p>Before expensive care happens, the provider usually has to <strong>ask permission.</strong> That permission is Authorization.</p>
+<div class="callout callout-important"><div class="callout-title">⚠️ Authorization</div><div class="callout-body"><p>A <strong>designated permission</strong> a provider requests <strong>from the health care plan</strong> to get a medical service done on a member.</p>
+<ul><li>🥇 The <strong>first-time</strong> authorization is called a <strong>Referral</strong>.</li></ul></div></div>
+<p><strong>The call flow:</strong></p>
+<ul><li><code>PCP → Insurance</code> = <strong>Referral call</strong></li><li><code>Specialist → Insurance</code> (for service)</li><li><code>Specialist → Insurance</code> (for authorization) = <strong>Authorization call</strong></li><li><code>Authorization → Doctor → Insurance</code></li></ul>
+<p><strong>4 ways to initiate an Authorization:</strong></p>
+<ol><li>☎️ <strong>Call</strong></li><li>💻 <strong>Portals</strong></li><li>📄 <strong>P.A. Form</strong> (Prior Authorization form)</li><li>📠 <strong>E-Fax</strong> (Electronic Fax)</li></ol>
+<div class="callout callout-info"><div class="callout-title">ℹ️ Provider naming zoo</div><div class="callout-body"><p>The same provider gets different labels by function: <strong>Requesting · Referring · Ordering · Servicing · Rendering</strong> provider. They overlap — context tells you which hat they're wearing.</p></div></div>
+<hr>
+<h2 id="payment-modules-2-types">💰 Payment Modules (2 types)</h2>
+<p>How does a provider actually get paid? <strong>Two opposing philosophies</strong> — a flat retainer vs. pay-per-service.</p>
+<div class="table-wrap"><table><thead><tr><th>Module</th><th>Income type</th><th>How it works</th></tr></thead><tbody><tr><td><strong>Capitation</strong></td><td>🔒 Fixed income</td><td>Follows <strong>PHPM</strong> (Per Head Per Month / Per Member Per Month, <code>$/mt</code>). Provider gets a set amount <strong>regardless of how many visits</strong> the member makes.</td></tr><tr><td><strong>Fee for Service (FFS)</strong></td><td>📈 Incentive type</td><td>Every service is billed <strong>separately</strong> in an <strong>un-bundled</strong> format. More services = more money.</td></tr></tbody></table></div>
+<div class="callout callout-tip"><div class="callout-title">💡 Why it matters</div><div class="callout-body"><p>Capitation rewards <strong>keeping people healthy</strong> (fewer visits = same pay). FFS rewards <strong>volume</strong> (more procedures = more pay). The incentive structure is the whole point.</p></div></div>
+<hr>
+<h2 id="medical-coding">🔢 Medical Coding</h2>
+<p>Coding turns a messy clinical visit into <strong>structured numbers a payer can adjudicate.</strong> Three questions, five code sets.</p>
+<div class="callout callout-abstract"><div class="callout-title">📋 The logic</div><div class="callout-body"><ul><li><strong>What disease?</strong> → pointing the disease → <strong>ICD</strong></li><li><strong>What treatment?</strong> → <strong>CPT</strong></li><li><strong>What/where/extra info?</strong> → <strong>HCPCS · Modifiers · POS</strong></li></ul></div></div>
+<h3 id="the-5-code-sets">The 5 code sets</h3>
+<div class="table-wrap"><table><thead><tr><th>Code</th><th>Full form</th><th>What it denotes</th><th>Format</th><th>Example</th></tr></thead><tbody><tr><td><strong>CPT</strong></td><td>Current Procedural Terminology</td><td>Medical <strong>procedures / services / treatments</strong></td><td><strong>5-digit numeric</strong></td><td><code>10040</code> Acne surgery · <code>66984</code> Cataract surgery</td></tr><tr><td><strong>ICD</strong></td><td>International Classification of Disease</td><td>Medical <strong>condition / disease / symptoms</strong></td><td><strong>Alphanumeric</strong></td><td><code>R51</code> Headache · <code>E11.22</code> Diabetes mellitus w/ chronic kidney disease</td></tr><tr><td><strong>HCPCS</strong></td><td>Healthcare Common Procedure Coding System</td><td><strong>Misc products & equipment</strong> (e.g. DME)</td><td><strong>5 alphanumeric</strong></td><td><code>E0265</code> Hospital bed · <code>A0021</code> Ambulance · <code>A5500</code> Diabetic shoes</td></tr><tr><td><strong>Modifiers</strong></td><td>—</td><td>Extra <strong>clarity</strong> on a CPT (lvl 1) or HCPCS (lvl 2) code</td><td><strong>2 alphanumeric</strong></td><td><code>RT</code> · <code>LT</code> · <code>50</code></td></tr><tr><td><strong>POS</strong></td><td>Place of Service</td><td><strong>Where</strong> the service was rendered</td><td><strong>2 numeric</strong></td><td><code>24</code> = ASC · <code>12</code> = Home</td></tr></tbody></table></div>
+<h3 id="cpt-vs-icd--dont-confuse-them">CPT vs ICD — don't confuse them</h3>
+<div class="table-wrap"><table><thead><tr><th><strong>CPT</strong></th><th><strong>ICD</strong></th></tr></thead><tbody><tr><td>Denotes medical <strong>procedures, services, or treatments</strong></td><td>Denotes medical <strong>condition, diseases, or symptoms</strong> the member faces</td></tr></tbody></table></div>
+<h3 id="cpt-em-example-codes-office-visits">🔍 CPT E/M example codes (office visits)</h3>
+<div class="table-wrap"><table><thead><tr><th>Code range</th><th>Patient type</th><th>Note</th></tr></thead><tbody><tr><td><code>99202</code> → <code>99205</code></td><td><strong>New patient</strong> ("1st time dr. office visit")</td><td><code>99204</code>+ tie to referral/time</td></tr><tr><td><code>99212</code> → <code>99215</code></td><td><strong>Established patient</strong> ("follow-ups")</td><td>Higher = more time/complexity</td></tr></tbody></table></div>
+<hr>
+<h2 id="billing--claims-concepts">📋 Billing & Claims Concepts</h2>
+<p>A claim is a clock. Two timers govern its life: <strong>how long you have to file</strong>, and <strong>how long the payer takes to decide.</strong></p>
+<div class="callout callout-info"><div class="callout-title">ℹ️ TFL — Timely Filing Limit</div><div class="callout-body"><p>The <strong>time frame within which a provider must submit a claim</strong> to the health plan. <strong>Set by the insurance itself.</strong> Miss it and the claim dies on arrival.</p></div></div>
+<div class="callout callout-info"><div class="callout-title">ℹ️ TAT — Turn Around Time</div><div class="callout-body"><p>The <strong>time interval the adjudication team takes to decide</strong> whether to pay or deny a claim. <em>(TAT also applies to Authorization.)</em></p></div></div>
+<h3 id="providerclaim-identifiers">Provider/claim identifiers</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Full form</th><th>Format</th><th>Shared?</th></tr></thead><tbody><tr><td><strong>NPI</strong></td><td>National Provider Identifier</td><td><strong>10-digit</strong> unique</td><td>One per <strong>individual provider</strong></td></tr><tr><td><strong>TIN</strong></td><td>Tax Identification Number</td><td><strong>9-digit</strong></td><td><strong>Shared</strong> by multiple providers</td></tr></tbody></table></div>
+<h3 id="3-classic-reasons-for-denial">⛔ 3 classic reasons for denial</h3>
+<ol><li><strong>Untimely filing limit</strong> — claim filed after TFL.</li><li><strong>No active insurance</strong> for the <strong>Date of Service (DOS)</strong>.</li><li><strong>Provider never generated an Authorization.</strong></li></ol>
+<div class="callout callout-note"><div class="callout-title">📌 Appeal</div><div class="callout-body"><p>When a claim is wrongly denied, the provider files an <strong>Appeal</strong> to challenge it. <em>(Page header had this crossed out — but it's the natural counter to a denial.)</em></p></div></div>
+<hr>
+<h2 id="common-terminology">🗂️ Common Terminology</h2>
+<p>A few acronyms recur in every claim conversation — lock these down.</p>
+<div class="callout callout-info"><div class="callout-title">ℹ️ COB — Coordination of Benefits</div><div class="callout-body"><p>The <strong>process of determining which payer</strong> is the member's <strong>primary, secondary, or tertiary</strong> — i.e. who takes financial responsibility, and in what order.</p></div></div>
+<div class="callout callout-info"><div class="callout-title">ℹ️ EOB — Explanation of Benefits</div><div class="callout-body"><p>A <strong>detailed summary of a processed claim</strong>, shared by the insurance with <strong>both the provider and the member.</strong></p></div></div>
+<div class="callout callout-info"><div class="callout-title">ℹ️ Dual Members</div><div class="callout-body"><p>Members eligible for <strong>both</strong> government plans at once: <strong>Medicare + Medicaid.</strong></p></div></div>
+<hr>
+<h2 id="patient-responsibility-pr">🧾 Patient Responsibility (PR)</h2>
+<p>After the insurer pays its share, <strong>what's left lands on the patient</strong> — roughly <strong>~20%</strong>. It comes in three flavors plus a ceiling.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+    PR["Patient Responsibility (PR) ~20%"] --> PR1["Deductible (PR-1)"]
+    PR --> PR2["Co-Insurance (PR-2)"]
+    PR --> PR3["Co-Pay (PR-3)"]</div></div>
+<div class="table-wrap"><table><thead><tr><th>Code</th><th>Term</th><th>What it is</th><th>When paid</th></tr></thead><tbody><tr><td><strong>PR-1</strong></td><td><strong>Deductible</strong></td><td>A <strong>fixed dollar amount</strong> the member must "finish off" first within a <strong>calendar year</strong>, after which insurance takes over.</td><td>First, annually</td></tr><tr><td><strong>PR-2</strong></td><td><strong>Co-Insurance</strong></td><td>The <strong>cost share</strong> between member and insurer, shown as a <strong>percentage</strong>. Actual $ known <strong>only after the claim is processed.</strong></td><td>After processing</td></tr><tr><td><strong>PR-3</strong></td><td><strong>Co-Pay</strong></td><td>A <strong>fixed dollar amount</strong> the member pays the provider <strong>up-front</strong>, before/at the time of service.</td><td>Up-front</td></tr></tbody></table></div>
+<div class="callout callout-important"><div class="callout-title">⚠️ OOP — Out of Pocket</div><div class="callout-body"><p>The total ceiling on member spending:</p>
+<div class="math-inline">OOP = Deductible (PR-1) + Co-Insurance (PR-2) + Co-Pay (PR-3) + Non-Covered Charges</div>
+<p>Once OOP is hit, the insurance covers the rest.</p></div></div>
+<hr>
+<h2 id="quick-recall-cheat-sheet">🧠 Quick Recall Cheat Sheet</h2>
+<div class="callout callout-tip"><div class="callout-title">💡 If you remember nothing else</div><div class="callout-body"><ul><li><strong>Medicare = 65+/federal/80%</strong> · <strong>Medicaid = poor/state+federal/100%/last payer</strong></li><li><strong>Part A</strong> hospital · <strong>Part B</strong> outpatient+DME · <strong>Part C</strong> = A+B+extras · <strong>Part D</strong> drugs · <strong>MAPD</strong> = C+D</li><li><strong>HMO</strong> = referral + in-network only + cheap · <strong>PPO</strong> = no referral + OON allowed + pricey</li><li><strong>CPT</strong> = treatment (5 numeric) · <strong>ICD</strong> = disease (alphanumeric) · <strong>HCPCS</strong> = equipment · <strong>POS</strong> = where · <strong>Modifiers</strong> = clarity</li><li><strong>TFL</strong> = deadline to file · <strong>TAT</strong> = time to decide</li><li><strong>NPI</strong> = 10-digit, one provider · <strong>TIN</strong> = 9-digit, shared</li><li><strong>PR1</strong> Deductible · <strong>PR2</strong> Co-Insurance · <strong>PR3</strong> Co-Pay · <strong>OOP</strong> = all PRs + non-covered</li><li><strong>3 denials</strong>: late filing · no active insurance · no authorization</li></ul></div></div>
+
+
+<hr>
+<h1 id="visual-reference-diagrams">🗺 Visual Reference — 13 Diagrams</h1>
+<p>These diagrams compress ~90% of the training material into visual form. <strong>Memorise the six starred ones</strong> and you'll follow most conversations on an RCM operations floor.</p>
+
+<div class="diagram-index">
+  <div class="di-item di-star"><a href="#d1">① Revenue Cycle ⭐</a></div>
+  <div class="di-item di-star"><a href="#d2">② Healthcare Ecosystem</a></div>
+  <div class="di-item"><a href="#d3">③ HIPAA &amp; PHI</a></div>
+  <div class="di-item"><a href="#d4">④ Health Plan Universe</a></div>
+  <div class="di-item di-star"><a href="#d5">⑤ Medicare Parts ⭐</a></div>
+  <div class="di-item di-star"><a href="#d6">⑥ HMO vs PPO ⭐</a></div>
+  <div class="di-item"><a href="#d7">⑦ Provider Hierarchy</a></div>
+  <div class="di-item di-star"><a href="#d8">⑧ Authorization Workflow ⭐</a></div>
+  <div class="di-item di-star"><a href="#d9">⑨ Medical Coding Stack ⭐</a></div>
+  <div class="di-item di-star"><a href="#d10">⑩ Claim Adjudication ⭐</a></div>
+  <div class="di-item di-power"><a href="#d11">⑪ Full Data Flow (DFD)</a></div>
+  <div class="di-item di-power"><a href="#d12">⑫ Entity Relationship (ERD)</a></div>
+  <div class="di-item di-power"><a href="#d13">⑬ 30-Second Mental Model</a></div>
+</div>
+
+<!-- ① -->
+<h2 id="d1">① The Entire Revenue Cycle ⭐</h2>
+<p>Every RCM conversation starts here. A member triggers a chain — if any link breaks, the claim fails.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  M([Member / Patient])
+  P([Provider])
+  A([Authorization])
+  S([Service Rendered])
+  C([Medical Coding])
+  CL([Claim Submission])
+  PY([Payer / Insurance])
+  AP([Approved ✓])
+  DN([Denied ✗])
+  APPEAL([Appeal])
+  PAY([Payment Posted])
+
+  M --> P
+  P --> A
+  A --> S
+  S --> C
+  C --> CL
+  CL --> PY
+  PY --> AP
+  PY --> DN
+  DN --> APPEAL
+  APPEAL --> PY
+  AP --> PAY
+
+  style M fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style PAY fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style DN fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style APPEAL fill:#FEF3C7,stroke:#92400E,color:#92400E
+  style AP fill:#DCFCE7,stroke:#166534,color:#166534
+</div></div>
+
+<!-- ② -->
+<h2 id="d2">② The Healthcare Ecosystem</h2>
+<p>Five actors, one system. The <strong>Member→Provider→Payer</strong> spine carries the money. Everything else supports it.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+  HC([US Healthcare System])
+
+  HC --> M[Member / Patient]
+  HC --> P[Provider]
+  HC --> PAY[Payer / Insurance]
+  HC --> S[Supplier]
+  HC --> R[Researcher]
+
+  M -->|seeks care| P
+  P -->|submits claim| PAY
+  S -->|provides equipment| P
+  R -->|improves treatment| HC
+
+  style HC fill:#1A2E44,stroke:#2563EB,color:#fff
+  style PAY fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style M fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style P fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+</div></div>
+
+<!-- ③ -->
+<h2 id="d3">③ HIPAA &amp; PHI — Who Governs What</h2>
+<p>HIPAA is the law. PHI is what it protects. Four entity types must comply — no exceptions.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+  HIPAA["HIPAA — Federal Privacy Law\n(enacted 1996, enforced by DHHS)"]
+
+  HIPAA --> HCP[Healthcare Providers]
+  HIPAA --> HCPN[Health Plans\n= Insurance Companies]
+  HIPAA --> HCCH[Clearing Houses\nstandardise billing data]
+  HIPAA --> BA[Business Associates\nthird-party vendors]
+
+  HIPAA --> PHI[Protected Health Information]
+
+  PHI --> SSN[SSN]
+  PHI --> MRN[Medical Record Number]
+  PHI --> DOB[Date of Birth]
+  PHI --> ADDR[Address / Zip Code]
+  PHI --> PHOTO[Photograph]
+  PHI --> DATES[Admission &amp; Discharge Dates]
+  PHI --> CONTACT[Phone / Contact Details]
+  PHI --> DOD[Date of Death]
+
+  style HIPAA fill:#1A2E44,stroke:#2563EB,color:#fff
+  style PHI fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+</div></div>
+
+<!-- ④ -->
+<h2 id="d4">④ Health Plan Universe</h2>
+<p>Two government plans (Medicare/Medicaid) cover the most lives. Four programs cover special populations. Get this taxonomy right first.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+  PLAN[Health Plans]
+
+  PLAN --> GOV[Government Plans]
+  PLAN --> PROG[Government Programs]
+
+  GOV --> MCR["MEDICARE\n65+ or disabled\n80% covered — federal"]
+  GOV --> MCD["MEDICAID\nBelow poverty line\n100% covered — state + federal"]
+
+  PROG --> TRICARE["TRICARE\nMilitary personnel\n&amp; dependents"]
+  PROG --> CHAMPVA["CHAMPVA\nWar veterans\n&amp; dependents"]
+  PROG --> NF["No-Fault Liability\nAccident injuries\nregardless of fault"]
+  PROG --> WC["Workers Comp\nWork-premises injuries"]
+
+  MCD --> LAST["Payer of Last Resort\nwhen member has\nmultiple coverages"]
+
+  style PLAN fill:#1A2E44,stroke:#2563EB,color:#fff
+  style MCR fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style MCD fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style LAST fill:#FEF3C7,stroke:#92400E,color:#92400E
+</div></div>
+
+<!-- ⑤ -->
+<h2 id="d5">⑤ Medicare Parts A B C D ⭐</h2>
+<p>Four parts, one program. Part C wraps A+B into a private plan. Part D adds drugs. MAPD = C+D together.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+  MCR[MEDICARE]
+
+  MCR --> A["Part A — Original\nHospital / Inpatient\nstays ≥ 24 hrs\npremium-free at 65+"]
+  MCR --> B["Part B — Original\nOutpatient / Medical\nservices &lt; 24 hrs\n+ DME — optional add-on"]
+  MCR --> C["Part C — Medicare Advantage\nA + B + extras\nDental · Vision · Hearing\nGym · Transport"]
+  MCR --> D["Part D — PDP\nPrescription Drugs\nVaccines — optional add-on"]
+
+  C --> MAPD["MAPD\nMedicare Advantage\nPrescription Drug Plan"]
+  D --> MAPD
+
+  style MCR fill:#1A2E44,stroke:#2563EB,color:#fff
+  style A fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style B fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style C fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style D fill:#CCFBF1,stroke:#0F766E,color:#1A2E44
+  style MAPD fill:#FEF3C7,stroke:#92400E,color:#92400E
+</div></div>
+
+<!-- ⑥ -->
+<h2 id="d6">⑥ HMO vs PPO — Managed Care Plans ⭐</h2>
+<p>HMO = cheaper, locked in. PPO = flexible, costs more. The trade-off is always freedom vs. price.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  MC[Managed Care Plans]
+  MC --> HMO
+  MC --> PPO
+  MC --> EPO
+  MC --> POS2[POS Plan]
+
+  HMO --> H1[Referral from PCP required]
+  HMO --> H2[In-Network ONLY]
+  HMO --> H3[Lowest cost share]
+
+  PPO --> P1[No referral needed]
+  PPO --> P2[Out-of-Network allowed]
+  PPO --> P3[Higher cost for OON\nlower cost for INN]
+
+  EPO --> E1[No referral needed]
+  EPO --> E2[In-Network ONLY\nno OON coverage]
+
+  POS2 --> PS1[Referral required]
+  POS2 --> PS2[OON allowed\nat higher cost]
+
+  style HMO fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style PPO fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style EPO fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style POS2 fill:#FEF3C7,stroke:#92400E,color:#1A2E44
+</div></div>
+
+<!-- ⑦ -->
+<h2 id="d7">⑦ Provider Hierarchy</h2>
+<p>Providers are either people (individual) or places (facility). PCP is always the first door a member walks through.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph TD
+  PROVIDER[Healthcare Providers]
+
+  PROVIDER --> IND[Individual Providers]
+  PROVIDER --> FAC[Facility Providers]
+
+  IND --> PCP["PCP — Primary Care Physician\nFirst point of contact\nGatekeeper to specialists"]
+  IND --> SPEC["Specialist\nReferred by PCP"]
+
+  FAC --> HOSP[Hospital\nInpatient &amp; emergency]
+  FAC --> SNF["SNF — Skilled Nursing Facility\nPost-surgical recovery\n+ ADL support"]
+  FAC --> ASC["ASC — Ambulatory Surgical Center\nSame-day surgery"]
+  FAC --> HH["Home Health\nCare delivered at home"]
+  FAC --> HOSPICE["Hospice\nTerminal illness\nend-of-life care"]
+
+  style PROVIDER fill:#1A2E44,stroke:#2563EB,color:#fff
+  style PCP fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style SPEC fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+</div></div>
+
+<!-- ⑧ -->
+<h2 id="d8">⑧ Authorization Workflow ⭐</h2>
+<p>The first authorization is a Referral. Every subsequent one is an Authorization. Miss either — claim denied.</p>
+<div class="mermaid-wrap"><div class="mermaid">sequenceDiagram
+  participant Member
+  participant PCP as PCP (Primary Care)
+  participant INS as Insurance / Payer
+  participant SPEC as Specialist
+
+  Member->>PCP: Visit — complaint / symptoms
+  PCP->>INS: Referral Request (1st-time authorization)
+  INS-->>PCP: Referral Approved + Auth Number
+  PCP->>SPEC: Refer Patient with Auth Number
+  SPEC->>INS: Authorization Request (for service)
+  INS-->>SPEC: Authorization Approved
+  SPEC->>Member: Treatment / Service Rendered
+  SPEC->>INS: Claim Submitted with Auth Number
+  INS-->>SPEC: EOB + Payment
+</div></div>
+
+<!-- ⑨ -->
+<h2 id="d9">⑨ Medical Coding Stack ⭐</h2>
+<p>One visit generates five code types. All five flow into the claim. Missing one = incomplete claim = denial risk.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph LR
+  VISIT([Patient Visit])
+
+  VISIT --> ICD["ICD Code\nDiagnosis / Disease\nAlphanumeric\ne.g. R51 Headache"]
+  VISIT --> CPT["CPT Code\nProcedure / Treatment\n5-digit numeric\ne.g. 99213 Office visit"]
+  VISIT --> HCPCS["HCPCS Code\nEquipment / Supplies\n5 alphanumeric\ne.g. E0265 Hospital bed"]
+  VISIT --> MOD["Modifier\nExtra clarity on CPT\n2 alphanumeric\ne.g. RT right side"]
+  VISIT --> POS["POS Code\nPlace of Service\n2 numeric\ne.g. 11 Office · 21 Hospital"]
+
+  ICD --> CLAIM([Claim])
+  CPT --> CLAIM
+  HCPCS --> CLAIM
+  MOD --> CLAIM
+  POS --> CLAIM
+
+  style VISIT fill:#1A2E44,stroke:#2563EB,color:#fff
+  style CLAIM fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style ICD fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style CPT fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style HCPCS fill:#CCFBF1,stroke:#0F766E,color:#1A2E44
+  style MOD fill:#FEF3C7,stroke:#92400E,color:#1A2E44
+  style POS fill:#FEE2E2,stroke:#991B1B,color:#1A2E44
+</div></div>
+
+<!-- ⑩ -->
+<h2 id="d10">⑩ Claim Adjudication &amp; Denial Logic ⭐</h2>
+<p>Three gates kill most claims. Every denial has an appeal path — but prevention beats appeals every time.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  CLAIM([Claim Submitted])
+
+  CLAIM --> G1{Filed within TFL?}
+  G1 -->|No — missed deadline| D1[Denial: Untimely Filing]
+  G1 -->|Yes| G2{Insurance active\non Date of Service?}
+
+  G2 -->|No — lapsed coverage| D2[Denial: Inactive Coverage]
+  G2 -->|Yes| G3{Authorization\npresent?}
+
+  G3 -->|No — never obtained| D3[Denial: No Authorization]
+  G3 -->|Yes — all checks pass| ADJ[Adjudication]
+
+  ADJ --> PAY[Payment Posted ✓]
+  ADJ --> PART[Partial Payment\nCOB / PR applied]
+
+  D1 --> APPEAL[Appeal Filed]
+  D2 --> APPEAL
+  D3 --> APPEAL
+  APPEAL --> PY[Payer Reviews]
+  PY -->|Overturned| ADJ
+  PY -->|Upheld| WRITE[Write-off / AR]
+
+  style CLAIM fill:#1A2E44,stroke:#2563EB,color:#fff
+  style PAY fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style D1 fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style D2 fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style D3 fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style APPEAL fill:#FEF3C7,stroke:#92400E,color:#92400E
+  style WRITE fill:#F3F4F6,stroke:#6B7280,color:#6B7280
+</div></div>
+
+<!-- ⑪ -->
+<h2 id="d11">⑪ Full Data Flow Diagram (DFD) — System-Level View</h2>
+<p>This is the whole system as a data map. Every process, data store, and actor. Pin this if you work in operations.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  MEMBER([Member / Patient])
+  PROVIDER([Provider])
+  PAYER([Insurance / Payer])
+  CODER([Medical Coder])
+  BILLER([Medical Biller])
+
+  P1[/P1: Eligibility\nVerification/]
+  P2[/P2: Authorization\n&amp; Referral/]
+  P3[/P3: Treatment\nRendered/]
+  P4[/P4: Medical\nCoding/]
+  P5[/P5: Claim\nGeneration/]
+  P6[/P6: Claim\nAdjudication/]
+  P7[/P7: Payment\nPosting/]
+  P8[/P8: Denial\nManagement/]
+
+  D1[(Member Record)]
+  D2[(Auth DB)]
+  D3[(Code Library\nICD · CPT · HCPCS)]
+  D4[(Claims Repo)]
+  D5[(EOB Repo)]
+  D6[(Accounts\nReceivable)]
+
+  MEMBER -->|Demographics\n+ Insurance| P1
+  P1 --> D1
+  P1 <-->|Eligibility check| PAYER
+  P1 --> P2
+  PROVIDER --> P2
+  P2 <-->|Auth request\n+ Auth number| PAYER
+  P2 --> D2
+  P2 --> P3
+  P3 -->|Clinical docs| P4
+  CODER --> P4
+  P4 --> D3
+  P4 -->|ICD + CPT + HCPCS| P5
+  BILLER --> P5
+  P5 --> D4
+  P5 -->|Claim| PAYER
+  PAYER -->|Approval / Denial / EOB| P6
+  P6 --> D5
+  P6 --> P7
+  P6 --> P8
+  P7 -->|Payment| D6
+  P7 --> PROVIDER
+  P8 <-->|Appeal /\nCorrected claim| PAYER
+
+  style MEMBER fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style PAYER fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style PROVIDER fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style D6 fill:#FEF3C7,stroke:#92400E,color:#1A2E44
+</div></div>
+
+<!-- ⑫ -->
+<h2 id="d12">⑫ Entity Relationship Diagram (ERD) — Data Model</h2>
+<p>The complete data model: every entity, every relationship. One Encounter generates one Claim. One Claim can generate many Denials. Each Denial can be challenged by an Appeal.</p>
+<div class="mermaid-wrap"><div class="mermaid">erDiagram
+  MEMBER ||--o{ ENCOUNTER : has
+  MEMBER ||--o{ POLICY : covered_by
+  PROVIDER ||--o{ ENCOUNTER : performs
+  PAYER ||--o{ POLICY : issues
+  ENCOUNTER ||--|| AUTHORIZATION : may_require
+  ENCOUNTER ||--o{ DIAGNOSIS : contains
+  ENCOUNTER ||--o{ PROCEDURE : contains
+  PROCEDURE ||--o{ HCPCS_ITEM : may_use
+  ENCOUNTER ||--|| CLAIM : generates
+  CLAIM }o--|| PAYER : submitted_to
+  CLAIM ||--|| EOB : produces
+  CLAIM ||--o{ DENIAL : may_receive
+  CLAIM ||--|| PAYMENT : receives
+  DENIAL ||--o{ APPEAL : challenged_by
+
+  MEMBER {
+    string member_id PK
+    string member_name
+    date dob
+    string insurance_id FK
+  }
+  PROVIDER {
+    string npi PK
+    string tin
+    string provider_name
+    string specialty
+  }
+  PAYER {
+    string payer_id PK
+    string payer_name
+    string plan_type
+  }
+  POLICY {
+    string policy_id PK
+    string plan_name
+    string network_type
+  }
+  ENCOUNTER {
+    string encounter_id PK
+    date dos
+    string place_of_service
+  }
+  AUTHORIZATION {
+    string auth_number PK
+    date start_date
+    date end_date
+    string status
+  }
+  DIAGNOSIS {
+    string icd_code PK
+    string description
+  }
+  PROCEDURE {
+    string cpt_code PK
+    string description
+    string modifier
+  }
+  HCPCS_ITEM {
+    string hcpcs_code PK
+    string equipment_name
+  }
+  CLAIM {
+    string claim_id PK
+    date submission_date
+    decimal billed_amount
+    string status
+  }
+  EOB {
+    string eob_id PK
+    decimal allowed_amount
+    decimal paid_amount
+    decimal patient_resp
+  }
+  DENIAL {
+    string denial_code PK
+    string denial_reason
+    string denial_type
+  }
+  APPEAL {
+    string appeal_id PK
+    date appeal_date
+    string status
+  }
+  PAYMENT {
+    string payment_id PK
+    decimal amount
+    date payment_date
+  }
+</div></div>
+
+<!-- ⑬ -->
+<h2 id="d13">⑬ The 30-Second Mental Model</h2>
+<p>This is the spine of everything. If you can trace a dollar from Member to Payment — and explain where it can get stuck — you understand RCM.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  M([Member])
+  POL([Policy])
+  AUTH([Authorization])
+  ENC([Encounter])
+  ICD([ICD Diagnosis])
+  CPT([CPT Procedure])
+  CLM([Claim])
+  PAY([Payer])
+  EOB([EOB])
+  PMT([Payment])
+  PR([Patient\nResponsibility])
+  DEN([Denial])
+  APP([Appeal])
+
+  M --> POL --> AUTH --> ENC
+  ENC --> ICD --> CLM
+  ENC --> CPT --> CLM
+  CLM --> PAY --> EOB
+  EOB --> PMT
+  EOB --> PR
+  CLM --> DEN --> APP --> CLM
+
+  style M fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style PMT fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style DEN fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style APP fill:#FEF3C7,stroke:#92400E,color:#92400E
+  style PAY fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style PR fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+</div></div>
+
+
+</div>
+
+<script>
+// Mermaid init
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#DBEAFE',
+    primaryTextColor: '#1A2E44',
+    primaryBorderColor: '#2563EB',
+    lineColor: '#6B7280',
+    secondaryColor: '#F3F4F6',
+    tertiaryColor: '#DCFCE7',
+    fontSize: '14px',
+    nodeBorder: '2px',
+    mainBkg: '#DBEAFE',
+    clusterBkg: '#F8FAFC',
+    // sequence diagram
+    actorBkg: '#1A2E44',
+    actorTextColor: '#ffffff',
+    actorBorder: '#2563EB',
+    activationBkgColor: '#DBEAFE',
+    activationBorderColor: '#2563EB',
+    signalColor: '#1A2E44',
+    signalTextColor: '#1A2E44',
+    labelBoxBkgColor: '#EDE9FE',
+    labelBoxBorderColor: '#5B21B6',
+    labelTextColor: '#5B21B6',
+    loopTextColor: '#1A2E44',
+    noteBorderColor: '#92400E',
+    noteBkgColor: '#FEF3C7',
+    noteTextColor: '#92400E',
+    // er diagram
+    attributeBackgroundColorEven: '#DBEAFE',
+    attributeBackgroundColorOdd: '#F3F4F6',
+    fillType0: '#DBEAFE',
+    fillType1: '#DCFCE7',
+    fillType2: '#EDE9FE',
+    fillType3: '#FEF3C7',
+    fillType4: '#CCFBF1',
+    fillType5: '#FEE2E2',
+  },
+  flowchart: {
+    htmlLabels: true,
+    curve: 'basis',
+    rankSpacing: 55,
+    nodeSpacing: 45,
+    padding: 18,
+  },
+  sequence: {
+    diagramMarginX: 20,
+    diagramMarginY: 10,
+    actorMargin: 60,
+    width: 150,
+    height: 50,
+    boxMargin: 10,
+    boxTextMargin: 5,
+    noteMargin: 10,
+    messageMargin: 35,
+    mirrorActors: false,
+    useMaxWidth: true,
+  },
+  er: {
+    diagramPadding: 20,
+    layoutDirection: 'TB',
+    minEntityWidth: 100,
+    minEntityHeight: 75,
+    entityPadding: 15,
+    useMaxWidth: true,
+  },
+});
+
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.querySelector('.progress-bar').style.width = pct + '%';
+});
+</script>
+</body>
+</html>
