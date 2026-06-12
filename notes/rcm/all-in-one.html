@@ -41,6 +41,8 @@ body {
   line-height: 1.7;
   color: var(--gray-dk);
   background: #F8FAFC;
+  margin-left: 240px;
+  transition: margin-left .25s ease;
 }
 
 /* ── COVER ── */
@@ -101,27 +103,6 @@ body {
   margin-top: 24px;
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 16px;
-}
-.cover-toc {
-  margin-top: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.cover-toc a {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.12);
-  transition: all 0.2s;
-}
-.cover-toc a:hover {
-  background: rgba(37,99,235,0.4);
-  color: white;
 }
 
 /* ── LAYOUT ── */
@@ -386,27 +367,122 @@ blockquote {
   z-index: 9999;
   transition: width 0.1s;
 }
+
+/* ── SIDE TOC ── */
+.toc-sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 240px;
+  height: 100vh;
+  background: var(--white);
+  border-right: 1px solid var(--gray-bd);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 50;
+  transition: width .25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.toc-sidebar.collapsed {
+  width: 44px;
+}
+.toc-inner {
+  padding: 48px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  transition: opacity .2s ease;
+}
+.toc-sidebar.collapsed .toc-inner {
+  opacity: 0;
+  pointer-events: none;
+}
+.toc-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-md);
+  white-space: nowrap;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-list a {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: var(--gray-md);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  overflow-wrap: anywhere;
+}
+.toc-list a:hover {
+  background: var(--blue-lt);
+  color: var(--navy);
+}
+.toc-list a.active {
+  border-left-color: var(--blue);
+  background: var(--blue-lt);
+  color: var(--navy);
+  font-weight: 600;
+}
+.toc-toggle {
+  position: fixed;
+  top: 18px;
+  left: 240px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gray-bd);
+  color: var(--gray-md);
+  cursor: pointer;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  transition: left .25s ease, color .15s, border-color .15s;
+  padding: 0;
+}
+.toc-toggle:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+@media (max-width: 768px) {
+  .toc-sidebar { display: none; }
+  body { margin-left: 0 !important; }
+}
 </style>
 </head>
 <body>
 <div class="progress-bar"></div>
 
+<aside class="toc-sidebar" id="toc-sidebar">
+  <div class="toc-inner">
+    <div class="toc-label">On this page</div>
+    <ul class="toc-list" id="toc-list"></ul>
+  </div>
+</aside>
+<button class="toc-toggle" id="toc-toggle" aria-label="toggle contents">‹</button>
+
 <div class="cover">
   <div class="cover-chip">Study Notes · 2026</div>
   <h1>Healthcare &<br>Medical Billing</h1>
   <div class="cover-subtitle">NOTES</div>
-  <div class="cover-toc">
-    <a href="#the-5-participants">5 Participants</a>
-    <a href="#hipaa--phi">HIPAA &amp; PHI</a>
-    <a href="#health-care-plans">Healthcare Plans</a>
-    <a href="#components-of-medicare">Medicare Parts</a>
-    <a href="#medicare-advantage--managed-care-plans">HMO / PPO</a>
-    <a href="#health-care-providers-2-types">Providers</a>
-    <a href="#medical-coding">Medical Coding</a>
-    <a href="#billing--claims-concepts">Claims &amp; Billing</a>
-    <a href="#patient-responsibility-pr">Patient Responsibility</a>
-    <a href="#quick-recall-cheat-sheet">Cheat Sheet</a>
-  </div>
+
   <div class="cover-meta">Created: 2026-06-05 &nbsp;·&nbsp; Tags: healthcare/us · medical-billing · rcm · study-notes</div>
 </div>
 
@@ -463,8 +539,9 @@ PHI --> DATES[Admission/Discharge Dates]
     GP --> W[Workers Compensation]</div></div>
 <h3 id="medicare-vs-medicaid">Medicare vs Medicaid</h3>
 <p>The fastest way to keep them straight: <strong>Medicare = age/disability (federal), Medicaid = poverty (state + federal).</strong></p>
-<div class="table-wrap"><table><thead><tr><th></th><th>🟦 <strong>MEDICARE</strong></th><th>🟩 <strong>MEDICAID</strong></th></tr></thead><tbody><tr><td><strong>Run by</strong></td><td>Federal government</td><td><strong>Joint</strong> state + federal (funded by state, monitored by federal). supervised by the state-gov and monitored by the fed-gov</td></tr><tr><td><strong>Covers</strong></td><td><strong>80%</strong> (rest = patient responsibility)</td><td><strong>100%</strong></td></tr><tr><td><strong>Mnemonic</strong></td><td>"Rich" / older</td><td>"Poor"</td></tr><tr><td><strong>Age criteria</strong></td><td>Must be <strong>65+</strong>, <em>or</em> disabled receiving <strong>24 months</strong> of Social Security checks, <em>or</em> paid <strong>40 quarters</strong> of federal tax (= 10 yrs US residency),</td><td><strong>No age limit</strong></td></tr><tr><td><strong>Who qualifies</strong></td><td>See above, ESRD</td><td>Poor, disabled, pregnant women, children, anyone <strong>below the federal poverty line</strong></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th></th><th>🟦 <strong>MEDICARE</strong></th><th>🟩 <strong>MEDICAID</strong></th></tr></thead><tbody><tr><td><strong>Run by</strong></td><td>Federal government</td><td><strong>Joint</strong> state + federal (funded by state, monitored by federal). supervised by the state-gov and monitored by the fed-gov</td></tr><tr><td><strong>Covers</strong></td><td><strong>80%</strong> (rest = patient responsibility)</td><td><strong>100%</strong></td></tr><tr><td><strong>Mnemonic</strong></td><td>"Rich" / older</td><td>"Poor"</td></tr><tr><td><strong>Age criteria</strong></td><td>Must be <strong>65+</strong>, <em>or</em> disabled receiving <strong>24 months</strong> of Social Security checks, <em>or</em> paid <strong>40 quarters</strong> of federal tax (= 10 yrs US residency),</td><td><strong>No age limit</strong></td></tr><tr><td><strong>Who qualifies</strong></td><td>See above, ESRD</td><td>Poor, disabled, pregnant women, children, anyone <strong>below the federal poverty line</strong></td></tr><tr><td><strong>Payer order</strong></td><td>Primary (usually)</td><td><strong>Last payer</strong> — payer of last resort</td></tr><tr><td><strong>Plan type</strong></td><td>Multiple (Parts A / B / C / D)</td><td><strong>HMO structure</strong></td></tr></tbody></table></div>
 <div class="callout callout-note"><div class="callout-title">📌 Two extra Medicaid facts buried in the notes</div><div class="callout-body"><ul><li>It's the <strong>last payer to pay</strong> when a member has multiple coverages (the "payer of last resort").</li><li>Also covers <strong>ESRD</strong> patients — End Stage Renal Disease.</li></ul></div></div>
+<div class="callout callout-note"><div class="callout-title">📌 Cross-reference: Medicaid = HMO</div><div class="callout-body"><p>Medicaid operates on an <strong>HMO structure</strong> — members are locked into a network, referrals are required, and no OON coverage. Knowing this makes HMO plan rules immediately applicable to Medicaid scenarios.</p></div></div>
 <h3 id="government-programs">Government Programs</h3>
 <p>Beyond Medicare/Medicaid, four programs cover special groups:</p>
 <div class="gov-programs-grid"><div class="gov-card"><h4>TRICARE</h4><p>Formerly <strong>CHAMPUS</strong> (Civilian Health And Medical Program of the Uniformed Services). Health insurance for <strong>military personnel</strong> — active, deceased, disabled, retirees, <strong>and their dependents (heirs).</strong> </p></div><div class="gov-card"><h4>CHAMPVA</h4><p>Civilian Health And Medical Program of the <strong>Department of Veterans Affairs</strong>. A health-benefit program covering care costs for <strong>war veterans</strong> — active, deceased, disabled, retiress, or partially disabled during war — <strong>and their dependents.</strong> </p></div><div class="gov-card"><h4>No-Fault Liability (Third-Party Insurance)</h4><p>Pays for care resulting from injury to a person <strong>or</strong> damage to property in an accident — <strong>regardless of who caused it.</strong> <mark>(add on, optional)</mark> </p></div><div class="gov-card"><h4>Workers' Compensation</h4><p>Covers injuries employees sustain <strong>on work premises (or elsewhere during active work hours).</strong></p></div></div>
@@ -486,6 +563,9 @@ PHI --> DATES[Admission/Discharge Dates]
 <h3 id="hmo-vs-ppo--the-comparison-that-gets-tested">HMO vs PPO — the comparison that gets tested</h3>
 <div class="table-wrap"><table><thead><tr><th></th><th><strong>PCP / Referral needed?</strong></th><th><strong>Can visit OON providers?</strong></th><th><strong>Cost share</strong></th></tr></thead><tbody><tr><td>🔵 <strong>HMO</strong></td><td>✅ YES</td><td>❌ NO (in-network <strong>only</strong>)</td><td><strong>Lower</strong></td></tr><tr><td>🟠 <strong>PPO</strong></td><td>❌ NO</td><td>✅ YES (<strong>flexible</strong>)</td><td><strong>Higher</strong> for OON, lower for INN</td></tr></tbody></table></div>
 <div class="callout callout-tip"><div class="callout-title">💡 One-liner</div><div class="callout-body"><p><strong>HMO = cheap but locked in. PPO = flexible but you pay for the freedom.</strong> HMO is less expensive; PPO is more expensive.</p></div></div>
+<h3 id="all-4-plan-types-compared">All 4 Plan Types — Full Comparison</h3>
+<div class="table-wrap"><table><thead><tr><th>Plan</th><th>PCP Required?</th><th>OON Coverage?</th><th>Cost-Share</th><th>Notes</th></tr></thead><tbody><tr><td><strong>HMO</strong></td><td>✅ Yes</td><td>❌ No</td><td><strong>Lower</strong> (≈60/40 copay)</td><td>Locked in — cheap</td></tr><tr><td><strong>PPO</strong></td><td>❌ No</td><td>✅ Yes (INN + OON)</td><td>Higher for OON · Lower for INN</td><td>Flexible — you pay for freedom</td></tr><tr><td><strong>EPO</strong></td><td>❌ No</td><td>❌ No OON ever</td><td>INN = Lower · OON = Higher</td><td>No referral needed, but INN-only</td></tr><tr><td><strong>POS</strong></td><td>✅ Yes</td><td>✅ Yes — with PCP referral</td><td>Same as HMO</td><td>HMO + limited OON escape hatch</td></tr></tbody></table></div>
+<div class="callout callout-warning"><div class="callout-title">⚡ Key exceptions — exam favourites</div><div class="callout-body"><ul><li>⛔ <strong>EPO</strong> will <strong>NOT</strong> cover OON specialists — period. No exceptions.</li><li>🔁 <strong>POS</strong> requires a PCP referral to access OON coverage.</li><li>✅ <strong>PPO &amp; EPO</strong> → verbal referrals are allowed (no formal paper referral needed).</li></ul></div></div>
 <hr>
 <h2 id="health-care-providers-2-types">🧑‍⚕️ Health Care Providers (2 types)</h2>
 <p>Providers split into <strong>people</strong> and <strong>places.</strong> Both bill, but they bill differently.</p>
@@ -517,7 +597,16 @@ PHI --> DATES[Admission/Discharge Dates]
 <ul><li><code>PCP → Insurance</code> = <strong>Referral call</strong></li><li><code>Specialist → Insurance</code> (for service)</li><li><code>Specialist → Insurance</code> (for authorization) = <strong>Authorization call</strong></li><li><code>Authorization → Doctor → Insurance</code></li></ul>
 <p><strong>4 ways to initiate an Authorization:</strong></p>
 <ol><li>☎️ <strong>Call</strong></li><li>💻 <strong>Portals</strong></li><li>📄 <strong>P.A. Form</strong> (Prior Authorization form)</li><li>📠 <strong>E-Fax</strong> (Electronic Fax)</li></ol>
+<h3 id="specialist-call-codes">Specialist Call Codes</h3>
+<div class="table-wrap"><table><thead><tr><th>Who calls</th><th>Action</th><th>CPT Range</th></tr></thead><tbody><tr><td><strong>PCP</strong></td><td>Calls insurance for a referral</td><td><code>9920x</code></td></tr><tr><td><strong>Specialist</strong></td><td>Calls insurance for authorization</td><td><code>9921x</code></td></tr></tbody></table></div>
 <div class="callout callout-info"><div class="callout-title">ℹ️ Provider naming zoo</div><div class="callout-body"><p>The same provider gets different labels by function: <strong>Requesting · Referring · Ordering · Servicing · Rendering</strong> provider. They overlap — context tells you which hat they're wearing.</p></div></div>
+<h3 id="pa-forms-3-provider-types">📄 PA Forms — Section A &amp; B</h3>
+<p>Every Prior Authorization form has two sides — the <strong>requesting side (A)</strong> and the <strong>treating side (B).</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Section</th><th>Provider Type(s)</th><th>Role</th></tr></thead><tbody><tr><td><strong>Section A</strong></td><td>1. Requesting · 2. Referring · 3. Ordering</td><td>Submits the PA form — all three labels are interchangeable here.</td></tr><tr><td><strong>Section B</strong></td><td>Servicing / Rendering Provider</td><td>The provider who will actually perform the service.</td></tr></tbody></table></div>
+<div class="mermaid-wrap"><div class="mermaid">graph LR
+    A["Section A\n(Requesting = Referring = Ordering)"] --> B["Section B\n(Servicing / Rendering Provider)"]
+    style A fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+    style B fill:#DCFCE7,stroke:#166534,color:#1A2E44</div></div>
 <hr>
 <h2 id="payment-modules-2-types">💰 Payment Modules (2 types)</h2>
 <p>How does a provider actually get paid? <strong>Two opposing philosophies</strong> — a flat retainer vs. pay-per-service.</p>
@@ -540,15 +629,16 @@ PHI --> DATES[Admission/Discharge Dates]
 <div class="callout callout-info"><div class="callout-title">ℹ️ TAT — Turn Around Time</div><div class="callout-body"><p>The <strong>time interval the adjudication team takes to decide</strong> whether to pay or deny a claim. <em>(TAT also applies to Authorization.)</em></p></div></div>
 <h3 id="providerclaim-identifiers">Provider/claim identifiers</h3>
 <div class="table-wrap"><table><thead><tr><th>ID</th><th>Full form</th><th>Format</th><th>Shared?</th></tr></thead><tbody><tr><td><strong>NPI</strong></td><td>National Provider Identifier</td><td><strong>10-digit</strong> unique</td><td>One per <strong>individual provider</strong></td></tr><tr><td><strong>TIN</strong></td><td>Tax Identification Number</td><td><strong>9-digit</strong></td><td><strong>Shared</strong> by multiple providers</td></tr></tbody></table></div>
+<p><small>📅 <strong>US Calendar Year:</strong> <code>01/01/20XX → 12/31/20XX</code> — deductibles and OOP reset on this cycle.</small></p>
 <h3 id="3-classic-reasons-for-denial">⛔ 3 classic reasons for denial</h3>
 <ol><li><strong>Untimely filing limit</strong> — claim filed after TFL.</li><li><strong>No active insurance</strong> for the <strong>Date of Service (DOS)</strong>.</li><li><strong>Provider never generated an Authorization.</strong></li></ol>
-<div class="callout callout-note"><div class="callout-title">📌 Appeal</div><div class="callout-body"><p>When a claim is wrongly denied, the provider files an <strong>Appeal</strong> to challenge it. <em>(Page header had this crossed out — but it's the natural counter to a denial.)</em></p></div></div>
+<div class="callout callout-abstract"><div class="callout-title">📌 Appeal — Formal Reconsideration</div><div class="callout-body"><p>A formal reconsideration request submitted by a <strong>provider OR a member</strong> to a health care plan, asking them to <strong>reverse a denied claim or authorization.</strong></p><ul><li><strong>Who can file:</strong> Provider <em>or</em> Member — both have the right.</li><li><strong>Trigger:</strong> A denial — of a claim or of an authorization.</li><li><strong>Outcomes:</strong> Plan <strong>Reverses</strong> → claim is paid &nbsp;·&nbsp; Plan <strong>Upholds</strong> → denial stands.</li></ul></div></div>
 <hr>
 <h2 id="common-terminology">🗂️ Common Terminology</h2>
 <p>A few acronyms recur in every claim conversation — lock these down.</p>
-<div class="callout callout-info"><div class="callout-title">ℹ️ COB — Coordination of Benefits</div><div class="callout-body"><p>The <strong>process of determining which payer</strong> is the member's <strong>primary, secondary, or tertiary</strong> — i.e. who takes financial responsibility, and in what order.</p></div></div>
-<div class="callout callout-info"><div class="callout-title">ℹ️ EOB — Explanation of Benefits</div><div class="callout-body"><p>A <strong>detailed summary of a processed claim</strong>, shared by the insurance with <strong>both the provider and the member.</strong></p></div></div>
-<div class="callout callout-info"><div class="callout-title">ℹ️ Dual Members</div><div class="callout-body"><p>Members eligible for <strong>both</strong> government plans at once: <strong>Medicare + Medicaid.</strong></p></div></div>
+<div class="callout callout-info"><div class="callout-title">ℹ️ COB — Coordination of Benefits</div><div class="callout-body"><p>The <strong>process of determining which payer</strong> is the member's <strong>primary, secondary, or tertiary</strong> — i.e. who takes financial responsibility, and in what order. Exists because some members carry 2+ plans simultaneously — COB prevents double-payment and ensures the provider gets fully reimbursed.</p><ol><li>🥇 <strong>Primary Payer</strong> — pays first (up to plan limits)</li><li>🥈 <strong>Secondary Payer</strong> — covers remainder from primary</li><li>🥉 <strong>Tertiary Payer</strong> — covers what secondary left</li><li>💳 <strong>Patient Responsibility</strong> — member pays any remaining balance</li></ol><p><strong>Classic scenario:</strong> Medicare (primary) + Medicaid (secondary) → Medicare pays first, Medicaid covers the remainder → Member out-of-pocket ≈ <strong>$0</strong>. This member is a <strong>Dual Member</strong> (see below).</p></div></div>
+<div class="callout callout-info"><div class="callout-title">ℹ️ EOB — Explanation of Benefits</div><div class="callout-body"><p>A <strong>detailed summary of a processed claim</strong>, shared by the insurance with <strong>both the provider and the member.</strong> <mark>EOB is NOT a bill</mark> — it is a statement of what happened after adjudication.</p><div class="table-wrap" style="margin:10px 0 0;"><table><thead><tr><th>EOB Field</th><th>What it shows</th></tr></thead><tbody><tr><td>Service rendered</td><td>What procedure was billed</td></tr><tr><td>Amount billed</td><td>What the provider charged</td></tr><tr><td>Amount allowed</td><td>What the plan contractually allows</td></tr><tr><td>Amount paid</td><td>What insurance actually paid</td></tr><tr><td>Patient responsibility</td><td>What the member owes</td></tr><tr><td>Denial reason</td><td>Why part or all was not paid (if applicable)</td></tr></tbody></table></div></div></div>
+<div class="callout callout-success"><div class="callout-title">✅ Dual Members</div><div class="callout-body"><p>Members eligible for <strong>both</strong> government plans simultaneously: <strong>Medicare + Medicaid.</strong></p><ul><li><strong>Who qualifies:</strong> Must satisfy <em>both</em> criteria at once — age 65+ or disabled (Medicare) <em>and</em> below the federal poverty line (Medicaid).</li><li><strong>Payer order:</strong> Medicare = primary &nbsp;·&nbsp; Medicaid = secondary (payer of last resort).</li><li><strong>Out-of-pocket:</strong> Near-zero — Medicaid covers what Medicare doesn't pay.</li></ul></div></div>
 <hr>
 <h2 id="patient-responsibility-pr">🧾 Patient Responsibility (PR)</h2>
 <p>After the insurer pays its share, <strong>what's left lands on the patient</strong> — roughly <strong>~20%</strong>. It comes in three flavors plus a ceiling.</p>
@@ -560,13 +650,19 @@ PHI --> DATES[Admission/Discharge Dates]
 <div class="callout callout-important"><div class="callout-title">⚠️ OOP — Out of Pocket</div><div class="callout-body"><p>The total ceiling on member spending:</p>
 <div class="math-inline">OOP = Deductible (PR-1) + Co-Insurance (PR-2) + Co-Pay (PR-3) + Non-Covered Charges</div>
 <p>Once OOP is hit, the insurance covers the rest.</p></div></div>
+<h3 id="pr-worked-examples">Worked Examples</h3>
+<div class="callout callout-blank"><div class="callout-title">📊 Co-Insurance example (80/20)</div><div class="callout-body"><p>Claim = <strong>$1,000</strong> · Co-insurance = <strong>80/20</strong><br>→ Insurance pays <strong>$800</strong> · Member pays <strong>$200</strong>.<br>The member learns the dollar amount only <em>after</em> the claim processes.</p></div></div>
+<div class="callout callout-blank"><div class="callout-title">💊 Co-Pay example</div><div class="callout-body"><p>Every specialist visit = <strong>$30 co-pay</strong> — fixed, regardless of what was done. Paid upfront at time of service, independent of whether the deductible has been met.</p></div></div>
+<div class="callout callout-blank"><div class="callout-title">🏦 Deductible — "fill the bucket first"</div><div class="callout-body"><p>Until the deductible threshold is reached, the member pays <strong>100% out-of-pocket.</strong> Once the bucket is full, insurance starts sharing cost. Resets every <strong>calendar year</strong> (Jan 1 → Dec 31).</p></div></div>
+<h3 id="pr-summary">PR Summary Table</h3>
+<div class="table-wrap"><table><thead><tr><th>Code</th><th>Term</th><th>Format</th><th>When known</th><th>Resets</th></tr></thead><tbody><tr><td><strong>PR-1</strong></td><td>Deductible</td><td>Fixed $ annual threshold</td><td>At plan enrollment</td><td>Annually</td></tr><tr><td><strong>PR-2</strong></td><td>Co-insurance</td><td>% split (e.g. 80/20)</td><td>After claim processes</td><td>Per claim</td></tr><tr><td><strong>PR-3</strong></td><td>Co-pay</td><td>Fixed $ per visit</td><td>At time of service</td><td>Per visit</td></tr><tr><td><strong>OOP</strong></td><td>Out of Pocket</td><td>Sum of all PRs + non-covered</td><td>After hitting ceiling</td><td>Annually</td></tr></tbody></table></div>
 <hr>
 <h2 id="quick-recall-cheat-sheet">🧠 Quick Recall Cheat Sheet</h2>
-<div class="callout callout-tip"><div class="callout-title">💡 If you remember nothing else</div><div class="callout-body"><ul><li><strong>Medicare = 65+/federal/80%</strong> · <strong>Medicaid = poor/state+federal/100%/last payer</strong></li><li><strong>Part A</strong> hospital · <strong>Part B</strong> outpatient+DME · <strong>Part C</strong> = A+B+extras · <strong>Part D</strong> drugs · <strong>MAPD</strong> = C+D</li><li><strong>HMO</strong> = referral + in-network only + cheap · <strong>PPO</strong> = no referral + OON allowed + pricey</li><li><strong>CPT</strong> = treatment (5 numeric) · <strong>ICD</strong> = disease (alphanumeric) · <strong>HCPCS</strong> = equipment · <strong>POS</strong> = where · <strong>Modifiers</strong> = clarity</li><li><strong>TFL</strong> = deadline to file · <strong>TAT</strong> = time to decide</li><li><strong>NPI</strong> = 10-digit, one provider · <strong>TIN</strong> = 9-digit, shared</li><li><strong>PR1</strong> Deductible · <strong>PR2</strong> Co-Insurance · <strong>PR3</strong> Co-Pay · <strong>OOP</strong> = all PRs + non-covered</li><li><strong>3 denials</strong>: late filing · no active insurance · no authorization</li></ul></div></div>
+<div class="callout callout-tip"><div class="callout-title">💡 If you remember nothing else</div><div class="callout-body"><ul><li><strong>Medicare = 65+/federal/80%</strong> · <strong>Medicaid = poor/state+federal/100%/last payer</strong></li><li><strong>Part A</strong> hospital · <strong>Part B</strong> outpatient+DME · <strong>Part C</strong> = A+B+extras · <strong>Part D</strong> drugs · <strong>MAPD</strong> = C+D</li><li><strong>HMO</strong> = referral + in-network only + cheap · <strong>PPO</strong> = no referral + OON allowed + pricey</li><li><strong>CPT</strong> = treatment (5 numeric) · <strong>ICD</strong> = disease (alphanumeric) · <strong>HCPCS</strong> = equipment · <strong>POS</strong> = where · <strong>Modifiers</strong> = clarity</li><li><strong>TFL</strong> = deadline to file · <strong>TAT</strong> = time to decide</li><li><strong>NPI</strong> = 10-digit, one provider · <strong>TIN</strong> = 9-digit, shared</li><li><strong>PR1</strong> Deductible · <strong>PR2</strong> Co-Insurance · <strong>PR3</strong> Co-Pay · <strong>OOP</strong> = all PRs + non-covered</li><li><strong>3 denials</strong>: late filing · no active insurance · no authorization</li><li><strong>PHI</strong>: name · DOB · SSN · MRN · address · phone · photos · admission/discharge/death dates</li><li><strong>HIPAA</strong>: 1996 · DHHS · 4 entities must comply: providers · health plans · HCCH · business associates</li><li><strong>EPO</strong>: no referral + INN only + no OON ever (absolute)</li><li><strong>POS</strong>: referral + INN primary + limited OON with referral</li><li><strong>COB</strong>: who pays first/second/third — primary → secondary → tertiary → patient</li><li><strong>EOB</strong>: processed claim summary → sent to provider + member · NOT a bill</li><li><strong>Dual Member</strong>: Medicare (primary) + Medicaid (secondary) simultaneously · OOP ≈ $0</li></ul></div></div>
 
 
 <hr>
-<h1 id="visual-reference-diagrams">🗺 Visual Reference — 13 Diagrams</h1>
+<h1 id="visual-reference-diagrams">🗺 Visual Reference — 17 Diagrams</h1>
 <p>These diagrams compress ~90% of the training material into visual form. <strong>Memorise the six starred ones</strong> and you'll follow most conversations on an RCM operations floor.</p>
 
 <div class="diagram-index">
@@ -583,6 +679,10 @@ PHI --> DATES[Admission/Discharge Dates]
   <div class="di-item di-power"><a href="#d11">⑪ Full Data Flow (DFD)</a></div>
   <div class="di-item di-power"><a href="#d12">⑫ Entity Relationship (ERD)</a></div>
   <div class="di-item di-power"><a href="#d13">⑬ 30-Second Mental Model</a></div>
+  <div class="di-item di-power"><a href="#d14">⑭ PA Form Flow</a></div>
+  <div class="di-item di-power"><a href="#d15">⑮ COB Payer Waterfall</a></div>
+  <div class="di-item di-power"><a href="#d16">⑯ Appeal Lifecycle</a></div>
+  <div class="di-item di-power"><a href="#d17">⑰ Deductible / OOP Bucket</a></div>
 </div>
 
 <!-- ① -->
@@ -1034,6 +1134,100 @@ PHI --> DATES[Admission/Discharge Dates]
   style PR fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
 </div></div>
 
+<!-- ⑭ -->
+<h2 id="d14">⑭ PA Form — Section A &amp; B Flow</h2>
+<p>Every Prior Authorization form separates the <strong>requesting side</strong> (who submits) from the <strong>treating side</strong> (who performs). All three labels in Section A are interchangeable — context decides which applies.</p>
+<div class="mermaid-wrap"><div class="mermaid">graph LR
+  A["Section A\n(Requesting Provider\n= Referring Provider\n= Ordering Provider)"]
+  B["Section B\n(Servicing Provider\n= Rendering Provider)"]
+  PAYER["Payer / Insurance"]
+  MEMBER["Member"]
+
+  A -->|"submits PA form"| PAYER
+  PAYER -->|"auth granted"| B
+  B -->|"performs service"| MEMBER
+
+  style A fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style B fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style PAYER fill:#1A2E44,stroke:#2563EB,color:#fff
+  style MEMBER fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+</div></div>
+
+<!-- ⑮ -->
+<h2 id="d15">⑮ COB — Payer Waterfall ⭐</h2>
+<p>When a member has multiple plans, this cascade decides who pays what. Medicaid is always last. Dual members often hit <strong>near-zero</strong> patient responsibility.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  CLAIM(["Claim Submitted"])
+  P1["Primary Payer\npays up to plan limits"]
+  P2["Secondary Payer\ncovers remainder from primary"]
+  P3["Tertiary Payer\ncovers what secondary left"]
+  PR["Patient Responsibility\nmember pays any balance"]
+  DUAL["Dual Member scenario\nMedicare primary + Medicaid secondary\nPR ≈ $0"]
+
+  CLAIM --> P1
+  P1 -->|"outstanding balance"| P2
+  P2 -->|"remaining"| P3
+  P3 -->|"final balance"| PR
+  P2 -.->|"e.g."| DUAL
+
+  style CLAIM fill:#1A2E44,stroke:#2563EB,color:#fff
+  style P1 fill:#DBEAFE,stroke:#2563EB,color:#1A2E44
+  style P2 fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style P3 fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style PR fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style DUAL fill:#FEF3C7,stroke:#92400E,color:#92400E
+</div></div>
+
+<!-- ⑯ -->
+<h2 id="d16">⑯ Appeal Lifecycle</h2>
+<p>Either the provider <em>or</em> the member can file. The plan reconsiders and either <strong>reverses</strong> (claim paid) or <strong>upholds</strong> (denial stands).</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  DENY["Denial\n(Claim or Authorization)"]
+  APPEAL["Appeal Filed\nby Provider or Member"]
+  PLAN["Health Care Plan\nReconsideration"]
+  REV["Reversed\nClaim Paid"]
+  UPHOLD["Upheld\nDenial Stands"]
+
+  DENY --> APPEAL
+  APPEAL --> PLAN
+  PLAN -->|"overturned"| REV
+  PLAN -->|"upheld"| UPHOLD
+
+  style DENY fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style APPEAL fill:#FEF3C7,stroke:#92400E,color:#92400E
+  style PLAN fill:#1A2E44,stroke:#2563EB,color:#fff
+  style REV fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style UPHOLD fill:#F3F4F6,stroke:#6B7280,color:#6B7280
+</div></div>
+
+<!-- ⑰ -->
+<h2 id="d17">⑰ Deductible &amp; OOP — The Cost Buckets</h2>
+<p>The member fills the deductible bucket first — then insurance shares via co-insurance. Once total spending hits the OOP ceiling, insurance covers <strong>100%</strong> for the rest of the year.</p>
+<div class="mermaid-wrap"><div class="mermaid">flowchart TD
+  COST(["Member Incurs Medical Cost"])
+  DED{"Deductible\nmet yet?"}
+  FULL["Member pays 100%\n(filling the bucket)"]
+  SHARE["Cost-share kicks in\n(Co-insurance % split)"]
+  OOP{"OOP ceiling\nhit?"}
+  PR["Member pays\nco-insurance %\n+ co-pay"]
+  COVER["Insurance covers 100%\nfor rest of calendar year"]
+
+  COST --> DED
+  DED -->|"Not yet"| FULL
+  FULL --> DED
+  DED -->|"Met"| SHARE
+  SHARE --> OOP
+  OOP -->|"Not yet"| PR
+  PR --> OOP
+  OOP -->|"Hit"| COVER
+
+  style COST fill:#1A2E44,stroke:#2563EB,color:#fff
+  style FULL fill:#FEE2E2,stroke:#991B1B,color:#991B1B
+  style COVER fill:#DCFCE7,stroke:#166534,color:#1A2E44
+  style PR fill:#EDE9FE,stroke:#5B21B6,color:#1A2E44
+  style SHARE fill:#FEF3C7,stroke:#92400E,color:#92400E
+</div></div>
+
 
 </div>
 
@@ -1115,6 +1309,63 @@ window.addEventListener('scroll', () => {
   const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
   document.querySelector('.progress-bar').style.width = pct + '%';
 });
+
+// Side TOC
+(function () {
+  const sidebar  = document.getElementById('toc-sidebar');
+  const toggle   = document.getElementById('toc-toggle');
+  const list     = document.getElementById('toc-list');
+  const TOC_KEY  = 'rcm-toc-collapsed';
+
+  // Build: concept h2s only — those that precede the Visual Reference h1
+  const fence    = document.getElementById('visual-reference-diagrams');
+  const allH2    = [...document.querySelectorAll('.content h2')];
+  const headings = fence
+    ? allH2.filter(h => !(fence.compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING))
+    : allH2;
+
+  headings.forEach((h, i) => {
+    if (!h.id) h.id = 'toc-h-' + i;
+    const li = document.createElement('li');
+    const a  = document.createElement('a');
+    a.href        = '#' + h.id;
+    a.textContent = h.textContent;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  // Collapse toggle + localStorage persistence
+  let collapsed = localStorage.getItem(TOC_KEY) === 'true';
+
+  function applyState() {
+    const w = collapsed ? 44 : 240;
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.textContent    = collapsed ? '›' : '‹';
+    toggle.style.left     = w + 'px';
+    document.body.style.marginLeft = w + 'px';
+  }
+
+  toggle.addEventListener('click', () => {
+    collapsed = !collapsed;
+    localStorage.setItem(TOC_KEY, collapsed);
+    applyState();
+  });
+
+  applyState();
+
+  // Scroll-spy: highlight the last heading scrolled past
+  const links = [...list.querySelectorAll('a')];
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    headings.forEach(h => {
+      if (h.getBoundingClientRect().top < 140) current = h.id;
+    });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>

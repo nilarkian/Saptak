@@ -274,3 +274,451 @@
   text: "The three patient responsibility codes in order are: PR-1 (Deductible), PR-2 (Co-insurance), and PR-3 (____)."
   answer: "Co-pay"
   accept: ["copay", "co-payment", "copayment"]
+
+# ── PARTICIPANTS (extended) ───────────────────────────────────────────────────
+
+- id: bl-supplier-def
+  cat: Participants
+  text: "A ____ supplies medical equipment and materials used to treat or prevent illness, such as wheelchairs and hospital beds."
+  answer: "Supplier"
+  accept: []
+
+- id: bl-researcher-def
+  cat: Participants
+  text: "A ____ conducts experiments and studies to advance human health; they access PHI under HIPAA research exemptions."
+  answer: "Researcher"
+  accept: []
+
+- id: bl-spine-participants
+  cat: Participants
+  text: "In the RCM spine, money flows from Member → Provider → ____."
+  answer: "Payer"
+  accept: ["insurer", "insurance company"]
+
+- id: bl-business-associate
+  cat: Participants
+  text: "A ____ is a third party working on behalf of a covered entity (plan, provider, or HCCH) that must also follow HIPAA."
+  answer: "Business Associate"
+  accept: ["business associate"]
+
+- id: bl-individual-vs-facility
+  cat: Participants
+  text: "Healthcare providers split into two types: ____ providers (PCP, Specialist) and Facility providers (Hospital, SNF, ASC)."
+  answer: "Individual"
+  accept: ["individual providers"]
+
+# ── HIPAA (extended) ─────────────────────────────────────────────────────────
+
+- id: bl-dhhs
+  cat: HIPAA
+  text: "HIPAA is enforced by the ____, the federal department that also administers Medicare and Medicaid."
+  answer: "DHHS"
+  accept: ["department of health and human services"]
+
+- id: bl-phi-ssn
+  cat: HIPAA
+  text: "A patient's ____ is classified as PHI because it can uniquely identify an individual."
+  answer: "SSN"
+  accept: ["social security number"]
+
+- id: bl-phi-mrn
+  cat: HIPAA
+  text: "A patient's ____ — the unique ID assigned by a facility to track records — is classified as PHI under HIPAA."
+  answer: "MRN"
+  accept: ["medical record number"]
+
+- id: bl-phi-dob
+  cat: HIPAA
+  text: "A patient's date of ____ is PHI and is used to verify Medicare eligibility (65+ rule)."
+  answer: "birth"
+  accept: ["dob", "date of birth"]
+
+- id: bl-phi-photo
+  cat: HIPAA
+  text: "A patient's ____ is classified as PHI because it can directly identify the individual."
+  answer: "photograph"
+  accept: ["photo", "picture"]
+
+- id: bl-phi-admission-date
+  cat: HIPAA
+  text: "Dates of ____, discharge, and death are all classified as PHI under HIPAA."
+  answer: "admission"
+  accept: ["admittance"]
+
+- id: bl-hipaa-purpose
+  cat: HIPAA
+  text: "HIPAA is a federal ____ law — it forces member health information to stay confidential and private."
+  answer: "privacy"
+  accept: []
+
+- id: bl-hcch-function
+  cat: HIPAA
+  text: "The HCCH receives ____ data from providers, standardizes it into EDI format, and forwards it to payers."
+  answer: "non-standardized"
+  accept: ["unstandardized", "raw"]
+
+# ── PAYERS (extended) ─────────────────────────────────────────────────────────
+
+- id: bl-medicare-run-by
+  cat: Payers
+  text: "Medicare is run by the ____ government, while Medicaid is jointly run by state and federal."
+  answer: "federal"
+  accept: []
+
+- id: bl-medicaid-state
+  cat: Payers
+  text: "Medicaid is ____ by the state government and monitored by the federal government."
+  answer: "supervised"
+  accept: ["administered", "managed"]
+
+- id: bl-part-b
+  cat: Payers
+  text: "Medicare Part B covers ____ services — visits and procedures lasting less than 24 hours — plus DME."
+  answer: "outpatient"
+  accept: ["medical", "outpatient medical"]
+
+- id: bl-part-c
+  cat: Payers
+  text: "Medicare Part C, also called Medicare ____ Plan, bundles Part A, Part B, and optional extras like dental and vision."
+  answer: "Advantage"
+  accept: ["medicare advantage"]
+
+- id: bl-part-a-threshold
+  cat: Payers
+  text: "Medicare Part A covers inpatient hospital stays of ____ hours or more."
+  answer: "24"
+  accept: ["twenty-four"]
+
+- id: bl-tricare-formerly
+  cat: Payers
+  text: "TRICARE was formerly known as ____, which stood for Civilian Health And Medical Program of the Uniformed Services."
+  answer: "CHAMPUS"
+  accept: []
+
+- id: bl-tricare-who
+  cat: Payers
+  text: "TRICARE covers active duty, deceased, disabled, and retired ____ personnel and their dependents."
+  answer: "military"
+  accept: ["military service"]
+
+- id: bl-champva-who
+  cat: Payers
+  text: "CHAMPVA covers war ____ and their eligible dependents; it is administered by the Department of Veterans Affairs."
+  answer: "veterans"
+  accept: ["veteran", "vets"]
+
+- id: bl-no-fault
+  cat: Payers
+  text: "No-Fault Liability insurance covers medical costs resulting from accidents regardless of who caused them — also called ____-party insurance."
+  answer: "third"
+  accept: ["third-party"]
+
+- id: bl-workers-comp
+  cat: Payers
+  text: "____ Compensation covers injuries employees sustain on work premises or during active working hours."
+  answer: "Workers"
+  accept: ["worker's", "workers'"]
+
+- id: bl-medicaid-no-age
+  cat: Payers
+  text: "Unlike Medicare, Medicaid has ____ age limit — it covers the poor, disabled, and pregnant women of any age."
+  answer: "no"
+  accept: []
+
+- id: bl-dme-part
+  cat: Payers
+  text: "Durable Medical Equipment is billed under Medicare Part ____."
+  answer: "B"
+  accept: ["part b"]
+
+- id: bl-medicare-40-quarters
+  cat: Payers
+  text: "One path to Medicare eligibility is having paid ____ quarters of federal taxes (10 years of US residency)."
+  answer: "40"
+  accept: ["forty"]
+
+# ── MANAGED CARE (extended) ───────────────────────────────────────────────────
+
+- id: bl-hmo-cost
+  cat: ManagedCare
+  text: "An HMO has the ____ cost-share of all managed care plan types."
+  answer: "lowest"
+  accept: ["lower", "cheapest"]
+
+- id: bl-ppo-flexibility
+  cat: ManagedCare
+  text: "A PPO is the most ____ managed care plan — no referral needed and out-of-network care is permitted."
+  answer: "flexible"
+  accept: ["freedom"]
+
+- id: bl-epo-oon-absolute
+  cat: ManagedCare
+  text: "An EPO will ____ cover out-of-network providers — not even at higher cost. There are no exceptions."
+  answer: "never"
+  accept: ["not"]
+
+- id: bl-hmo-full
+  cat: ManagedCare
+  text: "HMO stands for Health ____ Organization."
+  answer: "Maintenance"
+  accept: ["health maintenance"]
+
+- id: bl-ppo-full
+  cat: ManagedCare
+  text: "PPO stands for ____ Provider Organization."
+  answer: "Preferred"
+  accept: ["preferred provider"]
+
+- id: bl-epo-full
+  cat: ManagedCare
+  text: "EPO stands for ____ Provider Organization."
+  answer: "Exclusive"
+  accept: ["exclusive provider"]
+
+- id: bl-pos-full
+  cat: ManagedCare
+  text: "POS stands for Point of ____."
+  answer: "Service"
+  accept: []
+
+- id: bl-medicaid-hmo
+  cat: ManagedCare
+  text: "Medicaid operates on an ____ structure — members must use a network, referrals are required, and no OON coverage."
+  answer: "HMO"
+  accept: ["hmo"]
+
+# ── PROVIDERS (extended) ──────────────────────────────────────────────────────
+
+- id: bl-asc-def
+  cat: Providers
+  text: "An ____ is a same-day surgical center where the patient is admitted and discharged on the same day."
+  answer: "ASC"
+  accept: ["ambulatory surgical center"]
+
+- id: bl-asc-pos
+  cat: Providers
+  text: "The Place of Service code for an ASC (Ambulatory Surgical Center) is ____."
+  answer: "24"
+  accept: []
+
+- id: bl-home-health
+  cat: Providers
+  text: "____ agencies deliver medical services to patients at home based on written care plans."
+  answer: "Home Health"
+  accept: ["home health agency"]
+
+- id: bl-hospice-def
+  cat: Providers
+  text: "____ care is for terminally ill patients in their final stages; it focuses on comfort rather than cure."
+  answer: "Hospice"
+  accept: []
+
+- id: bl-inn-vs-oon
+  cat: Providers
+  text: "A provider who has a contract with the payer is called ____ (participating); one without a contract is out-of-network."
+  answer: "in-network"
+  accept: ["inn", "in network", "participating"]
+
+- id: bl-npi-shared
+  cat: Providers
+  text: "The NPI is unique to one individual provider, while the ____ is a 9-digit tax ID shared across multiple providers in an organization."
+  answer: "TIN"
+  accept: ["tax identification number"]
+
+- id: bl-pa-section-a
+  cat: Providers
+  text: "On a Prior Authorization form, Section A is completed by the ____, Referring, or Ordering provider."
+  answer: "Requesting"
+  accept: ["requesting provider"]
+
+- id: bl-pa-section-b
+  cat: Providers
+  text: "On a Prior Authorization form, Section B is completed by the ____ / Rendering provider who will perform the service."
+  answer: "Servicing"
+  accept: ["rendering", "servicing provider"]
+
+- id: bl-auth-first
+  cat: Providers
+  text: "The ____ is the first-time authorization — initiated when a PCP calls the insurance to refer a member to a specialist."
+  answer: "Referral"
+  accept: ["referral call"]
+
+- id: bl-auth-methods
+  cat: Providers
+  text: "Four ways to initiate an authorization: call, portal, P.A. form, and ____."
+  answer: "e-fax"
+  accept: ["efax", "electronic fax", "fax"]
+
+# ── CODING (extended) ─────────────────────────────────────────────────────────
+
+- id: bl-cpt-new-patient
+  cat: Coding
+  text: "CPT codes ____ through 99205 are used for new patient office visits."
+  answer: "99202"
+  accept: []
+
+- id: bl-cpt-established
+  cat: Coding
+  text: "CPT codes 99212 through ____ are used for established patient (follow-up) office visits."
+  answer: "99215"
+  accept: []
+
+- id: bl-modifier-rt
+  cat: Coding
+  text: "The modifier ____ indicates the service was performed on the right side of the body."
+  answer: "RT"
+  accept: []
+
+- id: bl-modifier-lt
+  cat: Coding
+  text: "The modifier ____ indicates the service was performed on the left side of the body."
+  answer: "LT"
+  accept: []
+
+- id: bl-modifier-50
+  cat: Coding
+  text: "Modifier ____ indicates a bilateral procedure — the same procedure performed on both sides."
+  answer: "50"
+  accept: []
+
+- id: bl-cpt-pcp-range
+  cat: Coding
+  text: "When a PCP calls the insurance to initiate a referral, the relevant CPT range is ____."
+  answer: "9920x"
+  accept: ["99202-99205", "99202"]
+
+- id: bl-cpt-specialist-range
+  cat: Coding
+  text: "When a Specialist calls the insurance to request authorization, the relevant CPT range is ____."
+  answer: "9921x"
+  accept: ["99212-99215", "99212"]
+
+- id: bl-icd-headache
+  cat: Coding
+  text: "The ICD code for headache is ____."
+  answer: "R51"
+  accept: []
+
+- id: bl-hcpcs-hospital-bed
+  cat: Coding
+  text: "The HCPCS code E0265 represents a ____."
+  answer: "hospital bed"
+  accept: ["bed"]
+
+- id: bl-cpt-full-form
+  cat: Coding
+  text: "CPT stands for Current ____ Terminology."
+  answer: "Procedural"
+  accept: ["procedure"]
+
+- id: bl-icd-full-form
+  cat: Coding
+  text: "ICD stands for International ____ of Disease."
+  answer: "Classification"
+  accept: []
+
+# ── CLAIMS (extended) ─────────────────────────────────────────────────────────
+
+- id: bl-tat
+  cat: Claims
+  text: "The ____ is the time the adjudication team takes to decide whether to pay, deny, or pend a claim."
+  answer: "TAT"
+  accept: ["turn around time", "turnaround time"]
+
+- id: bl-eob-not-bill
+  cat: Claims
+  text: "The EOB is ____ a bill — it is a statement showing what the insurance paid, allowed, and denied."
+  answer: "not"
+  accept: ["not a bill"]
+
+- id: bl-appeal-reverse
+  cat: Claims
+  text: "When an appeal is overturned, the denial is ____ and the claim is paid."
+  answer: "reversed"
+  accept: ["overturned"]
+
+- id: bl-appeal-upheld
+  cat: Claims
+  text: "When a payer agrees with its original decision after an appeal, the denial is ____ and the balance may be written off."
+  answer: "upheld"
+  accept: []
+
+- id: bl-dual-member
+  cat: Claims
+  text: "A ____ member is simultaneously eligible for both Medicare (primary) and Medicaid (secondary), resulting in near-zero out-of-pocket costs."
+  answer: "Dual"
+  accept: ["dual eligible"]
+
+- id: bl-cob-primary
+  cat: Claims
+  text: "In a COB scenario with Medicare and Medicaid, Medicare is the ____ payer and pays first."
+  answer: "primary"
+  accept: []
+
+- id: bl-write-off
+  cat: Claims
+  text: "A ____ is an AR adjustment made when a denied claim cannot be recovered through appeals."
+  answer: "write-off"
+  accept: ["writeoff", "write off"]
+
+- id: bl-dos
+  cat: Claims
+  text: "The ____ is the date the medical service was actually performed; it must fall within the member's active coverage period."
+  answer: "DOS"
+  accept: ["date of service"]
+
+- id: bl-denial-inactive
+  cat: Claims
+  text: "One of the three classic denial reasons is that the member had no active ____ on the date of service."
+  answer: "insurance"
+  accept: ["coverage", "insurance coverage"]
+
+- id: bl-adj-process
+  cat: Claims
+  text: "____ is the process a payer uses to evaluate a claim and determine whether to pay, partially pay, or deny it."
+  answer: "Adjudication"
+  accept: []
+
+# ── PATIENT RESPONSIBILITY (extended) ────────────────────────────────────────
+
+- id: bl-oop-formula
+  cat: PatientResp
+  text: "OOP = Deductible + Co-Insurance + Co-Pay + ____ Charges."
+  answer: "Non-Covered"
+  accept: ["non covered", "uncovered"]
+
+- id: bl-deductible-reset
+  cat: PatientResp
+  text: "The deductible resets every ____ year — on January 1st."
+  answer: "calendar"
+  accept: []
+
+- id: bl-coinsurance-timing
+  cat: PatientResp
+  text: "The exact dollar amount of co-insurance is only known ____ the claim is processed by the payer."
+  answer: "after"
+  accept: []
+
+- id: bl-copay-timing
+  cat: PatientResp
+  text: "Unlike co-insurance, a co-pay is collected ____ (at the time of service), before the claim is even submitted."
+  answer: "upfront"
+  accept: ["up front", "up-front", "before service"]
+
+- id: bl-coinsurance-example
+  cat: PatientResp
+  text: "In an 80/20 co-insurance split on a $1,000 claim, the insurance pays $800 and the patient pays ____."
+  answer: "$200"
+  accept: ["200", "200 dollars"]
+
+- id: bl-deductible-first
+  cat: PatientResp
+  text: "Until the deductible threshold is reached, the member pays ____% of medical costs out-of-pocket."
+  answer: "100"
+  accept: ["one hundred"]
+
+- id: bl-oop-after
+  cat: PatientResp
+  text: "Once the OOP maximum is hit, the insurance covers ____% of further covered costs for the rest of the calendar year."
+  answer: "100"
+  accept: ["one hundred"]

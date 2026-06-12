@@ -50,7 +50,7 @@ body{font-family:var(--font);font-size:14px;line-height:1.6;color:var(--gray-dk)
 .cat-chip:hover,.cat-chip.on{background:rgba(37,99,235,.45);border-color:rgba(37,99,235,.6);color:#fff}
 
 /* ── MAIN ── */
-.main{max-width:780px;margin:0 auto;padding:28px 20px 80px}
+.main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 
 /* ── TOOLBAR ── */
 .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
@@ -62,7 +62,7 @@ body.dark .results-label strong{color:#E5E7EB}
 .btn-quiz-all.off:hover{border-color:var(--blue);color:var(--blue)}
 
 /* ── DIFF CARDS GRID ── */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:16px}
 @media(max-width:700px){.cards-grid{grid-template-columns:1fr}}
 
 /* ── DIFF CARD ── */
@@ -78,23 +78,22 @@ body.dark .diff-card{background:#1F2937;border-color:var(--gray-bd)}
 .dc-quiz-btn:hover,.diff-card.quiz-on .dc-quiz-btn{background:var(--blue);border-color:var(--blue);color:#fff}
 .dc-title{font-size:15px;font-weight:800;color:var(--navy);padding:10px 16px 0}
 body.dark .dc-title{color:#E5E7EB}
-.dc-labels{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:6px 16px 0}
-.dc-lbl{font-size:11px;font-weight:700;color:var(--blue);font-family:var(--mono)}
-.dc-lbl:last-child{text-align:right;color:var(--gray-md)}
-
-/* table */
-.diff-table{width:100%;border-collapse:collapse;margin:8px 0 0}
-.diff-table td{padding:8px 16px;font-size:12px;border-top:1px solid var(--gray-bd);vertical-align:top;line-height:1.5}
-.diff-table td:first-child{color:var(--gray-md);font-family:var(--mono);font-size:11px;width:32%;border-right:1px solid var(--gray-bd)}
-.diff-table td.diff-a{color:var(--gray-dk);width:34%}
-body.dark .diff-table td.diff-a{color:#E5E7EB}
-.diff-table td.diff-b{color:var(--gray-dk);width:34%}
-body.dark .diff-table td.diff-b{color:#E5E7EB}
-
-/* blur state */
-.diff-b.blurred{filter:blur(5px);cursor:pointer;user-select:none;transition:filter .15s}
-.diff-b.blurred:hover{filter:blur(2px)}
-.diff-b.revealed{filter:none !important;cursor:default}
+/* ── 2-COLUMN EXAM LAYOUT ── */
+.dc-2col{display:grid;grid-template-columns:1fr 1fr}
+.dc-col-a{border-top:1px solid var(--gray-bd);border-right:1px solid var(--gray-bd)}
+.dc-col-b{border-top:1px solid var(--gray-bd)}
+.dc-col-hdr{font-size:10.5px;font-weight:800;padding:7px 14px 6px;border-bottom:1px solid var(--gray-bd);font-family:var(--mono);text-transform:uppercase;letter-spacing:.6px;background:var(--blue-lt);color:var(--blue)}
+body.dark .dc-col-hdr{background:rgba(37,99,235,.12)}
+.dc-col-b .dc-col-hdr{background:var(--gray-lt);color:var(--gray-md)}
+body.dark .dc-col-b .dc-col-hdr{background:rgba(255,255,255,.04);color:#9CA3AF}
+.dc-row{padding:9px 14px;border-bottom:1px solid var(--gray-bd)}
+.dc-row:last-child{border-bottom:none}
+.dc-row-dim{font-size:9.5px;font-weight:700;color:var(--gray-md);font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.dc-row-val{font-size:12.5px;color:var(--gray-dk);line-height:1.55}
+body.dark .dc-row-val{color:#E5E7EB}
+.dc-row-val.blurred{filter:blur(5px);cursor:pointer;user-select:none;transition:filter .15s}
+.dc-row-val.blurred:hover{filter:blur(2px)}
+.dc-row-val.revealed{filter:none !important;cursor:default}
 
 /* tip footer */
 .dc-tip{padding:10px 16px 14px;font-size:12px;color:var(--gray-md);line-height:1.5;border-top:1px solid var(--gray-bd);background:var(--gray-lt)}
@@ -240,24 +239,39 @@ function renderCard(d, q) {
     '</button>' +
   '</div>';
 
-  /* title + labels */
+  /* title */
   h += '<div class="dc-title">' + hi(d.title, q) + '</div>';
-  h += '<div class="dc-labels"><span class="dc-lbl">' + hi(d.a_label, q) + '</span><span class="dc-lbl">' + hi(d.b_label, q) + '</span></div>';
 
-  /* table */
-  h += '<table class="diff-table">';
+  /* 2-column exam layout */
+  h += '<div class="dc-2col">';
+
+  /* Column A — always visible */
+  h += '<div class="dc-col dc-col-a">';
+  h += '<div class="dc-col-hdr">' + hi(d.a_label, q) + '</div>';
+  d.rows.forEach(function(row) {
+    h += '<div class="dc-row">' +
+      '<div class="dc-row-dim">' + hi(row.dim, q) + '</div>' +
+      '<div class="dc-row-val revealed">' + hi(row.a, q) + '</div>' +
+    '</div>';
+  });
+  h += '</div>';
+
+  /* Column B — blurred in quiz mode, reveal row-by-row */
+  h += '<div class="dc-col dc-col-b">';
+  h += '<div class="dc-col-hdr">' + hi(d.b_label, q) + '</div>';
   d.rows.forEach(function(row, ri) {
     var cellKey = d.id + '_' + ri;
     var revealed = !!cellRevealed[cellKey];
-    var bClass = 'diff-b' + (quiz && !revealed ? ' blurred' : ' revealed');
+    var valClass = 'dc-row-val' + (quiz && !revealed ? ' blurred' : ' revealed');
     var clickAttr = (quiz && !revealed) ? ' onclick="event.stopPropagation();revealCell(\'' + esc(cellKey) + '\')"' : '';
-    h += '<tr>' +
-      '<td>' + hi(row.dim, q) + '</td>' +
-      '<td class="diff-a">' + hi(row.a, q) + '</td>' +
-      '<td class="' + bClass + '"' + clickAttr + ' title="' + (quiz && !revealed ? 'Click to reveal' : '') + '">' + hi(row.b, q) + '</td>' +
-    '</tr>';
+    h += '<div class="dc-row">' +
+      '<div class="dc-row-dim">' + hi(row.dim, q) + '</div>' +
+      '<div class="' + valClass + '"' + clickAttr + (quiz && !revealed ? ' title="Click to reveal"' : '') + '>' + hi(row.b, q) + '</div>' +
+    '</div>';
   });
-  h += '</table>';
+  h += '</div>';
+
+  h += '</div>'; /* /dc-2col */
 
   /* tip */
   if (d.tip) {
@@ -303,22 +317,16 @@ function toggleAllQuiz(on) {
 
 function revealCell(cellKey) {
   cellRevealed[cellKey] = true;
-  /* DOM patch — faster than full re-render */
-  var items = filtered();
-  var q = st.q.trim();
   var parts = cellKey.split('_');
   var ri = parseInt(parts[parts.length - 1], 10);
   var id = parts.slice(0, -1).join('_');
-  var d = DIFFS.filter(function(x) { return x.id === id; })[0];
-  if (!d) return render();
-  /* Find cell and update */
   var card = document.getElementById('dc-' + id);
   if (!card) return render();
-  var cells = card.querySelectorAll('td.diff-b');
-  if (cells[ri]) {
-    cells[ri].className = 'diff-b revealed';
-    cells[ri].removeAttribute('onclick');
-    cells[ri].removeAttribute('title');
+  var vals = card.querySelectorAll('.dc-col-b .dc-row-val');
+  if (vals[ri]) {
+    vals[ri].className = 'dc-row-val revealed';
+    vals[ri].removeAttribute('onclick');
+    vals[ri].removeAttribute('title');
   }
 }
 

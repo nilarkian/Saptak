@@ -150,3 +150,71 @@
 - term: "OON"
   full: "Out-of-Network"
   def: "A provider without a contract with the payer (non-participating); members pay higher cost-sharing or full cost for out-of-network services."
+
+- term: "PA"
+  full: "Prior Authorization"
+  def: "A designated permission a provider requests from the health care plan before performing a service; required by most managed care plans for high-cost or complex procedures."
+
+- term: "PDP"
+  full: "Prescription Drug Plan"
+  def: "Medicare Part D — an optional add-on (or standalone plan) covering prescription medications and vaccines; often bundled with Part C into a MAPD plan."
+
+- term: "MA"
+  full: "Medicare Advantage"
+  def: "Medicare Part C — a private plan that bundles Part A, Part B, and optional extras (dental, vision, gym) administered by CMS-contracted private insurers."
+
+- term: "PMPM"
+  full: "Per Member Per Month"
+  def: "The fixed monthly capitation payment a provider receives for each enrolled member regardless of the number of visits; same concept as PHPM."
+
+- term: "MRN"
+  full: "Medical Record Number"
+  def: "A unique identifier assigned by a healthcare facility to track a patient's records; classified as PHI under HIPAA."
+
+- term: "SSN"
+  full: "Social Security Number"
+  def: "A 9-digit US government identifier; listed as PHI under HIPAA because it can be used to identify an individual member."
+
+- term: "DOB"
+  full: "Date of Birth"
+  def: "A member's birth date; classified as PHI under HIPAA and used to verify eligibility and calculate Medicare qualification age (65+)."
+
+- term: "AR"
+  full: "Accounts Receivable"
+  def: "The outstanding balance owed to a provider for services rendered but not yet fully reimbursed by payers or patients."
+
+- term: "EM"
+  full: "Evaluation and Management"
+  def: "A category of CPT codes (99202–99215) describing physician office visits; new patient codes start at 99202, established patient codes start at 99212."
+
+- term: "Adjudication"
+  full: "Claim Evaluation Process"
+  def: "The automated or manual process a payer uses to evaluate a submitted claim and determine whether to pay, partially pay, or deny it within the TAT window."
+
+- term: "Deductible"
+  full: "PR-1 — Patient Responsibility"
+  def: "A fixed annual dollar amount the member must pay out-of-pocket before the insurance starts sharing costs; resets every calendar year (Jan 1 → Dec 31)."
+
+- term: "Co-pay"
+  full: "PR-3 — Patient Responsibility"
+  def: "A fixed dollar amount the member pays at the time of service (e.g. $30 per specialist visit), regardless of total service cost or deductible status."
+
+- term: "Co-insurance"
+  full: "PR-2 — Patient Responsibility"
+  def: "The percentage of allowed charges the member owes after the deductible is met (e.g. 20% on a $1,000 claim = $200 member owes); exact dollar amount known only after adjudication."
+
+- term: "Modifier"
+  full: "CPT Level 1 / HCPCS Level 2 Add-on Code"
+  def: "A 2-character alphanumeric code appended to a CPT (Level 1) or HCPCS (Level 2) code to add clinical detail, such as RT (right side), LT (left side), or 50 (bilateral)."
+
+- term: "Dual Member"
+  full: "Medicare + Medicaid Dual Eligibility"
+  def: "A member simultaneously eligible for both Medicare (primary) and Medicaid (secondary); common among elderly low-income individuals, resulting in near-zero out-of-pocket costs."
+
+- term: "Balance Billing"
+  full: "Out-of-Network Billing Risk"
+  def: "When an out-of-network provider bills the member the difference between their full charge and what the payer paid; not permitted for in-network (participating) providers."
+
+- term: "Write-off"
+  full: "Accounts Receivable Adjustment"
+  def: "An AR adjustment made when a denied or underpaid claim cannot be recovered through appeals; the uncollectable amount is removed from the AR balance."

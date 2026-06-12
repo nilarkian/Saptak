@@ -315,3 +315,258 @@
       a: "Fixed dollar amount (predictable)"
       b: "Variable dollar amount (depends on total service cost)"
   tip: "Payment order: Deductible first, then Co-insurance, then OOP max. Copay (PR-3) often applies at each visit regardless of deductible status."
+
+# ── HIPAA ─────────────────────────────────────────────────────────────────────
+
+- id: diff-phi-hipaa
+  cat: HIPAA
+  title: "PHI vs HIPAA"
+  a_label: "PHI — the data"
+  b_label: "HIPAA — the law"
+  rows:
+    - dim: "What it is"
+      a: "The actual protected health information about a member"
+      b: "Federal privacy law enacted to protect PHI"
+    - dim: "Enacted / defined"
+      a: "Defined within HIPAA itself"
+      b: "Enacted 1996 by DHHS (Dept. of Health & Human Services)"
+    - dim: "Examples"
+      a: "Name · DOB · SSN · MRN · Address · Phone · Photos · Admission/discharge/death dates"
+      b: "Not a data type — it's a law with compliance rules"
+    - dim: "Who must protect it"
+      a: "All 4 HIPAA-covered entities (providers, plans, HCCH, business associates)"
+      b: "Applies to: Health Care Providers · Health Plans · HCCH · Business Associates"
+    - dim: "What happens if violated"
+      a: "Member privacy is compromised — identity theft, discrimination risk"
+      b: "Entity faces civil/criminal penalties under HIPAA enforcement"
+  tip: "PHI is the treasure. HIPAA is the vault. One is the sensitive data; the other is the rule protecting it."
+
+# ── PARTICIPANTS ──────────────────────────────────────────────────────────────
+
+- id: diff-pcp-specialist
+  cat: Participants
+  title: "PCP vs Specialist"
+  a_label: "PCP — Primary Care Physician"
+  b_label: "Specialist"
+  rows:
+    - dim: "Role"
+      a: "First point of contact (1st POC) — gatekeeper to the rest of the system"
+      b: "Provides focused expert care in one medical area"
+    - dim: "How member accesses"
+      a: "Directly — first visit, no referral needed to see PCP"
+      b: "Via referral from PCP (in HMO/POS); directly in PPO/EPO"
+    - dim: "Authorization call type"
+      a: "PCP calls insurance for a referral → CPT range 9920x"
+      b: "Specialist calls insurance for authorization → CPT range 9921x"
+    - dim: "Examples"
+      a: "Family medicine, internal medicine, pediatrician"
+      b: "Cardiologist, orthopedist, neurologist, oncologist"
+    - dim: "Required by plan type"
+      a: "Required as gatekeeper in HMO and POS plans"
+      b: "Accessed directly (no PCP needed) in PPO and EPO"
+  tip: "PCP = the front door. Specialist = a room further inside. HMO makes you use the front door first."
+
+# ── PAYERS (additional) ───────────────────────────────────────────────────────
+
+- id: diff-part-c-d
+  cat: Payers
+  title: "Medicare Part C vs Part D"
+  a_label: "Part C — Medicare Advantage"
+  b_label: "Part D — Prescription Drug Plan"
+  rows:
+    - dim: "What it covers"
+      a: "Part A + Part B + extras (dental, vision, hearing, gym, transport)"
+      b: "Prescription drugs and vaccines only"
+    - dim: "Who administers"
+      a: "Private insurers under Medicare contract"
+      b: "Private insurers under Medicare contract (standalone or bundled)"
+    - dim: "Enrollment"
+      a: "Optional add-on replacing original Medicare — member picks a private MA plan"
+      b: "Optional add-on — standalone PDP or bundled into Part C (MAPD)"
+    - dim: "Bundles into MAPD?"
+      a: "YES — Part C is the base of MAPD"
+      b: "YES — Part D + Part C = MAPD (Medicare Advantage Prescription Drug)"
+    - dim: "Also known as"
+      a: "MA Plan · Medicare Advantage · Managed Care Plan"
+      b: "PDP · Prescription Drug Plan"
+  tip: "MAPD = Part C + Part D combined. Think: C wraps everything, D adds the drugs."
+
+- id: diff-tricare-champva
+  cat: Payers
+  title: "TRICARE vs CHAMPVA"
+  a_label: "TRICARE (fmr. CHAMPUS)"
+  b_label: "CHAMPVA"
+  rows:
+    - dim: "Who it covers"
+      a: "Military personnel — active duty, deceased, disabled, retirees — and their dependents"
+      b: "War veterans — active, deceased, disabled or partially disabled during war — and their dependents"
+    - dim: "Administered by"
+      a: "Dept. of Defense (DoD)"
+      b: "Dept. of Veterans Affairs (VA)"
+    - dim: "Former name"
+      a: "CHAMPUS — Civilian Health And Medical Program of the Uniformed Services"
+      b: "Civilian Health And Medical Program of the Department of Veterans Affairs"
+    - dim: "Key distinction"
+      a: "Uniformed Services = active military branches"
+      b: "Veterans Affairs = veterans of past wars"
+    - dim: "Coverage type"
+      a: "Full health coverage with network structure"
+      b: "Health-benefit program for VA-eligible veterans and families"
+  tip: "TRICARE = military in uniform (DoD). CHAMPVA = Veterans Affairs (VA). The A in CHAMPVA = Affairs."
+
+# ── MANAGED CARE (additional) ─────────────────────────────────────────────────
+
+- id: diff-hmo-epo
+  cat: ManagedCare
+  title: "HMO vs EPO"
+  a_label: "HMO"
+  b_label: "EPO"
+  rows:
+    - dim: "Network restriction"
+      a: "In-network ONLY"
+      b: "In-network ONLY — same rule as HMO"
+    - dim: "PCP referral required?"
+      a: "YES — must see PCP first to get to specialist"
+      b: "NO — direct specialist access, no referral needed"
+    - dim: "OON coverage"
+      a: "None (except true emergencies)"
+      b: "None — EPO will not cover OON specialists under any circumstance"
+    - dim: "Cost tier"
+      a: "Lower — locked-in plan with referral controls"
+      b: "Lower — similar savings but with referral freedom"
+    - dim: "Verbal referral allowed?"
+      a: "No — formal written/system referral required"
+      b: "Yes — verbal referrals are permitted"
+    - dim: "Key difference"
+      a: "Referral required to see specialist"
+      b: "No referral — go directly to INN specialist"
+  tip: "HMO and EPO are both INN-only prisons — EPO just removed the referral guard at the gate."
+
+# ── PROVIDERS (additional) ────────────────────────────────────────────────────
+
+- id: diff-hospital-snf
+  cat: Providers
+  title: "Hospital vs SNF"
+  a_label: "Hospital"
+  b_label: "SNF — Skilled Nursing Facility"
+  rows:
+    - dim: "Primary purpose"
+      a: "Acute care — diagnosis, treatment, surgery, emergency"
+      b: "Post-acute recovery — rehabilitation after a hospital stay"
+    - dim: "Stay type"
+      a: "Inpatient (≥24 hrs) or outpatient (<24 hrs)"
+      b: "Extended stay — recovery period after discharge from hospital"
+    - dim: "Services"
+      a: "Surgery, diagnostics, emergency care, specialist consults"
+      b: "Skilled nursing + ADL (Activities of Daily Living): bathing, cooking, occupational therapy"
+    - dim: "Patient condition"
+      a: "Acutely ill — needs immediate medical intervention"
+      b: "Medically stable — needs continued skilled care or therapy"
+    - dim: "Also called"
+      a: "Hospital (inpatient facility)"
+      b: "Recovery Center · Nursing Home (skilled level)"
+  tip: "Hospital = fix the acute problem. SNF = recover after it's been fixed."
+
+- id: diff-snf-hospice
+  cat: Providers
+  title: "SNF vs Hospice"
+  a_label: "SNF — Skilled Nursing Facility"
+  b_label: "Hospice"
+  rows:
+    - dim: "Goal of care"
+      a: "Rehabilitation and recovery — goal is to improve and discharge"
+      b: "Comfort and dignity — goal is quality of remaining life, not cure"
+    - dim: "Patient condition"
+      a: "Recovering from surgery or illness — expected to improve"
+      b: "Terminally ill — life expectancy typically 6 months or less"
+    - dim: "Location"
+      a: "Dedicated SNF facility"
+      b: "Member's home or home-like setting (can also be a hospice facility)"
+    - dim: "Services"
+      a: "Skilled nursing + ADL support + occupational/physical therapy"
+      b: "Pain management · comfort care · emotional/spiritual support for member and family"
+    - dim: "Insurance coverage"
+      a: "Medicare Part A (after qualifying hospital stay)"
+      b: "Medicare Part A (member must forgo curative treatment)"
+  tip: "SNF = getting better. Hospice = getting comfortable. Opposite goals, both covered by Part A."
+
+# ── CODING (additional) ───────────────────────────────────────────────────────
+
+- id: diff-cpt-hcpcs
+  cat: Coding
+  title: "CPT vs HCPCS"
+  a_label: "CPT"
+  b_label: "HCPCS (Hikpik)"
+  rows:
+    - dim: "What it codes"
+      a: "Medical procedures, services, and treatments performed by a provider"
+      b: "DME, medical supplies, ambulance, orthotics, and misc. items not in CPT"
+    - dim: "Code format"
+      a: "5-digit numeric (e.g. 99213, 10040)"
+      b: "1 letter + 4 digits, 5 alphanumeric total (e.g. E0265, A0021)"
+    - dim: "Level"
+      a: "Level 1 — primary procedure code on the claim"
+      b: "Level 2 — equipment and supply codes; Modifier at Level 2 clarifies HCPCS"
+    - dim: "Maintained by"
+      a: "AMA (American Medical Association)"
+      b: "CMS (Centers for Medicare & Medicaid Services)"
+    - dim: "Examples"
+      a: "99213 = office visit · 66984 = cataract surgery · 10040 = acne surgery"
+      b: "E0265 = hospital bed · A0021 = ambulance · A5500 = diabetic shoes"
+    - dim: "Modifier relationship"
+      a: "Modifier Level 1 attaches to CPT codes"
+      b: "Modifier Level 2 attaches to HCPCS codes"
+  tip: "CPT = what the doctor DID. HCPCS = what equipment/supplies were USED. Both go on the claim."
+
+# ── CLAIMS (additional) ───────────────────────────────────────────────────────
+
+- id: diff-cob-eob
+  cat: Claims
+  title: "COB vs EOB"
+  a_label: "COB — Coordination of Benefits"
+  b_label: "EOB — Explanation of Benefits"
+  rows:
+    - dim: "What it is"
+      a: "A process — determines payer priority when member has multiple insurances"
+      b: "A document — explains how a specific claim was adjudicated"
+    - dim: "When it happens"
+      a: "At the time of claim processing — before payment is made"
+      b: "After adjudication — once the claim decision is finalized"
+    - dim: "Who uses it"
+      a: "Payers — to coordinate among themselves so no duplicate payment occurs"
+      b: "Provider AND member — both receive a copy of the EOB"
+    - dim: "Output"
+      a: "Determined payer order: primary → secondary → tertiary → patient"
+      b: "Document showing: billed / allowed / paid / patient responsibility / denial reason"
+    - dim: "Is it a bill?"
+      a: "No — it's an internal coordination mechanism between payers"
+      b: "NO — EOB is explicitly not a bill; it's a statement of what happened"
+  tip: "COB decides WHO pays. EOB documents WHAT was paid. Process vs. paperwork."
+
+# ── PATIENT RESPONSIBILITY (additional) ──────────────────────────────────────
+
+- id: diff-copay-coinsurance
+  cat: PatientResp
+  title: "Co-pay vs Co-insurance"
+  a_label: "Co-pay (PR-3)"
+  b_label: "Co-insurance (PR-2)"
+  rows:
+    - dim: "Format"
+      a: "Fixed dollar amount — same every time"
+      b: "Percentage of allowed amount — varies by claim"
+    - dim: "When you know the amount"
+      a: "Upfront — printed on the member's insurance card"
+      b: "Only after the claim is processed and adjudicated"
+    - dim: "When it's paid"
+      a: "At time of service — before or during the visit"
+      b: "After adjudication — billed by provider from EOB"
+    - dim: "Deductible dependency"
+      a: "Usually applies regardless of deductible status"
+      b: "Applies only after the deductible has been met"
+    - dim: "Example"
+      a: "$30 co-pay every specialist visit — same whether the bill is $100 or $5,000"
+      b: "20% co-insurance on $1,000 claim = $200 member owes (payer pays $800)"
+    - dim: "PR code"
+      a: "PR-3"
+      b: "PR-2 (Deductible = PR-1)"
+  tip: "Co-pay = flat fee, know it now. Co-insurance = your % cut, know it later."
