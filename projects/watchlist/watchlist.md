@@ -8,6 +8,90 @@ permalink: /watchlist.html
 ## JUNE 2026
 
 
+### <span class="date">Jun 13</span> 🧬 Blocking One Protein Regenerates Cartilage — Arthritis May Be Reversible
+tags: [aging-biology, regenerative-medicine, osteoarthritis, drug-target, precision-medicine]
+
+Stanford researchers found that blocking 15-PGDH — a protein that roughly doubles in aging cartilage — regrows joint tissue in older mice and prevents arthritis after injury, reframing osteoarthritis as a correctable metabolic failure rather than irreversible mechanical wear.
+
+The protein suppresses the chondrocyte maintenance genes Sox9 and Col2a1; its inhibition via oral small molecule or local injection re-activates them, driving new cartilage formation sustained over six weeks. Human explants from knee replacement surgeries showed the same regenerative response in the lab, establishing direct translational evidence before any human trial. Published in Science (2026; 391: 1053), patent applications have been licensed to Epirium Bio, positioning a pill-based treatment against a market currently dominated by $50,000+ joint replacement surgeries.
+
+Osteoarthritis affects 500 million people globally — if the mechanism transfers to clinical trials, the intervention point for the world's most common joint disease moves from the operating room to a prescription pad.
+
+[source](https://www.sciencedaily.com/releases/2026/06/260612021604.htm)
+[source2](https://www.sciencealert.com/breakthrough-to-restore-aging-joints-could-help-treat-osteoarthritis)
+
+---
+
+### <span class="date">Jun 12</span> 💡 Brain-Like Chip Runs at 10mK — Cryogenic Neuromorphic Hardware Unlocked
+tags: [cryogenic-electronics, neuromorphic, quantum-hardware, semiconductors, space-tech]
+
+HKU engineers demonstrated that a standard silicon carbide MOSFET can mimic biological neuron "spiking" at 10 millikelvin — the operating temperature inside a quantum processor — eliminating the signal routing bottleneck that forces quantum hardware to bridge its logic layer from room temperature down to the quantum zone.
+
+Current quantum systems run error-correction and qubit control circuits at room temperature because transistors fail at cryogenic conditions, losing bandwidth and fidelity to thermal bridging. The HKU device exploits negative differential resistance (NDR) inherent in SiC MOSFETs to generate adaptive, energy-efficient spiking without exotic materials or separate cryogenic ICs. Published in Nature Communications, the chip validated operation as low as 10mK — matching the temperature of active quantum processors and opening direct co-integration.
+
+Quantum computers can now run neural-network-style control logic inside the cryostat itself, collapsing the most expensive hardware interface in current quantum system design.
+
+[source](https://www.hku.hk/press/press-releases/detail/29161.html)
+[source2](https://www.sciencedaily.com/releases/2026/06/260612032024.htm)
+
+---
+
+### <span class="date">Jun 11</span> 🚀 SpaceX IPO Raises $75B — Largest in History, Space Economy Goes Public
+tags: [spacex-ipo, capital-markets, space-economy, infrastructure-capex, reusable-rockets]
+
+SpaceX priced its Nasdaq IPO at $135 per share on June 11, raising $75 billion in the largest initial public offering in stock market history, valuing the company at $1.77 trillion ahead of Tesla.
+
+Shares gained 19% on the first day of trading; Musk retains operational control via dual-class share structure while employee equity and M&A optionality unlock at scale. The listing forces, for the first time, quarterly earnings disclosure on Starlink unit economics and launch margins — data that secondary markets have priced at steep uncertainty discounts for years. Capital raised accelerates Starship infrastructure and Mars mission timelines, converting private ambitions into investor-accountable execution schedules.
+
+SpaceX's IPO converts the space economy from a venture bet into an infrastructure asset class, giving institutional capital the instrument it needs to fund decade-scale buildout — and inserting SpaceX earnings into the macro indicators that institutional portfolios track.
+
+[source](https://www.cnbc.com/2026/06/11/spacex-raises-75-billion-in-record-setting-ipo-ahead-of-nasdaq-debut.html)
+[source2](https://www.npr.org/2026/06/12/nx-s1-5855004/stock-ai-spacex-ipo-elon-musk)
+
+---
+
+### <span class="date">Jun 10</span> ⚡ JUNO Breaks Neutrino Precision Record — China Leads Fundamental Physics
+tags: [particle-physics, fundamental-science, china, neutrino, precision-measurement]
+
+China's JUNO underground detector published its first major physics result as the cover article in Nature on June 11, improving two key neutrino oscillation parameters by 1.6 times over all prior experiments combined — from just 59 days of operational data.
+
+The 20,000-tonne liquid scintillator sphere sits 700 meters underground in Jiangmen, measuring electron antineutrinos from two nearby nuclear power plants across 43,183 phototubes, with systematic errors held below 1%. No other operating detector in the world is positioned to resolve the neutrino mass hierarchy — normal versus inverted mass ordering — a fundamental open question in particle physics that JUNO's continued operation now has a credible path to answering. The result validated the $350M program's core engineering and places China at the precision frontier of experimental neutrino science.
+
+China now holds the world's most precise neutrino measurement, in a domain that feeds into dark matter detection, cosmological models, and next-generation reactor monitoring — areas where scientific leadership translates directly into long-term defense and energy intelligence capability.
+
+[source](https://www.sciencedaily.com/releases/2026/06/260612032026.htm)
+[source2](https://news.cgtn.com/news/2026-06-11/China-s-JUNO-publishes-first-physics-result-in-Nature-1NSZqCaE1ri/p.html)
+
+---
+
+### <span class="date">Jun 9</span> ⚛️ UAE Builds MENA's First Quantum Computer — Gulf Capital Enters Hardware Race
+tags: [quantum-computing, sovereign-tech, mena, geopolitics, hardware-sovereignty]
+
+Abu Dhabi's Technology Innovation Institute announced it is building the UAE's first quantum computer in partnership with Spanish firm Qilimanjaro, marking the first sovereign quantum hardware program in the Middle East and North Africa.
+
+TII's Quantum Research Centre chose a superconducting qubit architecture matching Google's and IBM's fundamental pathways; cryostats are already assembled in Abu Dhabi and dilution refrigerators from Finland have arrived for installation. The program's explicit goal is localized hardware sovereignty — UAE-controlled infrastructure outside both US and Chinese quantum supply chains — backed by state funding that carries no venture return timelines or public-market quarterly pressures.
+
+A hydrocarbon-wealthy, geopolitically non-aligned state entering quantum hardware manufacturing creates a third funding axis for the field, accountable to different strategic priorities than US national labs or Chinese state programs — and one with capital to operate without commercial exits.
+
+[source](https://www.tii.ae/news/tii-build-uaes-first-quantum-computer)
+[source2](https://www.insidequantumtechnology.com/news-archive/abu-dhabis-tii-joins-forces-with-qilimanjaro-to-build-first-quantum-computer-in-the-uae/)
+
+---
+
+### <span class="date">Jun 8</span> 🤖 FrontierCode Sets "Would You Merge This?" as the New AI Coding Standard
+tags: [ai-coding, benchmark, llm-evaluation, software-engineering, code-quality]
+
+Cognition AI launched FrontierCode, the first AI coding benchmark where the evaluation criterion is mergeability — would an open-source maintainer actually accept this pull request — not whether tests pass.
+
+Built with 36 open-source maintainers at 40+ hours per task, it evaluates regression safety, scope discipline, style adherence, and test quality across 150 tasks in three nested tiers (Extended, Main, Diamond). The top performer, Claude Opus 4.8, hits 13.4% on the hardest 50-task Diamond tier; GPT-5.5 scores 6.3%; Gemini 3.1 Pro 4.7% — and over half of SWE-Bench "passing" outputs are flagged as unmergeable by the FrontierCode maintainer rubric. The benchmark makes visible a structural gap between code that compiles and code that belongs in a production codebase.
+
+AI coding tools currently automate junior-level output, not mid-level production engineering — and FrontierCode gives hiring teams and CIOs a number to put on that gap.
+
+[source](https://benchlm.ai/benchmarks/frontierCode)
+[source2](https://www.latent.space/p/ainews-frontiercode-benchmarking)
+
+---
+
 ### <span class="date">Jun 7</span> 🤖 Frontier AI splits into two economic tiers
 tags: [ai, inference, open-source, deepseek, market-structure]
 
