@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- SEO / OG ─────────────────────────────────────────────────── -->
+<meta name="description" content="{{ page.description | default: page.title | xml_escape }}">
+<meta property="og:title"       content="{{ page.title | xml_escape }}">
+<meta property="og:description" content="{{ page.description | default: page.title | xml_escape }}">
+<meta property="og:type"        content="article">
+<meta property="og:url"         content="{{ page.url | absolute_url }}">
+<link rel="canonical"           href="{{ page.url | absolute_url }}">
+
+{% if site.favicon %}
+<link rel="icon" type="image/png" href="{{ site.favicon | relative_url }}">
+{% endif %}
+
+<title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title | default: 'Saptak' }}</title>
+
+<!-- escape hatch: child layouts / pages can inject <link> / <style> via frontmatter extra_head -->
+{% if page.extra_head %}{{ page.extra_head }}{% endif %}
+
+<!-- Prism syntax-highlight theme (disable: code: false in frontmatter) ── -->
+{% unless page.code == false %}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+{% endunless %}
+
+<!-- ── DESIGN TOKENS + PROSE CSS ─────────────────────────────── -->
+<style>
+
+/* ── TOKENS ─────────────────────────────────────────────────────
+   Override any of these in page frontmatter via extra_head, or
+   in child layout <style> blocks (cascade wins over base).
+   Child layouts: set --font-head / --font-body to taste, then
+   add the matching Google Fonts <link> via extra_head.          */
+:root {
+  --bg:          #f7f7f7;
+  --surface:     #f0f0f0;   /* table header, kbd, subtle bg     */
+  --ink:         #111;
+  --ink-strong:  #111;      /* headings — separates from body   */
+  --muted:       #767676;
+  --border:      #ccc;
+  --accent:      #c8440a;   /* links, progress bar              */
+  --pre-bg:      #1a1a1a;
+  --pre-ink:     #f0f0f0;
+  --badge-bg:    #111;
+  --badge-ink:   #f7f7f7;
+  --font-head:   system-ui, -apple-system, sans-serif;
+  --font-body:   system-ui, -apple-system, sans-serif;
+  --font-mono:   'Courier New', Courier, monospace;
+}
+body.dark {
+  --bg:          #1e1e1e;
+  --surface:     #252526;
+  --ink:         #d4d4d4;
+  --ink-strong:  #e8e8e8;
+  --muted:       #909090;
+  --border:      #3e3e42;
+  --accent:      #d4875a;
+  --pre-bg:      #252526;
+  --pre-ink:     #ce9178;
+  --badge-bg:    #252526;
+  --badge-ink:   #d4d4d4;
+}
+
+/* ── RESET ───────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family:  var(--font-body);
+  background:   var(--bg);
+  color:        var(--ink);
+  display:      flex;
+  min-height:   100vh;
+  transition:   background .2s, color .2s;
+}
+
+a { text-decoration:none; color:var(--ink); }
+
+/* ── SKIP NAV ────────────────────────────────────────────────── */
+.skip-link {
+  position:absolute; top:-100%; left:0;
+  padding:8px 16px;
+  background:var(--bg); color:var(--ink);
+  font-family:var(--font-head);
+  font-size:13px; font-weight:700; letter-spacing:.04em;
+  z-index:9999; text-decoration:none; transition:top .15s;
+}
+.skip-link:focus { top:0; outline:2px solid var(--accent); outline-offset:2px; }
+
+/* ── MAIN CONTENT AREA ───────────────────────────────────────── */
+/* toc.html requires .main { margin-left:200px } and
+   body.toc-collapsed .main { margin-left:44px }               */
+.main {
+  margin-left:200px;
+  margin-right:auto;
+  flex:1;
+  padding:60px 64px 120px;
+  max-width:860px;
+  transition:margin-left .25s ease;
+}
+body.toc-collapsed .main { margin-left:44px; max-width:1060px; }
+
+/* when toc is disabled (page.toc: false) */
+.main.no-toc { margin-left:0; max-width:780px; margin-right:auto; }
+
+/* ── READING PROGRESS BAR ────────────────────────────────────── */
+#read-progress {
+  position:fixed; top:0; left:0;
+  height:3px; width:0%;
+  background:var(--accent);
+  z-index:999;
+  transition:width .1s linear, background .2s;
+}
+
+/* ── READ-TIME BADGE ─────────────────────────────────────────── */
+#read-time-badge {
+  position:fixed; top:8px; left:16px;
+  font-family:var(--font-head);
+  font-size:11px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  background:var(--badge-bg); color:var(--badge-ink);
+  padding:5px 12px; border-radius:999px;
+  z-index:999; opacity:0;
+  transition:opacity .3s, background .2s, color .2s;
+  pointer-events:none;
+}
+#read-time-badge.visible { opacity:1; }
+
+/* ── BACK TO TOP ─────────────────────────────────────────────── */
+#back-top {
+  position:fixed; bottom:32px; right:32px;
+  width:40px; height:40px;
+  background:var(--badge-bg); color:var(--badge-ink);
+  border:none; border-radius:50%;
+  font-size:18px; cursor:pointer;
+  opacity:0; pointer-events:none;
+  transition:opacity .2s, background .2s, color .2s;
+  display:flex; align-items:center; justify-content:center;
+  z-index:998;
+}
+#back-top.visible { opacity:1; pointer-events:auto; }
+#back-top:hover   { opacity:.75; }
+
+/* ── THEME TOGGLE ────────────────────────────────────────────── */
+#theme-toggle {
+  position:fixed; top:18px; right:18px;
+  width:34px; height:34px; border-radius:50%;
+  border:1px solid rgba(0,0,0,.12); background:var(--bg);
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  z-index:1000; padding:0;
+  transition:background .2s, border-color .2s;
+}
+#theme-toggle:hover          { border-color:rgba(0,0,0,.3); }
+#theme-toggle svg            { width:16px; height:16px; display:block; stroke:#555; transition:stroke .2s; }
+#theme-toggle:hover svg      { stroke:var(--ink); }
+body.dark #theme-toggle      { border-color:var(--border); }
+body.dark #theme-toggle:hover{ border-color:#5a5a5f; }
+body.dark #theme-toggle svg  { stroke:#858585; }
+body.dark #theme-toggle:hover svg { stroke:var(--ink-strong); }
+
+/* ── PROSE HEADER (kicker / title / meta) ────────────────────── */
+.kicker {
+  font-family:var(--font-head);
+  font-size:11px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  background:var(--ink); color:var(--bg);
+  display:inline-block; padding:4px 12px;
+  border-radius:999px; margin-bottom:20px;
+  transition:background .2s, color .2s;
+}
+body.dark .kicker { background:var(--surface); color:var(--ink); border:1px solid var(--border); }
+
+.page-title {
+  font-family:var(--font-head);
+  font-size:38px; font-weight:700;
+  line-height:1.2; letter-spacing:-1.5px;
+  margin-bottom:10px;
+  color:var(--ink-strong);
+  transition:color .2s;
+}
+
+.page-meta {
+  font-family:var(--font-head);
+  font-size:13px; color:var(--muted);
+  margin-bottom:52px;
+  display:flex; gap:8px; flex-wrap:wrap;
+  transition:color .2s;
+}
+.page-meta span + span::before { content:'·'; margin-right:8px; color:var(--border); }
+
+/* ── PROSE BODY ──────────────────────────────────────────────── */
+.prose {
+  font-size:19px;
+  line-height:1.9;
+}
+
+.prose p { margin-bottom:26px; }
+
+/* Headings — all use --font-head (child layouts override token) */
+.prose h1 {
+  font-family:var(--font-head);
+  font-size:28px; font-weight:700;
+  margin:64px 0 16px; letter-spacing:-.5px;
+  color:var(--ink-strong);
+  scroll-margin-top:32px; transition:color .2s;
+}
+.prose h2 {
+  font-family:var(--font-head);
+  font-size:22px; font-weight:700;
+  margin:56px 0 14px; letter-spacing:-.3px;
+  color:var(--ink-strong);
+  scroll-margin-top:32px; transition:color .2s;
+}
+.prose h3 {
+  font-family:var(--font-head);
+  font-size:17px; font-weight:700;
+  margin:36px 0 10px;
+  color:var(--ink-strong);
+  scroll-margin-top:32px; transition:color .2s;
+}
+.prose h4 {
+  font-family:var(--font-head);
+  font-size:14px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+  opacity:.6; margin:28px 0 8px;
+  scroll-margin-top:32px;
+}
+.prose h5, .prose h6 {
+  font-family:var(--font-head);
+  font-size:14px; font-weight:600;
+  margin:20px 0 6px;
+  scroll-margin-top:32px;
+}
+
+/* Links */
+.prose a {
+  color:var(--accent);
+  text-decoration:underline; text-underline-offset:3px;
+  font-weight:600; transition:.2s;
+}
+.prose a:visited { color:var(--accent); }
+.prose a:hover   { opacity:.55; }
+
+/* Blockquote */
+.prose blockquote {
+  margin:36px 0; padding:20px 28px;
+  border-left:4px solid var(--ink);
+  background:rgba(0,0,0,.04);
+  border-radius:0 10px 10px 0;
+  font-size:19px;
+  transition:border-color .2s, background .2s;
+}
+body.dark .prose blockquote {
+  border-left-color:var(--accent);
+  background:rgba(212,135,90,.06);
+}
+
+/* HR */
+.prose hr {
+  border:none; border-top:1px solid var(--border);
+  margin:52px 0; transition:border-color .2s;
+}
+
+/* Underline + Mark + Highlight */
+.prose u {
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1.5px;
+}
+
+.prose mark,
+.prose .hl {
+  background:linear-gradient(transparent 35%, #f6d365 35%, #f6d365 85%, transparent 85%);
+  padding:0 .08em;
+}
+body.dark .prose mark,
+body.dark .prose .hl {
+  background:linear-gradient(transparent 35%, rgba(246,211,101,.30) 35%, rgba(246,211,101,.30) 85%, transparent 85%);
+}
+
+/* Bold / Italic — native; reinforce weight */
+.prose strong { font-weight:700; }
+.prose em     { font-style:italic; }
+
+/* Lists */
+.prose ul, .prose ol { padding-left:24px; margin-bottom:26px; }
+.prose li             { margin-bottom:8px; }
+.prose li > ul,
+.prose li > ol        { margin-top:6px; margin-bottom:0; }
+
+/* Task list items */
+.prose .task-list-item { list-style:none; margin-left:-20px; }
+.prose .task-list-item input[type="checkbox"] {
+  margin-right:8px; accent-color:var(--ink);
+}
+
+/* Strikethrough */
+.prose del { opacity:.45; }
+
+/* KBD */
+.prose kbd {
+  font-family:var(--font-mono);
+  font-size:13px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-bottom:2px solid color-mix(in srgb, var(--border) 80%, #000 20%);
+  border-radius:4px; padding:1px 6px;
+  transition:background .2s, border-color .2s;
+}
+body.dark .prose kbd {
+  background:var(--surface); border-color:#4e4e52;
+  border-bottom-color:#3a3a3e; color:var(--ink);
+}
+
+/* Definition lists */
+.prose dl { margin-bottom:26px; }
+.prose dt {
+  font-family:var(--font-head); font-weight:700;
+  font-size:16px; margin-top:16px;
+}
+.prose dd { padding-left:20px; opacity:.8; }
+
+/* Superscript / footnote refs */
+.prose sup { font-size:11px; line-height:0; vertical-align:super; }
+
+/* Footnotes section */
+.prose .footnotes {
+  margin-top:64px; font-size:14px;
+  opacity:.55; line-height:1.6;
+}
+.prose .footnotes hr  { margin:0 0 20px; }
+.prose .footnotes ol  { padding-left:20px; }
+.prose .footnotes li  { margin-bottom:6px; }
+
+/* ── TABLES ──────────────────────────────────────────────────── */
+/* JS wraps each table in .table-scroll-wrapper at runtime       */
+.table-scroll-wrapper {
+  overflow-x:auto; margin-bottom:28px;
+  -webkit-overflow-scrolling:touch;
+  position:relative;
+}
+.table-scroll-wrapper table { margin-bottom:0; }
+
+.prose table {
+  width:100%; border-collapse:collapse; font-size:16px;
+}
+.prose th {
+  background:var(--surface);
+  font-family:var(--font-head); font-weight:700;
+  padding:10px 14px; border:1px solid var(--border);
+  text-align:left;
+  transition:background .2s, border-color .2s;
+}
+body.dark .prose th { background:var(--surface); border-color:var(--border); color:var(--ink-strong); }
+
+.prose td {
+  padding:10px 14px; border:1px solid var(--border);
+  vertical-align:top; transition:border-color .2s;
+}
+body.dark .prose td { border-color:var(--border); }
+
+.prose tr:nth-child(even) td { background:rgba(0,0,0,.025); }
+body.dark .prose tr:nth-child(even) td { background:rgba(255,255,255,.03); }
+
+/* Table PNG copy button (requires html-to-image; added by JS) */
+.table-copy-btn {
+  position:absolute; top:12px; right:12px;
+  background:var(--ink); color:var(--bg);
+  border:none; border-radius:6px;
+  padding:6px 12px;
+  font-family:var(--font-head); font-size:11px; font-weight:600;
+  cursor:pointer; z-index:10;
+  transition:opacity .15s;
+}
+.table-copy-btn:hover { opacity:.85; }
+body.dark .table-copy-btn { background:var(--surface); color:var(--ink); border:1px solid var(--border); }
+
+/* ── IMAGES ──────────────────────────────────────────────────── */
+.prose img {
+  max-width:100%; height:auto;
+  border-radius:8px; margin:28px 0; display:block;
+}
+.prose img + em {
+  display:block; text-align:center;
+  font-size:14px; opacity:.5;
+  margin-top:-18px; margin-bottom:28px; font-style:italic;
+}
+
+/* ── CODE ────────────────────────────────────────────────────── */
+.prose code {
+  font-family:var(--font-mono); font-size:15px;
+  background:rgba(0,0,0,.07); padding:2px 6px;
+  border-radius:4px; transition:background .2s;
+}
+body.dark .prose code { background:var(--surface); color:var(--pre-ink); }
+
+.prose pre {
+  background:var(--pre-bg); color:var(--pre-ink);
+  padding:48px 24px 24px;
+  border-radius:12px; overflow-x:auto;
+  margin-bottom:28px; font-size:13px; line-height:1.7;
+  position:relative; white-space:pre-wrap; word-break:break-word;
+}
+body.dark .prose pre { border:1px solid var(--border); }
+
+.prose pre code {
+  background:none; padding:0; border-radius:0;
+  white-space:pre-wrap; word-break:break-word;
+}
+
+/* Code copy button (added by JS) */
+.copy-btn {
+  position:absolute; top:12px; right:12px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.55);
+  font-family:var(--font-head); font-size:11px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:5px 12px; border-radius:6px;
+  cursor:pointer; transition:.15s;
+}
+.copy-btn:hover  { background:rgba(255,255,255,.15); color:rgba(255,255,255,.9); }
+.copy-btn.copied { color:#6fcf97; border-color:#6fcf97; }
+
+/* ── CALLOUTS (Obsidian > [!type] Title) ────────────────────── */
+.prose blockquote.callout { padding:14px 22px; border-radius:0 10px 10px 0; }
+
+.callout-title {
+  font-family:var(--font-head); font-size:12px; font-weight:700;
+  letter-spacing:.07em; text-transform:uppercase; margin-bottom:8px;
+}
+
+/* light-mode backgrounds */
+.prose blockquote.callout-info     { border-left-color:#4e9fd4; background:rgba(78,159,212,.07); }
+.prose blockquote.callout-tip      { border-left-color:#788C5D; background:rgba(120,140,93,.07); }
+.prose blockquote.callout-success  { border-left-color:#788C5D; background:rgba(120,140,93,.07); }
+.prose blockquote.callout-warning  { border-left-color:#D97757; background:rgba(217,119,87,.07); }
+.prose blockquote.callout-important{ border-left-color:#B04A3F; background:rgba(176,74,63,.07);  }
+.prose blockquote.callout-note     { border-left-color:#87867F; background:rgba(135,134,127,.07);}
+.prose blockquote.callout-abstract { border-left-color:#4e9fd4; background:rgba(78,159,212,.05); }
+.prose blockquote.callout-example  { border-left-color:#E3DACC; background:rgba(227,218,204,.25);}
+
+/* title colors */
+.callout-info     .callout-title { color:#4e9fd4; }
+.callout-tip      .callout-title { color:#788C5D; }
+.callout-success  .callout-title { color:#788C5D; }
+.callout-warning  .callout-title { color:#D97757; }
+.callout-important .callout-title{ color:#B04A3F; }
+.callout-note     .callout-title { color:#87867F; }
+.callout-abstract .callout-title { color:#4e9fd4; }
+.callout-example  .callout-title { color:#87867F; }
+
+/* dark-mode callout backgrounds */
+body.dark .prose blockquote.callout-info     { background:rgba(78,159,212,.09); }
+body.dark .prose blockquote.callout-tip      { background:rgba(120,140,93,.09); }
+body.dark .prose blockquote.callout-success  { background:rgba(120,140,93,.09); }
+body.dark .prose blockquote.callout-warning  { background:rgba(217,119,87,.09); }
+body.dark .prose blockquote.callout-important{ background:rgba(176,74,63,.09);  }
+body.dark .prose blockquote.callout-note     { background:rgba(135,134,127,.09);}
+body.dark .prose blockquote.callout-abstract { background:rgba(78,159,212,.07); }
+body.dark .prose blockquote.callout-example  { background:rgba(227,218,204,.07);}
+
+/* ── MERMAID ─────────────────────────────────────────────────── */
+.prose .mermaid           { margin:28px 0; }
+.prose .mermaid svg       { max-width:100%; height:auto; display:block; }
+
+/* ── PROSE FOOTER ────────────────────────────────────────────── */
+.prose-footer {
+  font-family:var(--font-head); font-size:13px;
+  color:var(--muted); margin-top:80px;
+  border-top:1px solid var(--border); padding-top:28px;
+  transition:border-color .2s, color .2s;
+}
+.prose-footer a { color:var(--muted); text-decoration:underline; font-weight:400; }
+
+/* ── MOBILE ──────────────────────────────────────────────────── */
+@media(max-width:768px){
+  .main, .main.no-toc { margin-left:0; padding:40px 24px 80px; }
+  .page-title          { font-size:28px; }
+  #back-top            { bottom:20px; right:16px; }
+  #theme-toggle        { top:14px; right:14px; }
+}
+@media(max-width:1024px){
+  .main { padding:60px 40px 100px; }
+}
+
+</style>
+</head>
+
+<!-- body.dark = default everywhere (core.md convention)       -->
+<!-- JS applies stored theme from localStorage on first paint  -->
+<body class="dark">
+
+<a href="#content-body" class="skip-link">Skip to content</a>
+
+{% unless page.toc == false %}
+{% assign _back_url   = page.back_url   | default: site.baseurl %}
+{% assign _back_label = page.back_label | default: '← Back' %}
+{% if page.series_index %}{% assign _si = page.series_index | relative_url %}{% endif %}
+{% if page.series_prev  %}{% assign _sp = page.series_prev  | relative_url %}{% endif %}
+{% include toc.html
+  body_selector=".prose"
+  back_url=_back_url
+  back_label=_back_label
+  index_url=_si index_label="Series Index"
+  prev_url=_sp  prev_label="← Prev" %}
+{% endunless %}
+
+{% unless page.theme_toggle == false %}
+<!-- THEME TOGGLE (top-right; persists via localStorage['base-theme']) -->
+<button id="theme-toggle" aria-label="Switch to dark mode">
+  <!-- moon: visible in light mode → click to go dark -->
+  <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+  <!-- sun: visible in dark mode → click to go light -->
+  <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round" style="display:none">
+    <circle cx="12" cy="12" r="4"/>
+    <line x1="12" y1="2"  x2="12" y2="5"/>
+    <line x1="12" y1="19" x2="12" y2="22"/>
+    <line x1="4.22" y1="4.22"   x2="6.34" y2="6.34"/>
+    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+    <line x1="2"  y1="12" x2="5"  y2="12"/>
+    <line x1="19" y1="12" x2="22" y2="12"/>
+    <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+    <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+  </svg>
+</button>
+{% endunless %}
+
+<main class="main{% if page.toc == false %} no-toc{% endif %}">
+
+{% unless page.reading_progress == false %}
+<div id="read-progress" aria-hidden="true"></div>
+<div id="read-time-badge" aria-live="polite" aria-atomic="true"></div>
+{% endunless %}
+
+<!-- OPTIONAL PAGE HEADER ──────────────────────────────────── -->
+{% if page.tag or page.title %}
+<header class="prose-header">
+  {% if page.tag %}<div class="kicker">{{ page.tag }}</div>{% endif %}
+  {% if page.title %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
+  {% if page.date or page.read_time %}
+  <div class="page-meta">
+    {% if page.date %}<span>{{ page.date | date: "%B %Y" }}</span>{% endif %}
+    {% if page.read_time %}<span>⏱ {{ page.read_time }} min read</span>{% endif %}
+  </div>
+  {% endif %}
+</header>
+{% endif %}
+
+<!-- CONTENT ───────────────────────────────────────────────── -->
+<article class="prose" id="content-body">
+  {{ content }}
+</article>
+
+<footer class="prose-footer">
+  Built by Saptak ·
+  <a href="{{ site.baseurl }}/">nilarkian.github.io/Saptak</a>
+</footer>
+
+<button id="back-top" aria-label="Back to top">↑</button>
+
+</main>
+
+<!-- ── JS PIPELINE ─────────────────────────────────────────── -->
+<script>
+
+// ── ==HIGHLIGHT== TRANSFORM ──────────────────────────────────
+// Converts ==text== to <span class="hl">text</span>
+// Runs before callout/mermaid so it doesn't corrupt their markup
+(function(){
+  var el = document.getElementById('content-body');
+  if (!el) return;
+  el.innerHTML = el.innerHTML.replace(/==(.+?)==/g, '<span class="hl">$1</span>');
+})();
+
+// ── MERMAID DOM TRANSFORM ────────────────────────────────────
+// Rouge emits ```mermaid as <pre><code class="language-mermaid">
+// Convert to <div class="mermaid"> so mermaid.run() can pick it up
+document.querySelectorAll('.prose code[class*="language-mermaid"]').forEach(function(el) {
+  var pre = el.parentNode;
+  var src = el.textContent; // textContent decodes HTML entities
+  var div = document.createElement('div');
+  div.className = 'mermaid';
+  div.dataset.src = src;
+  div.textContent = src;
+  var target = (pre && pre.tagName === 'PRE') ? pre : el;
+  target.parentNode.replaceChild(div, target);
+});
+
+// ── CALLOUT TRANSFORM ─────────────────────────────────────────
+// Obsidian `> [!type] Optional Title` → blockquote.callout.callout-type + .callout-title
+document.querySelectorAll('.prose blockquote').forEach(function(bq) {
+  var firstP = bq.querySelector('p');
+  if (!firstP) return;
+  var html = firstP.innerHTML;
+  var m = html.match(/^\[!(\w+)\]\s*([^\n<]*)/i);
+  if (!m) return;
+  var type  = m[1].toLowerCase();
+  var title = m[2].trim() || (type.charAt(0).toUpperCase() + type.slice(1));
+  firstP.innerHTML = html.replace(/^\[!\w+\]\s*[^\n<]*(?:<br\s*\/?>)?\s*/i, '').trim();
+  if (!firstP.innerHTML) firstP.remove();
+  bq.classList.add('callout', 'callout-' + type);
+  var titleEl = document.createElement('div');
+  titleEl.className = 'callout-title';
+  titleEl.textContent = title;
+  bq.insertBefore(titleEl, bq.firstChild);
+});
+
+// ── THEME TOGGLE ──────────────────────────────────────────────
+{% unless page.theme_toggle == false %}
+(function(){
+  var stored = localStorage.getItem('base-theme');
+  // Default: dark (body already has .dark from HTML)
+  // If user previously chose light, remove .dark
+  var isDark = stored !== null ? (stored === 'dark') : true;
+
+  var sun  = document.getElementById('icon-sun');
+  var moon = document.getElementById('icon-moon');
+  var btn  = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  function apply(dark) {
+    document.body.classList.toggle('dark', dark);
+    if (sun)  sun.style.display  = dark ? 'block' : 'none';
+    if (moon) moon.style.display = dark ? 'none'  : 'block';
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  apply(isDark);
+
+  btn.addEventListener('click', function() {
+    var nowDark = !document.body.classList.contains('dark');
+    localStorage.setItem('base-theme', nowDark ? 'dark' : 'light');
+    apply(nowDark);
+    // Re-render mermaid diagrams for new theme
+    if (typeof mermaid !== 'undefined') {
+      document.querySelectorAll('.prose .mermaid[data-processed]').forEach(function(d) {
+        d.innerHTML = d.dataset.src;
+        d.removeAttribute('data-processed');
+      });
+      mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: nowDark ? 'dark' : 'neutral' });
+      mermaid.run();
+    }
+  });
+})();
+{% endunless %}
+
+// ── READING PROGRESS + READ-TIME BADGE ───────────────────────
+{% unless page.reading_progress == false %}
+(function(){
+  var bar   = document.getElementById('read-progress');
+  var badge = document.getElementById('read-time-badge');
+  var body  = document.getElementById('content-body');
+  if (!bar || !badge || !body) return;
+
+  var words     = body.textContent.trim().split(/\s+/).filter(Boolean).length;
+  var totalMins = Math.ceil(words / 338);
+  badge.textContent = totalMins < 1 ? '< 1 min read' : totalMins + ' min read';
+
+  window.addEventListener('scroll', function() {
+    var total = body.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+    var ratio = Math.min(1, window.scrollY / Math.max(total, 1));
+    bar.style.width = (ratio * 100) + '%';
+    var pct = ratio * 100;
+    if (pct < 5 || pct >= 99) {
+      badge.classList.remove('visible');
+    } else {
+      var remaining = Math.ceil(totalMins * (1 - ratio));
+      badge.textContent = remaining < 1 ? '< 1 min left' : remaining + ' min left';
+      badge.classList.add('visible');
+    }
+  }, { passive:true });
+})();
+{% endunless %}
+
+// ── BACK TO TOP ────────────────────────────────────────────
+(function(){
+  var btn = document.getElementById('back-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+})();
+
+// ── TABLE OVERFLOW WRAPPERS ──────────────────────────────────
+document.querySelectorAll('.prose table').forEach(function(t) {
+  if (t.parentElement.classList.contains('table-scroll-wrapper')) return;
+  var wrapper = document.createElement('div');
+  wrapper.className = 'table-scroll-wrapper';
+  t.parentNode.insertBefore(wrapper, t);
+  wrapper.appendChild(t);
+});
+
+// ── TABLE PNG COPY BUTTONS (html-to-image, loaded below) ─────
+// Deferred to after html-to-image loads; see inline script below.
+
+// ── CODE COPY BUTTONS ─────────────────────────────────────────
+{% unless page.code == false %}
+document.querySelectorAll('.prose pre').forEach(function(pre) {
+  var code = pre.querySelector('code');
+  if (!code) return;
+  var btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.innerHTML = '⎘ Copy';
+  btn.setAttribute('aria-label', 'Copy code');
+  btn.addEventListener('click', function() {
+    var text     = code.textContent.trim();
+    var fallback = function() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+    };
+    var done = function() {
+      btn.innerHTML = '✓ Copied'; btn.classList.add('copied');
+      setTimeout(function() { btn.innerHTML = '⎘ Copy'; btn.classList.remove('copied'); }, 1500);
+    };
+    if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done).catch(fallback); }
+    else { fallback(); done(); }
+  });
+  pre.insertBefore(btn, pre.firstChild);
+});
+
+// ARIA live region for copy feedback
+var _liveRegion = document.createElement('div');
+_liveRegion.setAttribute('aria-live', 'polite');
+_liveRegion.setAttribute('aria-atomic', 'true');
+_liveRegion.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);';
+document.body.appendChild(_liveRegion);
+document.querySelectorAll('.copy-btn').forEach(function(b) {
+  b.addEventListener('click', function() {
+    _liveRegion.textContent = 'Code copied';
+    setTimeout(function() { _liveRegion.textContent = ''; }, 1500);
+  });
+});
+{% endunless %}
+
+// ── EXTERNAL LINKS ─────────────────────────────────────────
+document.querySelectorAll('.prose a[href^="http"]').forEach(function(a) {
+  a.target = '_blank'; a.rel = 'noopener noreferrer';
+});
+
+// ── IMAGE LAZY LOADING ─────────────────────────────────────
+document.querySelectorAll('.prose img').forEach(function(img) { img.loading = 'lazy'; });
+
+</script>
+
+<!-- Prism syntax highlighting ────────────────────────────── -->
+{% unless page.code == false %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+{% endunless %}
+
+<!-- Mermaid diagrams + table PNG copy ─────────────────────── -->
+{% unless page.mermaid == false %}
+<script src="https://unpkg.com/html-to-image/dist/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+// Initialize mermaid once CDN is loaded
+(function(){
+  var isDark = document.body.classList.contains('dark');
+  mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: isDark ? 'dark' : 'neutral' });
+  mermaid.run();
+})();
+
+// TABLE PNG COPY ─ runs here so html-to-image is guaranteed loaded
+document.querySelectorAll('.prose table').forEach(function(table) {
+  var wrapper = table.parentElement;
+  if (!wrapper.classList.contains('table-scroll-wrapper')) return;
+  var btn = document.createElement('button');
+  btn.className = 'table-copy-btn';
+  btn.textContent = '📷 copy';
+  btn.addEventListener('click', function() {
+    htmlToImage.toBlob(table, {
+      pixelRatio: 2,
+      skipFonts: false,
+      cacheBust: true,
+      backgroundColor: document.body.classList.contains('dark') ? '#1e1e1e' : '#f7f7f7'
+    }).then(function(blob) {
+      return navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    }).then(function() {
+      btn.textContent = '✓ Copied';
+      setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
+    }).catch(function(err) {
+      console.error(err);
+      btn.textContent = '✗ Failed';
+      setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
+    });
+  });
+  wrapper.appendChild(btn);
+});
+</script>
+{% endunless %}
+
+</body>
+</html>
