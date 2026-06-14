@@ -3,7 +3,7 @@ topic: AI
 is_note: true
 layout: note-layout
 date: 2026-06-13
-title: You Already Lost the Model War: What to Compete on Instead
+title: You Already Lost the Model War- What to Compete on Instead
 sub: RelOps 14
 ---
 
