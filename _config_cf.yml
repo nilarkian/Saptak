@@ -1,0 +1,5 @@
+# Cloudflare Pages override — merged on top of _config.yml at build time.
+# Cloudflare serves at the domain root, so baseurl must be empty (no /Saptak).
+# Build command: bundle exec jekyll build --config _config.yml,_config_cf.yml
+baseurl: ""
+url: "https://saptak.pages.dev"
