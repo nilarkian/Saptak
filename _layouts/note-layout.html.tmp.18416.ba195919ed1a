@@ -371,12 +371,11 @@ body.toc-collapsed .main{ margin-left:44px; max-width:1060px; }
 
   cursor:pointer;
   z-index:10;
-  opacity:0;
-  transition:opacity .15s;
 }
 
-.table-scroll-wrapper:hover .table-copy-btn{opacity:1;}
-.table-copy-btn:hover{opacity:.85;}
+.table-copy-btn:hover{
+  opacity:.85;
+}
 
 body.dark .table-copy-btn{
   background:#252526;
@@ -545,18 +544,9 @@ body.dark .rcm-tooltip {
 }
 
 /* ── MERMAID ── */
-.mermaid-wrapper{
-  position:relative;
-  margin:36px 0;
-  background:#f0f0f0;
-  border:1px solid #ccc;
-  border-radius:12px;
-  padding:24px;
-  overflow:hidden;
-}
+.mermaid-wrapper{position:relative;margin:28px 0;}
 .note-body .mermaid{margin:0;}
-.note-body .mermaid svg{max-width:100%;height:auto;display:block;margin:0 auto;}
-body.dark .mermaid-wrapper{background:#252526;border-color:#3e3e42;}
+.note-body .mermaid svg{max-width:100%;height:auto;display:block;}
 .mermaid-copy-btn{
   position:absolute;
   top:10px;
@@ -976,10 +966,7 @@ document.querySelectorAll('.note-body blockquote').forEach(function(bq) {
         d.innerHTML = d.dataset.src;
         d.removeAttribute('data-processed');
       });
-      var _mv = nowDark
-        ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-        : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
-      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
+      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral' });
       mermaid.run().then(addMermaidCopyButtons);
     }
   });
@@ -1241,10 +1228,7 @@ document.querySelectorAll('.note-body img').forEach(img => { img.loading = 'lazy
 <script>
 (function(){
   var isDark = document.body.classList.contains('dark');
-  var _mv = isDark
-    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
-  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral' });
   mermaid.run().then(addMermaidCopyButtons);
 })();
 </script>

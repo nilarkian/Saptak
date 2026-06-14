@@ -120,18 +120,18 @@ Q4 and Q5 are the migration triggers. Reaching them with yes answers on Q1–Q3 
 **The Harness Stack — Where the Capability Floor Lives**
 
 ```mermaid
-graph TD
+graph LR
     A["Model Core"]
     B["Tool Access Layer"]
     C["Guidance Density Layer"]
     D["Memory Architecture Layer"]
     E["Verification Loop Layer"]
     E --> D --> C --> B --> A
-    style A fill:#1a1a2e,color:#e0e0e0,stroke:#555
-    style B fill:#16213e,color:#e0e0e0,stroke:#555
-    style C fill:#0f3460,color:#e0e0e0,stroke:#555
-    style D fill:#533483,color:#e0e0e0,stroke:#555
-    style E fill:#6a0572,color:#e0e0e0,stroke:#555
+    style A fill:#1e3a8a,color:#fff,stroke:#1e3a8a
+    style B fill:#1d4ed8,color:#fff,stroke:#1d4ed8
+    style C fill:#0369a1,color:#fff,stroke:#0369a1
+    style D fill:#0891b2,color:#fff,stroke:#0891b2
+    style E fill:#0d9488,color:#fff,stroke:#0d9488
 ```
 
 The model sits at the core. Each outer layer is a harness engineering decision. The capability floor is the aggregate output of all four layers — not the model alone. At L0 you have only the core. That is what 0.000 reward looks like. Add tool access: 0.153. Add guidance density: everything else that gets the system to 0.966. The floor is built layer by layer. It does not appear automatically because you deployed a capable model.

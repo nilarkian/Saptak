@@ -465,8 +465,15 @@ body.dark .prose blockquote.callout-abstract { background:rgba(78,159,212,.07); 
 body.dark .prose blockquote.callout-example  { background:rgba(227,218,204,.07);}
 
 /* ── MERMAID ─────────────────────────────────────────────────── */
-.prose .mermaid           { margin:28px 0; }
-.prose .mermaid svg       { max-width:100%; height:auto; display:block; }
+.prose .mermaid {
+  margin:36px 0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+  overflow:hidden;
+}
+.prose .mermaid svg { max-width:100%; height:auto; display:block; margin:0 auto; }
 
 /* ── PROSE FOOTER ────────────────────────────────────────────── */
 .prose-footer {
@@ -646,7 +653,10 @@ document.querySelectorAll('.prose blockquote').forEach(function(bq) {
         d.innerHTML = d.dataset.src;
         d.removeAttribute('data-processed');
       });
-      mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: nowDark ? 'dark' : 'neutral' });
+      var _mv = nowDark
+        ? {fontFamily:'system-ui,-apple-system,sans-serif',fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+        : {fontFamily:'system-ui,-apple-system,sans-serif',fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+      mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: nowDark ? 'dark' : 'neutral', themeVariables:_mv });
       mermaid.run();
     }
   });
@@ -775,7 +785,10 @@ document.querySelectorAll('.prose img').forEach(function(img) { img.loading = 'l
 // Initialize mermaid once CDN is loaded
 (function(){
   var isDark = document.body.classList.contains('dark');
-  mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: isDark ? 'dark' : 'neutral' });
+  var _mv = isDark
+    ? {fontFamily:'system-ui,-apple-system,sans-serif',fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:'system-ui,-apple-system,sans-serif',fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+  mermaid.initialize({ startOnLoad:false, securityLevel:'loose', theme: isDark ? 'dark' : 'neutral', themeVariables:_mv });
   mermaid.run();
 })();
 
