@@ -1,5 +1,5 @@
 ---
-topic: runtime-reliability-economics
+topic: AI
 is_note: true
 layout: note-layout
 date: 2026-06-13
