@@ -9,9 +9,6 @@ sub: RelOps 13
 ---
 
 > Model capability equalizes. Operational reliability compounds. Why the infrastructure layer is becoming the only durable moat in enterprise AI.
-
-# The Infrastructure Moat Math
-
 > The race isn't intelligence. The race is reliability accumulation. Most enterprises haven't switched races yet.
 
 ---
