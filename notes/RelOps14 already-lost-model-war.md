@@ -9,8 +9,6 @@ sub: RelOps 14
 
 > Frontier model capabilities converged. Enterprise buyers changed what they buy. Most AI roadmaps are still pointed at the wrong fight.
 
-# You Already Lost the Model War: What to Compete on Instead
-
 You already lost the Model War.
 
 You are either optimizing the model layer (chasing eval scores, parameter counts, benchmark deltas) or building the runtime layer that actually compounds. One is a procurement cycle. The other is a moat. No middle position exists.

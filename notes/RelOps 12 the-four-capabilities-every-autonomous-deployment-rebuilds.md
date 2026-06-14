@@ -10,7 +10,6 @@ sub: RelOps 12
 
 > Every serious autonomous deployment ends up building the same four runtime primitives. The only variable is whether you build them by foresight or by incident.
 
-# The Four Capabilities Every Autonomous AI Deployment Rebuilds
 
 > Every serious autonomous deployment ends up building the same four runtime primitives. The only variable is whether you build them by foresight or by incident.
 
