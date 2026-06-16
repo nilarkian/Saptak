@@ -25,9 +25,8 @@
   },
   {
     "url": "https://www.canva.com/design/DAGVaYGfkqQ/qSd-BCSJFZNGrbhC84t9cw/view#8",
-    "author": "Unknown",
-    "title": "31 Business Models",
-    "desc": "Visual reference guide explaining common startup and company business model structures across industries.",
+    "source": "31 Business Models",
+    "caption": "Visual reference guide explaining common startup and company business model structures across industries.",
     "date": "2026-06-16",
     "tags": [
       "business-models",
@@ -40,8 +39,8 @@
   {
     "url": "https://www.strategyzer.com/library/10-essential-links-for-testing-your-value-proposition-business-models",
     "author": "Strategyzer",
-    "title": "10 Essential Links For Testing Your Value Proposition & Business Models",
-    "desc": "Collection of startup validation resources for stress-testing customer demand, pricing, and business assumptions.",
+    "source": "10 Essential Links For Testing Your Value Proposition & Business Models",
+    "caption": "Collection of startup validation resources for stress-testing customer demand, pricing, and business assumptions.",
     "date": "2026-06-15",
     "tags": [
       "startup",
