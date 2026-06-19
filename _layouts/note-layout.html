@@ -552,7 +552,7 @@ body.dark .rcm-tooltip {
   border:1px solid #ccc;
   border-radius:12px;
   padding:24px;
-  overflow:hidden;
+  overflow:visible;
 }
 .note-body .mermaid{margin:0;}
 .note-body .mermaid svg{max-width:100%;height:auto;display:block;margin:0 auto;}
@@ -789,6 +789,10 @@ body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
 
 </main>
 
+{% if page.topic == "RCM" %}
+<script type="application/json" id="rcm-data">{"glossary": {{ site.data.rcm_glossary | jsonify }}, "url": {{ page.url | jsonify }}}</script>
+{% endif %}
+
 <script>
 
 document.querySelector('.note-body').innerHTML =
@@ -834,11 +838,13 @@ document.querySelectorAll('.note-body blockquote').forEach(function(bq) {
   bq.insertBefore(titleEl, bq.firstChild);
 });
 
-{% if page.topic == "RCM" %}
 // ── RCM GLOSSARY TOOLTIPS ──
 // Runs AFTER callout transform so .callout-title nodes exist to skip.
+var rcmDataEl = document.getElementById('rcm-data');
+if (rcmDataEl) {
+  var rcmData = JSON.parse(rcmDataEl.textContent || '{}');
 (function(){
-  var entries = {{ site.data.rcm_glossary | jsonify }} || [];
+  var entries = rcmData.glossary || [];
   var glossary = {};
   entries.forEach(function(e){ glossary[e.term] = e; });
   // Sort longest-first: "ICD-10" before "ICD", "HCPCS" before "HMO" etc.
@@ -941,11 +947,11 @@ document.querySelectorAll('.note-body blockquote').forEach(function(bq) {
 (function(){
   try {
     var visited = JSON.parse(localStorage.getItem('rcm-notes-visited') || '{}');
-    visited[{{ page.url | jsonify }}] = new Date().toISOString();
+    visited[rcmData.url] = new Date().toISOString();
     localStorage.setItem('rcm-notes-visited', JSON.stringify(visited));
   } catch(e) {}
 })();
-{% endif %}
+} // end if (rcmDataEl)
 
 // ── THEME TOGGLE ──
 (function(){
@@ -1099,19 +1105,24 @@ function addMermaidCopyButtons() {
         if (!svg) return;
 
         // Capture at the SVG's natural (viewBox) dimensions — not CSS-constrained width
-        var vb = svg.viewBox.baseVal;
-        var naturalW = (vb && vb.width) ? vb.width : svg.getBoundingClientRect().width;
-        var naturalH = (vb && vb.height) ? vb.height : svg.getBoundingClientRect().height;
+        // var vb = svg.viewBox.baseVal;
+        // var naturalW = (vb && vb.width) ? vb.width : svg.getBoundingClientRect().width;
+        // var naturalH = (vb && vb.height) ? vb.height : svg.getBoundingClientRect().height;
+        var rect = svg.getBoundingClientRect();
+
+        var naturalW = rect.width;
+        var naturalH = rect.height;
+
 
         // Snapshot inline styles so we can restore them exactly
         var prevSvgStyle     = svg.getAttribute('style') || '';
         var prevDivStyle     = mermaidDiv.getAttribute('style') || '';
         var prevWrapperStyle = wrapper.getAttribute('style') || '';
 
-        svg.style.maxWidth  = 'none';
-        svg.style.width     = naturalW + 'px';
-        svg.style.height    = naturalH + 'px';
-        mermaidDiv.style.width    = naturalW + 'px';
+        // svg.style.maxWidth  = 'none';
+        // svg.style.width     = naturalW + 'px';
+        // svg.style.height    = naturalH + 'px';
+        // mermaidDiv.style.width    = naturalW + 'px';
         wrapper.style.overflow    = 'visible';
 
         // Let layout settle before capture

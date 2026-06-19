@@ -8,6 +8,48 @@ permalink: /watchlist.html
 ## JUNE 2026
 
 
+### <span class="date">Jun 17</span> 🚀 LINK Grabs Swift: Commercial Satellite Rescue Reaches the Launch Pad
+tags: [satellite-servicing, space-economy, orbital-infrastructure, non-cooperative-servicing, robotics]
+
+Commercial satellite rescue just moved from concept to launch pad — Katalyst Space's LINK is weeks away from rebooting a NASA telescope built in 2004 with no servicing hardware whatsoever.
+
+LINK attaches to Swift using robotic grippers clamping onto ground-handling flanges — structural features installed at the factory, never designed for orbital use — then fires xenon ion thrusters to restore Swift's decaying altitude by an estimated 10–20 years. Swift has no docking port, no engine nozzle interface, and was never intended to be serviced in orbit. The $30 million contract with NASA was awarded just nine months before integration, compressing a class of mission that previously took over a decade to develop.
+
+If LINK succeeds, commercial life extension becomes available for any satellite in orbit regardless of original design — quietly shifting the economics away from replacement launches and toward in-orbit servicing.
+
+[source](https://www.nasa.gov/news-release/nasa-to-preview-katalyst-mission-to-boost-swift-spacecrafts-orbit/)
+[source2](https://www.katalystspace.com/news/nasa-telescope-is-about-to-fall-out-of-the-sky)
+
+---
+
+### <span class="date">Jun 13</span> 🌐 US Government Invokes AI Kill-Switch — First Frontier Model API Export Ban
+tags: [ai-governance, export-controls, anthropic, frontier-ai, sovereignty-risk]
+
+Washington just proved it can shut down a frontier AI model for the entire world — not in legislation, but in a single operational order.
+
+The US Commerce Department ordered Anthropic to restrict access to Fable 5 and Mythos 5 for all non-US persons — the first time export-control authority has been applied to a software API rather than physical hardware or chips. Because real-time user geolocation at API scale isn't feasible, Anthropic's only viable compliance path was a global suspension, blocking US customers alongside everyone else. The order came within ten days of a new executive order on "Promoting Advanced Artificial Intelligence Innovation and Security" and generated immediate backlash from European governments alarmed by the kill-switch precedent.
+
+Enterprise AI stacks built on a single US-hosted frontier model now carry a regulatory availability risk — the government demonstrated it can pull the infrastructure plug unilaterally, moving multi-model redundancy from best practice to structural necessity.
+
+[source](https://cepa.org/article/us-ai-export-controls-cause-furor/)
+[source2](https://www.marktechpost.com/2026/06/13/anthropic-disables-claude-fable-5-and-mythos-5-after-us-government-order/)
+
+---
+
+### <span class="date">Jun 12</span> ⚛️ 800x QEC Error Drop Peer-Reviewed: Quantum Fault Tolerance Is a Software Problem Now
+tags: [quantum-error-correction, trapped-ion, microsoft, quantinuum, fault-tolerance]
+
+Quantum error correction just crossed from physics into engineering.
+
+Microsoft and Quantinuum published peer-reviewed results in Nature showing up to 800-fold logical error rate reduction on trapped-ion hardware — dropping Bell-state preparation errors from a 0.8% physical baseline to 0.001% logical, across circuits of up to 12 parallelized logical qubits. The system applies Microsoft's qubit-virtualization stack to Quantinuum's existing commercial trapped-ion processors — no new hardware — using a 12-qubit color code and 16-qubit tesseract code to extract mid-computation syndrome data in real time. This is the first independent peer review to validate mid-computation error suppression at this scale on commercially available quantum hardware.
+
+Every competing quantum platform — superconducting, photonic, neutral atom — now benchmarks against 800x mid-computation error suppression as the minimum credibility bar, shifting the competitive moat from qubit count to logical-qubit quality.
+
+[source](https://quantumcomputingreport.com/microsoft-and-quantinuum-publish-peer-reviewed-quantum-error-correction-data-in-nature/)
+[source2](https://quantum.microsoft.com/en-us/insights/blogs/microsoft-application-of-error-correction-to-trapped-ion-qubits)
+
+---
+
 ### <span class="date">Jun 13</span> 🧬 Blocking One Protein Regenerates Cartilage — Arthritis May Be Reversible
 tags: [aging-biology, regenerative-medicine, osteoarthritis, drug-target, precision-medicine]
 

@@ -8,6 +8,9 @@ Table of recurring news themes in watchlist.md — identifies gaps and saturatio
 
 | Date | Entry | Domain | Tags |
 |------|-------|--------|------|
+| Jun 17 | 🚀 LINK Grabs Swift: Commercial Satellite Rescue Reaches the Launch Pad | Transportation, Robotics & Space | satellite-servicing, space-economy, orbital-infrastructure, non-cooperative-servicing, robotics |
+| Jun 13 | 🌐 US Government Invokes AI Kill-Switch — First Frontier Model API Export Ban | Geopolitics of tech / AI | ai-governance, export-controls, anthropic, frontier-ai, sovereignty-risk |
+| Jun 12 | ⚛️ 800x QEC Error Drop Peer-Reviewed: Quantum Fault Tolerance Is a Software Problem Now | Quantum | quantum-error-correction, trapped-ion, microsoft, quantinuum, fault-tolerance |
 | Jun 13 | Stanford 15-PGDH cartilage regeneration — arthritis repositioned as reversible metabolic disease | Biotechnology & Life Sciences | aging-biology, regenerative-medicine, osteoarthritis, drug-target |
 | Jun 12 | HKU cryogenic neuromorphic SiC chip at 10mK — qubit control inside cryostat unlocked | Semiconductors & Advanced Materials | cryogenic-electronics, neuromorphic, quantum-hardware, space-tech |
 | Jun 11 | SpaceX IPO $75B — largest in history, space economy enters capital-market accountability | Markets & Capital | spacex-ipo, capital-markets, space-economy, infrastructure-capex |
