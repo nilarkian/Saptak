@@ -189,8 +189,8 @@ window.mermaidRerender = function(nowDark) {
     d.removeAttribute('data-processed');
   });
   var _mv = nowDark
-    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+    ? {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', htmlLabels: true, theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
   _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
 };
@@ -201,8 +201,8 @@ window.mermaidRerender = function(nowDark) {
 (function(){
   var isDark = document.body.classList.contains('dark');
   var _mv = isDark
-    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+    ? {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', htmlLabels: true, theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
   _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
   _buildSyneFontCSS(); // pre-warm: fetch+embed Syne so first copy is instant
