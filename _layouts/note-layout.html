@@ -1160,37 +1160,41 @@ function addMermaidCopyButtons() {
     btn.textContent = '📷 copy';
     btn.addEventListener('click', async function() {
       try {
-        if (!mermaidDiv.querySelector('svg')) return;
+        var svg = mermaidDiv.querySelector('svg');
+        if (!svg) return;
         var isDark = document.body.classList.contains('dark');
         var fontCSS = await _buildSyneFontCSS();
 
-        // ── EXPORT FRAME ──
-        // No clone, no offscreen exile. Three autopsied failure modes all eliminated:
-        //   1. cloneNode(true) → foreignObject rasterization failure
-        //   2. immediate capture → premature snapshot before layout commits
-        //   3. top:-9999px → browser may skip paint work outside viewport
-        // Strategy: style the live element, wait 2 rAFs, capture, then restore.
-        var PAD = 36;
-        var rect = mermaidDiv.getBoundingClientRect();
-        var exportW = Math.round(rect.width)  + PAD * 2;
-        var exportH = Math.round(rect.height) + PAD * 2;
+        // Measure the live SVG at click time — this is the ground truth for dimensions.
+        // We can't use mermaidDiv because it fills its parent (block width), which is
+        // wider than the SVG itself on large screens. We can't compute from pre-click
+        // state because the SVG may have changed (theme toggle, resize).
+        var svgRect = svg.getBoundingClientRect();
+        var PAD = 24;
+        var captureW = Math.ceil(svgRect.width)  + PAD * 2;
+        var captureH = Math.ceil(svgRect.height) + PAD * 2;
 
-        // Save whatever inline style the element has (usually none)
         var origStyle = mermaidDiv.getAttribute('style') || null;
-
-        // Apply export styling to the live element
         btn.style.display = 'none';
+
+        // Set mermaidDiv to an explicit, fixed size so html-to-image's canvas
+        // matches exactly — no extra whitespace, no clipping.
+        // box-sizing:border-box + explicit width/height means the element IS
+        // exactly captureW × captureH. flex centres the SVG within the padding area.
         mermaidDiv.style.cssText = [
-          'margin:0',
-          'box-sizing:content-box',     // padding expands outward, SVG content area unchanged
+          'box-sizing:border-box',
+          'display:flex',
+          'align-items:center',
+          'justify-content:center',
+          'width:'  + captureW + 'px',
+          'height:' + captureH + 'px',
           'padding:' + PAD + 'px',
           'border-radius:16px',
           isDark
-            ? 'background:linear-gradient(160deg,#2a2a2c 0%,#1a1a1c 100%);border:1px solid rgba(255,255,255,.06)'
-            : 'background:linear-gradient(160deg,#f8f8f6 0%,#e8e8e4 100%);border:1px solid rgba(0,0,0,.09)'
+            ? 'background:linear-gradient(160deg,#2a2a2c 0%,#1a1a1c 100%)'
+            : 'background:linear-gradient(160deg,#f8f8f6 0%,#e8e8e4 100%)'
         ].join(';');
 
-        // Two frames — let the browser commit the style change before capture
         await new Promise(function(r) { requestAnimationFrame(r); });
         await new Promise(function(r) { requestAnimationFrame(r); });
 
@@ -1201,11 +1205,10 @@ function addMermaidCopyButtons() {
             cacheBust: true,
             fontEmbedCSS: fontCSS || undefined,
             backgroundColor: isDark ? '#1a1a1c' : '#e8e8e4',
-            width:  exportW,
-            height: exportH
+            width:  captureW,
+            height: captureH
           });
         } finally {
-          // Restore original state — runs on both success and error
           if (origStyle !== null) mermaidDiv.setAttribute('style', origStyle);
           else                    mermaidDiv.removeAttribute('style');
           btn.style.display = '';

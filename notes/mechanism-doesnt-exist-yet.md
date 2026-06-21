@@ -17,6 +17,29 @@ The second is a mechanism builder. They encounter the same idea. They don't pret
 
 Most analytically trained people are mechanism waiters. They were taught to be. The skill that made them rigorous is the same one that makes them late.
 
+```mermaid
+flowchart TD
+    classDef waiter fill:#ff6b6b,stroke:#c0392b,color:#fff
+    classDef builder fill:#51cf66,stroke:#2f9e44,color:#fff
+
+    IDEA(["Unmeasured idea arrives"]) --> CHOICE{"Mechanism<br/>exists?"}
+    CHOICE -->|"No"| HOLD["Hold at arm's length<br/>wait for Stage 6"]:::waiter
+    CHOICE -->|"Not yet"| FIND["Locate on<br/>formalization sequence"]:::builder
+
+    HOLD --> WATCH["Watch others<br/>reason with it"]:::waiter
+    FIND --> BRIDGE["Stage-appropriate<br/>scaffolding"]:::builder
+    BRIDGE --> ITERATE["Refine model<br/>each iteration"]:::builder
+
+    subgraph fw["Formative Window"]
+        FIND
+        BRIDGE
+        ITERATE
+    end
+
+    WATCH --> LATE(["Stage 6: engage, correctly, late"]):::waiter
+    ITERATE --> AHEAD(["Stage 6: years of insight banked"]):::builder
+```
+
 ---
 
 ## The error is in the instrument, not the idea
@@ -28,6 +51,24 @@ That rule is mostly correct. It is also responsible for a specific, recurring er
 When an idea resists measurement, the trained response is to treat it as suspect, potentially premature, possibly pseudoscientific. The idea gets quarantined until the measurement machinery exists to evaluate it. This feels like intellectual discipline. What it actually is: observer-tool conflation.
 
 Observer-tool conflation is the mistake of treating the limits of your current instruments as the limits of underlying reality. The measurement gap becomes a verdict on existence. "I cannot measure this" slides quietly into "this probably does not exist." The observer's toolkit becomes the boundary of the possible.
+
+```mermaid
+flowchart TD
+    classDef correct fill:#51cf66,stroke:#2f9e44,color:#fff
+    classDef error fill:#ff6b6b,stroke:#c0392b,color:#fff
+    classDef neutral fill:#e9ecef,stroke:#adb5bd,color:#333
+
+    PHENOM["Real phenomenon"] --> MEASURE{"Measurement<br/>attempted"}
+    MEASURE -->|"succeeds"| CONFIRM(["Phenomenon confirmed"]):::correct
+    MEASURE -->|"fails"| GAP["Measurement gap"]:::neutral
+
+    GAP --> BRANCH{"Inference?"}
+    BRANCH -->|"Correct"| LIMIT["Instrument limit<br/>Phenomenon may still exist"]:::correct
+    BRANCH -->|"Conflation"| FALSENEG["Reality limit<br/>Phenomenon probably absent"]:::error
+
+    LIMIT --> ACT["Locate on formalization<br/>sequence — reason forward"]:::correct
+    FALSENEG --> SHELF["Quarantine idea<br/>wait for Stage 6"]:::error
+```
 
 I'd argue this is the most expensive analytical habit in technical fields. Quarter after quarter, good ideas get shelved not because they're wrong but because the instrument isn't ready.
 
@@ -44,6 +85,21 @@ Paul Erdős said it directly about mathematics: "The mathematics is not ready ye
 Erdős backed this with money, placing bounties of $25 to $10,000 on unsolved problems decades before the proofs existed. He wasn't speculating. He was specifying a location in the formalization sequence and reasoning forward from it.
 
 The formalization sequence is the six-stage path every concept travels: intuition → pattern recognition → comparison → informal usage → formal theory → measurement. Stage six is where the measurement infrastructure lives. Stage one is where real phenomena begin.
+
+```mermaid
+flowchart LR
+    classDef fw fill:#e8f5e9,stroke:#66bb6a,color:#1b5e20
+    classDef late fill:#ffebee,stroke:#ef5350,color:#b71c1c
+
+    subgraph formative["Formative Window — mechanism builders operate here"]
+        direction LR
+        S1(["Intuition"]) --> S2(["Pattern"]) --> S3(["Comparison"]) --> S4(["Informal Usage"]) --> S5(["Formal Theory"])
+    end
+
+    S5 --> S6(["Measurement"]):::late
+
+    class S1,S2,S3,S4,S5 fw
+```
 
 Most analytically trained people demand Stage 6 before they will permit Stage 1. History proceeds in the opposite direction. Always.
 
@@ -105,6 +161,25 @@ Provisional scaffolding is the collection of non-measurement-based methods for r
 
 **Step 5: Observe outcomes ordinally.** Without precise measurement, compare trajectories. Is this direction ordinally better than the alternative it replaced? Is it producing meaningfully different results? You are not proving a claim. You are calibrating a model.
 
+```mermaid
+flowchart TD
+    classDef step fill:#e3f2fd,stroke:#42a5f5,color:#0d47a1
+    classDef check fill:#fff3cd,stroke:#ffc107,color:#333
+    classDef hold fill:#f3e5f5,stroke:#ab47bc,color:#4a148c
+
+    START(["Pre-formal concept"]) --> S1["Step 1: Name<br/>the intuition"]:::step
+    S1 --> S2["Step 2: Map<br/>neighboring concepts"]:::step
+    S2 --> S3["Step 3: Compare<br/>similarities and gaps"]:::step
+    S3 --> S4["Step 4: Apply to<br/>real decision"]:::step
+    S4 --> OPCHECK{"Operational<br/>effect?"}:::check
+    OPCHECK -->|"None"| MARK["Stage 1 — mark<br/>revisit later"]:::hold
+    OPCHECK -->|"Yes"| S5["Step 5: Observe<br/>ordinally"]:::step
+    S5 --> STAGECHECK{"Stage<br/>advanced?"}:::check
+    STAGECHECK -->|"Yes"| UPGRADE["Higher-stage<br/>scaffolding"]:::step
+    STAGECHECK -->|"No"| S3
+    UPGRADE --> S4
+```
+
 **Provisional Scaffolding Bridges, Ranked by Stage**
 
 | Stage | Best Bridge | Why |
@@ -138,6 +213,28 @@ The mechanism waiter and the mechanism builder face identical epistemic conditio
 
 What differs is what they do next.
 
+```mermaid
+sequenceDiagram
+    participant W as Mechanism Waiter
+    participant Idea as Pre-formal Idea
+    participant B as Mechanism Builder
+
+    Note over W,B: Unmeasured idea arrives
+    W--xIdea: Hold, await Stage 6
+    B->>Idea: Enter formative window
+
+    loop Formative Window
+        B->>B: Run 5-step method
+        B->>B: Refine ordinal model
+    end
+
+    Note over W: Mechanism debt compounds
+    Note over W,B: Stage 6 arrives
+
+    Idea-->>B: Years of insight banked
+    Idea-->>W: Engage, correctly, late
+```
+
 The mechanism waiter stays outside the formative window. They watch others reason about the concept, build with it, refine it, develop the vocabulary that eventually becomes the formal framework. When the formal framework arrives, they engage. Rigorously. Correctly. Late. The mechanism debt accumulated invisibly because it looked like caution. It compounded like a cost.
 
 The mechanism builder enters the formative window. They accept Stage 2 and 3 uncertainty costs. They run the 5-step method. Every cycle refines their conceptual map. Every ordinal comparison sharpens their model. By the time Stage 6 arrives, they have years of structured thinking behind their measurement.
@@ -155,6 +252,25 @@ Mechanism debt does not accumulate forever. It resolves. The only question is wh
 Pick one concept you are holding at arm's length. Something that feels real, has predictive value, and you refuse to reason about rigorously because Stage 6 machinery does not exist yet.
 
 Ask one question: is this mechanism debt, or is this noise?
+
+```mermaid
+flowchart TD
+    classDef go fill:#51cf66,stroke:#2f9e44,color:#fff
+    classDef ready fill:#ffd43b,stroke:#f59f00,color:#000
+    classDef drop fill:#ff6b6b,stroke:#c0392b,color:#fff
+
+    START(["Concept held at arm's length"]) --> Q1{"Ordinal comparison<br/>possible? (Step 3)"}
+    Q1 -->|"Yes"| AT3["Stage 3 or higher<br/>Use ordinal comparison"]:::go
+    Q1 -->|"No"| Q2{"Repeated patterns<br/>across contexts?"}
+    Q2 -->|"Yes"| AT2["Stage 2<br/>Use thought experiments"]:::go
+    Q2 -->|"No"| Q3{"Felt sense of<br/>real phenomenon?"}
+    Q3 -->|"Yes"| AT1["Stage 1<br/>Use similarity matching"]:::ready
+    Q3 -->|"No"| NOISE(["Noise — not mechanism debt"]):::drop
+
+    AT3 --> OPEN(["Formative window is open — enter now"]):::go
+    AT2 --> OPEN
+    AT1 --> WAITMARK["Name intuition<br/>revisit at next cycle"]:::ready
+```
 
 If you can run Step 3 of the 5-step method, if you can place this concept in ordinal comparison against alternatives and get a meaningful result, you are not at Stage 1. You are at Stage 3. Stage-appropriate provisional scaffolding exists. The formative window is open.
 
