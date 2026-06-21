@@ -20,7 +20,14 @@ body.dark .mermaid-wrapper{background:#252526;border-color:#3e3e42;}
 .mermaid-wrapper:hover .mermaid-copy-btn{opacity:1;}
 body.dark .mermaid-copy-btn{background:#252526;color:#d4d4d4;border:1px solid #3e3e42;}
 
+/* Forces Syne to be "needed" by the browser so document.fonts.ready
+   actually waits for the font file — otherwise display:swap makes
+   fonts.ready resolve immediately before Syne downloads. */
+.mermaid-font-probe{font-family:'Syne',Arial,sans-serif;position:absolute;
+  opacity:0;pointer-events:none;width:0;height:0;overflow:hidden;}
+
 </style>
+<span class="mermaid-font-probe" aria-hidden="true">x</span>
 
 <script>
 // ── MERMAID DOM TRANSFORM ──
@@ -147,20 +154,6 @@ function addMermaidCopyButtons() {
   });
 }
 
-// ── FONT-GATED RENDER ──
-// document.fonts.ready only waits for ALREADY-requested fonts. Syne is never
-// requested on note pages (body uses EB Garamond), so it resolves before Syne
-// loads and mermaid measures text in Arial → undersized boxes → clipped text on
-// first/slow load. Force-load the Syne faces (700/800 per head.html) first.
-function _runMermaidWhenFontsReady() {
-  Promise.all([
-    document.fonts.load("700 17px 'Syne'"),
-    document.fonts.load("800 17px 'Syne'")
-  ]).catch(function(){})                 // never block on a font failure
-   .then(function(){ return document.fonts.ready; })
-   .then(function(){ mermaid.run().then(addMermaidCopyButtons); });
-}
-
 // ── MERMAID RERENDER (called by theme.html on toggle) ──
 // Exposed on window so theme.html can call it without coupling to this module.
 window.mermaidRerender = function(nowDark) {
@@ -169,10 +162,12 @@ window.mermaidRerender = function(nowDark) {
     d.removeAttribute('data-processed');
   });
   var _mv = nowDark
-    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+    ? {fontFamily:"Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
-  _runMermaidWhenFontsReady();
+  document.fonts.ready.then(function() {
+    mermaid.run().then(addMermaidCopyButtons);
+  });
 };
 </script>
 
@@ -181,10 +176,12 @@ window.mermaidRerender = function(nowDark) {
 (function(){
   var isDark = document.body.classList.contains('dark');
   var _mv = isDark
-    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
-    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+    ? {fontFamily:"Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
-  _runMermaidWhenFontsReady();
+  document.fonts.ready.then(function() {
+    mermaid.run().then(addMermaidCopyButtons);
+  });
   _buildSyneFontCSS(); // pre-warm: fetch+embed Syne so first copy is instant
 })();
 </script>
