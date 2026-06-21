@@ -1,0 +1,180 @@
+<style>
+
+/* ── MERMAID DIAGRAMS ── */
+.mermaid-wrapper{
+  position:relative;margin:36px 0;
+  background:#f0f0f0;border:1px solid #ccc;border-radius:12px;
+  padding:24px;overflow:visible;
+}
+.note-body .mermaid{margin:0;}
+.note-body .mermaid svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+body.dark .mermaid-wrapper{background:#252526;border-color:#3e3e42;}
+
+.mermaid-copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:#111;color:#f7f7f7;
+  border:none;border-radius:6px;padding:6px 12px;
+  font-family:'Syne',Arial,sans-serif;font-size:11px;font-weight:600;
+  cursor:pointer;z-index:10;opacity:0;transition:opacity .15s;
+}
+.mermaid-wrapper:hover .mermaid-copy-btn{opacity:1;}
+body.dark .mermaid-copy-btn{background:#252526;color:#d4d4d4;border:1px solid #3e3e42;}
+
+</style>
+
+<script>
+// ── MERMAID DOM TRANSFORM ──
+// Rouge wraps ```mermaid as <pre><code class="language-mermaid">
+// Convert each to <div class="mermaid" data-src="..."> before mermaid.run()
+document.querySelectorAll('.note-body code[class*="language-mermaid"]').forEach(function(el) {
+  var pre = el.parentNode;
+  var src = el.textContent;
+  var div = document.createElement('div');
+  div.className = 'mermaid';
+  div.dataset.src = src;
+  div.textContent = src;
+  var wrapper = document.createElement('div');
+  wrapper.className = 'mermaid-wrapper';
+  wrapper.appendChild(div);
+  var target = (pre && pre.tagName === 'PRE') ? pre : el;
+  target.parentNode.replaceChild(wrapper, target);
+});
+
+// ── FONT EMBED HELPERS (for PNG copy) ──
+// document.styleSheets[n].cssRules throws SecurityError for cross-origin sheets,
+// so html-to-image cannot auto-read Google Fonts @font-face rules.
+// Pre-fetch the CSS ourselves, convert every gstatic URL to a base64 data URI.
+var _syneFontCSS = null;
+
+function _abToB64(buf) {
+  var bytes = new Uint8Array(buf), out = '', CHK = 8192;
+  for (var i = 0; i < bytes.length; i += CHK) {
+    out += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i + CHK, bytes.length)));
+  }
+  return btoa(out);
+}
+
+async function _buildSyneFontCSS() {
+  if (_syneFontCSS !== null) return _syneFontCSS;
+  try {
+    var css = await fetch(
+      'https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap'
+    ).then(function(r) { return r.text(); });
+    var seen = {}, jobs = [], re = /url\((https?:\/\/fonts\.gstatic\.com\/[^)]+)\)/g, m;
+    while ((m = re.exec(css)) !== null) {
+      if (!seen[m[1]]) { seen[m[1]] = true; jobs.push(m[1]); }
+    }
+    var fetched = await Promise.all(jobs.map(async function(url) {
+      var buf  = await fetch(url).then(function(r) { return r.arrayBuffer(); });
+      var ext  = url.split('.').pop().split('?')[0].toLowerCase();
+      var mime = ext === 'woff2' ? 'font/woff2' : ext === 'woff' ? 'font/woff' : 'font/truetype';
+      return { url: url, data: 'data:' + mime + ';base64,' + _abToB64(buf) };
+    }));
+    var inlined = css;
+    fetched.forEach(function(f) {
+      inlined = inlined.split('url(' + f.url + ')').join('url(' + f.data + ')');
+    });
+    _syneFontCSS = inlined;
+  } catch(e) {
+    console.warn('[mermaid-copy] font embed failed — will use system font', e);
+    _syneFontCSS = '';
+  }
+  return _syneFontCSS;
+}
+
+// ── PNG COPY BUTTONS FOR MERMAID DIAGRAMS ──
+function addMermaidCopyButtons() {
+  document.querySelectorAll('.note-body .mermaid-wrapper').forEach(function(wrapper) {
+    var old = wrapper.querySelector('.mermaid-copy-btn');
+    if (old) old.remove();
+    var mermaidDiv = wrapper.querySelector('.mermaid');
+    if (!mermaidDiv) return;
+    var btn = document.createElement('button');
+    btn.className = 'mermaid-copy-btn';
+    btn.textContent = '📷 copy';
+    btn.addEventListener('click', async function() {
+      try {
+        var svg = mermaidDiv.querySelector('svg');
+        if (!svg) return;
+        var isDark = document.body.classList.contains('dark');
+        var fontCSS = await _buildSyneFontCSS();
+        var svgRect = svg.getBoundingClientRect();
+        var PAD = 24;
+        var captureW = Math.ceil(svgRect.width)  + PAD * 2;
+        var captureH = Math.ceil(svgRect.height) + PAD * 2;
+        var origStyle = mermaidDiv.getAttribute('style') || null;
+        btn.style.display = 'none';
+        mermaidDiv.style.cssText = [
+          'box-sizing:border-box',
+          'display:flex',
+          'align-items:center',
+          'justify-content:center',
+          'width:'  + captureW + 'px',
+          'height:' + captureH + 'px',
+          'padding:' + PAD + 'px',
+          'border-radius:16px',
+          isDark
+            ? 'background:linear-gradient(160deg,#2a2a2c 0%,#1a1a1c 100%)'
+            : 'background:linear-gradient(160deg,#f8f8f6 0%,#e8e8e4 100%)'
+        ].join(';');
+        await new Promise(function(r) { requestAnimationFrame(r); });
+        await new Promise(function(r) { requestAnimationFrame(r); });
+        var blob;
+        try {
+          blob = await htmlToImage.toBlob(mermaidDiv, {
+            pixelRatio: 2,
+            cacheBust: true,
+            fontEmbedCSS: fontCSS || undefined,
+            backgroundColor: isDark ? '#1a1a1c' : '#e8e8e4',
+            width:  captureW,
+            height: captureH
+          });
+        } finally {
+          if (origStyle !== null) mermaidDiv.setAttribute('style', origStyle);
+          else                    mermaidDiv.removeAttribute('style');
+          btn.style.display = '';
+        }
+        await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+        btn.textContent = '✓ Copied';
+        setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
+      } catch(err) {
+        console.error(err);
+        btn.textContent = '✗ Failed';
+        setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
+      }
+    });
+    wrapper.appendChild(btn);
+  });
+}
+
+// ── MERMAID RERENDER (called by theme.html on toggle) ──
+// Exposed on window so theme.html can call it without coupling to this module.
+window.mermaidRerender = function(nowDark) {
+  document.querySelectorAll('.note-body .mermaid[data-processed]').forEach(function(d) {
+    d.innerHTML = d.dataset.src;
+    d.removeAttribute('data-processed');
+  });
+  var _mv = nowDark
+    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
+  document.fonts.ready.then(function() {
+    mermaid.run().then(addMermaidCopyButtons);
+  });
+};
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function(){
+  var isDark = document.body.classList.contains('dark');
+  var _mv = isDark
+    ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
+    : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
+  document.fonts.ready.then(function() {
+    mermaid.run().then(addMermaidCopyButtons);
+    _buildSyneFontCSS(); // pre-warm: fetch+embed Syne so first copy is instant
+  });
+})();
+</script>

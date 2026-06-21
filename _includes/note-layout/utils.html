@@ -1,0 +1,32 @@
+<script>
+// ── HIGHLIGHT2 MARKER TRANSFORM (==text== syntax) ──
+document.querySelector('.note-body').innerHTML =
+  document.querySelector('.note-body').innerHTML.replace(
+    /==(.+?)==/g,
+    '<span class="highlight2">$1</span>'
+  );
+
+// ── SOURCE-AWARE BACK NAVIGATION ──
+// Rewrites breadcrumb + TOC back link when arriving from Inspo page
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var from = params.get('from');
+  if (from !== 'inspo') return;
+  var backUrl = '{{ site.baseurl }}/inspo.html';
+  var cat = params.get('cat');
+  if (cat) backUrl += '?cat=' + cat;
+  var crumbLink = document.querySelector('.breadcrumb a');
+  if (crumbLink) { crumbLink.href = backUrl; crumbLink.textContent = 'Inspo'; }
+  var tocBack = document.querySelector('a.back');
+  if (tocBack) { tocBack.href = backUrl; tocBack.textContent = '← Inspo'; }
+})();
+
+// ── EXTERNAL LINKS ──
+document.querySelectorAll('.note-body a[href^="http"]').forEach(function(a) {
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+});
+
+// ── IMAGE LAZY LOADING ──
+document.querySelectorAll('.note-body img').forEach(function(img) { img.loading = 'lazy'; });
+</script>

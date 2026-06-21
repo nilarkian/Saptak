@@ -1,0 +1,140 @@
+{% if page.topic == "RCM" %}
+<style>
+
+/* ── RCM ACRONYM TOOLTIPS ── */
+abbr.rcm-term{
+  border-bottom:1px dotted #4e9fd4;cursor:help;
+  text-decoration:none;display:inline;
+}
+.rcm-tooltip{
+  position:fixed;top:0;left:0;width:280px;
+  background:#fff;color:#111;
+  border:1px solid #ddd;border-radius:8px;
+  padding:10px 14px;
+  font-family:'EB Garamond',Georgia,serif;font-size:14px;line-height:1.55;
+  font-weight:400;font-style:normal;text-transform:none;letter-spacing:0;
+  box-shadow:0 4px 20px rgba(0,0,0,.13);
+  white-space:normal;text-align:left;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .15s;z-index:1000;
+}
+.rcm-tooltip.visible{opacity:1;visibility:visible;}
+body.dark abbr.rcm-term{border-bottom-color:#6cb8e8;}
+body.dark .rcm-tooltip{background:#252526;color:#d4d4d4;border-color:#3e3e42;box-shadow:0 4px 20px rgba(0,0,0,.45);}
+
+</style>
+
+<script type="application/json" id="rcm-data">{"glossary": {{ site.data.rcm_glossary | jsonify }}, "url": {{ page.url | jsonify }}}</script>
+
+<script>
+(function(){
+  var rcmDataEl = document.getElementById('rcm-data');
+  if (!rcmDataEl) return;
+  var rcmData = JSON.parse(rcmDataEl.textContent || '{}');
+
+  // ── GLOSSARY ANNOTATION ──
+  (function(){
+    var entries = rcmData.glossary || [];
+    var glossary = {};
+    entries.forEach(function(e){ glossary[e.term] = e; });
+    var terms = Object.keys(glossary).sort(function(a,b){ return b.length - a.length; });
+    if (!terms.length) return;
+    var escaped = terms.map(function(t){ return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); });
+    var re = new RegExp('\\b(' + escaped.join('|') + ')\\b','g');
+    var skipTags = ['CODE','PRE','A','H1','H2','H3','H4','H5','H6','ABBR','SCRIPT','STYLE','BUTTON'];
+    var noteBody = document.getElementById('note-body');
+    if (!noteBody) return;
+
+    function shouldSkip(textNode) {
+      var el = textNode.parentElement;
+      while (el && el !== noteBody) {
+        if (skipTags.indexOf(el.tagName) >= 0) return true;
+        var cl = el.classList;
+        if (cl && (cl.contains('callout-title') || cl.contains('mermaid'))) return true;
+        el = el.parentElement;
+      }
+      return false;
+    }
+
+    var walker = document.createTreeWalker(noteBody, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = [];
+    var n;
+    while ((n = walker.nextNode())) { if (n.nodeValue.trim()) textNodes.push(n); }
+
+    textNodes.forEach(function(tn) {
+      if (shouldSkip(tn)) return;
+      var text = tn.nodeValue;
+      re.lastIndex = 0;
+      if (!re.test(text)) return;
+      re.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var last = 0, m;
+      while ((m = re.exec(text)) !== null) {
+        if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        var entry = glossary[m[1]];
+        var abbr = document.createElement('abbr');
+        abbr.className = 'rcm-term';
+        abbr.tabIndex = 0;
+        abbr.dataset.tip = (entry.full ? entry.full + ' — ' : '') + entry.def;
+        abbr.textContent = m[1];
+        frag.appendChild(abbr);
+        last = re.lastIndex;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      tn.parentNode.replaceChild(frag, tn);
+    });
+  })();
+
+  // ── TOOLTIP WIDGET (fixed position, escapes overflow:auto table wrappers) ──
+  (function(){
+    var TIP_W = 280;
+    var tip = document.createElement('div');
+    tip.className = 'rcm-tooltip';
+    document.body.appendChild(tip);
+
+    function show(term) {
+      tip.textContent = term.dataset.tip;
+      var r = term.getBoundingClientRect();
+      var h = tip.offsetHeight;
+      var top = r.top - h - 8;
+      if (top < 8) top = r.bottom + 8;
+      var left = r.left + r.width / 2 - TIP_W / 2;
+      var maxLeft = window.innerWidth - TIP_W - 8;
+      if (left < 8) left = 8;
+      if (left > maxLeft) left = maxLeft;
+      tip.style.left = left + 'px';
+      tip.style.top  = top  + 'px';
+      tip.classList.add('visible');
+    }
+    function hide() { tip.classList.remove('visible'); }
+
+    document.addEventListener('mouseover', function(e) {
+      var t = e.target.closest ? e.target.closest('.rcm-term') : null;
+      if (t) show(t); else hide();
+    });
+    document.addEventListener('mouseout', function(e) {
+      if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.rcm-term')) hide();
+    });
+    document.addEventListener('focusin', function(e) {
+      var t = e.target.closest ? e.target.closest('.rcm-term') : null;
+      if (t) show(t);
+    });
+    document.addEventListener('focusout', function(e) {
+      var t = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest('.rcm-term') : null;
+      if (!t) hide();
+    });
+    window.addEventListener('scroll', hide, { passive: true, capture: true });
+    window.addEventListener('resize', hide, { passive: true });
+  })();
+
+  // ── VISITED TRACKER ──
+  (function(){
+    try {
+      var visited = JSON.parse(localStorage.getItem('rcm-notes-visited') || '{}');
+      visited[rcmData.url] = new Date().toISOString();
+      localStorage.setItem('rcm-notes-visited', JSON.stringify(visited));
+    } catch(e) {}
+  })();
+})();
+</script>
+{% endif %}

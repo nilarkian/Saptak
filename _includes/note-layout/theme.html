@@ -1,0 +1,52 @@
+<style>
+
+/* ── THEME TOGGLE BUTTON ── */
+#theme-toggle{
+  position:fixed;top:18px;right:18px;
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.12);background:#f7f7f7;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  z-index:1000;padding:0;transition:background .2s,border-color .2s;
+}
+#theme-toggle:hover{border-color:rgba(0,0,0,.3);}
+#theme-toggle svg{width:16px;height:16px;display:block;stroke:#555;transition:stroke .2s;}
+#theme-toggle:hover svg{stroke:#111;}
+body.dark #theme-toggle{background:#252526;border-color:#3e3e42;}
+body.dark #theme-toggle:hover{border-color:#5a5a5f;}
+body.dark #theme-toggle svg{stroke:#858585;}
+body.dark #theme-toggle:hover svg{stroke:#d4d4d4;}
+
+@media(max-width:768px){
+  #theme-toggle{top:14px;right:14px;}
+}
+
+</style>
+
+<script>
+// ── THEME TOGGLE ──
+(function(){
+  var stored = localStorage.getItem('note-theme');
+  var isDark = stored !== null ? stored === 'dark' : false;
+
+  var sun  = document.getElementById('icon-sun');
+  var moon = document.getElementById('icon-moon');
+  var btn  = document.getElementById('theme-toggle');
+
+  function apply(dark) {
+    document.body.classList.toggle('dark', dark);
+    sun.style.display  = dark ? 'block' : 'none';
+    moon.style.display = dark ? 'none'  : 'block';
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  apply(isDark);
+
+  btn.addEventListener('click', function() {
+    var nowDark = !document.body.classList.contains('dark');
+    localStorage.setItem('note-theme', nowDark ? 'dark' : 'light');
+    apply(nowDark);
+    // Delegate mermaid re-render to mermaid.html (decoupled via window contract)
+    if (typeof window.mermaidRerender === 'function') window.mermaidRerender(nowDark);
+  });
+})();
+</script>
