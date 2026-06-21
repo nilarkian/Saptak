@@ -147,8 +147,18 @@
     const expandedW = window._tocExpandedWidth || 200;
     const w = collapsed ? 44 : expandedW;
     sidebar.style.width = w + 'px';
-    if (main) main.style.marginLeft = w + 'px';
     toggleBtn.style.left = w + 'px';
+    if (!main) return;
+    if (collapsed) {
+      // Center content in viewport rather than jamming it against the collapsed
+      // sidebar — without this, margin-left drops from ~200px to 44px and the
+      // content visually shifts hard left leaving a big empty right gap.
+      const maxW = 1060; // matches body.toc-collapsed .main { max-width }
+      const ml = Math.max(w, Math.round((window.innerWidth - maxW) / 2));
+      main.style.marginLeft = ml + 'px';
+    } else {
+      main.style.marginLeft = w + 'px';
+    }
   }
 
   toggleBtn.addEventListener('click', () => {
@@ -161,6 +171,7 @@
   window.syncMainMargin = syncMainMargin;
   applyTocState();
   syncMainMargin();
+  window.addEventListener('resize', syncMainMargin);
 })();
 </script>
 
