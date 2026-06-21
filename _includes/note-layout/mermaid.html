@@ -31,11 +31,14 @@ body.dark .mermaid-copy-btn{background:#252526;color:#d4d4d4;border:1px solid #3
 
 <script>
 // ── MERMAID DOM TRANSFORM ──
-// Rouge wraps ```mermaid as <pre><code class="language-mermaid">
-// Convert each to <div class="mermaid" data-src="..."> before mermaid.run()
+// On GitHub Pages the github-pages gem forces Rouge, which wraps every fenced
+// block in: div.language-mermaid.highlighter-rouge > div.highlight > pre > code
+// On localhost/Cloudflare (no forced Rouge) the structure is just: pre > code
+// We must replace the OUTERMOST wrapper (closest .highlighter-rouge if present,
+// otherwise just <pre>) so the mermaid SVG isn't constrained inside div.highlight.
 document.querySelectorAll('.note-body code[class*="language-mermaid"]').forEach(function(el) {
-  var pre = el.parentNode;
   var src = el.textContent;
+  var outermost = el.closest('.highlighter-rouge') || el.parentNode;
   var div = document.createElement('div');
   div.className = 'mermaid';
   div.dataset.src = src;
@@ -43,8 +46,7 @@ document.querySelectorAll('.note-body code[class*="language-mermaid"]').forEach(
   var wrapper = document.createElement('div');
   wrapper.className = 'mermaid-wrapper';
   wrapper.appendChild(div);
-  var target = (pre && pre.tagName === 'PRE') ? pre : el;
-  target.parentNode.replaceChild(wrapper, target);
+  outermost.parentNode.replaceChild(wrapper, outermost);
 });
 
 // ── FONT EMBED HELPERS (for PNG copy) ──
@@ -189,7 +191,7 @@ window.mermaidRerender = function(nowDark) {
   var _mv = nowDark
     ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
     : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
-  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', flowchart: { htmlLabels: true }, theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
   _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
 };
 </script>
@@ -201,7 +203,7 @@ window.mermaidRerender = function(nowDark) {
   var _mv = isDark
     ? {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
     : {fontFamily:"'Syne',Arial,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
-  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
+  mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', flowchart: { htmlLabels: true }, theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
   _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
   _buildSyneFontCSS(); // pre-warm: fetch+embed Syne so first copy is instant
 })();
