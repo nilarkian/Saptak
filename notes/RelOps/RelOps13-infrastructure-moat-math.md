@@ -151,11 +151,11 @@ Reliability asymmetry isn't theoretical. It unfolds predictably across deploymen
 
 ```mermaid
 graph TD
-    Start["Month 0\nSame model · Same resources · Same starting point"] --> AccOrg
+    Start["Month 01 - Same model · Same resources · Same starting point"] --> AccOrg
     Start --> IntOrg
 
-    AccOrg["Reliability Accumulator\nInvests in operational capital"]
-    IntOrg["Intelligence-First Org\nInvests in model selection"]
+    AccOrg["Reliability Accumulator - Invests in operational capital"]
+    IntOrg["Intelligence-First Org - Invests in model selection"]
 
     AccOrg --> A6["Month 6\nTelemetry + governance foundation\nHarness depth: growing"]
     IntOrg --> I6["Month 6\nModel upgraded · Prompt logic rebuilt\nHarness depth: minimal"]

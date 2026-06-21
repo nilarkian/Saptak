@@ -49,6 +49,21 @@ Survivability Purchasing is the procurement behavior that emerges when buyers re
 
 The Capability Convergence Ceiling did not arrive slowly. You may have crossed it without recognizing what changed.
 
+```mermaid
+quadrantChart
+    title "Enterprise AI Strategy Positioning"
+    x-axis "Low Deployment Maturity" --> "High Deployment Maturity"
+    y-axis "Low Model Spend" --> "High Model Spend"
+    quadrant-1 "Transitioning"
+    quadrant-2 "Model War Trap"
+    quadrant-3 "Passive"
+    quadrant-4 "Runtime Moat"
+    "Most Enterprise Teams": [0.20, 0.78]
+    "Model-Only Players": [0.12, 0.92]
+    "Early Movers": [0.60, 0.40]
+    "Runtime Leaders": [0.82, 0.22]
+```
+
 ---
 
 ## Enterprise buyers already moved: the language just has not caught up
@@ -126,6 +141,34 @@ Here is what accumulates inside the runtime layer as Runtime Reliability Economi
 - **Audit trail infrastructure**: redactable, exportable, contractually defined before deployment
 - **Fallback architecture**: model-swap capability without production interruption, tested and SLA-bound
 - **Operational learning loops**: production failure data feeding back into deployment decisions and recovery procedures
+
+```mermaid
+flowchart TD
+    subgraph reset_cycle["Model Layer — Resets Every 6 Months"]
+        Buy["Spend on Capability"] --> Bench["Benchmark Score"]
+        Bench --> ResetG["Next Release — Progress Resets"]
+    end
+
+    subgraph compound["Runtime Layer — Compounds Over Time"]
+        FailP["Failure Patterns"] --> MatG["Runtime Maturity"]
+        GovR["Governance Rails"] --> MatG
+        AudT["Audit Trails"] --> MatG
+        FallP["Fallback Paths"] --> MatG
+    end
+
+    MoatG(["Execution Continuity Moat"])
+    MatG --> MoatG
+
+    classDef mod fill:#fef2f2,stroke:#ef4444,color:#7f1d1d
+    classDef run fill:#dcfce7,stroke:#22c55e,color:#14532d
+    classDef mat_s fill:#bbf7d0,stroke:#16a34a,color:#14532d
+    classDef moat_s fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+
+    class Buy,Bench,ResetG mod
+    class FailP,GovR,AudT,FallP run
+    class MatG mat_s
+    class MoatG moat_s
+```
 
 The first time a governance escalation lands and your compliance team asks for a decision trace on every output from the last 30 days, you find out whether your audit trail infrastructure exists. It does. Or it does not.
 
