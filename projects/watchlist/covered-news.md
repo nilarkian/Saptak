@@ -8,6 +8,15 @@ Table of recurring news themes in watchlist.md — identifies gaps and saturatio
 
 | Date | Entry | Domain | Tags |
 |------|-------|--------|------|
+| 2026-06-26 | 🤖 White House Hand-Approves Each GPT-5.6 Enterprise Customer | AI | ai-governance, frontier-ai, openai, executive-pressure, dual-use |
+| 2026-06-24 | ⚛️ STAR Architecture Cuts Fault-Tolerant Qubit Overhead by 6–10x | Quantum | quantum-simulation, fault-tolerant-computing, neutral-atom, quera, architecture |
+| 2026-06-24 | 💡 First Hardware PQC Accelerator Enters Smartphone Silicon | Semiconductors | post-quantum-cryptography, mobile-security, stmicroelectronics, semiconductors, lattice-based |
+| 2026-06-23 | ⚛️ DOE Sets 2028 Deadline for First Scientifically Useful Quantum Computer | Quantum | quantum-computing, doe, fault-tolerant, national-quantum-initiative, federal-deadline |
+| 2026-06-23 | 🚀 SpaceX Starfall Opens Routine Orbital Manufacturing Return | Transportation | in-space-manufacturing, orbital-economy, spacex, microgravity, reentry-vehicle |
+| 2026-06-22 | 🌐 US Dual Quantum EOs Hard-Deadline Federal PQC at 2030 | Geopolitics | quantum-policy, post-quantum-cryptography, executive-order, federal-it, geopolitics |
+| 2026-06-20 | ⚛️ Three-Node Trapped-Ion Network Validates Quantum Internet Path | Quantum | quantum-networking, trapped-ion, ionq, entanglement, quantum-internet |
+| 2026-06-19 | 🚀 Tactical Satellite Deployed 16 Hours After Launch Order | Transportation | responsive-launch, space-force, military-space, asat-deterrence, rocket-lab |
+| 2026-06-15 | 💡 2D-Material CMOS Clears the 300mm Wafer Production Threshold | Semiconductors | 2d-materials, post-silicon, semiconductors, tsmc, imec, asml, transistors |
 | Jun 17 | 🚀 LINK Grabs Swift: Commercial Satellite Rescue Reaches the Launch Pad | Transportation, Robotics & Space | satellite-servicing, space-economy, orbital-infrastructure, non-cooperative-servicing, robotics |
 | Jun 13 | 🌐 US Government Invokes AI Kill-Switch — First Frontier Model API Export Ban | Geopolitics of tech / AI | ai-governance, export-controls, anthropic, frontier-ai, sovereignty-risk |
 | Jun 12 | ⚛️ 800x QEC Error Drop Peer-Reviewed: Quantum Fault Tolerance Is a Software Problem Now | Quantum | quantum-error-correction, trapped-ion, microsoft, quantinuum, fault-tolerance |

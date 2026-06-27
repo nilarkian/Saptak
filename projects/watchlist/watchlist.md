@@ -8,6 +8,116 @@ permalink: /watchlist.html
 ## JUNE 2026
 
 
+### <span class="date">Jun 26</span> 🤖 White House Hand-Approves Each GPT-5.6 Enterprise Customer
+tags: [ai-governance, frontier-ai, openai, executive-pressure, dual-use]
+
+The US government has started approving GPT-5.6 enterprise customers one at a time — before public launch, without statutory authority.
+
+No law compelled OpenAI. The Office of the National Cyber Director and OSTP applied direct executive pressure, citing the model's autonomous ability to plan and execute multi-step cyberattacks without human intervention — placing it on par with Anthropic's Mythos model. CEO Sam Altman accepted the arrangement, confirming in an internal memo that "the government would be approving access customer by customer during this preview period," with Commerce Secretary Howard Lutnick also advising against unrestricted rollout. Unlike the Anthropic API export ban — which had a statutory hook in export-control law — this restriction operates entirely through executive suasion, creating a de facto licensing regime with no regulatory framework, no appeal process, and no defined sunset.
+
+Every future frontier model release now negotiates with the White House before shipping to customers.
+
+[source](https://cybersecuritynews.com/openai-delays-chatgpt-5-6-release/)
+
+---
+
+### <span class="date">Jun 24</span> ⚛️ STAR Architecture Cuts Fault-Tolerant Qubit Overhead by 6–10x
+tags: [quantum-simulation, fault-tolerant-computing, neutral-atom, quera, architecture]
+
+QuEra and Los Alamos have found a way to cut the physical qubit cost of fault-tolerant quantum simulation to 1,500–3,000 — down from the 10,000+ surface-code baseline.
+
+The STAR (Space-Time Efficient Analog Rotation) architecture bypasses the two costliest steps in fault-tolerant circuits: magic state distillation and discrete gate synthesis. Both are replaced by transversal injection of small-angle rotations across reconfigurable neutral-atom arrays, reducing circuit depth by a factor of 10–50x and delivering a 250x execution speedup on local Hamiltonian simulations. The architecture is native to QuEra's hardware and co-designed with qLDPC error correction codes, meaning the qubit floor drop is achievable on systems already on near-term roadmaps — not hypothetical million-qubit machines.
+
+Chemistry and materials simulation — the canonical near-term quantum advantage domain — just moved from a decade out to a near-term deliverable.
+
+[source](https://quantumcomputingreport.com/quera-and-los-alamos-national-laboratory-introduce-transversal-star-architecture-for-scalable-quantum-simulation/)
+
+---
+
+### <span class="date">Jun 24</span> 💡 First Hardware PQC Accelerator Enters Smartphone Silicon
+tags: [post-quantum-cryptography, mobile-security, stmicroelectronics, semiconductors, lattice-based]
+
+Post-quantum cryptography just moved from software libraries into dedicated smartphone silicon.
+
+STMicroelectronics' ST54M integrates ML-KEM and ML-DSA hardware accelerators alongside NFC controller, embedded secure element, and eSIM on a single die — the first monolithic mobile security chip to bundle all four. Prior mobile security chips ran lattice-based PQC algorithms in software on a general-purpose CPU, exposing keys to shared execution paths and adding measurable latency; the ST54M executes key encapsulation and digital signatures in dedicated hardware certified under Common Criteria EUCC 2022 and EMVCo. Every OEM that adopts this chip — across Android and iOS supply chains — gets NIST-mandate-ready secure elements in hardware before any regulatory deadline requires it.
+
+STMicroelectronics has quietly positioned itself as gatekeeper for the entire smartphone PQC migration path.
+
+[source](https://www.globenewswire.com/news-release/2026/06/24/3316591/0/en/stmicroelectronics-unveils-world-s-first-st54m-secure-mobile-chip-with-post-quantum-cryptography-for-next-generation-connected-services.html)
+[source2](https://quantumcomputingreport.com/stmicroelectronics-launches-st54m-monolithic-mobile-chip-with-post-quantum-cryptography-accelerator/)
+
+---
+
+### <span class="date">Jun 23</span> ⚛️ DOE Sets 2028 Deadline for First Scientifically Useful Quantum Computer
+tags: [quantum-computing, doe, fault-tolerant, national-quantum-initiative, federal-deadline]
+
+The US Department of Energy has given fault-tolerant quantum computing a hard 2028 deadline.
+
+Quantum Genesis targets 150–250 logical qubits, establishing a DOE Q Competition for hardware vendors and a National Quantum Supercomputing User Facility integrated with classical HPC and AI infrastructure for open researcher access. Unlike prior DOE quantum programs that funded open-ended research, this initiative is keystone-application-driven: condensed matter physics, plasma simulation, and materials chemistry define hardware requirements — vendors must demonstrate capability, not just qubit count. Acting under Executive Order 14413, Energy Secretary Wright is publishing QC-ADDS technical specs within 90 days, forcing hardware companies to benchmark against a government-specified threshold rather than self-set milestones.
+
+Private quantum hardware companies now race against a clock they didn't set and cannot pause.
+
+[source](https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first)
+[source2](https://thequantuminsider.com/2026/06/23/doe-unveils-quantum-genesis-push-to-accelerate-fault-tolerant-quantum-computing/)
+
+---
+
+### <span class="date">Jun 23</span> 🚀 SpaceX Starfall Opens Routine Orbital Manufacturing Return
+tags: [in-space-manufacturing, orbital-economy, spacex, microgravity, reentry-vehicle]
+
+SpaceX just launched a dedicated capsule for returning goods manufactured in orbit — and it landed in the Pacific within two days.
+
+Starfall is a disk-shaped reentry vehicle (~2,100 kg total, 1,000 kg payload capacity) launched June 23 from SLC-40, designed for routine autonomous return of microgravity-manufactured goods: pharmaceuticals, semiconductor crystals, and materials samples. Where Dragon serves the ISS under NASA contract, Starfall targets the open commercial market — a logistics link that previously cost tens of millions per flight and required years of mission development. SpaceX withheld upper-stage video and post-launch telemetry during the mission, suggesting a classified secondary payload rode alongside the primary manufacturing-return demonstration.
+
+Commoditizing Earth return compresses the entire in-space manufacturing value chain — and squeezes the margins of the handful of companies that previously owned the bottleneck.
+
+[source](https://spacenews.com/spacex-launches-secretive-starfall-reentry-demo-mission/)
+[source2](https://www.space.com/space-exploration/launches-spacecraft/spacex-launching-its-1st-starfall-reentry-capsule-early-on-june-23-watch-it-live)
+
+---
+
+### <span class="date">Jun 22</span> 🌐 US Dual Quantum EOs Hard-Deadline Federal PQC at 2030
+tags: [quantum-policy, post-quantum-cryptography, executive-order, federal-it, geopolitics]
+
+The US government now treats RSA and ECC as legally obsolete for federal use by December 31, 2030.
+
+President Trump signed two companion quantum executive orders on June 22: EO 14413 ("Ushering in the Next Frontier of Quantum Innovation") and the defensive companion ("Securing the Nation Against Advanced Cryptographic Attacks"). The defensive EO compresses the previous 2035 PQC migration guidance to 2030 for key establishment and 2031 for digital signatures — mandatory for all federal agencies and contractors, with updated vulnerability disclosure programs requiring vendors to flag non-FIPS cryptographic use. The offensive EO establishes QC-ADDS, mandates quantum sensors in the field by September 30, 2028, and creates National QIST Workforce Development Institutes to build the labor pipeline for both programs.
+
+Every US federal IT vendor now has a hard five-year window to replace RSA/ECC — turning PQC compliance into a market-access requirement for the $400B+ federal technology sector.
+
+[source](https://www.whitehouse.gov/presidential-actions/2026/06/ushering-in-the-next-frontier-of-quantum-innovation/)
+[source2](https://www.cybersecuritydive.com/news/quantum-cryptography-white-house-executive-order/823530/)
+
+---
+
+### <span class="date">Jun 20</span> ⚛️ Three-Node Trapped-Ion Network Validates Quantum Internet Path
+tags: [quantum-networking, trapped-ion, ionq, entanglement, quantum-internet]
+
+Duke University and IonQ have demonstrated GHZ entanglement across three separate trapped-ion nodes — the first to use individually controllable atomic qubits with no central gate operations.
+
+Three barium-138 ions in separate Paul traps roughly 2 meters apart emit 493nm photons into optical fibers routed to a GHZ entanglement generator, producing state fidelity of 0.841–0.881 and a Mermin parameter of 3.203(45) — exceeding the classical non-locality bound of ≤2 while closing the detection loophole. All prior three-node entanglement experiments used ensemble-based qubits or required a central node to perform local gate operations, making the "network" a distributed single device; this result distributes genuine computation across nodes, achieved without post-selection. The entanglement rate of 0.095 per second is low — but a real engineering baseline, not a coincidence artifact, on a photonic interconnect architecture directly scalable to longer distances.
+
+Modular quantum computers that scale beyond a single chip now have an experimental engineering template to follow.
+
+[source](https://arxiv.org/abs/2606.17173)
+[source2](https://quantumcomputingreport.com/duke-university-and-ionq-demonstrate-tripartite-entanglement-of-remote-atomic-qubits/)
+
+---
+
+### <span class="date">Jun 19</span> 🚀 Tactical Satellite Deployed 16 Hours After Launch Order
+tags: [responsive-launch, space-force, military-space, asat-deterrence, rocket-lab]
+
+The US Space Force launched a surveillance satellite from a standing start in 16 hours and 42 minutes — collapsing the assumed gap between ASAT attack and orbital replenishment.
+
+Rocket Lab's Victus Haze mission set the new tactical responsive space (TacRS) record, launching Pioneer from the Mahia Peninsula spaceport on June 19 just 16 hours 42 minutes after receiving orders — a 38% improvement on the previous Victus Nox record of 27 hours. Pioneer will next conduct rendezvous and proximity operations (RPO) with True Anomaly's Jackal satellite already on orbit, demonstrating real-time space domain awareness stacked on top of the rapid-deployment proof of concept. Both capabilities together answer the same question: what can an adversary achieve by destroying a US reconnaissance satellite if it can be replaced within a single operational day?
+
+Sub-day orbital replenishment erodes the strategic logic behind kinetic ASAT strikes — the coverage gap they were meant to create no longer materializes.
+
+[source](https://www.airandspaceforces.com/space-force-mission-goes-from-orders-to-launch-in-less-than-17-hours/)
+[source2](https://www.space.com/space-exploration/launches-spacecraft/rocket-lab-launches-us-space-force-mission-with-less-than-17-hours-notice-a-new-record)
+
+---
+
 ### <span class="date">Jun 17</span> 🚀 LINK Grabs Swift: Commercial Satellite Rescue Reaches the Launch Pad
 tags: [satellite-servicing, space-economy, orbital-infrastructure, non-cooperative-servicing, robotics]
 
@@ -19,6 +129,20 @@ If LINK succeeds, commercial life extension becomes available for any satellite 
 
 [source](https://www.nasa.gov/news-release/nasa-to-preview-katalyst-mission-to-boost-swift-spacecrafts-orbit/)
 [source2](https://www.katalystspace.com/news/nasa-telescope-is-about-to-fall-out-of-the-sky)
+
+---
+
+### <span class="date">Jun 15</span> 💡 2D-Material CMOS Clears the 300mm Wafer Production Threshold
+tags: [2d-materials, post-silicon, semiconductors, tsmc, imec, asml, transistors]
+
+The most significant barrier to post-silicon transistors — lab-to-fab scalability — has been crossed.
+
+imec, ASML, and TSMC co-fabricated complementary 2D-material transistors — MoS₂ nFETs and WS₂/WSe₂ pFETs — on full 300mm wafers at a 50nm contacted poly pitch using single-patterning EUV, achieving 94% operational device yield at channel lengths down to 28nm. A "reverse" thin-film architecture decouples contact formation from channel transfer: tungsten bottom contacts are pre-patterned, TMD channel material is transferred above them, and gates are deposited last — eliminating the contact-resistance degradation that blocked conventional approaches at production scale. Presented at the 2026 VLSI Technology & Circuits Symposium, this is the first result integrating n-type and p-type 2D transistors together on production-scale wafers using tools already installed in commercial semiconductor fabs.
+
+ASML's EUV monopoly extends intact into post-silicon scaling — and TMD precursor suppliers, currently academic niche, become the next semiconductor supply-chain chokepoint.
+
+[source](https://www.imec-int.com/en/press/asml-tsmc-and-imec-bring-industry-ready-2d-material-transistors-closer-breakthrough-300mm)
+[source2](https://bits-chips.com/article/asml-tsmc-and-imec-scale-2d-transistors-to-50nm-pitch-on-300mm-wafers/)
 
 ---
 
