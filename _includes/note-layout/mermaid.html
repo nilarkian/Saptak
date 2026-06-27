@@ -8,6 +8,7 @@
 }
 .note-body .mermaid{margin:0;}
 .note-body .mermaid svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+.note-body .mermaid:not([data-processed]){visibility:hidden;}
 body.dark .mermaid-wrapper{background:#252526;border-color:#3e3e42;}
 
 .mermaid-copy-btn{
@@ -156,31 +157,6 @@ function addMermaidCopyButtons() {
   });
 }
 
-// ── FONT-GATED RENDER ──
-// All previous approaches failed because Google Fonts CSS itself is async.
-// @font-face for Syne isn't registered until that CSS arrives, so fonts.load()
-// finds no descriptor and resolves immediately — mermaid then measures in Arial
-// (narrower), allocates clipped boxes, Syne swaps in later and overflows.
-// Fix: find the Google Fonts <link> element and wait for ITS load event before
-// calling fonts.load(). 4s hard fallback covers blocked/unavailable Google Fonts.
-function _runMermaidWhenFontsReady(cb) {
-  var link = document.querySelector('link[href*="fonts.googleapis.com"]');
-  var done = false;
-  function once() { if (done) return; done = true; cb(); }
-  function tryLoad() {
-    Promise.all([
-      document.fonts.load("700 17px 'Syne'"),
-      document.fonts.load("800 17px 'Syne'")
-    ]).catch(function(){}).then(function(){ return document.fonts.ready; }).then(once);
-  }
-  if (!link || link.sheet) {
-    tryLoad(); // no Google Fonts link, or CSS already parsed — go now
-  } else {
-    link.addEventListener('load', tryLoad, { once: true });
-    setTimeout(once, 4000); // hard fallback: run anyway if Google Fonts blocked
-  }
-}
-
 // ── MERMAID RERENDER (called by theme.html on toggle) ──
 // Exposed on window so theme.html can call it without coupling to this module.
 window.mermaidRerender = function(nowDark) {
@@ -192,7 +168,7 @@ window.mermaidRerender = function(nowDark) {
     ? {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
     : {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', htmlLabels: true, theme: nowDark ? 'dark' : 'neutral', themeVariables: _mv });
-  _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
+  mermaid.run().then(addMermaidCopyButtons);
 };
 </script>
 
@@ -204,7 +180,7 @@ window.mermaidRerender = function(nowDark) {
     ? {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#252526',primaryTextColor:'#d4d4d4',primaryBorderColor:'#3e3e42',lineColor:'#909090',edgeLabelBackground:'#252526',actorBkg:'#252526',actorBorder:'#3e3e42',actorTextColor:'#d4d4d4',signalColor:'#909090',signalTextColor:'#d4d4d4'}
     : {fontFamily:"system-ui,-apple-system,sans-serif",fontSize:'17px',primaryColor:'#f0f0f0',primaryTextColor:'#111',primaryBorderColor:'#bbb',lineColor:'#555',edgeLabelBackground:'#f0f0f0',actorBkg:'#f0f0f0',actorBorder:'#bbb',actorTextColor:'#111',signalColor:'#555',signalTextColor:'#111'};
   mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', htmlLabels: true, theme: isDark ? 'dark' : 'neutral', themeVariables: _mv });
-  _runMermaidWhenFontsReady(function(){ mermaid.run().then(addMermaidCopyButtons); });
+  mermaid.run().then(addMermaidCopyButtons);
   _buildSyneFontCSS(); // pre-warm: fetch+embed Syne so first copy is instant
 })();
 </script>
