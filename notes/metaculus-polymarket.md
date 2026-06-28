@@ -1,5 +1,5 @@
 ---
-is_note: false
+is_note: true
 layout: note-layout
 date: 2026-06-24
 title: "Reasoning vs Pricing: Two Ways to Forecast the Future"

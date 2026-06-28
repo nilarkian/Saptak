@@ -1,5 +1,4 @@
 ---
-topic: protein quality science
 is_note: true
 layout: note-layout
 date: 2026-06-25
