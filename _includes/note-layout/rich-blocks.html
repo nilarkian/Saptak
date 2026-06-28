@@ -88,6 +88,16 @@ document.querySelectorAll('.note-body table').forEach(function(t) {
 });
 
 // ── PNG COPY BUTTONS FOR TABLES ──
+window._copyTablePNG = async function(tableEl) {
+  var blob = await htmlToImage.toBlob(tableEl, {
+    pixelRatio: 2,
+    skipFonts: false,
+    cacheBust: true,
+    backgroundColor: document.body.classList.contains('dark') ? '#1e1e1e' : '#f7f7f7'
+  });
+  await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+};
+
 document.querySelectorAll('.note-body table').forEach(function(table) {
   var wrapper = table.parentElement;
   var btn = document.createElement('button');
@@ -95,13 +105,7 @@ document.querySelectorAll('.note-body table').forEach(function(table) {
   btn.textContent = '📷 copy';
   btn.addEventListener('click', async function() {
     try {
-      var blob = await htmlToImage.toBlob(table, {
-        pixelRatio: 2,
-        skipFonts: false,
-        cacheBust: true,
-        backgroundColor: document.body.classList.contains('dark') ? '#1e1e1e' : '#f7f7f7'
-      });
-      await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+      await window._copyTablePNG(table);
       btn.textContent = '✓ Copied';
       setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
     } catch(err) {

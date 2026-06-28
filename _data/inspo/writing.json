@@ -734,5 +734,303 @@
       "software-engineering",
       "automation"
     ]
+  },
+  {
+    "url": "https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/",
+    "author": "Edwin Morris",
+    "title": "I design with Claude more than Figma now",
+    "desc": "A Jane Street designer describes how AI assistance shifted his workflow from wireframes and specs to building real prototype features directly, enabling immediate testing without engineering back-and-forth.",
+    "date": "2026-06-30",
+    "tags": [
+      "ai-tools",
+      "software-engineering",
+      "creativity"
+    ]
+  },
+  {
+    "url": "https://velvetnoise.substack.com/p/how-to-enter-side-doors",
+    "author": "Maja",
+    "title": "How to Enter Side Doors",
+    "desc": "Argues that careers are built through unconventional pathways — direct outreach, public work, and solving unposted problems — rather than formal job listings, by treating a job as a bundle of problems someone needs solved.",
+    "date": "2026-07-01",
+    "tags": [
+      "careers",
+      "work",
+      "personal-growth",
+      "rhetoric"
+    ]
+  },
+  {
+    "url": "https://jasmi.news/p/2026-advice",
+    "author": "Jasmine Sun",
+    "title": "The Old World Is Dying",
+    "desc": "Rather than mourning outdated institutional structures, young graduates should embrace disruption by building interpersonal skills, tacit knowledge, and flexibility to thrive in an era of AI-driven transformation.",
+    "date": "2026-07-02",
+    "tags": [
+      "society",
+      "future",
+      "personal-growth",
+      "careers"
+    ]
+  },
+  {
+    "url": "https://thepointmag.com/criticism/clocked-out/",
+    "author": "Martin Dolan",
+    "title": "Clocked Out",
+    "desc": "Challenges pure anti-work cynicism by arguing that mission-driven workers find genuine fulfillment despite systemic constraints, proposing Elizabeth Anderson's 'progressive work ethic' as a constructive alternative to Graeber's 'bullshit jobs' thesis.",
+    "date": "2026-07-03",
+    "tags": [
+      "work",
+      "society",
+      "philosophy",
+      "criticism"
+    ]
+  },
+  {
+    "url": "https://tayiabr.wordpress.com/2016/09/20/david-lynch-keeps-his-head-david-foster-wallace/",
+    "author": "David Foster Wallace",
+    "title": "David Lynch Keeps His Head",
+    "desc": "Wallace's immersive on-set essay about Lost Highway argues that Lynch's singular power lies in penetrating viewers' psychological defenses rather than offering conventional narrative or moral resolution.",
+    "date": "2026-07-04",
+    "tags": [
+      "literature",
+      "criticism",
+      "storytelling",
+      "ideas"
+    ]
+  },
+  {
+    "url": "https://fs.blog/chestertons-fence/",
+    "author": "Farnam Street",
+    "title": "Chesterton's Fence: A Lesson in Second-Order Thinking",
+    "desc": "Before removing or changing anything, you must first understand why it exists — a principle for approaching existing systems with humility rather than assuming they can be safely discarded.",
+    "date": "2026-07-05",
+    "tags": [
+      "thinking",
+      "epistemology",
+      "tools-for-thought",
+      "philosophy"
+    ]
+  },
+  {
+    "url": "https://acoup.blog/",
+    "author": "Bret Devereaux",
+    "title": "A Collection of Unmitigated Pedantry",
+    "desc": "History blog by a classicist examining ancient military systems, pre-modern societies, and how popular culture misrepresents the past — especially in fiction and games.",
+    "date": "2026-07-06",
+    "tags": [
+      "history",
+      "military",
+      "civilizations",
+      "education"
+    ]
+  },
+  {
+    "url": "https://fs.blog/the-red-queen-effect/",
+    "author": "Farnam Street",
+    "title": "The Red Queen Effect: Avoid Running Faster to Stay in the Same Place",
+    "desc": "Staying competitive requires continuous improvement just to maintain relative position, because competitors adapt simultaneously — strategic innovation, not harder work, is the only path to actually advancing.",
+    "date": "2026-07-07",
+    "tags": [
+      "thinking",
+      "strategy",
+      "tools-for-thought",
+      "philosophy"
+    ]
+  },
+  {
+    "url": "https://www.pewresearch.org/internet/2023/02/24/the-future-of-human-agency/",
+    "author": "Janna Anderson and Lee Rainie",
+    "title": "The Future of Human Agency",
+    "desc": "Pew Research survey of experts reveals a near-even split on whether AI will preserve human decision-making autonomy by 2035, with most acknowledging unprecedented opportunities and serious risks for agency.",
+    "date": "2026-07-08",
+    "tags": [
+      "machine-learning",
+      "future",
+      "society",
+      "research"
+    ]
+  },
+  {
+    "url": "https://www.ceremade.dauphine.fr/~ekeland/lectures/Mathematical%20Models%20in%20Social%20Sciences/ursula-k-le-guin-the-ones-who-walk-away-from-omelas.pdf",
+    "author": "Ursula K. Le Guin",
+    "title": "The Ones Who Walk Away from Omelas",
+    "desc": "A short story presenting a utopian city whose endless happiness rests on the deliberate suffering of one child — a thought experiment forcing the reader to confront the ethics of collective prosperity built on individual sacrifice.",
+    "date": "2026-07-09",
+    "tags": [
+      "ethics",
+      "thought-experiment",
+      "literature",
+      "philosophy"
+    ]
+  },
+  {
+    "url": "https://nickbostrom.com/papers/the-fable-of-the-dragon-tyrant/",
+    "author": "Nick Bostrom",
+    "title": "The Fable of the Dragon-Tyrant",
+    "desc": "An allegorical short story arguing that human aging — like the dragon demanding sacrificial victims — is an accepted atrocity that civilization should urgently mobilize to defeat through longevity research.",
+    "date": "2026-07-10",
+    "tags": [
+      "thought-experiment",
+      "philosophy",
+      "ethics",
+      "future"
+    ]
+  },
+  {
+    "url": "https://nadia.xyz/basic",
+    "author": "Nadia Asparouhova",
+    "title": "Being basic as a virtue",
+    "desc": "Argues that working in Silicon Valley's idea economy is exhausting intellectual labor, and that 'being basic' — stepping back from constant ideation — functions as a coping mechanism and potential status signal of genuine freedom.",
+    "date": "2026-07-11",
+    "tags": [
+      "work",
+      "society",
+      "ideas",
+      "criticism"
+    ]
+  },
+  {
+    "url": "https://aleximas.substack.com/p/what-will-be-scarce",
+    "author": "Alex Imas",
+    "title": "What will be scarce?",
+    "desc": "As AI commoditizes production and abundance rises, economic demand will shift toward relational goods — care, craftsmanship, services where human presence is integral to value — preventing mass unemployment despite automation.",
+    "date": "2026-07-12",
+    "tags": [
+      "economics",
+      "machine-learning",
+      "future",
+      "society"
+    ]
+  },
+  {
+    "url": "https://every.to/p/after-automation",
+    "author": "Dan Shipper",
+    "title": "After Automation",
+    "desc": "AI automation doesn't eliminate expert work — it commoditizes routine competence, which paradoxically increases demand for human judgment and specialized expertise to differentiate outputs in novel situations.",
+    "date": "2026-07-13",
+    "tags": [
+      "machine-learning",
+      "work",
+      "economics",
+      "future"
+    ]
+  },
+  {
+    "url": "https://fee.org/ebooks/i-pencil",
+    "author": "Leonard E. Read",
+    "title": "I, Pencil",
+    "desc": "Classic economic essay narrated by a pencil arguing that no single person possesses all the knowledge to manufacture even simple objects — markets coordinate spontaneous cooperation through price signals better than central planning.",
+    "date": "2026-07-14",
+    "tags": [
+      "economics",
+      "ideas",
+      "theory",
+      "philosophy"
+    ]
+  },
+  {
+    "url": "https://www.galactanet.com/oneoff/theegg.html",
+    "author": "Andy Weir",
+    "title": "The Egg",
+    "desc": "A short story in which God reveals that every human throughout history is the same soul experiencing all lives sequentially, and existence is a maturation process toward something greater.",
+    "date": "2026-07-15",
+    "tags": [
+      "speculative-fiction",
+      "thought-experiment",
+      "philosophy",
+      "storytelling"
+    ]
+  },
+  {
+    "url": "https://johnsalvatier.org/blog/2017/reality-has-a-surprising-amount-of-detail",
+    "author": "John Salvatier",
+    "title": "Reality has a surprising amount of detail",
+    "desc": "Reality contains far more meaningful complexity than initially apparent, causing people to become intellectually stuck because important insights are invisible until suddenly obvious — and we can't anticipate what we're missing.",
+    "date": "2026-07-16",
+    "tags": [
+      "thinking",
+      "epistemology",
+      "philosophy",
+      "ideas"
+    ]
+  },
+  {
+    "url": "https://users.ece.cmu.edu/~gamvrosi/thelastq.html",
+    "author": "Isaac Asimov",
+    "title": "The Last Question",
+    "desc": "Asimov's story spanning trillions of years as successively greater supercomputers are asked whether entropy can be reversed — each responding 'insufficient data' until the final cosmic mind achieves the answer at the end of existence.",
+    "date": "2026-07-17",
+    "tags": [
+      "speculative-fiction",
+      "thought-experiment",
+      "literature",
+      "space"
+    ]
+  },
+  {
+    "url": "https://every.to/chain-of-thought/the-knowledge-economy-is-over-welcome-to-the-allocation-economy",
+    "author": "Dan Shipper",
+    "title": "The Knowledge Economy Is Over. Welcome to the Allocation Economy.",
+    "desc": "As AI handles analysis and summarization, professionals will shift from making knowledge to managing AI resources — fundamentally transforming what expertise means and how economic value is created.",
+    "date": "2026-07-18",
+    "tags": [
+      "machine-learning",
+      "economics",
+      "future",
+      "work"
+    ]
+  },
+  {
+    "url": "https://www.kiplingsociety.co.uk/tale/the-judgement-of-dungara.htm",
+    "author": "Rudyard Kipling",
+    "title": "The Judgment of Dungara",
+    "desc": "A missionary's attempt to convert the Buria Kol people to Christianity is subverted when a local priest provides stinging nettle fiber for the converts' new clothes, which the villagers interpret as divine retribution from their god Dungara.",
+    "date": "2026-07-19",
+    "tags": [
+      "literature",
+      "history",
+      "storytelling",
+      "culture"
+    ]
+  },
+  {
+    "url": "https://www.gutenberg.org/files/14420/14420-h/14420-h.htm#DIALOGUE",
+    "author": "Miguel de Cervantes Saavedra",
+    "title": "The Dialogue of the Dogs",
+    "desc": "From Cervantes' Exemplary Novels — a philosophical dialogue between two hospital dogs, Scipio and Berganze, who discuss their observations of human society, hypocrisy, and the absurdities of everyday life in 17th-century Spain.",
+    "date": "2026-07-20",
+    "tags": [
+      "literature",
+      "philosophy",
+      "storytelling",
+      "history"
+    ]
+  },
+  {
+    "url": "https://emergencemagazine.org/essay/river-at-the-heart-of-the-world/",
+    "author": "Arati Kumar-Rao",
+    "title": "River at the Heart of the World",
+    "desc": "Documents how the Pemakö region — a sacred Tibetan Buddhist hidden land on the India-China border — faces existential threats from hydroelectric dams and highways endangering both its ecosystem and centuries-old spiritual significance.",
+    "date": "2026-07-21",
+    "tags": [
+      "nature",
+      "environment",
+      "history",
+      "essays"
+    ]
+  },
+  {
+    "url": "https://longreads.com/2026/06/02/jenny-odell-deep-listening-soft-eyes/",
+    "author": "Jenny Odell",
+    "title": "Living in an Alive World",
+    "desc": "Argues that practicing 'soft eyes' and deep listening can expand perception beyond human defaults, enabling us to recognize animals, plants, and landscapes as sentient participants — a shift in awareness essential for meaningful survival.",
+    "date": "2026-07-22",
+    "tags": [
+      "nature",
+      "environment",
+      "essays",
+      "philosophy"
+    ]
   }
 ]

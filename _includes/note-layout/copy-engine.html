@@ -1,0 +1,241 @@
+<script>
+window.CopyEngine = (function() {
+  'use strict';
+
+  var VERSION = '1.0.0';
+
+  // ── Private state ──────────────────────────────────────────────────────────
+  var _queue    = [];       // DOM elements: TABLE or .mermaid-wrapper
+  var _idx      = 0;        // next item to copy (NOT incremented until copy succeeds)
+  var _state    = 'IDLE';
+  var _busy     = false;    // reentrancy guard
+  var _session  = 0;        // incremented on reset(); stale copies abort their writes
+  var _lastError = null;    // { code, message } | null
+  var _counters  = { attempts: 0, succeeded: 0, failed: 0 };
+  var _timings   = { lastMs: null, avgMs: null, _totalMs: 0 };
+
+  // ── State machine ──────────────────────────────────────────────────────────
+  // Legal transitions only. reset() bypasses this and force-sets IDLE.
+  var ALLOWED = {
+    IDLE:    ['COPYING', 'DONE'],
+    COPYING: ['READY',   'DONE', 'ERROR'],
+    READY:   ['COPYING', 'DONE'],
+    DONE:    [],
+    ERROR:   []
+  };
+
+  function _transition(to) {
+    var allowed = ALLOWED[_state];
+    if (!allowed || allowed.indexOf(to) === -1) {
+      throw new Error('CopyEngine: illegal transition ' + _state + ' → ' + to);
+    }
+    _state = to;
+    window.copyState = to;
+    document.documentElement.setAttribute('data-copy-state', to);
+  }
+
+  // ── Queue builder ──────────────────────────────────────────────────────────
+  function _buildQueue() {
+    _queue = [];
+    document.querySelectorAll('.note-body table, .note-body .mermaid-wrapper').forEach(function(el) {
+      _queue.push(el);
+    });
+  }
+
+  // ── Error classifier ───────────────────────────────────────────────────────
+  function _classify(err, el) {
+    if (!err) return 'UNKNOWN';
+    if (err.name === 'NotAllowedError') return 'CLIPBOARD_DENIED';
+    var m = err.message || '';
+    if (/not rendered|no \.mermaid/i.test(m)) return 'SVG_NOT_FOUND';
+    if (el && el.tagName === 'TABLE' && !document.contains(el)) return 'TABLE_NOT_FOUND';
+    if (/html-to-image|toBlob|clipboard/i.test(m)) return 'COPY_FAILED';
+    return 'UNKNOWN';
+  }
+
+  // ── Response builder ───────────────────────────────────────────────────────
+  // Always returns all fields so AHK can rely on a stable shape.
+  function _response(success, copiedType, durationMs, error) {
+    return {
+      success:      success,
+      state:        _state,
+      remaining:    Math.max(0, _queue.length - _idx),
+      copiedType:   copiedType  != null ? copiedType  : null,
+      currentIndex: _idx,
+      totalItems:   _queue.length,
+      durationMs:   durationMs  != null ? durationMs  : null,
+      error:        error        != null ? error        : null
+    };
+  }
+
+  // ── Public: next() ─────────────────────────────────────────────────────────
+  // Copy the next element in the queue. Returns a structured JSON response.
+  // Does NOT advance index on failure so the same item can be retried after reset().
+  async function next() {
+    // Reentrancy guard — double next() while a copy is in flight
+    if (_busy) {
+      return _response(false, null, null, {
+        code: 'COPY_FAILED',
+        message: 'copy already in progress'
+      });
+    }
+
+    // Terminal-state guards — only reset() can escape these
+    if (_state === 'DONE') {
+      return _response(false, null, null, {
+        code: 'QUEUE_EMPTY',
+        message: 'all items copied; call CopyEngine.reset() to start over'
+      });
+    }
+    if (_state === 'ERROR') {
+      return _response(false, null, null, {
+        code: 'COPY_FAILED',
+        message: 'previous copy failed; call CopyEngine.reset() before retrying'
+      });
+    }
+
+    // Queue exhausted
+    if (_idx >= _queue.length) {
+      _transition('DONE');
+      return _response(false, null, null, {
+        code: 'QUEUE_EMPTY',
+        message: 'no more items in queue'
+      });
+    }
+
+    var el         = _queue[_idx];   // capture but do NOT increment yet
+    var copiedType = (el.tagName === 'TABLE') ? 'table' : 'mermaid';
+    var mySession  = _session;
+    var t0         = performance.now();
+    var durationMs = null;
+
+    _transition('COPYING');
+    _busy = true;
+    _counters.attempts++;
+
+    try {
+      if (el.tagName === 'TABLE') {
+        await window._copyTablePNG(el);
+      } else {
+        await window._copyMermaidPNG(el);
+      }
+
+      durationMs = Math.round(performance.now() - t0);
+
+      // If reset() was called during the async copy, this result is stale.
+      // reset() already restored IDLE state — skip our writes.
+      if (_session !== mySession) {
+        return _response(false, null, durationMs, {
+          code: 'COPY_FAILED',
+          message: 'copy superseded by reset()'
+        });
+      }
+
+      _idx++;
+      _counters.succeeded++;
+      _timings.lastMs   = durationMs;
+      _timings._totalMs += durationMs;
+      _timings.avgMs    = Math.round(_timings._totalMs / _counters.succeeded);
+      _lastError        = null;
+
+      // Transition: DONE if no more items, else READY
+      if (_idx >= _queue.length) {
+        _transition('DONE');
+      } else {
+        _transition('READY');
+      }
+
+      return _response(true, copiedType, durationMs, null);
+
+    } catch (err) {
+      durationMs = Math.round(performance.now() - t0);
+
+      if (_session !== mySession) {
+        return _response(false, null, durationMs, {
+          code: 'COPY_FAILED',
+          message: 'copy superseded by reset()'
+        });
+      }
+
+      var code = _classify(err, el);
+      _lastError = { code: code, message: err ? (err.message || String(err)) : 'unknown error' };
+      _counters.failed++;
+      _transition('ERROR');
+
+      return _response(false, null, durationMs, _lastError);
+
+    } finally {
+      _busy = false;
+    }
+  }
+
+  // ── Public: reset() ────────────────────────────────────────────────────────
+  // Escape hatch from any state. Rebuilds queue (mermaid may have re-rendered
+  // or theme toggled since last build). Returns { success, state, totalItems }.
+  function reset() {
+    _session++;               // stale in-flight copies detect this and abort writes
+    _idx       = 0;
+    _busy      = false;
+    _lastError = null;
+    _buildQueue();
+    _state = 'IDLE';          // force — bypasses _transition intentionally
+    window.copyState = 'IDLE';
+    document.documentElement.setAttribute('data-copy-state', 'IDLE');
+    return { success: true, state: 'IDLE', totalItems: _queue.length };
+  }
+
+  // ── Public: status() ───────────────────────────────────────────────────────
+  function status() {
+    return {
+      state:        _state,
+      currentIndex: _idx,
+      totalItems:   _queue.length,
+      remaining:    Math.max(0, _queue.length - _idx)
+    };
+  }
+
+  // ── Public: diagnostics() ──────────────────────────────────────────────────
+  // Full snapshot for debugging. Safe to call at any time; no side effects.
+  function diagnostics() {
+    return {
+      version:      VERSION,
+      state:        _state,
+      currentIndex: _idx,
+      totalItems:   _queue.length,
+      remaining:    Math.max(0, _queue.length - _idx),
+      counters: {
+        attempts:  _counters.attempts,
+        succeeded: _counters.succeeded,
+        failed:    _counters.failed
+      },
+      timings: {
+        lastMs: _timings.lastMs,
+        avgMs:  _timings.avgMs
+      },
+      lastError: _lastError,
+      queue: _queue.map(function(el, i) {
+        return { index: i, type: el.tagName === 'TABLE' ? 'table' : 'mermaid' };
+      }),
+      timestamp: Date.now()
+    };
+  }
+
+  // ── Public: version() ──────────────────────────────────────────────────────
+  function version() { return VERSION; }
+
+  // ── Keyboard shortcut ──────────────────────────────────────────────────────
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'p') {
+      e.preventDefault();
+      next();   // call local fn directly — window.CopyEngine assigned after IIFE
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  _buildQueue();
+  window.copyState = 'IDLE';
+  document.documentElement.setAttribute('data-copy-state', 'IDLE');
+
+  return { next: next, reset: reset, status: status, diagnostics: diagnostics, version: version };
+})();
+</script>

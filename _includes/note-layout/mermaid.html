@@ -93,61 +93,67 @@ async function _buildSyneFontCSS() {
 }
 
 // ── PNG COPY BUTTONS FOR MERMAID DIAGRAMS ──
+window._copyMermaidPNG = async function(wrapperEl) {
+  var mermaidDiv = wrapperEl.querySelector('.mermaid');
+  if (!mermaidDiv) throw new Error('no .mermaid div');
+  var svg = mermaidDiv.querySelector('svg');
+  if (!svg) throw new Error('diagram not rendered');
+  var isDark = document.body.classList.contains('dark');
+  var fontCSS = await _buildSyneFontCSS();
+  var svgRect = svg.getBoundingClientRect();
+  var PAD = 24;
+  var captureW = Math.ceil(svgRect.width)  + PAD * 2;
+  var captureH = Math.ceil(svgRect.height) + PAD * 2;
+  var origStyle = mermaidDiv.getAttribute('style') || null;
+  mermaidDiv.style.cssText = [
+    'box-sizing:border-box',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'width:'  + captureW + 'px',
+    'height:' + captureH + 'px',
+    'padding:' + PAD + 'px',
+    'border-radius:16px',
+    isDark
+      ? 'background:linear-gradient(160deg,#2a2a2c 0%,#1a1a1c 100%)'
+      : 'background:linear-gradient(160deg,#f8f8f6 0%,#e8e8e4 100%)'
+  ].join(';');
+  await new Promise(function(r) { requestAnimationFrame(r); });
+  await new Promise(function(r) { requestAnimationFrame(r); });
+  var blob;
+  try {
+    blob = await htmlToImage.toBlob(mermaidDiv, {
+      pixelRatio: 2,
+      cacheBust: true,
+      fontEmbedCSS: fontCSS || undefined,
+      backgroundColor: isDark ? '#1a1a1c' : '#e8e8e4',
+      width:  captureW,
+      height: captureH
+    });
+  } finally {
+    if (origStyle !== null) mermaidDiv.setAttribute('style', origStyle);
+    else                    mermaidDiv.removeAttribute('style');
+  }
+  await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+};
+
 function addMermaidCopyButtons() {
   document.querySelectorAll('.note-body .mermaid-wrapper').forEach(function(wrapper) {
     var old = wrapper.querySelector('.mermaid-copy-btn');
     if (old) old.remove();
-    var mermaidDiv = wrapper.querySelector('.mermaid');
-    if (!mermaidDiv) return;
+    if (!wrapper.querySelector('.mermaid')) return;
     var btn = document.createElement('button');
     btn.className = 'mermaid-copy-btn';
     btn.textContent = '📷 copy';
     btn.addEventListener('click', async function() {
       try {
-        var svg = mermaidDiv.querySelector('svg');
-        if (!svg) return;
-        var isDark = document.body.classList.contains('dark');
-        var fontCSS = await _buildSyneFontCSS();
-        var svgRect = svg.getBoundingClientRect();
-        var PAD = 24;
-        var captureW = Math.ceil(svgRect.width)  + PAD * 2;
-        var captureH = Math.ceil(svgRect.height) + PAD * 2;
-        var origStyle = mermaidDiv.getAttribute('style') || null;
         btn.style.display = 'none';
-        mermaidDiv.style.cssText = [
-          'box-sizing:border-box',
-          'display:flex',
-          'align-items:center',
-          'justify-content:center',
-          'width:'  + captureW + 'px',
-          'height:' + captureH + 'px',
-          'padding:' + PAD + 'px',
-          'border-radius:16px',
-          isDark
-            ? 'background:linear-gradient(160deg,#2a2a2c 0%,#1a1a1c 100%)'
-            : 'background:linear-gradient(160deg,#f8f8f6 0%,#e8e8e4 100%)'
-        ].join(';');
-        await new Promise(function(r) { requestAnimationFrame(r); });
-        await new Promise(function(r) { requestAnimationFrame(r); });
-        var blob;
-        try {
-          blob = await htmlToImage.toBlob(mermaidDiv, {
-            pixelRatio: 2,
-            cacheBust: true,
-            fontEmbedCSS: fontCSS || undefined,
-            backgroundColor: isDark ? '#1a1a1c' : '#e8e8e4',
-            width:  captureW,
-            height: captureH
-          });
-        } finally {
-          if (origStyle !== null) mermaidDiv.setAttribute('style', origStyle);
-          else                    mermaidDiv.removeAttribute('style');
-          btn.style.display = '';
-        }
-        await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+        await window._copyMermaidPNG(wrapper);
+        btn.style.display = '';
         btn.textContent = '✓ Copied';
         setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);
       } catch(err) {
+        btn.style.display = '';
         console.error(err);
         btn.textContent = '✗ Failed';
         setTimeout(function() { btn.textContent = '📷 copy'; }, 1500);

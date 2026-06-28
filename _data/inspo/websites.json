@@ -1546,5 +1546,134 @@
       "startup-insights",
       "founders"
     ]
+  },
+  {
+    "url": "https://birdcall.online/",
+    "name": "Birdcall",
+    "desc": "Online community hub with integrated library, classroom, wiki, and Discord space for collaborative learning and knowledge sharing.",
+    "date": "2026-08-08",
+    "tags": [
+      "community",
+      "learning",
+      "education"
+    ]
+  },
+  {
+    "url": "https://www.inventorypress.com/",
+    "name": "Inventory Press",
+    "desc": "Independent publisher specializing in art, design, music, and film books — from artist monographs to critical anthologies on contemporary visual culture.",
+    "date": "2026-08-09",
+    "tags": [
+      "publishing",
+      "art",
+      "literature",
+      "culture"
+    ]
+  },
+  {
+    "url": "https://www.are.na/editorial",
+    "name": "Are.na Editorial",
+    "desc": "Publishing platform featuring essays, interviews, and long-form writing by and about the Are.na community of researchers, designers, and creative practitioners.",
+    "date": "2026-08-10",
+    "tags": [
+      "essays",
+      "community",
+      "digital-culture",
+      "internet-culture"
+    ]
+  },
+  {
+    "url": "https://www.onomatopee.net/",
+    "name": "Onomatopee",
+    "desc": "Eindhoven-based creative organization combining an exhibition venue, independent publishing house, and RISO printing workshop — a multifunctional space for contemporary art and experimental print culture.",
+    "date": "2026-08-11",
+    "tags": [
+      "publishing",
+      "art",
+      "creative",
+      "community"
+    ]
+  },
+  {
+    "url": "https://www.goodgoodgood.co/",
+    "name": "Good Good Good",
+    "desc": "Positive news platform and monthly newspaper curating stories of progress on climate, justice, and mental health, alongside actionable guides for community engagement.",
+    "date": "2026-08-12",
+    "tags": [
+      "journalism",
+      "community",
+      "sustainability",
+      "mental-health"
+    ]
+  },
+  {
+    "url": "https://sundayclub.com/",
+    "name": "Sunday Club",
+    "desc": "Monthly print newspaper featuring curated puzzles, crosswords, and games with no news — designed for offline, screen-free entertainment.",
+    "date": "2026-08-13",
+    "tags": [
+      "puzzles",
+      "game",
+      "relaxation"
+    ]
+  },
+  {
+    "url": "https://historynation.org/",
+    "name": "History Nation",
+    "desc": "Social community for history enthusiasts featuring discussion forums, member blogs, photo galleries, and video content for sharing and exploring historical narratives worldwide.",
+    "date": "2026-08-14",
+    "tags": [
+      "history",
+      "community",
+      "education"
+    ]
+  },
+  {
+    "url": "https://bookmarks.reviews/",
+    "name": "Book Marks",
+    "desc": "Book review aggregator compiling critical responses from major publications, displaying sentiment across rave, positive, mixed, and pan ratings for quick discovery of literary consensus.",
+    "date": "2026-08-15",
+    "tags": [
+      "reading-list",
+      "literature",
+      "reference",
+      "research"
+    ]
+  },
+  {
+    "url": "https://ncase.me/trust/",
+    "name": "The Evolution of Trust",
+    "desc": "Interactive game theory simulation by Nicky Case exploring how trust, cooperation, and betrayal evolve through strategic encounters — an accessible playable introduction to iterated prisoner's dilemmas.",
+    "date": "2026-08-16",
+    "tags": [
+      "interactive",
+      "education",
+      "thought-experiment",
+      "simulation"
+    ]
+  },
+  {
+    "url": "https://ncase.me/polygons/",
+    "name": "Parable of the Polygons",
+    "desc": "Interactive playable essay by Vi Hart and Nicky Case demonstrating how small individual biases compound into large-scale societal segregation, and how demanding diversity actively counteracts it.",
+    "date": "2026-08-17",
+    "tags": [
+      "interactive",
+      "education",
+      "thought-experiment",
+      "simulation"
+    ]
+  },
+  {
+    "url": "https://www.chronophoto.app/",
+    "name": "Chronophoto",
+    "desc": "Photo-guessing game where players identify the decade or year a photograph was taken, available in single-player, daily challenge, and multiplayer party modes.",
+    "date": "2026-08-18",
+    "tags": [
+      "game",
+      "history",
+      "photography",
+      "puzzles"
+    ]
   }
 ]

@@ -580,5 +580,77 @@
       "research",
       "reference"
     ]
+  },
+  {
+    "url": "https://graphic.so/",
+    "source": "graphic.so",
+    "caption": "Collection of 30+ free browser-based generators for SVG backgrounds, gradients, blobs, patterns, and shapes with instant export to SVG, PNG, or CSS — no signup, no watermarks.",
+    "date": "2026-06-22",
+    "tags": [
+      "creative-tools",
+      "generator",
+      "backgrounds",
+      "design-tools"
+    ]
+  },
+  {
+    "url": "https://www.generativefonts.xyz/",
+    "source": "NaN Glyph Filters",
+    "caption": "Library of generative fonts built from open-source GlyphsApp scripts that algorithmically transform input typefaces into new outputs through glitch, beastly, broken-fax, and 25+ other effects.",
+    "date": "2026-06-23",
+    "tags": [
+      "typography",
+      "creative-tools",
+      "creative-coding",
+      "open-source"
+    ]
+  },
+  {
+    "url": "https://www.logggos.club/",
+    "source": "Logggos",
+    "caption": "Curated catalog of well-crafted logos filterable by industry, typography style, color, and visual attributes — a searchable reference for logo research and branding inspiration.",
+    "date": "2026-06-24",
+    "tags": [
+      "inspiration",
+      "branding",
+      "design-tools",
+      "reference"
+    ]
+  },
+  {
+    "url": "https://extraset.ch/",
+    "source": "Extraset",
+    "caption": "Independent Swiss type foundry offering original typefaces — from sharp grotesks to expressive display cuts — available for individual purchase with student discounts.",
+    "date": "2026-06-25",
+    "tags": [
+      "typography",
+      "assets",
+      "creative-resources",
+      "design-tools"
+    ]
+  },
+  {
+    "url": "https://fonts.studiofeixen.ch/",
+    "source": "Studio Feixen Fonts",
+    "caption": "Experimental variable typefaces by Studio Feixen emphasizing motion design, including Mov Variable — a font that animates letters through adjustable axes — alongside display types like Ease and Noi Grotesk.",
+    "date": "2026-06-26",
+    "tags": [
+      "typography",
+      "motion-design",
+      "creative-tools",
+      "animation"
+    ]
+  },
+  {
+    "url": "https://droptheadverb.com/",
+    "source": "Drop The Adverb",
+    "caption": "Writing tool that helps authors replace weak verb-and-adverb combinations with stronger, more precise alternatives, organized by action category with paste-and-analyze functionality.",
+    "date": "2026-06-27",
+    "tags": [
+      "writing",
+      "creative-tools",
+      "tools-for-thought",
+      "productivity"
+    ]
   }
 ]
