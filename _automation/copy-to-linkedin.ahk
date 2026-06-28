@@ -1,7 +1,7 @@
 ; ═══════════════════════════════════════════════════════════════════════════════
-; copy-to-linkedin.ahk  —  CopyEngine CDP client v1.0.0
-; Transfers all PNG-copyable items (tables + Mermaid diagrams) from a Saptak
-; blog note to an open LinkedIn article editor, one image per paste.
+; copy-to-linkedin.ahk  —  CopyEngine CDP client v1.1.0
+; Transfers text blocks, tables, and Mermaid diagrams from a Saptak blog note
+; to an open LinkedIn article editor in DOM order.
 ; ═══════════════════════════════════════════════════════════════════════════════
 ;
 ; REQUIREMENTS
@@ -13,11 +13,11 @@
 ;
 ; 3. Microsoft Edge launched with the remote debugging port:
 ;      msedge.exe --remote-debugging-port=9222
-;    Create a shortcut or run from cmd/PowerShell once per session.
+;    Type copy! in notepad.ahk to relaunch Edge and load this script automatically.
 ;
 ; USAGE
 ; ─────────────────────────────────────────────────────────────────────────────
-; 1. Launch Edge with --remote-debugging-port=9222
+; 1. Type copy! — Edge relaunches with debug port and this script loads
 ; 2. Open your blog note in Tab 1
 ; 3. Open the LinkedIn article editor in Tab 2 (immediately to the right of Tab 1)
 ; 4. Give focus to the Edge window (click anywhere in it)
@@ -26,10 +26,10 @@
 ; The script will:
 ;   - Find the blog tab (matched by BLOG_PATTERN)
 ;   - Call CopyEngine.reset() to start a fresh copy session
-;   - Loop:  CopyEngine.next() → wait for PNG on clipboard
+;   - Loop:  CopyEngine.next() → item on clipboard
 ;            → Ctrl+Tab (blog → LinkedIn)
-;            → Ctrl+V  (paste PNG)
-;            → wait for LinkedIn upload
+;            → Ctrl+V  (paste item)
+;            → wait (text: TEXT_PASTE_WAIT, images: PASTE_WAIT)
 ;            → Ctrl+Shift+Tab (LinkedIn → blog)
 ;   - Show progress in a tooltip; show a TrayTip when done
 ;
@@ -52,7 +52,7 @@ PASTE_WAIT      := 2500
 
 ; Time (ms) to wait after pasting TEXT before switching back.
 ; Text paste is synchronous — no CDN upload, short wait is sufficient.
-TEXT_PASTE_WAIT := 300
+TEXT_PASTE_WAIT := 700
 
 ; Time (ms) to wait after a tab switch (Ctrl+Tab / Ctrl+Shift+Tab).
 ; Short — just gives the browser time to focus the new tab.
@@ -102,7 +102,7 @@ RunWorkflow() {
     if (total = 0) {
         MsgBox(
             "No copyable items found on this page.`n"
-            "(Tables and Mermaid diagrams are scanned on page load.)",
+            "(Text blocks, tables, and Mermaid diagrams are scanned on page load.)",
             "CopyEngine", 0x40   ; 0x40 = info icon
         )
         return

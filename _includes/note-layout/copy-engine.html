@@ -78,6 +78,7 @@ window.CopyEngine = (function() {
     var m = err.message || '';
     if (/not rendered|no \.mermaid/i.test(m)) return 'SVG_NOT_FOUND';
     if (type === 'table' && el && !document.contains(el)) return 'TABLE_NOT_FOUND';
+    if (/execCommand/i.test(m)) return 'COPY_FAILED';
     if (/html-to-image|toBlob|clipboard/i.test(m)) return 'COPY_FAILED';
     return 'UNKNOWN';
   }
