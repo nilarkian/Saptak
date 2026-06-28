@@ -37,17 +37,22 @@
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
+#Include JSON.ahk      ; must come before Chrome.ahk — Chrome.ahk uses JSON but does not include it
 #Include Chrome.ahk
 
 ; ─── Configuration ────────────────────────────────────────────────────────────
 
-BLOG_PATTERN    := "nilarkian.github.io/Saptak/notes/"
+BLOG_PATTERN    := "/Saptak/notes/"   ; matches both localhost:4000 and nilarkian.github.io
 CDP_PORT        := 9222
 
-; Time (ms) to wait after pasting before switching back to the blog tab.
-; LinkedIn needs to upload the pasted PNG to its CDN before you move away.
-; Increase this if images appear missing or out of order in LinkedIn.
+; Time (ms) to wait after pasting an IMAGE before switching back.
+; LinkedIn uploads the PNG to its CDN asynchronously — switching too early loses it.
+; Increase if images land missing or out of order.
 PASTE_WAIT      := 2500
+
+; Time (ms) to wait after pasting TEXT before switching back.
+; Text paste is synchronous — no CDN upload, short wait is sufficient.
+TEXT_PASTE_WAIT := 300
 
 ; Time (ms) to wait after a tab switch (Ctrl+Tab / Ctrl+Shift+Tab).
 ; Short — just gives the browser time to focus the new tab.
@@ -60,23 +65,27 @@ TAB_SWITCH_WAIT := 350
 ; ─── Main workflow ────────────────────────────────────────────────────────────
 
 RunWorkflow() {
-    global BLOG_PATTERN, CDP_PORT, PASTE_WAIT, TAB_SWITCH_WAIT
+    global BLOG_PATTERN, CDP_PORT, PASTE_WAIT, TEXT_PASTE_WAIT, TAB_SWITCH_WAIT
 
-    ; Attach to Edge on the debug port (Edge must already be running)
+    ; Query CDP HTTP endpoint directly — bypasses Chrome.ahk browser detection
+    ; which resolves to Chrome.exe and launches the wrong browser.
+    ; Whatever browser is on port CDP_PORT is the one we talk to.
+    http := ComObject('WinHttp.WinHttpRequest.5.1')
     try {
-        Dbg := Chrome("", CDP_PORT)
-    } catch as e {
+        http.Open('GET', 'http://127.0.0.1:' CDP_PORT '/json', false)
+        http.Send()
+    } catch {
         MsgBox(
-            "Cannot connect to Edge on port " CDP_PORT ".`n`n"
-            "Start Edge with:`n"
+            "Cannot connect to browser on port " CDP_PORT ".`n`n"
+            "Launch Edge with:`n"
             "    msedge.exe --remote-debugging-port=" CDP_PORT,
-            "CopyEngine", 0x10   ; 0x10 = error icon
+            "CopyEngine", 0x10
         )
         return
     }
 
     ; Locate the blog tab by URL pattern
-    BlogPage := FindPage(Dbg, BLOG_PATTERN)
+    BlogPage := FindPage(JSON.parse(http.responseText), BLOG_PATTERN)
     if (!BlogPage) {
         MsgBox(
             "No tab found matching:`n    " BLOG_PATTERN "`n`n"
@@ -108,12 +117,13 @@ RunWorkflow() {
         ; Ask the browser to copy the next PNG to the system clipboard
         r := CdpEval(BlogPage, "CopyEngine.next()")
 
-        ; All done
-        if (r.state = "DONE")
-            break
-
-        ; Copy failed
+        ; next() failed — check why
         if (!r.success) {
+            ; Clean exit: queue exhausted (extra next() after last item returned DONE)
+            if (r.state = "DONE")
+                break
+
+            ; Actual error
             ToolTip
             errCode := IsObject(r.error) ? r.error.code    : "UNKNOWN"
             errMsg  := IsObject(r.error) ? r.error.message : String(r.error)
@@ -128,6 +138,7 @@ RunWorkflow() {
             return
         }
 
+        ; Copy succeeded (state may be READY or DONE — paste either way)
         copied++
         ToolTip(
             "CopyEngine: " copied "/" total
@@ -138,8 +149,11 @@ RunWorkflow() {
         ; ── Paste into LinkedIn ───────────────────────────────────────────────
         Send "^{Tab}"               ; Switch: blog → LinkedIn (next tab to the right)
         Sleep TAB_SWITCH_WAIT
-        Send "^v"                   ; Paste PNG from clipboard into LinkedIn editor
-        Sleep PASTE_WAIT            ; Wait for LinkedIn image upload — see note below
+        Send "^v"                   ; Paste into LinkedIn editor
+        if (r.copiedType = "text")
+            Sleep TEXT_PASTE_WAIT   ; text paste is synchronous — short wait
+        else
+            Sleep PASTE_WAIT        ; image paste triggers CDN upload — full wait
         Send "^+{Tab}"              ; Switch: LinkedIn → blog (previous tab)
         Sleep TAB_SWITCH_WAIT
     }
@@ -148,28 +162,48 @@ RunWorkflow() {
 
     TrayTip(
         "CopyEngine",
-        "Done — " copied "/" total " image" (copied = 1 ? "" : "s") " transferred to LinkedIn.",
+        "Done — " copied "/" total " item" (copied = 1 ? "" : "s") " transferred to LinkedIn.",
         3   ; display for 3 seconds
     )
 }
 
 ; ─── Helpers ──────────────────────────────────────────────────────────────────
 
-; Find the first open tab whose URL contains Pattern.
-; Returns a Chrome page object, or false if not found.
-FindPage(Dbg, Pattern) {
-    Pages := Dbg.GetPageList()
-    for Page in Pages {
-        if (InStr(Page.url, Pattern))
-            return Dbg.GetPage(Page.id)
+; Find the first tab whose URL contains Pattern in a CDP page list (Array of Maps).
+; Returns a Chrome.Page WebSocket connection, or false if not found.
+FindPage(Pages, Pattern) {
+    for PageData in Pages {
+        if (InStr(PageData['url'], Pattern))
+            return Chrome.Page(PageData['webSocketDebuggerUrl'])
     }
     return false
 }
 
 ; Evaluate a JS expression in the page and await Promise resolution.
-; CopyEngine.next() is async so awaitPromise (second arg = true) is required.
+; v2 Evaluate() hardcodes awaitPromise:false — unusable for async CopyEngine.next().
+; Use Page.Call() directly to pass awaitPromise:true and returnByValue:true.
+; Returns an AHK Object (not Map) so callers can use .field dot-access.
 CdpEval(Page, Expr) {
-    return Page.Evaluate(Expr, true)    ; true → awaitPromise: true
+    response := Page.Call("Runtime.evaluate", Map(
+        "expression",          Expr,
+        "awaitPromise",        JSON.true,
+        "returnByValue",       JSON.true,
+        "userGesture",         JSON.true,
+        "includeCommandLineAPI", JSON.false
+    ))
+    ; response = Map{"result": Map{"type":"object","value": Map{...}}}
+    return MapToObj(response['result']['value'])
+}
+
+; Recursively convert a JSON Map (from JSON.parse) to an AHK Object
+; so callers can use .field dot-access instead of ['field'] Map syntax.
+MapToObj(m) {
+    if !(m is Map)
+        return m
+    obj := {}
+    for k, v in m
+        obj.%k% := MapToObj(v)
+    return obj
 }
 
 ; ═══════════════════════════════════════════════════════════════════════════════

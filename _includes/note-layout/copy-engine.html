@@ -2,10 +2,10 @@
 window.CopyEngine = (function() {
   'use strict';
 
-  var VERSION = '1.0.0';
+  var VERSION = '1.1.0';
 
   // ── Private state ──────────────────────────────────────────────────────────
-  var _queue    = [];       // DOM elements: TABLE or .mermaid-wrapper
+  var _queue    = [];       // {type:'text'|'table'|'mermaid', el:Element}
   var _idx      = 0;        // next item to copy (NOT incremented until copy succeeds)
   var _state    = 'IDLE';
   var _busy     = false;    // reentrancy guard
@@ -35,20 +35,49 @@ window.CopyEngine = (function() {
   }
 
   // ── Queue builder ──────────────────────────────────────────────────────────
+  // Walks .note-body direct children in DOM order.
+  // Consecutive non-image children are grouped into a detached <div> text chunk.
+  // Image children (table-scroll-wrapper → table, mermaid-wrapper) become PNG items.
   function _buildQueue() {
     _queue = [];
-    document.querySelectorAll('.note-body table, .note-body .mermaid-wrapper').forEach(function(el) {
-      _queue.push(el);
+    var body = document.querySelector('.note-body');
+    if (!body) return;
+
+    var textBuf = [];
+
+    function flushText() {
+      if (!textBuf.length) return;
+      var wrapper = document.createElement('div');
+      textBuf.forEach(function(el) { wrapper.appendChild(el.cloneNode(true)); });
+      if (wrapper.textContent.trim().length > 0) {
+        _queue.push({ type: 'text', el: wrapper });
+      }
+      textBuf = [];
+    }
+
+    Array.from(body.children).forEach(function(child) {
+      var tag = child.tagName.toLowerCase();
+      if (tag === 'script' || tag === 'style') return;
+      if (child.classList.contains('mermaid-wrapper')) {
+        flushText();
+        _queue.push({ type: 'mermaid', el: child });
+      } else if (child.classList.contains('table-scroll-wrapper')) {
+        var tbl = child.querySelector('table');
+        if (tbl) { flushText(); _queue.push({ type: 'table', el: tbl }); }
+      } else {
+        textBuf.push(child);
+      }
     });
+    flushText();
   }
 
   // ── Error classifier ───────────────────────────────────────────────────────
-  function _classify(err, el) {
+  function _classify(err, el, type) {
     if (!err) return 'UNKNOWN';
     if (err.name === 'NotAllowedError') return 'CLIPBOARD_DENIED';
     var m = err.message || '';
     if (/not rendered|no \.mermaid/i.test(m)) return 'SVG_NOT_FOUND';
-    if (el && el.tagName === 'TABLE' && !document.contains(el)) return 'TABLE_NOT_FOUND';
+    if (type === 'table' && el && !document.contains(el)) return 'TABLE_NOT_FOUND';
     if (/html-to-image|toBlob|clipboard/i.test(m)) return 'COPY_FAILED';
     return 'UNKNOWN';
   }
@@ -103,8 +132,8 @@ window.CopyEngine = (function() {
       });
     }
 
-    var el         = _queue[_idx];   // capture but do NOT increment yet
-    var copiedType = (el.tagName === 'TABLE') ? 'table' : 'mermaid';
+    var item       = _queue[_idx];   // {type, el} — capture but do NOT increment yet
+    var copiedType = item.type;
     var mySession  = _session;
     var t0         = performance.now();
     var durationMs = null;
@@ -114,10 +143,12 @@ window.CopyEngine = (function() {
     _counters.attempts++;
 
     try {
-      if (el.tagName === 'TABLE') {
-        await window._copyTablePNG(el);
+      if (item.type === 'table') {
+        await window._copyTablePNG(item.el);
+      } else if (item.type === 'mermaid') {
+        await window._copyMermaidPNG(item.el);
       } else {
-        await window._copyMermaidPNG(el);
+        await window._copyTextHTML(item.el);
       }
 
       durationMs = Math.round(performance.now() - t0);
@@ -157,7 +188,7 @@ window.CopyEngine = (function() {
         });
       }
 
-      var code = _classify(err, el);
+      var code = _classify(err, item.el, item.type);
       _lastError = { code: code, message: err ? (err.message || String(err)) : 'unknown error' };
       _counters.failed++;
       _transition('ERROR');
@@ -213,8 +244,8 @@ window.CopyEngine = (function() {
         avgMs:  _timings.avgMs
       },
       lastError: _lastError,
-      queue: _queue.map(function(el, i) {
-        return { index: i, type: el.tagName === 'TABLE' ? 'table' : 'mermaid' };
+      queue: _queue.map(function(item, i) {
+        return { index: i, type: item.type };
       }),
       timestamp: Date.now()
     };
@@ -225,7 +256,7 @@ window.CopyEngine = (function() {
 
   // ── Keyboard shortcut ──────────────────────────────────────────────────────
   document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'p') {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'x') {
       e.preventDefault();
       next();   // call local fn directly — window.CopyEngine assigned after IIFE
     }
@@ -238,4 +269,19 @@ window.CopyEngine = (function() {
 
   return { next: next, reset: reset, status: status, diagnostics: diagnostics, version: version };
 })();
+
+// ── Text chunk copy ────────────────────────────────────────────────────────────
+// Copies a detached <div> of cloned note-body children as rich text.
+// Provides text/html so LinkedIn's editor preserves headings, bold, lists, links.
+// Provides text/plain as fallback.
+window._copyTextHTML = async function(containerEl) {
+  var html = containerEl.innerHTML;
+  var text = containerEl.textContent;
+  await navigator.clipboard.write([
+    new ClipboardItem({
+      'text/html':  new Blob([html], { type: 'text/html'  }),
+      'text/plain': new Blob([text], { type: 'text/plain' })
+    })
+  ]);
+};
 </script>
