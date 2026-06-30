@@ -27,6 +27,12 @@ Alan Cooper's criteria for a well-designed error message are three. Polite: the 
 
 Dual-binning maps Cooper's three criteria to a classification method. Issue bin: everything that tells you what failed and why. Cooper's polite and illuminating criteria live here: the error class, the failure mechanism, the system state, the scope. Resolution bin: everything that tells you what to do next. Cooper's helpful criterion lives here: the specific next action, the expected vs actual comparison. Prune: everything that tells you nothing actionable. Internal function call names without logical operation descriptions. Stack frames with no failure context. The bin an element belongs to determines its diagnostic signal value.
 
+| Bin | Contains | Cooper criterion |
+|---|---|---|
+| Issue | Error class, failure mechanism, system state, scope | Polite + Illuminating |
+| Resolution | Specific next action, expected vs actual | Helpful |
+| Prune | Internal function names, orphaned frames, unactionable strings | None — discard |
+
 Mozilla applied dual-binning to Firefox's network error pages in 2014. Before: "The connection was reset." After: pages named possible causes and provided specific next actions. Session abandonment dropped from 29% to 60% lower. Not a design philosophy. A measured outcome with a before number, an after number, and a specific design change between them.
 
 Intel's application developer guidelines define the distinction differently. Errors are red, halting states that prevent data corruption. Warnings are yellow, non-halting anomalies the system can continue through. The distinction determines reading urgency. A red state demands T_isolation first: you cannot comprehend or remediate what you have not isolated. A yellow state permits T_comprehension first. Error architecture encodes this T_debug priority before you read a word. Diagnostic literacy includes recognizing which state class you are in before you parse a single line of message text.
@@ -130,7 +136,7 @@ Use DevTools and logs to localize the failure. console.table for tabular state. 
 
 **Phase 2: Search.**
 
-Search with a broad symptom query, not a feature-specific one. Scott Nesbitt's distinction: "return random item from array in javascript" finds the mechanism. "How to create rock paper scissors" finds your specific feature but not the underlying error class. Copy the exact error text. Wrap it in double quotes. The diagnostic signal is often specific enough to surface relevant results on the first page. Check alternative answers on Stack Overflow: the accepted answer solves the original poster's exact scenario. Your error class may match a different one.
+Search with a broad symptom query, not a feature-specific one. Scott Nesbitt's distinction: "return random item from array in javascript" finds the mechanism. "How to create rock paper scissors" finds your specific feature but not the underlying error class. Copy the exact error text. Wrap it in double quotes. Swyx has argued this is a design requirement: error messages should contain unique, searchable phrases. The diagnostic signal is often specific enough to surface relevant results on the first page. Check alternative answers on Stack Overflow: the accepted answer solves the original poster's exact scenario. Your error class may match a different one.
 
 **Phase 3: Ask.**
 

@@ -13,7 +13,7 @@ You see "Uncaught TypeError: undefined is not a function" and paste it into a se
 
 That is debug by recognition. It accumulates fixes you can recognize. It fails the moment the error is one you have never encountered.
 
-Debug by reading is the other path. Look at those eight words: Uncaught, TypeError, undefined, is not a function. Four specific claims. The runtime is telling you exactly what broke and how. You do not need the right search result to decode them. You need to understand the error architecture: the vocabulary the runtime uses to report failures.
+Debug by reading is the other path. Look at those eight words: Uncaught, TypeError, undefined, is not a function. Four specific claims. The runtime is telling you exactly what broke and how. Extract the diagnostic signal from those four words in 30 seconds: error class, failed operation, value at failure. You do not need the right search result. You need to understand the error architecture: the vocabulary the runtime uses to report failures.
 
 Every error message has structure. That structure is learnable. Not by accumulating fixes. By understanding the design of the message itself. That is diagnostic literacy. It transfers to every error you will ever encounter.
 
@@ -136,6 +136,10 @@ except ZeroDivisionError as error:
 ```
 
 The 'as' keyword binds the exception object to a name you choose. Now both components are inspectable: `type(error).__name__` for the class, `str(error)` for the diagnostic signal. "division by zero" is the runtime's exact statement of what failed. Not a guess. Not a category. The mechanism.
+
+**Ruby NoMethodError: `NoMethodError: undefined method 'length' for nil:NilClass`**
+
+Three facts in the message before you open a file. `NoMethodError` is the error class. `length` is the method that was called. `nil:NilClass` is the receiver — the object that received the call, and the type that has no such method. Ruby's error architecture names the receiver type explicitly. Ruby documentation puts it directly: "an error message tells you exactly what went wrong in your code, and where." Debug by reading extracts three components: what was called, what it was called on, and why it fails. All three before you read a line of source.
 
 **Logic errors: a different approach**
 

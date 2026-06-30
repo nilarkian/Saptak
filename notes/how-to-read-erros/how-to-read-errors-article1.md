@@ -59,6 +59,7 @@ Cleanup is manual. C has no finally block. The goto cleanup pattern handles this
 int change_directory(const char *path) {
     errno = 0; /* reset: prevent diagnostic pollution from prior calls */
     if (chdir(path) != 0) {
+        /* perror("chdir") outputs "chdir: <strerror(errno)>" to stderr — one-liner when file/line origin is not needed */
         fprintf(stderr, "[%s:%d] chdir failed: %s\n",
                 __FILE__, __LINE__, strerror(errno));
         return -1;
