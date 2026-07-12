@@ -142,6 +142,8 @@ STOPWORDS = {
 }
 
 def auto_tag(text):
+    if not text:          # ← add this guard
+        return []
     text = text.lower()
     matched = []
 
@@ -493,7 +495,8 @@ def main():
             # new canonical item
             if vid not in existing_map:
 
-                title = v.get("title", "")
+                title = v.get("title") or ""
+
                 text = title
 
                 auto_tags_list = auto_tag(text)
