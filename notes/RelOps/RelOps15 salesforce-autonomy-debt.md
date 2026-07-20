@@ -3,7 +3,7 @@ topic: AI
 is_note: true
 layout: note-layout
 series: RelOps
-date: 2026-07-20
+date: 2026-07-16
 title: Salesforce Closed 18,500 Agentforce Deals. It Also Created Autonomy Debt.
 sub: RelOps 15
 ---
