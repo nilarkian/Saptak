@@ -4,6 +4,27 @@ Table of recurring news themes in watchlist.md — identifies gaps and saturatio
 
 ---
 
+## Jun 27 – Jul 20 2026 — New Entries (batch run)
+
+| Date | Entry | Domain | Tags |
+|-----------|-------------------------------|---------------|-------------------------------|
+| 2026-07-19 | 🌐 Japan Commits $6.2B to Nvidia-Anchored AI Factory | Markets & capital / Geopolitics of tech | japan, nvidia, ai-infrastructure, robotics, sovereign-ai |
+| 2026-07-17 | ⚛️ Topological Qubits Sidestep Fault Tolerance's Biggest Tax | Quantum | quantum-computing, topological-qubits, quantinuum, fault-tolerance, anyons |
+| 2026-07-16 | 🛡️ Ransomware Halts Production at Coca-Cola's Fairlife Plants | Cybersecurity | ransomware, critical-infrastructure, food-supply-chain, cybersecurity |
+| 2026-07-15 | 💰 Anthropic and Blackstone Bet Big on AI Implementation | Markets & capital | anthropic, blackstone, ai-services, enterprise-ai, implementation |
+| 2026-07-14 | ⚡ New York Halts All New Data Center Construction | Energy & Environment | data-centers, energy-policy, new-york, ai-infrastructure, grid |
+| 2026-07-13 | 🚀 FAA Clears Starship to Fly Again as a Public Company | Transportation, Robotics & Space | spacex, starship, faa, reusability, starlink |
+| 2026-07-12 | 🚀 NHTSA Gives Robotaxi Firms a Month to Fix Blind Spot | Transportation, Robotics & Space | autonomous-vehicles, waymo, nhtsa, regulation, robotaxi |
+| 2026-07-10 | 📈 SK Hynix Pulls Off Biggest Foreign IPO in US History | Semiconductors & Chips / Markets | sk-hynix, semiconductors, ipo, memory-chips, reshoring |
+| 2026-07-09 | 💡 Quantum Chips Just Learned to Use Ordinary Chip Factories | Quantum / Semiconductors | quantum-computing, silicon-spin-qubits, cmos, diraq, imec |
+| 2026-07-04 | 🇮🇳 India's First Chip Packaging Plant Goes Live | India deep-tech & policy | india, semiconductors, osat, chip-packaging, supply-chain |
+| 2026-07-02 | 💰 OpenAI Offers Washington a 5% Equity Stake | Markets & capital | openai, ai-governance, equity, sovereign-stake, frontier-ai |
+| 2026-07-02 | 📈 IQM Goes Public, Admits Quantum May Never Pay Off | Quantum | quantum-computing, iqm, spac, nasdaq, ipo |
+| 2026-07-01 | 🧬 First Synthetic Cell Built From Scratch Divides | Biotechnology & Life Sciences | synthetic-biology, biosecurity, synthetic-cell, biotech |
+| 2026-07-01 | 💰 Nvidia Turns GPU Sales Into Vendor Financing | Markets & capital | nvidia, ai-infrastructure, financing, gpu, datacenters |
+| 2026-06-30 | 💡 China Trains Trillion-Parameter Model Without Nvidia | Semiconductors & Chips | china, semiconductors, ai, export-controls, domestic-chips |
+| 2026-06-29 | 🚀 First Global Rulebook for Driverless Cars Adopted | Transportation, Robotics & Space | autonomous-vehicles, regulation, unece, robotaxi, global-standards |
+
 ## Jun 8–13 2026 — New Entries (single-appearance, monitor for recurrence)
 
 | Date | Entry | Domain | Tags |

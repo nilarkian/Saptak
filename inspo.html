@@ -738,6 +738,36 @@ function isFuture(card) {
   return d && d > TODAY;
 }
 
+// ── DAILY-SEEDED FEED RANDOMIZER ────────────────────────────────
+// Same shuffle order for every visitor all day (seed = TODAY's date
+// string); changes once every 24h. Mirrors yt.py's rng = random.Random(today_str).
+function seedFromString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+  }
+  return h;
+}
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const shuffleOrder = new Map();
+{
+  const rng = mulberry32(seedFromString(TODAY));
+  const shuffled = [...collectedCards];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  shuffled.forEach((card, idx) => shuffleOrder.set(card, idx));
+}
+
 let activeCategory = 'all';
 
 // read URL param once
@@ -747,10 +777,10 @@ const urlCat = params.get('cat');
 if (urlCat) {
   activeCategory = urlCat;
 }
-function sortCollectedByDate(){
+function shuffleCollectedGrid(){
   const grid  = document.getElementById('collected-grid');
   const cards = [...grid.querySelectorAll('.inspo-card')]
-                  .sort((a,b) => Date.parse(b.dataset.date) - Date.parse(a.dataset.date));
+                  .sort((a,b) => shuffleOrder.get(a) - shuffleOrder.get(b));
 
   const numCols = window.innerWidth < 1000 ? 2 : 3;
   const buckets = Array.from({length: numCols}, () => {
@@ -920,7 +950,7 @@ function resetAllFilters() {
   }
 
   applyInspoFilter();
-  sortCollectedByDate();
+  shuffleCollectedGrid();
 }
 window.resetAllFilters = resetAllFilters;
 
@@ -946,7 +976,7 @@ tabs.forEach(tab => {
     }
 
     applyInspoFilter();
-    sortCollectedByDate();
+    shuffleCollectedGrid();
   });
 });
 
@@ -970,7 +1000,7 @@ requestAnimationFrame(() => {
   }
 
   applyInspoFilter();
-  sortCollectedByDate();
+  shuffleCollectedGrid();
 });
 </script>
 
